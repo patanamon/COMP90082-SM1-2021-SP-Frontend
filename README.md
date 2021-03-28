@@ -1,3 +1,4 @@
+<<<<<<< HEAD
       v1 - Written by Andre Simmonds 15/11/2020
 
       This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -312,3 +313,6 @@ Similar to the issue with authorization we have run into with the 'Import Projec
 Relevant files are: /qualityPages/IndividualContributionPage.js and /qualityPages/IndividualContributionPage.css
 
 Currently, this page is not functioning as requested. Authorisation to access Atlassian and Slack tools needs to be built into the system to be automatic. Currently, information required for authorisation is not built into the user's data nor are there any APIs to facilitate this. Each time data is accessed from the software engineering tools, authorisation to access the data needs to be provided - that is why no data is able to be automatically pulled. (Similar issue as above in Team Process quality and Importing projects feature.
+=======
+# COMP90082-SM1-2021-SP-Frontend
+>>>>>>> 58b11075faaa56dc8626ac2c1ef61049a6df49ef
