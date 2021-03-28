@@ -1,0 +1,42 @@
+  .emailInputbox{
+    left:50%;
+    right:50%;
+    text-align: left;
+    width: 527px;
+    height: 296px;
+    border: 1px solid #797979;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    font-family: 'Lato', sans-serif;
+    color: #000000;
+    
+  }
+
+  .searchBar{
+    text-align: center;
+    width: 527px;
+    height: 50px;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    font-family: 'Lato', sans-serif;
+    color: #000000;
+    text-align: left;
+  }
+
+  .sendButton{
+    margin-top: 20px;
+    width: 100px;
+    height: 50px;
+    text-align: center;
+    background-color: #014085;
+    font-family: 'Lato', sans-serif;
+    color: #ffffff;
+  }
+
+  .hint {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    /*"0c304a" unimelb colour*/
+    color: #0c304a;
+  }

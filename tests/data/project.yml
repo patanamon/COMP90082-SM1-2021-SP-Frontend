@@ -1,0 +1,16 @@
+-
+  page: 'Home'
+  title: 'TQ Project Homepage'
+-
+  page: 'Product Quality'
+  title: 'Product Quality'
+-
+  page: 'Process Quality'
+  title: 'Process Quality'
+-
+  page: 'Communication Quality'
+  title: 'Communication Quality'
+
+#-
+#  page: 'Individual Contribution'
+#  title: 'IndividualContributionPage'

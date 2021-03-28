@@ -1,0 +1,73 @@
+-
+  url: 'CoordinatorHomePage'
+  path: '//p[text()="{button_name}"]'
+  button: 'Home (C)'
+  title: 'Coordinator Homepage'
+
+-
+  url: 'CoordinatorHomePage'
+  path: '//p[text()="{button_name}"]'
+  button: 'Import Projects'
+  title: 'Import Projects'
+
+-
+  url: 'CoordinatorHomePage'
+  path: '//p[text()="{button_name}"]'
+  button: 'Manage Supervisors'
+  title: 'Invite Supervisor'
+-
+  url: 'CoordinatorHomePage'
+  path: '//p[text()="{button_name}"]'
+  button: 'Logout'
+  title: 'Welcome to SP'
+-
+  url: 'SupervisorHomePage'
+  path: '//p[text()="{button_name}"]'
+  button: 'Home (S)'
+  title: 'Supervisor Homepage'
+-
+  url: 'SupervisorHomePage'
+  path: '//p[text()="{button_name}"]'
+  button: 'Logout'
+  title: 'Welcome to SP'
+-
+  url: 'ProjectHomePage'
+  path: '//p[text()="{button_name}"]'
+  button: 'Project Home'
+  title: 'Project Homepage'
+
+-
+  url: 'ProjectHomePage'
+  path: '//p[text()="{button_name}"]'
+  button: 'Product'
+  title: 'Product Quality'
+
+-
+  url: 'ProjectHomePage'
+  path: '//p[text()="{button_name}"]'
+  button: 'Process'
+  title: 'Process Quality'
+
+-
+  url: 'ProjectHomePage'
+  path: '//p[text()="{button_name}"]'
+  button: 'Communication'
+  title: 'Communication Quality'
+
+-
+  url: 'ProjectHomePage'
+  path: '//p[text()="{button_name}"]'
+  button: 'Individual'
+  title: 'Individual Contribution'
+
+-
+  url: 'ProjectHomePage'
+  path: '//p[text()="{button_name}"]'
+  button: 'Configuration'
+  title: 'Project Configurations'
+
+-
+  url: 'ProjectHomePage'
+  path: '//p[text()="{button_name}"]'
+  button: 'Logout'
+  title: 'Welcome to SP'

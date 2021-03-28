@@ -1,0 +1,42 @@
+#title {
+    text-align: center;
+    font-family: arial, sans-serif;
+}
+.logo {
+    max-width: 125px;
+    max-height: 125px;
+}
+
+#projects {
+    text-align: center;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    border: 3px solid #ddd;
+    width: 100%;
+}
+
+#projects td, #projects th {
+    border: 1px solid #ddd;
+    padding: 1%;
+}
+
+#projects tr:nth-child(even){background-color: #004576;}
+                                                        /*#f2f2f2*/
+
+#projects tr:hover {background-color: #ddd;}
+
+#projects th {
+    padding-top: 1%;
+    padding-bottom: 1%;
+    text-align: center;
+    background-color: #004576;
+    /*"0c304a" unimelb colour*/
+    color: white;
+}
+
+#savechanges {
+    margin: auto;
+    float: right;
+    width: 40%;
+    padding: 2%;
+}

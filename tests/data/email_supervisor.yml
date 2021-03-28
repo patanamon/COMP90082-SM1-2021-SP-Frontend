@@ -1,0 +1,22 @@
+pass:
+  -
+      test_name: 'correct email and Default mail details'
+      email: 'eva-0606@hotmail.com'
+      details: ''
+      invite-help-block: ' Email is sent to the supervisor(s).'
+
+fail:
+  -
+      test_name: 'empty email and Default mail details'
+      email: ''
+      details: ''
+      invite-help-block: ''
+      email-help-block: 'Email is required!'
+      details-help-block: ''
+  -
+      test_name: 'invalidate email and Default mail details'
+      email: '12345'
+      details: ''
+      invite-help-block: ''
+      email-help-block: ''
+      details-help-block: ''

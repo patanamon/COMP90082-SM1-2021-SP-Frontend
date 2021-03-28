@@ -1,0 +1,13 @@
+todo:
+
+- remove magic numbers, use constants
+
+- normalize tags being used, name commonly used tags, use same tags for similar things e.g. <h1> for title
+
+- make homepage a grid with header and footer
+
+- add icon sources to footer (icons8.com)
+
+- make pages adapt to the size of tablet at least, maybe mobile phone
+
+

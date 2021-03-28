@@ -1,0 +1,31 @@
+pass:
+  -
+      test_name: 'correct username and correct pwd'
+      username: 'egg'
+      password: 'egg'
+
+fail:
+  -
+      test_name: 'empty username and empty pwd'
+      username: ''
+      password: ''
+      username-help-block: 'Username or Email is required'
+      password-help-block: 'Password is required'
+  -
+      test_name: 'correct username and empty pwd'
+      username: 'egg'
+      password: ''
+      username-help-block: ''
+      password-help-block: 'Password is required'
+  -
+      test_name: 'empty username and correct pwd'
+      username: ''
+      password: 'egg'
+      username-help-block: 'Username or Email is required'
+      password-help-block: ''
+  -
+      test_name: 'correct username and wrong pwd'
+      username: 'egg'
+      password: '111'
+      username-help-block: ''
+      password-help-block: ''
