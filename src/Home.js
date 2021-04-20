@@ -28,11 +28,7 @@ import { ProjectHomePage } from './ProjectPage/ProjectHomePage';
 import { ProcessQualityPage } from './qualityPages/ProcessQualityPage';
 import { CommunicationQualityPage } from './qualityPages/CommunicationQualityPage';
 import { IndividualContributionPage } from './qualityPages/IndividualContributionPage';
-
-
-import MembersPage from './MembersPage';
 import { ProjectSettingsPage } from './ProjectPage/ProjectSettingsPage';
-
 import { GridNavbar } from './navigation/navbar';
 import { withCookies } from "react-cookie";
 
@@ -114,9 +110,6 @@ class Home extends React.Component {
               <Route exact path="/CommunicationQualityPage">
                 <CommunicationQualityPage />
               </Route>
-              <Route exact path="/MembersPage">
-                <MembersPage />
-              </Route>
               <Route exact path="/IndividualContributionPage">
                 <IndividualContributionPage />
               </Route>
@@ -124,7 +117,7 @@ class Home extends React.Component {
                 <ProjectSettingsPage />
               </Route>
               <Route exact path="/">
-                <LoginPage />
+                <ProcessQualityPage />
               </Route>
             </Switch>
         </Router>

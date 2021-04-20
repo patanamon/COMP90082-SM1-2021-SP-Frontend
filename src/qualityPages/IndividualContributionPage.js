@@ -1,12 +1,9 @@
 import React from 'react';
 import uomHeader from '../header/uomheader.js';
-
 import { connect } from 'react-redux';
 import { userActions } from '../_actions';
 import { storeGet,} from '../_helpers/helper-funcs.js';
-import {
-    Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis,
-  } from 'recharts';
+
 const team = 1;
 const teamName = "SWEN90013-2020-SP";
 
@@ -148,20 +145,6 @@ class IndividualContributionPage extends React.Component{
                 <tr key={Data.name}>
                 <td>{Data.name}</td>
                 <td>
-                <RadarChart cx={300} cy={250} outerRadius={150} width={500} height={500} data={
-                    [
-                        {type: 'Git Commit', num: Data.gitCommit},
-                        {type: 'Git Pull Request', num: Data.gitPull},
-                        {type: 'Jira Tickets Completed', num: Data.jira},
-                        {type: 'Slack Messaging', num: Data.slack},
-                        {type: 'Confluence Contribution', num: Data.confluence},
-                    ]
-                }>
-                <PolarGrid />
-                <PolarAngleAxis dataKey="type" />
-                <PolarRadiusAxis />
-                    <Radar name="Git Overview" dataKey="num" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
-                </RadarChart>
                 </td>
                 </tr>
             )

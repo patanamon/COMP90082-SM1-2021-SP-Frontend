@@ -4,9 +4,6 @@ import uomHeader from '../header/uomheader.js';
 import { connect } from 'react-redux';
 import { userActions } from '../_actions';
 import { storeGet,} from '../_helpers/helper-funcs.js';
-import {
-    BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
-  } from 'recharts';
 
 const user = 9020435;
 const team = 1;
@@ -139,24 +136,6 @@ class CommunicationQualityPage extends React.Component{
                    {submitted
                        &&
                        <div>
-                    <BarChart
-                        width={800}
-                        height={400}
-                        data={this.renderGraph()}
-                        margin={{
-                        top: 5, right: 30, left: 20, bottom: 5,
-                        }}
-                        barSize={20}
-                    >
-                        <XAxis dataKey="channel" scale="point" padding={{ left: 20, right: 20 }} />
-                        <YAxis /> 
-                        <Tooltip />
-                        <Legend />
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <Bar dataKey="messages" fill="#8884d8" background={{ fill: '#eee' }} />
-                    </BarChart>
-
-
                            <table id='projects' className="zebra">
                                <tbody>
                                {/*<tr>{this.renderSlackDataHeader()}</tr>*/}
@@ -168,7 +147,6 @@ class CommunicationQualityPage extends React.Component{
                            <h3>Total Number of Messages Team: {this.state.slackTeam['total_number']}</h3>
                            {/*<h3>Total Number of Messages: {this.state.slack['total_number']}</h3>*/}
                            <h3>Sprint No: {this.state.sprint}</h3>
-
                        </div>
                    }
 

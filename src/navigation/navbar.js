@@ -2,12 +2,9 @@ import React from 'react'
 import {Nav} from 'react-bootstrap'
 import styles from './navbar.module.css';
 import styled from 'styled-components';
-
 import logo from "../unimelb_logo.jpg";
-
 import { connect } from 'react-redux';
 import { userActions } from '../_actions';
-
 
 const NavIcon = styled.div`
     width: 100px;
@@ -23,12 +20,10 @@ const NavTitle = styled.p`
     color: white;
 `
 
-
 const BarLayout = styled.div`
     display: grid;
     grid-template-columns: 100px;
     grid-template-rows: repeat(auto-fill, 70px);
-    height:100%
 `
 
 class NavButton extends React.Component{
@@ -36,14 +31,12 @@ class NavButton extends React.Component{
         return [
             <Nav.Link bsPrefix className={styles.navbutton} href={this.props.link}>
                 <NavIcon>
-
                     <img className={styles.filterwhite}
                          src={this.props.imgsrc}
                     />
                 </NavIcon>
                 <NavTitle>
                     {this.props.title}
-
                 </NavTitle>
             </Nav.Link>
         ]
@@ -77,13 +70,12 @@ class GridNavbar extends React.Component{
 
         var IsSupervisor = false;
         var IsCoordinator = false;
-        var IsProject = false;
+        var IsProject = true;
 
 
         var url = GetUrlRelativePath();
         if( url == "/SupervisorHomePage"){
             IsSupervisor = true;
-
             IsCoordinator = false;
             IsProject = false;
 
@@ -91,7 +83,6 @@ class GridNavbar extends React.Component{
                 ||url == "/ImportProjectPage" 
                 ||url == "/ManageSupervisor"){
             IsCoordinator = true;
-
             IsSupervisor = false;
             IsProject = false;
 
@@ -102,7 +93,6 @@ class GridNavbar extends React.Component{
                 ||url == "/ProjectSettingsPage"){
 
             IsProject = true;
-
             IsCoordinator = false;
             IsSupervisor = false;
 
@@ -112,7 +102,6 @@ class GridNavbar extends React.Component{
         return (
             <div style={{ "backgroundColor": "#014085","min-height":this.state.height}}>
                 <img src={logo} className="logo" id="logo" alt="logo" height="100" width="100"/>
-
                 { IsSupervisor &&
                     <BarLayout>
                         <NavButton
@@ -129,7 +118,6 @@ class GridNavbar extends React.Component{
                             id = {100}
                         />
                     </BarLayout>
-
                 }
                 
                 { IsCoordinator &&
@@ -140,19 +128,6 @@ class GridNavbar extends React.Component{
                             title = "Home (C)"
                             id = {1}
                         />
-                        <NavButton
-                            link = "/ImportProjectPage"
-                            imgsrc = "icons/invitesupervisor.png"
-                            title = "Import Projects"
-                            id = {2}
-                        />
-                        <NavButton
-                            link = "/ManageSupervisor"
-                            imgsrc = "icons/invitesupervisor.png"
-                            title = "Manage Supervisors"
-                            id = {3}
-                        />
-
                         <div className={styles.navbutton} onClick={this.handleSubmit}></div>
                         <NavButton
                             link="/LoginPage"
@@ -166,10 +141,21 @@ class GridNavbar extends React.Component{
                 {IsProject &&
                     <BarLayout>
                         <NavButton
+                            link = "/CoordinatorHomePage"
+                            imgsrc = "icons/home.png"
+                            title = "Home"
+                            id = {1}
+                        />
+                        <NavButton
                             link = "/ProjectHomePage"
                             imgsrc = "icons/dashboard.png"
-                            title = "Project Home"
+                            title = "Project Overview"
                             id = {5}
+                        />
+                        <NavButton
+                            link = "/ProductQualityPage"
+                            imgsrc = "icons/product.png"
+                            title = "Product"
                         />
                         <NavButton
                             link = "/ProcessQualityPage"
