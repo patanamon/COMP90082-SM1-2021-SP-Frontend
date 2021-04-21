@@ -1,0 +1,17 @@
+label{
+    position: absolute;
+    width: 500px;
+    height: 300px;
+    text-align: center;
+    left: 130px;
+}
+input{
+    position: relative;
+    left: 160px;
+    width: 600px;
+    text-align: center;
+}
+.web{
+    position: relative;
+    top: 100px;
+}
