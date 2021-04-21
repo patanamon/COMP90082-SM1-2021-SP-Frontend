@@ -7,7 +7,6 @@ import { userActions } from "../_actions";
 import { connect } from "react-redux";
 import { storeGet } from "../_helpers/helper-funcs";
 import { commonConstants } from "../_constants";
-import { useMediaQuery } from 'react-responsive'
 
 // team name from confluenceç
 const teamName = "SWEN90013-2020-SP";
