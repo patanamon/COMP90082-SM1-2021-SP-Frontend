@@ -26,6 +26,7 @@ import { SupervisorHomePage } from './SupervisorPage/SupervisorHomePage';
 
 import { ProjectHomePage } from './ProjectPage/ProjectHomePage';
 import { ProcessQualityPage } from './qualityPages/ProcessQualityPage';
+import { ProductQualityPage } from './qualityPages/ProductQualityPage';
 import { CommunicationQualityPage } from './qualityPages/CommunicationQualityPage';
 import { IndividualContributionPage } from './qualityPages/IndividualContributionPage';
 import { ProjectSettingsPage } from './ProjectPage/ProjectSettingsPage';
@@ -118,6 +119,9 @@ class Home extends React.Component {
               </Route>
               <Route exact path="/">
                 <ProcessQualityPage />
+              </Route>
+              <Route exact path="/ProductQualityPage">
+                <ProductQualityPage />
               </Route>
             </Switch>
         </Router>
