@@ -13,10 +13,8 @@ export default function GroupOrientation(props) {
   return (
     <div style={{ position: "relative", margin: "auto", width: "80vw" }}> 
       <ButtonGroup
-        orientation="vertical"
+        orientation="horizontal"
         color="primary"
-        aria-label="vertical contained primary button group"
-        variant="text"
       >
         {btnItems}
       </ButtonGroup>
