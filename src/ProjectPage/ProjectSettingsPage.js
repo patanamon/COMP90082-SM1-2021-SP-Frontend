@@ -1,18 +1,10 @@
 import React from 'react';
 import Banner from "../_utils/Banner";
 import './ProjectSettingsPage.css';
-import { storeGet, storePut } from '../_helpers/helper-funcs.js';
-import '../unimelb.css';
-import logo from '../unimelb_logo.jpg';
-import { createStore } from 'redux';
 import uomHeader from '../header/uomheader.js';
-
 import { connect } from 'react-redux';
 import { userActions } from '../_actions';
-import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import { TextField } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 
 
 class ProjectSettingsPage extends React.Component {

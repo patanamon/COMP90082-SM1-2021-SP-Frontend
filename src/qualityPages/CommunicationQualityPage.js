@@ -1,6 +1,5 @@
 import React from 'react';
 import uomHeader from '../header/uomheader.js';
-
 import { connect } from 'react-redux';
 import { userActions } from '../_actions';
 import { storeGet,} from '../_helpers/helper-funcs.js';

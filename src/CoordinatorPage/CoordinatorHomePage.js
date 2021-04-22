@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import './CoordinatorHomePage.css';
-import { storeGet, storePut } from '../_helpers/helper-funcs.js';
-import '../unimelb.css';
 import uomHeader from '../header/uomheader.js';
 import { connect } from 'react-redux'; 
 import { userActions } from '../_actions';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import Select from "react-select";
-import { render } from "react-dom";
 import { projects } from "./ProjectList";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
