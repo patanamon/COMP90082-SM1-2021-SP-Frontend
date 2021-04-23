@@ -2,11 +2,11 @@ import React from 'react';
 import Banner from '../_utils/Banner';
 import LineChart from '../_utils/LineChart'; 
 import ButtonGroup from '../_utils/ButtonGroup';
-import { storeGet } from '../_helpers/helper-funcs';
 import uomHeader from '../header/uomheader';
 import {userActions} from '../_actions';
 import { connect } from 'react-redux';
 import { commonConstants } from '../_constants';
+import Table from '../_utils/Table';
 
 class CommunicationPage extends React.Component {
     constructor(props) {
@@ -14,15 +14,30 @@ class CommunicationPage extends React.Component {
         this.state = {
             teamID : 1,
 
-            confluenceMeeting : [{meetingName : "Frontend 23/04/21 meeting", time : "23/04/21", meetingMinutes: '#' }], 
-
-            confluenceHeader : [
-                {meetingName: [], time : [], meetingMinutes : []}
-            ],
+            confluenceMeeting: [ {id:1, meetingName: "Frontend 23/04/21 meeting", meetingTime: "23/04/21", meetingMinutes: '#' }], 
 
             btnNames: [
                 commonConstants.CONFLUENCE,
                 commonConstants.GITHUB,
+            ],
+
+            btnSelected : commonConstants.CONFLUENCE,
+
+            
+
+            columns: [
+                {
+                    name: "Meeting Name",
+                    selector: "meetingName",
+                },
+                {
+                    name: "Meeting Time",
+                    selector: "meetingTime",
+                },
+                {
+                    name: "Meeting Minutes",
+                    selector: "meetingMinutes",
+                }
             ],
 
             githubData : {
@@ -32,11 +47,26 @@ class CommunicationPage extends React.Component {
                         label : "Number of Comments",
                         data : [10, 20, 30, 40, 50, 70]
                     }
-                ]
+                ],
             }
 
-        }
-        this.reFetch = this.reFetch.bind(this);
+        };
+        this.handleBtnGroupClick = this.handleBtnGroupClick.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    
+
+    handleBtnGroupClick(e) {
+        let selected =e.currentTarget.firstChild.innerHTML;
+        this.setState(
+            {bthSelected: selected}
+        );
+    }
+
+    handleChange(e) {
+        const { name, value } = e.target;
+        this.setState({ [name]: value});
     }
 
     render() {
@@ -47,6 +77,18 @@ class CommunicationPage extends React.Component {
                 <div role="main">
                     <div className="page-inner">
                         <Banner projName="2021-SM1-Software-Project-Database" />
+                        <ButtonGroup 
+                            btnNames={this.state.btnNames}
+                            clickHandler={this.handleBtnGroupClick}
+                        />
+                        {
+                            this.state.btnSelected === commonConstants.GITHUB &&
+                                <LineChart data={this.state.githubData}/>
+                        }
+                        {
+                            this.state.btnSelected === commonConstants.CONFLUENCE &&
+                                <Table columns={this.state.columns} data={this.state.confluenceMeeting} title={""}/>
+                        }
                     </div>
                 </div>
 
