@@ -23,8 +23,6 @@ class CommunicationPage extends React.Component {
 
             btnSelected : commonConstants.CONFLUENCE,
 
-            
-
             columns: [
                 {
                     name: "Meeting Name",
@@ -52,22 +50,16 @@ class CommunicationPage extends React.Component {
 
         };
         this.handleBtnGroupClick = this.handleBtnGroupClick.bind(this);
-        this.handleChange = this.handleChange.bind(this);
+        
     }
-
-    
 
     handleBtnGroupClick(e) {
-        let selected =e.currentTarget.firstChild.innerHTML;
-        this.setState(
-            {bthSelected: selected}
-        );
-    }
+        let selected = e.currentTarget.firstChild.innerHTML;
+        this.setState({
+            btnSelected: selected
+        });
+      }
 
-    handleChange(e) {
-        const { name, value } = e.target;
-        this.setState({ [name]: value});
-    }
 
     render() {
         return(
