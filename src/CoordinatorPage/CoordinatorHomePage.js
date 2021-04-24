@@ -1,239 +1,153 @@
 import React, { Component } from 'react';
 import './CoordinatorHomePage.css';
-import { storeGet, storePut } from '../_helpers/helper-funcs.js';
-import '../unimelb.css';
 import uomHeader from '../header/uomheader.js';
-
 import { connect } from 'react-redux'; 
 import { userActions } from '../_actions';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import Select from "react-select";
+import { projects } from "./ProjectList";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
+import Button from "@material-ui/core/Button";
+import Banner from "../_utils/Banner";
+
+var NameResults = [];
+var LinkResults = [];
+var FinalNameResult = [];
+var FinalLinkResult = [];
+
+function uniq(arr, item) {
+  if (arr.indexOf(item) === -1) {
+    arr.push(item);
+  }
+  return arr;
+}
 
 
 class CoordinatorHomePage extends Component {
     //This is just as an example to populate the table
     constructor(props) {
         super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
-        this.state = { //state is by default an object
-            subjects:[
-                { subjectID : ''},
-            ],
-            currentSubject: '',  
-            year: [
-                { year: '' },
-            ],
-            projects: [
-                { id : [], name: [], project_name: [], supervisor: [], secondary_supervisor: [], year: [] }
-            ],
-            projectHead: [
-                { id : [], name: [], project_name: [], supervisor: [], secondary_supervisor: [], year: [] }
-            ],
-            projectList: [],
-            supervisors: {
-                ids: []
-            },
-            offset: '' 
-        }
-
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleSubmitSupervisor = this.handleSubmitSupervisor.bind(this);
-        this.handleSubmitCoSupervisor = this.handleSubmitCoSupervisor.bind(this);
-
+        this.state = { project: "", show: false };
     }
-
-    // Handle coordinator homepage changes based on the change of subjects
-    handleChange(e) {
-        var subjectID = e.target.value;
-        this.setState({ currentSubject: subjectID });
-
-        const user = storeGet('user');
-        const user_id = user.data.account_id;
-
-        this.props.getHomepage(user_id, '');
-        this.setState({ projects: storeGet("project_list") });
-
-        this.props.getSupervisors();
-        this.setState({ supervisors: storeGet("supervisor_list") });
-
-        // update names of supervisors in storage
-        var supervisor_list = storeGet("supervisor_list");
-        supervisor_list.forEach((item) => this.props.getSupervisor(item));
-
+    handleImport() {
+    for (let i = 0; i < NameResults.length; i++) {
+      if (FinalNameResult.indexOf(NameResults[i]) === -1) {
+        FinalNameResult.push(NameResults[i]);
+        FinalLinkResult.push(LinkResults[i]);
+      }
     }
+    NameResults = [];
+    LinkResults = [];
+    this.setState({ show: true });
+  }
 
-    handleSubmitSupervisor(e) {
-        e.preventDefault();
-
-        //assigned supervisor update
-        let projID = e.target.parentNode.parentNode.firstChild.textContent;
-        let superID = e.target.value;
-
-        if (projID != null && superID != null) {
-            let projSupervisorID = "proj_" + projID + "_supervisor";
-            storePut(projSupervisorID, superID);
-            this.props.setSupervisor(projID, superID);
-        }
-
-    }
-
-    handleSubmitCoSupervisor(e) {
-        e.preventDefault();
-
-        //assigned supervisor update
-        let projID = e.target.parentNode.parentNode.firstChild.textContent;
-        let cosuperID = e.target.value;
-
-        if (projID != null && cosuperID != null) {
-            let projCoSupervisorID = "proj_" + projID + "_cosupervisor";
-            storePut(projCoSupervisorID, cosuperID);
-            this.props.setCoSupervisor(projID, cosuperID);
-        }
-
-    }
-
-    handleSubmit(e) {
-        e.preventDefault();
-
-    }
-
-    renderTableHeader() {
-        let header = Object.keys(this.state.projectHead[0])
-        return header.map((key, index) => {
-            return <th key={index}>{key.toUpperCase()}</th>
-        })
-     
-   
-    }
-
-    renderTableData() {
-        if (this.state.currentSubject != '') {
-
-            return this.state.projects.map((projects, index) => {
-                const { id, name, project_name, supervisor, secondary_supervisor, year } = projects //destructuring
-
-                return (
-
-                    <tr key={id}>
-                        <td><a className="button-small brand" href={"/ProjectHomePage"}>{id}</a></td>
-                        <td>{name}</td>
-                        <td>{project_name}</td>
-                        <td>
-                            {this.renderSupervisor(supervisor)}
-                        </td>
-                        <td>
-                            {this.renderCoSupervisor(secondary_supervisor)}
-                        </td>
-
-                        <td>{year}</td>
-                    </tr>
-
-                )
-            })
-        }
-    }
-
-    renderSubjectSelectBar(){
-
-        return this.state.subjects.map((subjects,index) => {
-            const { subjectID } = subjects
-            return(
-                    <div align="center">
-                    <label>Choose Subject
-                            <select className="form-control" onChange={this.handleChange}>
-                            <option value="6">SWEN90013</option>
-                            <option value="7">SWEN90014</option>
-                            </select>
-                        </label>
-                        <label>Choose Year
-                                <select className="form-control" value={this.state.year} onChange={this.handleChange}>
-                                <option value="2019">2019</option>
-                                <option value="2020">2020</option>
-                            </select>
-                        </label>
-                    </div>
-            )
-        })
-    }
-
-    renderSupervisor(supervisor) {
-        if (supervisor != null) {
-            return (
-                <div>{supervisor.name}</div>
-            )
-        }
-        else {
-            return (
-                <select onChange={this.handleSubmitSupervisor}>
-                    <option selected value={supervisor}>Assign</option>
-                    {this.renderSelectSuper(supervisor)}
-                </select>
-            )
-        }
-    }
-
-    renderCoSupervisor(supervisor) {
-        if (supervisor != null) {
-            return (
-                <div>{supervisor.name}</div>
-            )
-        }
-        else {
-            return (
-                <select onChange={this.handleSubmitCoSupervisor}>
-                    <option selected value={supervisor}>Assign</option>
-                    {this.renderSelectSuper(supervisor)}
-                </select>
-            )
-        }
-    }
-
-    renderSelectSuper(currentSuper) {
-        let head = this.state.supervisors;
-        return Object.keys(head).map((key, index) => {
-            let storeName = "supervisor_" + head[key] + "_name";
-            let supervisorName = storeGet(storeName);
-
-            if (key == currentSuper) {
-                return (
-                    <option selected value={head[key]}>{supervisorName}</option>
-                )
-            }
-            else {
-                return (
-                    <option value={head[key]}>{supervisorName}</option>
-                )
-            }
-        })
-    }
-
-    renderSaveChangesButton(){
-        return(
-            <td><a className="button-small brand" onClick={this.handleChange}>Save Changes</a></td>
-        )
-    }
-
+  handleChange = (project) => {
+    document.getElementById("alert").style.display = "none";
+    console.log(project.label);
+    this.setState({ project });
+    uniq(NameResults, project.label);
+    uniq(LinkResults, project.link);
+    console.log(NameResults);
+    console.log(FinalNameResult);
+    document.getElementById("alert").style.display = "none";
+  };
 
     render() {
         
         return (
             <div class="uomcontent">
-                {uomHeader("Coordinator Homepage")}
+                {uomHeader("Homepage")}
                     <div role="main">
                         <div className="page-inner">
-                            <div>
-                                {this.renderSubjectSelectBar()}  
+                            <Banner projName="Project Management" />
+
+                            <div id="select">
+                            <Select
+                                labelInValue
+                                name="projects"
+                                options={projects}
+                                className="ProjectList"
+                                placeholder="Select projects"
+                                onChange={this.handleChange}
+                            />
                             </div>
-                            <div>                        
-                                <table id='projects' class="zebra" data-sortable="">
-                                    <tbody>
-                                    <tr>{this.renderTableHeader()}</tr>
-                                    {this.renderTableData()}
-                                    </tbody>
-                                </table>
+
+
+                            <div id="selected" className="Selected">
+                            <TableContainer component={Paper}>
+                                <Table className="makeStyles" aria-label="simple table">
+                                <TableHead>
+                                    <TableRow>
+                                    <TableCell>Project Selected</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {NameResults.map((row) => (
+                                    <TableRow key={row}>
+                                        <TableCell component="th" scope="row">
+                                        {row}
+                                        </TableCell>
+                                    </TableRow>
+                                    ))}
+                                </TableBody>
+                                </Table>
+                            </TableContainer>
                             </div>
-                        <div id='savechanges'>
-                                {this.renderSaveChangesButton()}
-                        </div>
+
+
+
+                               <div className="AlertDiv" id="alert">
+                                Imported!
+                                </div>
+        <div id="button" className = "ImportButton">
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              this.handleImport();
+              document.getElementById("alert").style.display = "block";
+            }}
+          >
+            Import
+          </Button>
+        </div>
+        <div>
+          <div className="Import" id="import">
+            <TableContainer component={Paper}>
+              <Table className="makeStyles" aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Project Name</TableCell>
+                    <TableCell align="right">C-Link</TableCell>
+                  </TableRow>
+                </TableHead>
+                {this.state.show ? (
+                  <TableBody>
+                    {FinalNameResult.map((row) => (
+                      <TableRow key={row}>
+                        <TableCell component="th" scope="row">
+                          {row}
+                        </TableCell>
+                        <TableCell align="right">
+                          {FinalLinkResult[FinalNameResult.indexOf(row)]}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                ) : (
+                  <p></p>
+                )}
+              </Table>
+            </TableContainer>
+          </div>
+        </div>                
+
                         </div>
                 </div>
             </div>
