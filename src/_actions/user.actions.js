@@ -11,6 +11,9 @@ export const userActions = {
   getTeamGithubCommits,
   getTeamJiraTickets,
 
+  getTeamGitHubComments,
+  getTeamConfluenceMeeting,
+
   login,
   logout,
   register,
@@ -82,6 +85,26 @@ function getTeamGithubCommits(teamKey) {
         dispatch(
           failure(
             userConstants.GET_TEAM_GITHUB_COMMITS_FAILURE,
+            error.toString()
+          )
+        );
+      }
+    );
+  };
+}
+
+function getTeamGitHubComments(teamKey) {
+  return (dispatch) => {
+    userService.getTeamGitHubComments(teamKey).then(
+      (response) => {
+        dispatch(
+          success(userConstants.GET_TEAM_GITHUB_COMMENTS_SUCCESS, formatLineChartData(response))
+        );
+      },
+      (error) => {
+        dispatch(
+          failure(
+            userConstants.GET_TEAM_GITHUB_COMMENTS_FAILURE,
             error.toString()
           )
         );
