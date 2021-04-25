@@ -3,6 +3,7 @@ import { userService } from "../_services";
 import { alertActions } from "./";
 import { history } from "../_helpers";
 import {formatLineChartData} from "../_utils/formatLineChartData.js";
+import { failureToast } from "../_utils/toast";
 
 // Remember: Add new actions in here, otherwise it cannot be recognise by this.props.
 // ALSO REMEMBER TO ADD RETURN MSG IN user.constants.js
@@ -65,6 +66,7 @@ function getTeamConfluencePages(teamKey) {
             error.toString()
           )
         );
+        failureToast(error.toString());
       }
     );
   };
@@ -85,6 +87,7 @@ function getTeamGithubCommits(teamKey) {
             error.toString()
           )
         );
+        failureToast(error.toString());
       }
     );
   };
@@ -105,6 +108,7 @@ function getTeamJiraTickets(teamKey) {
             error.toString()
           )
         );
+        failureToast(error.toString());
       }
     );
   };
