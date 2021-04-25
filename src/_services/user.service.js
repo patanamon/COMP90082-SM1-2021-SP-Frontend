@@ -91,7 +91,7 @@ function getTeamConfluenceMeeting(teamKey) {
     .then((response) => response.json())
     .then((jsonResponse) => {
       if (jsonResponse.code === 0) {
-        storePut("TeamConfluencePages", jsonResponse.data);
+        storePut("TeamConfluenceMeeting", jsonResponse.data);
       };
       return jsonResponse;
     });
