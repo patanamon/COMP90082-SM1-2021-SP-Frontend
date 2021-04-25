@@ -73,7 +73,24 @@ function getTeamConfluencePages(teamKey) {
   return fetch(url, requestOptions)
     .then((response) => response.json())
     .then((jsonResponse) => {
-      if (jsonResponse.code == 0) {
+      if (jsonResponse.code === 0) {
+        storePut("TeamConfluencePages", jsonResponse.data);
+      };
+      return jsonResponse;
+    });
+}
+
+function getTeamConfluenceMeeting(teamKey) {
+  let url = baseUrl + "/confluence/spaces/" + teamKey + "/meeting";
+
+  const requestOptions = {
+    method: "GET",
+  };
+
+  return fetch(url, requestOptions)
+    .then((response) => response.json())
+    .then((jsonResponse) => {
+      if (jsonResponse.code === 0) {
         storePut("TeamConfluencePages", jsonResponse.data);
       };
       return jsonResponse;
@@ -90,7 +107,7 @@ function getTeamGithubCommits(teamKey) {
   return fetch(url, requestOptions)
     .then((response) => response.json())
     .then((jsonResponse) => {
-      if (jsonResponse.code == 0) {
+      if (jsonResponse.code === 0) {
         storePut("TeamGithubCommits", jsonResponse.data);
       };
       return jsonResponse;
