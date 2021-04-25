@@ -3,6 +3,7 @@ import { userService } from "../_services";
 import { alertActions } from "./";
 import { history } from "../_helpers";
 import {formatLineChartData} from "../_utils/formatLineChartData.js";
+import {unixToDate} from "../_utils/unixToDate.js"
 
 // Remember: Add new actions in here, otherwise it cannot be recognise by this.props.
 // ALSO REMEMBER TO ADD RETURN MSG IN user.constants.js
@@ -118,7 +119,7 @@ function getTeamConfluenceMeeting(teamKey) {
     userService.getTeamConfluenceMeeting(teamKey).then(
       (response) => {
         dispatch(
-          success(userConstants.GET_TEAM_CONFLUENCE_MEETINGS_SUCCESS, response)
+          success(userConstants.GET_TEAM_CONFLUENCE_MEETINGS_SUCCESS, unixToDateHelper(response.data))
         );
       },
       (error) => {
@@ -131,6 +132,16 @@ function getTeamConfluenceMeeting(teamKey) {
       }
     );
   };
+}
+
+function unixToDateHelper(jsonData) {
+  for (let i = 0, len = jsonData.length; i < len; i++) {
+    jsonData[i].time = unixToDate(jsonData[i].time)
+  }
+
+  return jsonData
+
+  
 }
 
 function getTeamJiraTickets(teamKey) {
