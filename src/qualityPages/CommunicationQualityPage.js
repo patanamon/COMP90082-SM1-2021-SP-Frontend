@@ -15,14 +15,13 @@ class CommunicationPage extends React.Component {
         this.state = {
             teamID : 1,
 
-            confluenceMeeting: [ {id:1, meetingName: "Frontend 23/04/21 meeting", meetingTime: "23/04/21", meetingMinutes: '#' }], 
-
             btnNames: [
                 commonConstants.CONFLUENCE,
                 commonConstants.GITHUB,
             ],
 
             btnSelected : commonConstants.CONFLUENCE,
+            
 
             columns: [
                 {
@@ -31,7 +30,7 @@ class CommunicationPage extends React.Component {
                 },
                 {
                     name: "Meeting Time",
-                    selector: "meetingTime",
+                    selector: "time",
                 },
                 {
                     name: "Meeting Minutes",
@@ -77,8 +76,9 @@ class CommunicationPage extends React.Component {
                         }
                         {
                             this.state.btnSelected === commonConstants.CONFLUENCE &&
-                                <Table columns={this.state.columns} data={this.state.confluenceData} title={""}/>
+                                <Table columns={this.state.columns} data={this.props.confluenceData} title={""}/>
                         }
+                        
                     </div>
                 </div>
 
@@ -88,7 +88,7 @@ class CommunicationPage extends React.Component {
 }
 
 function mapState(state) {
-    console.log(state.user.teamGitHubComments);
+    
     return {
       confluenceData: state.user.teamConfluenceMeeting,
       githubData: state.user.teamGitHubComments,
