@@ -6,6 +6,7 @@ import uomHeader from '../header/uomheader';
 import {userActions} from '../_actions';
 import { connect } from 'react-redux';
 import { commonConstants } from '../_constants';
+
 import Table from '../_utils/Table';
 
 class CommunicationPage extends React.Component {
@@ -68,9 +69,11 @@ class CommunicationPage extends React.Component {
                             btnNames={this.state.btnNames}
                             clickHandler={this.handleBtnGroupClick}
                         />
+                            
+                        
                         {
                             this.state.btnSelected === commonConstants.GITHUB &&
-                                <LineChart data={this.state.githubData}/>
+                                <LineChart data={this.props.githubData}/>
                         }
                         {
                             this.state.btnSelected === commonConstants.CONFLUENCE &&
@@ -85,6 +88,7 @@ class CommunicationPage extends React.Component {
 }
 
 function mapState(state) {
+    console.log(state.user.teamGitHubComments);
     return {
       confluenceData: state.user.teamConfluenceMeeting,
       githubData: state.user.teamGitHubComments,
@@ -95,6 +99,7 @@ function mapState(state) {
     getTeamGitHubComments: userActions.getTeamGitHubComments,
     getTeamConfluenceMeeting: userActions.getTeamConfluenceMeeting,
   };
+
 
 const Communication = connect(mapState, actionCreators)(CommunicationPage);
 export { Communication as CommunicationQualityPage};
