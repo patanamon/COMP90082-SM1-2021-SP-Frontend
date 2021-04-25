@@ -16,17 +16,29 @@ class ProjectHomePage extends Component {
       teamList: [{ student_id: 0, fullname: "", email: "" }],
       submitted: true,
       data: [
-        { id: 1, project: "Project 1"},
-        { id: 2, project: "Project 2"},
-        { id: 3, project: "Project 3"},
-        { id: 4, project: "Project 4"},
-        { id: 5, project: "Project 5"},
-        { id: 6, project: "Project 6"},
+        { id: 1, student: "Student 1", student_id: 123, email_address: "student1@student.unimleb.edu.au"},
+        { id: 2, student: "Student 2", student_id: 456, email_address: "student2@student.unimleb.edu.au"},
+        { id: 3, student: "Student 3", student_id: 789, email_address: "student3@student.unimleb.edu.au"},
       ],
+
       columns: [
         {
-          name: "Project Name",
-          selector: "project",
+          name: "Name",
+          selector: "student",
+          center: true,
+          sortable: true,
+        },
+
+        {
+          name: "Student ID",
+          selector: "student_id",
+          center: true,
+          sortable: true,
+        },
+
+        {
+          name: "Email Address",
+          selector: "email_address",
           center: true,
           sortable: true,
         },
@@ -80,7 +92,7 @@ class ProjectHomePage extends Component {
         {uomHeader("Project Overview")}
         <div role="main">
           <div className="page-inner">
-            <Table columns={this.state.columns} data={this.state.data} title={"Imported Project"}/>
+            <Table columns={this.state.columns} data={this.state.data} title={"Student Information"}/>
             {/* <a className="button cta" onClick={this.handleSubmitTeamList} >Get Team List</a>
                         {submitted && <table id='projects' className="zebra" data-sortable="">
                             <h2>Team Member List</h2>
