@@ -77,7 +77,7 @@ class ProjectHomePage extends Component {
 
     return (
       <div className="uomcontent">
-        {uomHeader("Project Homepage")}
+        {uomHeader("Project Overview")}
         <div role="main">
           <div className="page-inner">
             <Table columns={this.state.columns} data={this.state.data} title={"Imported Project"}/>
