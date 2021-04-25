@@ -38,16 +38,6 @@ class CommunicationPage extends React.Component {
                 }
             ],
 
-            githubData : {
-                labels: ["01/03", "10/03", "20/03", "30/03", "09/04", "19/04"],
-                datasets : [
-                    {
-                        label : "Number of Comments",
-                        data : [10, 20, 30, 40, 50, 70]
-                    }
-                ],
-            }
-
         };
         this.handleBtnGroupClick = this.handleBtnGroupClick.bind(this);
         
@@ -55,8 +45,13 @@ class CommunicationPage extends React.Component {
 
     handleBtnGroupClick(e) {
         let selected = e.currentTarget.firstChild.innerHTML;
+        if (selected === commonConstants.CONFLUENCE) {
+          this.props.getTeamConfluenceMeeting("COMP900822021SM1SP");
+        } else  {
+          this.props.getTeamGitHubComments("COMP900822021SM1SP");
+        } 
         this.setState({
-            btnSelected: selected
+          btnSelected: selected,
         });
       }
 
@@ -79,7 +74,7 @@ class CommunicationPage extends React.Component {
                         }
                         {
                             this.state.btnSelected === commonConstants.CONFLUENCE &&
-                                <Table columns={this.state.columns} data={this.state.confluenceMeeting} title={""}/>
+                                <Table columns={this.state.columns} data={this.state.confluenceData} title={""}/>
                         }
                     </div>
                 </div>
@@ -90,15 +85,16 @@ class CommunicationPage extends React.Component {
 }
 
 function mapState(state) {
-    const {username, offset} = state;
-    return {username, offset};
-}
-
-const actionCreators = {
-    getTeamList: userActions.getTeamList,
-    getConfiguration: userActions.getConfiguration,
-    setConfiguration: userActions.setConfiguration,
-}
+    return {
+      confluenceData: state.user.teamConfluenceMeeting,
+      githubData: state.user.teamGitHubComments,
+    };
+  }
+  
+  const actionCreators = {
+    getTeamGitHubComments: userActions.getTeamGitHubComments,
+    getTeamConfluenceMeeting: userActions.getTeamConfluenceMeeting,
+  };
 
 const Communication = connect(mapState, actionCreators)(CommunicationPage);
 export { Communication as CommunicationQualityPage};
