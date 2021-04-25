@@ -8,6 +8,9 @@ export const userService = {
   getTeamGithubCommits,
   getTeamJiraTickets,
 
+  getTeamGitHubComments,
+  getTeamConfluenceMeeting,
+
   login,
   logout,
   register,
@@ -40,6 +43,24 @@ export const userService = {
 };
 
 const baseUrl = "http://localhost:3200/api/v1";
+
+function getTeamGitHubComments(teamKey) {
+  let url = baseUrl + "/git/" + teamKey + "/comment_count";
+
+  const requestOptions = {
+    method: "GET",
+  };
+
+  return fetch(url, requestOptions)
+    .then((response) => response.json())
+    .then((jsonResponse) => {
+      if (jsonResponse.code === 0) {
+        storePut("TeamGitHubComments", jsonResponse.data);
+      };
+      return jsonResponse;
+    });
+
+}
 
 // TODO
 function getTeamConfluencePages(teamKey) {
