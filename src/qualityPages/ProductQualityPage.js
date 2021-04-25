@@ -1,4 +1,5 @@
 import React from 'react';
+import './ProductQualityPage.css';
 import { storeGet, storePut } from '../_helpers/helper-funcs.js';
 import uomHeader from '../header/uomheader.js';
 import Banner from "../_utils/Banner";
@@ -15,9 +16,6 @@ class ProductQualityPage extends React.Component {
             teamId: 1,
             product_quality: [ { all: 221552, classes: 0, decst: 2345, excst: 345654, file: 23, func: 23, pre: 67, ratio: 568 }
             ],//mock data
-            product_quality_Head: [
-                { all: [], classes: [], decst: [], excst: [], file: [], func: [], pre: [], ratio: [] }
-            ]
         }
         this.reFetch = this.reFetch.bind(this);
     }
@@ -58,15 +56,6 @@ class ProductQualityPage extends React.Component {
         this.setState({ product_quality: product_quality });
     }
 
-    renderTableHeader() {
-        let header = Object.keys(this.state.product_quality_Head[0])
-        return header.map((key, index) => {
-            return <tr key={index}>{
-                convert(key)
-            }</tr>
-        })
-    }
-
     renderTableData() {
         console.log(this.state)
 
@@ -75,14 +64,14 @@ class ProductQualityPage extends React.Component {
             const { all, classes, decst, excst, file, func, pre, ratio} = item
             return (
                 <td key={all}>
-                    <tr>{all}</tr>
-                    <tr>{classes}</tr>
-                    <tr>{decst}</tr>
-                    <tr>{excst}</tr>
-                    <tr>{file}</tr>
-                    <tr>{func}</tr>
-                    <tr>{pre}</tr>
-                    <tr>{ratio}</tr>
+                    <tr><td>{"Number of all lines"}</td>{all}</tr>
+                    <tr><td>{"Number of classes"}</td>{classes}</tr>
+                    <tr><td>{"Number of declarible statements"}</td>{decst}</tr>
+                    <tr><td>{"Number of excutable statements"}</td>{excst}</tr>
+                    <tr><td>{"Number of files"}</td>{file}</tr>
+                    <tr><td>{"Number of functions"}</td>{func}</tr>
+                    <tr><td>{"Number of preprocessor lines"}</td>{pre}</tr>
+                    <tr><td>{"Ratio of comment lines to code lines"}</td>{ratio}</tr>
                 </td>
             )
         })
@@ -96,9 +85,8 @@ class ProductQualityPage extends React.Component {
                     <div className="page-inner">
                     <Banner projName="2021-SM1-Software-Project-Database" />
                         <div>
-                            <table id='projects' class="zebra" data-sortable="">
+                            <table id='codematrix' class="zebra" data-sortable="">
                                 <tbody>
-                                    <td>{this.renderTableHeader()}</td>
                                     {this.renderTableData()}
                                 </tbody>
                             </table>
