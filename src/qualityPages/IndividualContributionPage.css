@@ -33,3 +33,10 @@
     text-align: left;
     overflow-y: auto;
   }
+
+  .nav-link{
+    color: 'rgb(1, 64, 133)',
+  }
+  .nav-link.active{
+    background-color: rgb(1, 64, 133) !important;
+  }
