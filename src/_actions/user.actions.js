@@ -113,6 +113,26 @@ function getTeamGitHubComments(teamKey) {
   };
 }
 
+function getTeamConfluenceMeeting(teamKey) {
+  return (dispatch) => {
+    userService.getTeamConfluenceMeeting(teamKey).then(
+      (response) => {
+        dispatch(
+          success(userConstants.GET_TEAM_CONFLUENCE_MEETINGS_SUCCESS, response)
+        );
+      },
+      (error) => {
+        dispatch(
+          failure(
+            userConstants.GET_TEAM_CONFLUENCE_MEETINGS_FAILURE,
+            error.toString()
+          )
+        );
+      }
+    );
+  };
+}
+
 function getTeamJiraTickets(teamKey) {
   return (dispatch) => {
     userService.getTeamJiraTickets(teamKey).then(
