@@ -1,19 +1,24 @@
 import React from 'react';
 import Banner from "../_utils/Banner";
 import './ProjectSettingsPage.css';
-import { storeGet, storePut } from '../_helpers/helper-funcs.js';
-import '../unimelb.css';
-import logo from '../unimelb_logo.jpg';
-import { createStore } from 'redux';
 import uomHeader from '../header/uomheader.js';
-
 import { connect } from 'react-redux';
 import { userActions } from '../_actions';
-import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import { TextField } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 
+const input = {
+    width: "600px",
+    margin: "10px auto",
+    borderRadius: "4px",
+    padding: "4px"
+  }
+
+const label ={
+    width: "50px",
+    textAlign: "left", 
+    fontWeight: "bold",
+    margin: "10px"
+}
 
 class ProjectSettingsPage extends React.Component {
     //This is just as an example to populate the table
@@ -23,7 +28,8 @@ class ProjectSettingsPage extends React.Component {
         this.state = { 
            confluenceWebsite: "https://confluence.cis.unimelb.edu.au:8443/display/SWEN900132020SP",
            githubWebsite: "https://bitbucket.cis.unimelb.edu.au:8443/display/SWEN900132020SP",
-           jiraWebsite: "https://jira.cis.unimelb.edu.au:8443/display/SWEN900132020SP"          
+           jiraWebsite: "https://jira.cis.unimelb.edu.au:8443/display/SWEN900132020SP",
+               
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -33,44 +39,27 @@ class ProjectSettingsPage extends React.Component {
     }
 
     handleChange(e) {
-        this.setState({value: e.target.value});
+        console.log(e.target.name)
+        this.setState({
+            [e.target.name] : e.target.value
+        })
       }
     
     handleSubmit(e) {
-        e.preventDefault();
+        
+        const web = {
+            confluenceWebsite : this.state.confluenceWebsite,
+            githubWebsite: this.state.githubWebsite,
+            jiraWebsite: this.state.jiraWebsite,
+        }
+        console.log(web)
+        alert('submitted: ' + this.state.confluenceWebsite);
+        alert('submitted: ' + this.state.githubWebsite);
+        alert('submitted: ' + this.state.jiraWebsite);
+
+        e.preventDefault()
     }
 
-    renderTeamTableHeader() {
-        let header = Object.keys(this.state.team[0]);
-        return header.map((key, index) => {
-          return <th key={index}>{key.toUpperCase()}</th>;
-        });
-      }
-    
-    renderTeamTableData() {
-    return this.state.team.map((team, index) => {
-        const { name, individualJira } = team; //destructuring
-        return (
-        <tr key={name}>
-            <td>{name}</td>
-            <td>
-            <a
-                className="button-small brand"
-                onClick={this.handleSubmitJiraUser}
-            >
-                Individual JIRA
-            </a>
-            </td>
-        </tr>
-        );
-    });
-    }
-    
-    renderSaveChangesButton() {
-        return (
-            <td><a className="button-small brand" onClick={this.handleSubmit}>Save Changes</a></td>
-        )
-    }
 
     render() {
         return (
@@ -78,37 +67,37 @@ class ProjectSettingsPage extends React.Component {
                 {uomHeader("Configure")}
                 <div role="main">
                     <div className="page-inner">
-                    <Banner projName="2021-SM1-Software-Project-Database" />
-                    
-                    <form onSubmit={this.handleSubmit}>
-                        <label>
-                        Confluence:
-                        </label>
-                        <input type="text" defaultValue={this.state.confluenceWebsite} onChange={this.handleChange} />
-                        
-                        
-                    </form>
-                    
-                    <form onSubmit={this.handleSubmit}>
-                        <label>
-                        Git: 
-                        </label>    
-                        <input type="text" defaultValue={this.state.githubWebsite} onChange={this.handleChange} />
-                        
-                        
-                    </form>
-                    <form onSubmit={this.handleSubmit}>
-                        <label>
-                        Jira:  
-                        </label>    
-                        <input type="text" defaultValue={this.state.jiraWebsite} onChange={this.handleChange} />
-                        
-                        
-                    </form>
+                        <Banner projName="2021-SM1-Software-Project-Database" />
+                        <div className="web">
+                            <form onSubmit={this.handleSubmit}>
+                                <label style = {label}>
+                                Confluence:
+                                <input type="text" style={input} value= {this.state.confluenceWebsite} name="confluenceWebsite" onChange={this.handleChange} />   
+                                </label>
 
-                    <div id='savechanges'>
-                        {this.renderSaveChangesButton()}
-                    </div>
+                                <br />
+                            
+                                <label style = {label}>
+                                Git:    
+                                <input type="text" style={input} value= {this.state.githubWebsite} name="githubWebsite" onChange={this.handleChange} />  
+                                </label>
+                                
+                                <br />
+
+                                <label style = {label}>
+                                Jira:    
+                                <input type="text" style={input} value= {this.state.jiraWebsite} name="jiraWebsite" onChange={this.handleChange} />   
+                                </label>    
+
+                                <br />
+
+                                <div id='savechanges'>
+                                    <input type="submit" value="Submit" />
+                                </div>
+                            
+                            </form>
+                        
+                        </div>
                     </div>
                 </div>
             </div>

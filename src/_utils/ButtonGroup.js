@@ -1,7 +1,6 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import { makeStyles } from '@material-ui/core/styles';
 
 export default function GroupOrientation(props) {
   const btnNames = props.btnNames;
@@ -13,10 +12,8 @@ export default function GroupOrientation(props) {
   return (
     <div style={{ position: "relative", margin: "auto", width: "80vw" }}> 
       <ButtonGroup
-        orientation="vertical"
+        orientation="horizontal"
         color="primary"
-        aria-label="vertical contained primary button group"
-        variant="text"
       >
         {btnItems}
       </ButtonGroup>

@@ -1,16 +1,9 @@
 import React from 'react';
-import './ProductQualityPage.css';
 import { storeGet, storePut } from '../_helpers/helper-funcs.js';
-import '../unimelb.css';
-import logo from '../unimelb_logo.jpg';
-import styles from "../qualityPages/quality.module.css";
-import { createStore } from 'redux';
 import uomHeader from '../header/uomheader.js';
 import Banner from "../_utils/Banner";
-
 import { connect } from 'react-redux';
 import { userActions } from '../_actions';
-import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
 
