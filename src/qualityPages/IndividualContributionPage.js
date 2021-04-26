@@ -10,8 +10,6 @@ import { ToastContainer } from "react-toastify";
 import Banner from "../_utils/Banner";
 import DonutChart from "../_utils/DonutChart";
 
-import "./IndividualContributionPage.css";
-
 const team = 1;
 const teamName = "SWEN90013-2020-SP";
 const styles = {
