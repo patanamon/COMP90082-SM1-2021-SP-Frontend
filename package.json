@@ -27,6 +27,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.3",
     "react-select": "^4.3.0",
+    "react-table": "^7.6.3",
     "react-toastify": "^7.0.4",
     "recharts": "^2.0.9",
     "redux": "^4.0.5",
