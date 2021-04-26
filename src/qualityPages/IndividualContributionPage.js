@@ -1,8 +1,8 @@
-import React, { PureComponent } from "react";
+import React from "react";
 import uomHeader from "../header/uomheader.js";
 import { connect } from "react-redux";
 import { userActions } from "../_actions";
-import { storeGet } from "../_helpers/helper-funcs.js";
+//import { storeGet } from "../_helpers/helper-funcs.js";
 import { Nav, Tab, Col, Row, Container, Form } from "react-bootstrap";
 import ButtonGroup from "../_utils/ButtonGroup";
 import { commonConstants } from "../_constants";
@@ -61,9 +61,25 @@ class IndividualContributionPage extends React.Component {
       ],
       btnSelected: commonConstants.CONFLUENCE,
       total: [{ student_id: "", fullname: "" }],
-      students : ["Sara1", "Sara2", "Sara3"],
+      students : ["All", "Sara1", "Sara2", "Sara3"],
       dataset: {
         git: [
+            {
+                labels: [
+                    'Sara1', 'Sara2', 'Sara3'
+                  ],
+                datasets: [{
+                    label: "All",
+                    data: [30, 50, 60],
+                    fill: true,
+                    backgroundColor: [
+                                'rgb(255, 99, 132)',
+                                'rgb(54, 162, 235)',
+                                'rgb(255, 205, 86)'
+                              ],
+                    hoverOffset: 4
+                }]
+            },
             {
                 labels: [
                     'Sara1'
@@ -72,7 +88,7 @@ class IndividualContributionPage extends React.Component {
                     label: "Sara1",
                     data: [30],
                     fill: true,
-                    backgroundColor: "rgba(75,192,192,0.2)",
+                    backgroundColor: "rgb(255, 99, 132)",
                     borderColor: "rgba(75,192,192,1)" 
                 }]
             },
@@ -84,7 +100,7 @@ class IndividualContributionPage extends React.Component {
                     label: "Sara2",
                     data: [50],
                     fill: true,
-                    backgroundColor: "rgba(75,192,192,0.2)",
+                    backgroundColor: "rgb(54, 162, 235)",
                     borderColor: "rgba(75,192,192,1)" 
                 }]
             },
@@ -96,12 +112,28 @@ class IndividualContributionPage extends React.Component {
                     label: "Sara3",
                     data: [60],
                     fill: true,
-                    backgroundColor: "rgba(75,192,192,0.2)",
+                    backgroundColor: "rgb(255, 205, 86)",
                     borderColor: "rgba(75,192,192,1)" 
                 }]
             }
         ],
         jira: [
+            {
+                labels: [
+                    'Sara1', 'Sara2', 'Sara3'
+                  ],
+                datasets: [{
+                    label: "All",
+                    data: [58, 89, 85],
+                    fill: true,
+                    backgroundColor: [
+                                'rgb(255, 99, 132)',
+                                'rgb(54, 162, 235)',
+                                'rgb(255, 205, 86)'
+                              ],
+                    hoverOffset: 4
+                }]
+            },
             {
                 labels: [
                     'Sara1'
@@ -110,7 +142,7 @@ class IndividualContributionPage extends React.Component {
                     label: "Sara1",
                     data: [58],
                     fill: true,
-                    backgroundColor: "rgba(75,192,192,0.2)",
+                    backgroundColor: "rgb(255, 99, 132)",
                     borderColor: "rgba(75,192,192,1)" 
                 }]
             },
@@ -122,7 +154,7 @@ class IndividualContributionPage extends React.Component {
                     label: "Sara2",
                     data: [89],
                     fill: true,
-                    backgroundColor: "rgba(75,192,192,0.2)",
+                    backgroundColor: "rgb(54, 162, 235)",
                     borderColor: "rgba(75,192,192,1)" 
                 }]
             },
@@ -134,12 +166,28 @@ class IndividualContributionPage extends React.Component {
                     label: "Sara3",
                     data: [85],
                     fill: true,
-                    backgroundColor: "rgba(75,192,192,0.2)",
+                    backgroundColor: "rgb(255, 205, 86)",
                     borderColor: "rgba(75,192,192,1)" 
                 }]
             },
         ],
         confluence: [
+            {
+                labels: [
+                    'Sara1', 'Sara2', 'Sara3'
+                  ],
+                datasets: [{
+                    label: "All",
+                    data: [78, 90, 45],
+                    fill: true,
+                    backgroundColor: [
+                                'rgb(255, 99, 132)',
+                                'rgb(54, 162, 235)',
+                                'rgb(255, 205, 86)'
+                              ],
+                    hoverOffset: 4
+                }]
+            },
             {
                 labels: [
                     'Sara1'
@@ -148,7 +196,7 @@ class IndividualContributionPage extends React.Component {
                     label: "Sara1",
                     data: [78],
                     fill: true,
-                    backgroundColor: "rgba(75,192,192,0.2)",
+                    backgroundColor: "rgb(255, 99, 132)",
                     borderColor: "rgba(75,192,192,1)" 
                 }]
             },
@@ -160,7 +208,7 @@ class IndividualContributionPage extends React.Component {
                     label: "Sara2",
                     data: [90],
                     fill: true,
-                    backgroundColor: "rgba(75,192,192,0.2)",
+                    backgroundColor: "rgb(54, 162, 235)",
                     borderColor: "rgba(75,192,192,1)" 
                 }]
             },
@@ -172,13 +220,13 @@ class IndividualContributionPage extends React.Component {
                     label: "Sara3",
                     data: [45],
                     fill: true,
-                    backgroundColor: "rgba(75,192,192,0.2)",
+                    backgroundColor: "rgb(255, 205, 86)",
                     borderColor: "rgba(75,192,192,1)" 
                 }]
             },
         ]
       },
-      selected: 0,
+      selected: 0
     };
 
     this.handleChange = this.handleChange.bind(this);
