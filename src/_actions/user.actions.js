@@ -53,6 +53,7 @@ function failure(action, payload) {
 //All Pages On Confluence
 function getTeamConfluencePages(teamKey) {
   return (dispatch) => {
+    dispatch(request(userConstants.GET_TEAM_CONFLUENCE_PAGES_REQUEST));
     userService.getTeamConfluencePages(teamKey).then(
       (response) => {
         dispatch(

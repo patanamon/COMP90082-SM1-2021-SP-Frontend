@@ -19,6 +19,9 @@ import { ProjectSettingsPage } from "./ProjectPage/ProjectSettingsPage";
 import { GridNavbar } from "./navigation/navbar";
 import { withCookies } from "react-cookie";
 import './unimelb.css';
+import "antd/dist/antd.css";
+
+
 
 const AppLayout = styled.div`
   display: grid;

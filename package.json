@@ -10,6 +10,7 @@
     "@testing-library/react": "^10.4.9",
     "@testing-library/user-event": "^12.1.2",
     "@types/react-router-dom": "^5.1.7",
+    "antd": "^4.15.3",
     "bootstrap": "^4.5.3",
     "chart.js": "^2.9.4",
     "history": "^5.0.0",

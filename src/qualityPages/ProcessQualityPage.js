@@ -7,6 +7,7 @@ import { userActions } from "../_actions";
 import { connect } from "react-redux";
 import { commonConstants } from "../_constants";
 import { ToastContainer } from "react-toastify";
+import { Spin } from "antd";
 
 class ProcessQualityPage extends React.Component {
   constructor(props) {
@@ -54,16 +55,19 @@ class ProcessQualityPage extends React.Component {
             <ButtonGroup
               btnNames={this.state.btnNames}
               clickHandler={this.handleBtnGroupClick}
+              selected = {this.state.btnSelected}
             />
-            {this.state.btnSelected == commonConstants.CONFLUENCE && (
-              <LineChart data={this.props.confluenceData} />
-            )}
-            {this.state.btnSelected == commonConstants.GITHUB && (
-              <LineChart data={this.props.githubData} />
-            )}
-            {this.state.btnSelected == commonConstants.JIRA && (
-              <LineChart data={this.props.jiraData} />
-            )}
+            <Spin spinning={this.props.requestTeamConfluencePages || this.props.requestTeamGithubCommits || this.props.requestTeamJiraTickets }>
+              {this.state.btnSelected == commonConstants.CONFLUENCE && (
+                <LineChart data={this.props.confluenceData} />
+              )}
+              {this.state.btnSelected == commonConstants.GITHUB && (
+                <LineChart data={this.props.githubData} />
+              )}
+              {this.state.btnSelected == commonConstants.JIRA && (
+                <LineChart data={this.props.jiraData} />
+              )}
+            </Spin>
           </div>
         </div>
       </div>
@@ -73,6 +77,9 @@ class ProcessQualityPage extends React.Component {
 
 function mapState(state) {
   return {
+    requestTeamConfluencePages: state.user.requestTeamConfluencePages,
+    requestTeamGithubCommits: state.user.requestTeamGithubCommits,
+    requestTeamJiraTickets: state.user.requestTeamJiraTickets,
     confluenceData: state.user.teamConfluencePages,
     githubData: state.user.teamGithubCommits,
     jiraData: state.user.teamJiraTickets,
