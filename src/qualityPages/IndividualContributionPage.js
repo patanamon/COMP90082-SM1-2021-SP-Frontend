@@ -1,16 +1,19 @@
-import React from "react";
+import React, { PureComponent } from "react";
 import uomHeader from "../header/uomheader.js";
 import { connect } from "react-redux";
 import { userActions } from "../_actions";
 import { storeGet } from "../_helpers/helper-funcs.js";
 import { Nav, Tab, Col, Row, Container, Form } from "react-bootstrap";
-import { PieChart, Pie, Tooltip, ResponsiveContainer } from "recharts";
+import ButtonGroup from "../_utils/ButtonGroup";
+import { commonConstants } from "../_constants";
+import { ToastContainer } from "react-toastify";
+import Banner from "../_utils/Banner";
+import DonutChart from "../_utils/DonutChart";
 
 import "./IndividualContributionPage.css";
 
 const team = 1;
 const teamName = "SWEN90013-2020-SP";
-const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#8884d8"];
 const styles = {
   container: {
     padding: "30px",
@@ -28,7 +31,6 @@ const styles = {
     fontSize: "25px",
   },
   box: {
-    textAlign: "center",
     textAlign: "center",
     margin: "auto",
     border: "2px solid lightgray",
@@ -52,62 +54,136 @@ class IndividualContributionPage extends React.Component {
     super(props);
     this.state = {
       projectName: "",
-      jirasubmitted: false,
-      slacksubmitted: false,
-      confluencesubmitted: false,
-      gitsubmitted: false,
-      total: [{ student_id: "", fullname: "" }],
-      Data: [
-        {
-          name: "Sara1",
-          git: 30,
-          jira: 24,
-          slack: 15,
-          confluence: 61,
-          fill: "deepskyblue",
-        },
-        {
-          name: "Sara2",
-          git: 20,
-          jira: 44,
-          slack: 25,
-          confluence: 63,
-          fill: "deepskyblue",
-        },
-        {
-          name: "Sara3",
-          git: 40,
-          jira: 34,
-          slack: 50,
-          confluence: 36,
-          fill: "deepskyblue",
-        },
-        {
-          name: "Sara4",
-          git: 50,
-          jira: 19,
-          slack: 25,
-          confluence: 46,
-          fill: "deepskyblue",
-        },
-        {
-          name: "Sara5",
-          git: 60,
-          jira: 31,
-          slack: 35,
-          confluence: 56,
-          fill: "deepskyblue",
-        },
+      btnNames: [
+        commonConstants.CONFLUENCE,
+        commonConstants.GITHUB,
+        commonConstants.JIRA,
       ],
+      btnSelected: commonConstants.CONFLUENCE,
+      total: [{ student_id: "", fullname: "" }],
+      students : ["Sara1", "Sara2", "Sara3"],
+      dataset: {
+        git: [
+            {
+                labels: [
+                    'Sara1'
+                  ],
+                datasets: [{
+                    label: "Sara1",
+                    data: [30],
+                    fill: true,
+                    backgroundColor: "rgba(75,192,192,0.2)",
+                    borderColor: "rgba(75,192,192,1)" 
+                }]
+            },
+            {
+                labels: [
+                    'Sara2'
+                  ],
+                datasets: [{
+                    label: "Sara2",
+                    data: [50],
+                    fill: true,
+                    backgroundColor: "rgba(75,192,192,0.2)",
+                    borderColor: "rgba(75,192,192,1)" 
+                }]
+            },
+            {
+                labels: [
+                    'Sara3'
+                  ],
+                datasets: [{
+                    label: "Sara3",
+                    data: [60],
+                    fill: true,
+                    backgroundColor: "rgba(75,192,192,0.2)",
+                    borderColor: "rgba(75,192,192,1)" 
+                }]
+            }
+        ],
+        jira: [
+            {
+                labels: [
+                    'Sara1'
+                  ],
+                datasets: [{
+                    label: "Sara1",
+                    data: [58],
+                    fill: true,
+                    backgroundColor: "rgba(75,192,192,0.2)",
+                    borderColor: "rgba(75,192,192,1)" 
+                }]
+            },
+            {
+                labels: [
+                    'Sara2'
+                  ],
+                datasets: [{
+                    label: "Sara2",
+                    data: [89],
+                    fill: true,
+                    backgroundColor: "rgba(75,192,192,0.2)",
+                    borderColor: "rgba(75,192,192,1)" 
+                }]
+            },
+            {
+                labels: [
+                    'Sara3'
+                  ],
+                datasets: [{
+                    label: "Sara3",
+                    data: [85],
+                    fill: true,
+                    backgroundColor: "rgba(75,192,192,0.2)",
+                    borderColor: "rgba(75,192,192,1)" 
+                }]
+            },
+        ],
+        confluence: [
+            {
+                labels: [
+                    'Sara1'
+                  ],
+                datasets: [{
+                    label: "Sara1",
+                    data: [78],
+                    fill: true,
+                    backgroundColor: "rgba(75,192,192,0.2)",
+                    borderColor: "rgba(75,192,192,1)" 
+                }]
+            },
+            {
+                labels: [
+                    'Sara2'
+                  ],
+                datasets: [{
+                    label: "Sara2",
+                    data: [90],
+                    fill: true,
+                    backgroundColor: "rgba(75,192,192,0.2)",
+                    borderColor: "rgba(75,192,192,1)" 
+                }]
+            },
+            {
+                labels: [
+                    'Sara3'
+                  ],
+                datasets: [{
+                    label: "Sara3",
+                    data: [45],
+                    fill: true,
+                    backgroundColor: "rgba(75,192,192,0.2)",
+                    borderColor: "rgba(75,192,192,1)" 
+                }]
+            },
+        ]
+      },
       selected: 0,
     };
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleJiraSubmit = this.handleJiraSubmit.bind(this);
-    this.handleSlackSubmit = this.handleSlackSubmit.bind(this);
-    this.handleGitSubmit = this.handleGitSubmit.bind(this);
-    this.handleConfluenceSubmit = this.handleConfluenceSubmit.bind(this);
     this.selectStudent = this.selectStudent.bind(this);
+    this.handleBtnGroupClick = this.handleBtnGroupClick.bind(this);
   }
 
   handleChange(e) {
@@ -115,188 +191,11 @@ class IndividualContributionPage extends React.Component {
     this.setState({ [name]: value });
   }
 
-  handleJiraSubmit(e) {
-    e.preventDefault();
-    const { projectName } = this.state;
-
-    this.props.getTeamList(team);
-
-    if (this.state.jirasubmitted === true) {
-      this.setState({ jirasubmitted: false });
-    } else if (this.state.jirasubmitted === false) {
-      this.setState({ jirasubmitted: true });
-    }
-
-    if (storeGet("teamList") != null) {
-      for (var i in storeGet("teamList")) {
-        // Get the member's configuration
-
-        this.props.getMemberConfiguration(
-          projectName,
-          storeGet("teamList")[i].student_id
-        );
-        console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-        console.log(storeGet("memberConfig"));
-
-        // Get the full name
-        this.state.Data[i].name = storeGet("teamList")[i].fullname;
-        console.log(this.state.Data[i].name);
-
-        //Get SLACK - need User ID
-        this.props.getSlackUser(team, storeGet("teamList")[i].student_id);
-        //Get JIRA data - need User ID
-        this.props.getJiraUser(teamName, storeGet("teamList")[i].student_id);
-
-        // TODO
-        // Get Git Data - need Git Username, currently hardcoded
-        this.props.codeCommitsPerMember(projectName, "zhanglihuan");
-        // TODO
-        //Get Conflunece Data - need Username, currently hardcoded
-        this.props.numPagesPerMember("yujuzhang");
-
-        if (storeGet("jiraUser") != null) {
-          this.props.Data[i].jira = storeGet("jiraUser")["count_issues_done"];
-        }
-      }
-    }
-  }
-
-  handleSlackSubmit(e) {
-    e.preventDefault();
-    const { projectName } = this.state;
-    if (this.state.slacksubmitted === true) {
-      this.setState({ slacksubmitted: false });
-    } else if (this.state.slacksubmitted === false) {
-      this.setState({ slacksubmitted: true });
-    }
-    this.props.getTeamList(team);
-    if (storeGet("teamList") != null) {
-      for (var i in storeGet("teamList")) {
-        // Get the member's configuration
-
-        this.props.getMemberConfiguration(
-          projectName,
-          storeGet("teamList")[i].student_id
-        );
-        console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-        console.log(storeGet("memberConfig"));
-
-        // Get the full name
-        this.state.Data[i].name = storeGet("teamList")[i].fullname;
-        console.log(this.state.Data[i].name);
-
-        //Get SLACK - need User ID
-        this.props.getSlackUser(team, storeGet("teamList")[i].student_id);
-        //Get JIRA data - need User ID
-        this.props.getJiraUser(teamName, storeGet("teamList")[i].student_id);
-
-        // TODO
-        // Get Git Data - need Git Username, currently hardcoded
-        this.props.codeCommitsPerMember(projectName, "zhanglihuan");
-        // TODO
-        //Get Conflunece Data - need Username, currently hardcoded
-        this.props.numPagesPerMember("yujuzhang");
-        if (storeGet("slackUser") != null) {
-          this.state.Data[i].slack = storeGet("slackUser")["total_number"];
-        }
-      }
-    }
-  }
-
-  handleGitSubmit(e) {
-    e.preventDefault();
-    const { projectName } = this.state;
-
-    this.props.getTeamList(team);
-
-    if (this.state.gitsubmitted === true) {
-      this.setState({ gitsubmitted: false });
-    } else if (this.state.gitsubmitted === false) {
-      this.setState({ gitsubmitted: true });
-    }
-
-    if (storeGet("teamList") != null) {
-      for (var i in storeGet("teamList")) {
-        // Get the member's configuration
-
-        this.props.getMemberConfiguration(
-          projectName,
-          storeGet("teamList")[i].student_id
-        );
-        console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-        console.log(storeGet("memberConfig"));
-
-        // Get the full name
-        this.state.Data[i].name = storeGet("teamList")[i].fullname;
-        console.log(this.state.Data[i].name);
-
-        //Get SLACK - need User ID
-        this.props.getSlackUser(team, storeGet("teamList")[i].student_id);
-        //Get JIRA data - need User ID
-        this.props.getJiraUser(teamName, storeGet("teamList")[i].student_id);
-
-        // TODO
-        // Get Git Data - need Git Username, currently hardcoded
-        this.props.codeCommitsPerMember(projectName, "zhanglihuan");
-        // TODO
-        //Get Conflunece Data - need Username, currently hardcoded
-        this.props.numPagesPerMember("yujuzhang");
-
-        if (storeGet("gitUsers") != null) {
-          this.state.Data[i].gitCommit = storeGet("gitUsers")[
-            "total_count"
-          ].total;
-        }
-      }
-    }
-  }
-
-  handleConfluenceSubmit(e) {
-    e.preventDefault();
-    const { projectName } = this.state;
-
-    this.props.getTeamList(team);
-
-    if (this.state.confluencesubmitted === true) {
-      this.setState({ confluencesubmitted: false });
-    } else if (this.state.confluencesubmitted === false) {
-      this.setState({ confluencesubmitted: true });
-    }
-
-    if (storeGet("teamList") != null) {
-      for (var i in storeGet("teamList")) {
-        // Get the member's configuration
-
-        this.props.getMemberConfiguration(
-          projectName,
-          storeGet("teamList")[i].student_id
-        );
-        console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-        console.log(storeGet("memberConfig"));
-
-        // Get the full name
-        this.state.Data[i].name = storeGet("teamList")[i].fullname;
-        console.log(this.state.Data[i].name);
-
-        //Get SLACK - need User ID
-        this.props.getSlackUser(team, storeGet("teamList")[i].student_id);
-        //Get JIRA data - need User ID
-        this.props.getJiraUser(teamName, storeGet("teamList")[i].student_id);
-
-        // TODO
-        // Get Git Data - need Git Username, currently hardcoded
-        this.props.codeCommitsPerMember(projectName, "zhanglihuan");
-        // TODO
-        //Get Conflunece Data - need Username, currently hardcoded
-        this.props.numPagesPerMember("yujuzhang");
-
-        if (storeGet("confluenceUsers") != null) {
-          this.state.Data[i].gitCommit = storeGet("confluenceUsers")[
-            "total_count"
-          ].total;
-        }
-      }
-    }
+  handleBtnGroupClick(e) {
+    let picked = e.currentTarget.firstChild.innerHTML;
+    this.setState({
+        btnSelected: picked
+    });
   }
 
   selectStudent(e) {
@@ -305,7 +204,7 @@ class IndividualContributionPage extends React.Component {
 
   render() {
     const {
-      Data,
+        students,
       selected,
     } = this.state;
 
@@ -326,8 +225,8 @@ class IndividualContributionPage extends React.Component {
             custom
             onChange={this.selectStudent}
           >
-            {Data.map((student, index) => (
-              <option value={index}>{student.name}</option>
+            {students.map((student, index) => (
+              <option key={index} value={index}>{student}</option>
             ))}
           </Form.Control>
         </Form>
@@ -336,225 +235,37 @@ class IndividualContributionPage extends React.Component {
 
     return (
       <div className="uomcontent">
+        <ToastContainer limit={1} />
         {uomHeader("Individual Contribution Page")}
         <div role="main">
           <div className="page-inner">
+          <Banner projName="2021-SM1-Software-Project" />
             <Container style={styles.container}>
               <Tab.Container id="left-tabs-example" defaultActiveKey="jira">
                 <Row>
-                  <Col sm={3}>
-                    <Nav variant="pills" className="flex-column">
-                      <Nav.Item onClick={this.handleJiraSubmit}>
-                        <Nav.Link style={styles.navLink} eventKey="jira">
-                          Jira
-                        </Nav.Link>
-                      </Nav.Item>
-                      <Nav.Item onClick={this.handleSlackSubmit}>
-                        <Nav.Link style={styles.navLink} eventKey="slack">
-                          Slack
-                        </Nav.Link>
-                      </Nav.Item>
-                      <Nav.Item onClick={this.handleGitSubmit}>
-                        <Nav.Link style={styles.navLink} eventKey="git">
-                          Git
-                        </Nav.Link>
-                      </Nav.Item>
-                      <Nav.Item onClick={this.handleConfluenceSubmit}>
-                        <Nav.Link style={styles.navLink} eventKey="confluence">
-                          Confluence
-                        </Nav.Link>
-                      </Nav.Item>
-                    </Nav>
+                  <Col>
+                  <ButtonGroup
+                    btnNames={this.state.btnNames}
+                    clickHandler={this.handleBtnGroupClick}
+                  />
                   </Col>
-                  <Col sm={9}>
-                    <Tab.Content>
-                      <Tab.Pane eventKey="jira">
-                        <Row>
-                          <Col sm={12}>{Student()}</Col>
-                          <Col sm={6} style={styles.box}>
-                            {this.renderChartHeader()}
-                            {/* <h3>This is Jira Chart</h3> */}
-                            {this.renderChart(selected)}
-                          </Col>
-                        </Row>
-                      </Tab.Pane>
-
-                      <Tab.Pane eventKey="slack">
-                        <Row>
-                          <Col sm={12}>{Student()}</Col>
-                          <Col sm={6} style={styles.box}>
-                            {this.renderSlackChartHeader()}
-                            {/* <h3>This is Slack Chart</h3> */}
-                            {this.renderSlackChart(selected)}
-                          </Col>
-                        </Row>
-                      </Tab.Pane>
-                      <Tab.Pane eventKey="git">
-                        <Row>
-                          <Col sm={12}>{Student()}</Col>
-                          <Col sm={6} style={styles.box}>
-                            {this.renderGitChartHeader()}
-                            {/* <h3>This is Git Chart</h3> */}
-                            {this.renderGitChart(selected)}
-                          </Col>
-                        </Row>
-                      </Tab.Pane>
-                      <Tab.Pane eventKey="confluence">
-                        <Row>
-                          <Col sm={12}>{Student()}</Col>
-                          <Col sm={6} style={styles.box}>
-                            {this.renderConfluenceChartHeader()}
-                            {/* <h3>This is Confluence Chart</h3> */}
-                            {this.renderConfluenceChart(selected)}
-                          </Col>
-                        </Row>
-                      </Tab.Pane>
-                    </Tab.Content>
+                  <Col>
+                  <Col>{Student()}</Col>
+                    {this.state.btnSelected == commonConstants.CONFLUENCE && (
+                    <DonutChart data={this.state.dataset['confluence'][this.state.selected]} />
+                    )} 
+                    {this.state.btnSelected == commonConstants.GITHUB && (
+                    <DonutChart data={this.state.dataset['git'][this.state.selected]} />
+                    )}
+                    {this.state.btnSelected == commonConstants.JIRA && (
+                    <DonutChart data={this.state.dataset['jira'][this.state.selected]} />
+                    )}
                   </Col>
                 </Row>
               </Tab.Container>
             </Container>
           </div>
         </div>
-      </div>
-    );
-  }
-
-  renderChartHeader() {
-    let header = ["Jira Chart"]; //, 'Radar Chart'];
-    return header.map((key, index) => {
-      return <h1>{key}</h1>;
-    });
-  }
-  renderSlackChartHeader() {
-    let header = ["Slack Chart"]; //, 'Radar Chart'];
-    return header.map((key, index) => {
-      return <h1>{key}</h1>;
-    });
-  }
-  renderGitChartHeader() {
-    let header = ["Git Chart"]; //, 'Radar Chart'];
-    return header.map((key, index) => {
-      return <h1>{key}</h1>;
-    });
-  }
-  renderConfluenceChartHeader() {
-    let header = ["Confluence Chart"]; //, 'Radar Chart'];
-    return header.map((key, index) => {
-      return <h1>{key}</h1>;
-    });
-  }
-
-  renderChart(index) {
-    let data = [
-      this.state.Data[index],
-      {
-        name: "Other",
-        jira: 100 - this.state.Data[index].jira,
-        fill: "lightgray",
-      },
-    ];
-    return (
-      <div>
-        <PieChart width={360} height={350} style={styles.chart}>
-          <Pie
-            dataKey="jira"
-            isAnimationActive={true}
-            data={data}
-            startAngle={90}
-            endAngle={-270}
-            outerRadius={150}
-            innerRadius={100}
-            fill="#8884d8"
-          />
-          {/* <Tooltip /> */}
-        </PieChart>
-        <span style={styles.percent}>{data[0].jira}</span>
-      </div>
-    );
-  }
-  renderSlackChart(index) {
-    let data = [
-      this.state.Data[index],
-      {
-        name: "Other",
-        slack: 100 - this.state.Data[index].slack,
-        fill: "lightgray",
-      },
-    ];
-    return (
-      <div>
-        <PieChart width={360} height={350} style={styles.chart}>
-          <Pie
-            dataKey="slack"
-            isAnimationActive={true}
-            data={data}
-            startAngle={90}
-            endAngle={-270}
-            outerRadius={150}
-            innerRadius={100}
-            fill="#8884d8"
-          />
-          <Tooltip />
-        </PieChart>
-        <span style={styles.percent}>{data[0].slack}</span>
-      </div>
-    );
-  }
-  renderGitChart(index) {
-    let data = [
-      this.state.Data[index],
-      {
-        name: "Other",
-        git: 100 - this.state.Data[index].git,
-        fill: "lightgray",
-      },
-    ];
-    return (
-      <div>
-        {" "}
-        <PieChart width={360} height={350} style={styles.chart}>
-          <Pie
-            dataKey="git"
-            isAnimationActive={true}
-            data={data}
-            startAngle={90}
-            endAngle={-270}
-            outerRadius={150}
-            innerRadius={100}
-            fill="#8884d8"
-          />
-          <Tooltip />
-        </PieChart>
-        <span style={styles.percent}>{data[0].git}</span>
-      </div>
-    );
-  }
-  renderConfluenceChart(index) {
-    let data = [
-      this.state.Data[index],
-      {
-        name: "Other",
-        confluence: 100 - this.state.Data[index].confluence,
-        fill: "lightgray",
-      },
-    ];
-    return (
-      <div>
-        <PieChart width={360} height={350} style={styles.chart}>
-          <Pie
-            dataKey="confluence"
-            isAnimationActive={true}
-            data={data}
-            startAngle={90}
-            endAngle={-270}
-            outerRadius={150}
-            innerRadius={100}
-            fill="#8884d8"
-          />
-          <Tooltip />
-        </PieChart>
-        <span style={styles.percent}>{data[0].confluence}</span>
       </div>
     );
   }
@@ -566,13 +277,12 @@ function mapState(state) {
 }
 
 const actionCreators = {
-  loginGit: userActions.loginGit,
-  totalCodeCommits: userActions.totalCodeCommits,
+  //loginGit: userActions.loginGit,
+  //totalCodeCommits: userActions.totalCodeCommits,
   codeCommitsPerMember: userActions.codeCommitsPerMember,
-  AllPagesOnConfluence: userActions.AllPagesOnConfluence,
+  //AllPagesOnConfluence: userActions.AllPagesOnConfluence,
   getTeamList: userActions.getTeamList,
   getMemberConfiguration: userActions.getMemberConfiguration,
-  getSlackUser: userActions.getSlackUser,
   getJiraUser: userActions.getJiraUser,
   numPagesPerMember: userActions.numPagesPerMember,
 };
