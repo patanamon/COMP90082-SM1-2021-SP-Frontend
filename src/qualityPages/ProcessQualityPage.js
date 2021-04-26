@@ -24,40 +24,6 @@ class ProcessQualityPage extends React.Component {
         commonConstants.JIRA,
       ],
 
-      confluenceData: {
-        labels: ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5"],
-        datasets: [
-          {
-            label: "Confluence Pages",
-            data: [10, 20, 30, 40, 60],
-          },
-        ],
-      },
-
-      githubData: {
-        labels: ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5"],
-        datasets: [
-          {
-            label: "Github Commits",
-            data: [23, 27, 48, 55, 63],
-          },
-        ],
-      },
-
-      jiraData: {
-        labels: ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5"],
-        datasets: [
-          {
-            label: "To-do Items",
-            data: [32, 25, 21, 17, 12],
-          },
-          {
-            label: "Done Items",
-            data: [0, 7, 13, 17, 22],
-          },
-        ],
-      },
-
       btnSelected: commonConstants.CONFLUENCE,
 
       presentInfo: "Summary",
@@ -128,14 +94,23 @@ class ProcessQualityPage extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSubmitJira = this.handleSubmitJira.bind(this);
     this.handleSubmitJiraUser = this.handleSubmitJiraUser.bind(this);
-    this.handleSubmitConfluenceLogin = this.handleSubmitConfluenceLogin.bind(this);
+    this.handleSubmitConfluenceLogin = this.handleSubmitConfluenceLogin.bind(
+      this
+    );
     this.handleBtnGroupClick = this.handleBtnGroupClick.bind(this);
   }
 
   handleBtnGroupClick(e) {
     let selected = e.currentTarget.firstChild.innerHTML;
+    if (selected == commonConstants.CONFLUENCE) {
+      this.props.getTeamConfluencePages("COMP900822021SM1SP");
+    } else if (selected == commonConstants.GITHUB) {
+      this.props.getTeamGithubCommits("COMP900822021SM1SP");
+    } else {
+      this.props.getTeamJiraTickets("COMP900822021SM1SP");
+    }
     this.setState({
-        btnSelected: selected
+      btnSelected: selected,
     });
   }
 
@@ -289,14 +264,12 @@ class ProcessQualityPage extends React.Component {
     this.getAllAccessibleUserGroups();
   }
 
+  componentDidMount() {
+    this.props.getTeamConfluencePages("COMP900822021SM1SP");
+  }
+
+
   render() {
-    const {
-      confluenceLogged,
-      processSubmitted,
-      userProcessSubmitted,
-      confluenceUsername,
-      confluencePassword,
-    } = this.state;
     return (
       <div className="uomcontent">
         {uomHeader("Process Quality")}
@@ -307,63 +280,15 @@ class ProcessQualityPage extends React.Component {
               btnNames={this.state.btnNames}
               clickHandler={this.handleBtnGroupClick}
             />
-            {this.state.btnSelected == commonConstants.CONFLUENCE && 
-              <LineChart data={this.state.confluenceData} />
-            }
-            {this.state.btnSelected == commonConstants.GITHUB && 
-              <LineChart data={this.state.githubData} />
-            }
-            {this.state.btnSelected == commonConstants.JIRA && 
-              <LineChart data={this.state.jiraData} />
-            }
-            {/* <form action="" method="get">
-                            { (!confluenceLogged) &&
-                            <fieldset>
-                                <div className={'form-group' + (confluenceLogged && !confluenceUsername ? ' has-error' : '')}>
-                                    <label htmlFor="username">Confluence Username</label>
-                                    <input type="text" className="form-control" name="confluenceUsername" value={confluenceUsername} onChange={this.handleChange} />
-                                    {confluenceLogged && !confluenceUsername &&
-                                    <div className="help-block">Confluence Username is required</div>
-                                    }
-                                </div>
-                                <div className={'form-group' + (confluenceLogged && !confluencePassword ? ' has-error' : '')}>
-                                    <label htmlFor="password">Confluence Password</label>
-                                    <input type="password" className="form-control" name="confluencePassword" value={confluencePassword} onChange={this.handleChange} />
-                                    {confluenceLogged && !confluencePassword &&
-                                    <div className="help-block">Confluence Password is required</div>
-                                    }
-                                    {hint2()}
-                                    <a className="button cta" onClick={this.handleSubmitConfluenceLogin} >Confluence Login</a>
-                                </div>
-                            </fieldset>
-                            }
-                            { confluenceLogged &&
-                            <fieldset>
-                                <div className="inline attached">
-                                    <a className="button cta" onClick={this.handleSubmitJira} >Team JIRA</a>
-                                    {this.renderPieGraph()}
-                                </div>
-                            </fieldset>
-                            }
-
-                            { confluenceLogged && processSubmitted &&
-                            <table id='projects' className="zebra">
-                                <tbody>
-                                <tr>{this.renderJiraDataHeader()}</tr>
-                                {this.renderJiraData()}
-                                </tbody>
-                            </table>
-                            }
-
-                            { confluenceLogged && userProcessSubmitted &&
-                            <table id='projects' className="zebra">
-                                <tbody>
-                                <tr>{this.renderJiraUserDataHeader()}</tr>
-                                {this.renderJiraUserData()}
-                                </tbody>
-                            </table>
-                            }
-                        </form> */}
+            {this.state.btnSelected == commonConstants.CONFLUENCE && (
+              <LineChart data={this.props.confluenceData} />
+            )}
+            {this.state.btnSelected == commonConstants.GITHUB && (
+              <LineChart data={this.props.githubData} />
+            )}
+            {this.state.btnSelected == commonConstants.JIRA && (
+              <LineChart data={this.props.jiraData} />
+            )}
           </div>
         </div>
       </div>
@@ -371,25 +296,18 @@ class ProcessQualityPage extends React.Component {
   }
 }
 
-function hint2() {
-  return (
-    <p id="hint2">
-      You need to input your Confluence username and password first, then this
-      system can fetch data from Confluence.
-    </p>
-  );
-}
-
 function mapState(state) {
-  const { subjectName, name } = state;
-  return { subjectName, name };
+  return {
+    confluenceData: state.user.teamConfluencePages,
+    githubData: state.user.teamGithubCommits,
+    jiraData: state.user.teamJiraTickets,
+  };
 }
 
 const actionCreators = {
-  loginConfluence: userActions.loginConfluence,
-  getJiraTeam: userActions.getJiraTeam,
-  getJiraUser: userActions.getJiraUser,
-  getHomepage: userActions.getHomepage,
+  getTeamConfluencePages: userActions.getTeamConfluencePages,
+  getTeamGithubCommits: userActions.getTeamGithubCommits,
+  getTeamJiraTickets: userActions.getTeamJiraTickets,
 };
 
 const qualityPage = connect(mapState, actionCreators)(ProcessQualityPage);
