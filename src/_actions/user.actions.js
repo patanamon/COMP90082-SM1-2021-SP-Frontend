@@ -3,6 +3,7 @@ import { userService } from "../_services";
 import { alertActions } from "./";
 import { history } from "../_helpers";
 import {formatLineChartData} from "../_utils/formatLineChartData.js";
+import {unixToDate} from "../_utils/unixToDate.js"
 import { failureToast } from "../_utils/toast";
 
 // Remember: Add new actions in here, otherwise it cannot be recognise by this.props.
@@ -11,6 +12,9 @@ export const userActions = {
   getTeamConfluencePages,
   getTeamGithubCommits,
   getTeamJiraTickets,
+
+  getTeamGitHubComments,
+  getTeamConfluenceMeeting,
 
   login,
   logout,
@@ -92,6 +96,56 @@ function getTeamGithubCommits(teamKey) {
       }
     );
   };
+}
+
+function getTeamGitHubComments(teamKey) {
+  return (dispatch) => {
+    userService.getTeamGitHubComments(teamKey).then(
+      (response) => {
+        dispatch(
+          success(userConstants.GET_TEAM_GITHUB_COMMENTS_SUCCESS, formatLineChartData(response))
+        );
+      },
+      (error) => {
+        dispatch(
+          failure(
+            userConstants.GET_TEAM_GITHUB_COMMENTS_FAILURE,
+            error.toString()
+          )
+        );
+      }
+    );
+  };
+}
+
+function getTeamConfluenceMeeting(teamKey) {
+  return (dispatch) => {
+    userService.getTeamConfluenceMeeting(teamKey).then(
+      (response) => {
+        dispatch(
+          success(userConstants.GET_TEAM_CONFLUENCE_MEETINGS_SUCCESS, unixToDateHelper(response.data))
+        );
+      },
+      (error) => {
+        dispatch(
+          failure(
+            userConstants.GET_TEAM_CONFLUENCE_MEETINGS_FAILURE,
+            error.toString()
+          )
+        );
+      }
+    );
+  };
+}
+
+function unixToDateHelper(jsonData) {
+  for (let i = 0, len = jsonData.length; i < len; i++) {
+    jsonData[i].time = unixToDate(jsonData[i].time)
+  }
+
+  return jsonData
+
+  
 }
 
 function getTeamJiraTickets(teamKey) {
