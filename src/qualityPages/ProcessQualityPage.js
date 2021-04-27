@@ -47,7 +47,6 @@ class ProcessQualityPage extends React.Component {
   render() {
     return (
       <div className="uomcontent">
-        <ToastContainer limit={1} />
         {uomHeader("Process Quality")}
         <div role="main">
           <div className="page-inner">
@@ -70,6 +69,7 @@ class ProcessQualityPage extends React.Component {
             </Spin>
           </div>
         </div>
+        <ToastContainer limit={1} />
       </div>
     );
   }
