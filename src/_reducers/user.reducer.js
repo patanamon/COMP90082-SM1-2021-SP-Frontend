@@ -79,16 +79,6 @@ export function user(state = initState, action) {
         ...state,
         teamConfluenceMeeting: {},
       };
-    case userConstants.GET_PRODUCT_QUALITY_PAGES_SUCCESS:
-      return {
-        ...state,
-        teamProductPages: action.payload
-      }
-    case userConstants.GET_PRODUCT_QUALITY_PAGES_FAILURE:
-      return {
-        ...state,
-        teamProductPages: []
-      }
     default:
       return state;
   }
