@@ -3,6 +3,7 @@ import { userService } from "../_services";
 import { alertActions } from "./";
 import { history } from "../_helpers";
 import {formatLineChartData} from "../_utils/formatLineChartData.js";
+import {formatDonutChartData} from "../_utils/formatDonutChartData.js";
 import { failureToast } from "../_utils/toast";
 
 // Remember: Add new actions in here, otherwise it cannot be recognise by this.props.
@@ -38,6 +39,11 @@ export const userActions = {
   // Configure
   getConfiguration,
   setConfiguration,
+
+  // Individual Contribution
+  getGithubIndividualCommits,
+  getJiraIndividualCount,
+  getConfluenceIndividualPages,
 };
 
 function request(action, payload) {
@@ -48,6 +54,70 @@ function success(action, payload) {
 }
 function failure(action, payload) {
   return { type: action, payload };
+}
+
+function getConfluenceIndividualPages(teamKey) {
+  return (dispatch) => {
+    userService.getConfluenceIndividualPages(teamKey).then(
+      (response) => {
+        dispatch(
+          success(userConstants.GET_INDIVIDUAL_CONFLUENCE_PAGES_SUCCESS, formatDonutChartData(response))
+        );
+      },
+      (error) => {
+        dispatch(
+          failure(
+            userConstants.GET_INDIVIDUAL_CONFLUENCE_PAGES_FAILURE,
+            error.toString()
+          )
+        );
+        failureToast(error.toString());
+      }
+    );
+  };
+}
+
+
+function getGithubIndividualCommits(teamKey) {
+  return (dispatch) => {
+    userService.getGithubIndividualCommits(teamKey).then(
+      (response) => {
+        dispatch(
+          success(userConstants.GET_INDIVIDUAL_GITHUB_COMMITS_SUCCESS, formatDonutChartData(response))
+        );
+      },
+      (error) => {
+        dispatch(
+          failure(
+            userConstants.GET_INDIVIDUAL_GITHUB_COMMITS_FAILURE,
+            error.toString()
+          )
+        );
+        failureToast(error.toString());
+      }
+    );
+  };
+}
+
+function getJiraIndividualCount(teamKey) {
+  return (dispatch) => {
+    userService.getJiraIndividualCount(teamKey).then(
+      (response) => {
+        dispatch(
+          success(userConstants.GET_INDIVIDUAL_JIRA_COUNT_SUCCESS, formatDonutChartData(response))
+        );
+      },
+      (error) => {
+        dispatch(
+          failure(
+            userConstants.GET_INDIVIDUAL_JIRA_COUNT_FAILURE,
+            error.toString()
+          )
+        );
+        failureToast(error.toString());
+      }
+    );
+  };
 }
 
 //All Pages On Confluence
