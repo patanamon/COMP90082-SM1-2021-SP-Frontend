@@ -1,5 +1,4 @@
 import React from 'react';
-import './ProductQualityPage.css';
 import uomHeader from '../header/uomheader.js';
 import Banner from "../_utils/Banner";
 import DataTable, { createTheme } from "react-data-table-component";
