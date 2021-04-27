@@ -9,6 +9,9 @@ export const userService = {
   getTeamGithubCommits,
   getTeamJiraTickets,
 
+  getTeamGitHubComments,
+  getTeamConfluenceMeeting,
+
   login,
   logout,
   register,
@@ -100,6 +103,23 @@ function getJiraIndividualCount(teamKey) {
     });
 }
 
+function getTeamGitHubComments(teamKey) {
+  let url = baseUrl + "/git/" + teamKey + "/comment_count";
+
+  const requestOptions = {
+    method: "GET",
+  };
+
+  return fetch(url, requestOptions)
+    .then((response) => response.json())
+    .then((jsonResponse) => {
+      if (jsonResponse.code === 0) {
+        storePut("TeamGitHubComments", jsonResponse.data);
+      };
+      return jsonResponse;
+    });
+  }
+
 // TODO
 function getTeamConfluencePages(teamKey) {
   let url = baseUrl + "/confluence/spaces/" + teamKey + "/page_count";
@@ -111,8 +131,25 @@ function getTeamConfluencePages(teamKey) {
   return fetch(url, requestOptions)
     .then((response) => response.json())
     .then((jsonResponse) => {
-      if (jsonResponse.code == 0) {
+      if (jsonResponse.code === 0) {
         storePut("TeamConfluencePages", jsonResponse.data);
+      };
+      return jsonResponse;
+    });
+}
+
+function getTeamConfluenceMeeting(teamKey) {
+  let url = baseUrl + "/confluence/spaces/" + teamKey + "/meeting";
+
+  const requestOptions = {
+    method: "GET",
+  };
+
+  return fetch(url, requestOptions)
+    .then((response) => response.json())
+    .then((jsonResponse) => {
+      if (jsonResponse.code === 0) {
+        storePut("TeamConfluenceMeeting", jsonResponse.data);
       };
       return jsonResponse;
     });
@@ -128,7 +165,7 @@ function getTeamGithubCommits(teamKey) {
   return fetch(url, requestOptions)
     .then((response) => response.json())
     .then((jsonResponse) => {
-      if (jsonResponse.code == 0) {
+      if (jsonResponse.code === 0) {
         storePut("TeamGithubCommits", jsonResponse.data);
       };
       return jsonResponse;
