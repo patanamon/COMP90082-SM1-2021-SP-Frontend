@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { userActions } from '../_actions';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import Select from "react-select";
+import { render } from "react-dom";
 import { projects } from "./ProjectList";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -15,6 +16,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import Banner from "../_utils/Banner";
+import DTable from '../_utils/Table';
 
 var NameResults = [];
 var LinkResults = [];
@@ -28,6 +30,10 @@ function uniq(arr, item) {
   return arr;
 }
 
+function del(arr, item){
+  arr.splice(arr.indexOf(item), 1);
+  return arr;
+}
 
 class CoordinatorHomePage extends Component {
     //This is just as an example to populate the table
@@ -47,15 +53,24 @@ class CoordinatorHomePage extends Component {
     this.setState({ show: true });
   }
 
+
   handleChange = (project) => {
-    document.getElementById("alert").style.display = "none";
     console.log(project.label);
     this.setState({ project });
     uniq(NameResults, project.label);
     uniq(LinkResults, project.link);
     console.log(NameResults);
     console.log(FinalNameResult);
-    document.getElementById("alert").style.display = "none";
+    
+  };
+
+  //TODO waiting API format for deleting function
+   handleDelete = (project) => {
+    this.setState({project});
+    console.log( project + " deleted");
+    del(NameResults, project);
+    //del(LinkResults, project.link);
+    console.log(NameResults);
   };
 
     render() {
@@ -66,87 +81,65 @@ class CoordinatorHomePage extends Component {
                     <div role="main">
                         <div className="page-inner">
                             <Banner projName="Project Management" />
-
-                            <div id="select">
-                            <Select
-                                labelInValue
-                                name="projects"
-                                options={projects}
-                                className="ProjectList"
-                                placeholder="Select projects"
-                                onChange={this.handleChange}
-                            />
-                            </div>
+                            <div className="App">
 
 
-                            <div id="selected" className="Selected">
-                            <TableContainer component={Paper}>
-                                <Table className="makeStyles" aria-label="simple table">
-                                <TableHead>
-                                    <TableRow>
-                                    <TableCell>Project Selected</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {NameResults.map((row) => (
-                                    <TableRow key={row}>
-                                        <TableCell component="th" scope="row">
-                                        {row}
-                                        </TableCell>
-                                    </TableRow>
-                                    ))}
-                                </TableBody>
-                                </Table>
-                            </TableContainer>
-                            </div>
-
-
-
-                               <div className="AlertDiv" id="alert">
-                                Imported!
-                                </div>
-        <div id="button" className = "ImportButton">
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => {
-              this.handleImport();
-              document.getElementById("alert").style.display = "block";
-            }}
-          >
-            Import
-          </Button>
+        <div id="select">
+          <Select
+            labelInValue
+            name="projects"
+            options={projects}
+            className="ProjectList"
+            placeholder="Select projects"
+            onChange={this.handleChange}
+          />
         </div>
-        <div>
-          <div className="Import" id="import">
-            <TableContainer component={Paper}>
-              <Table className="makeStyles" aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Project Name</TableCell>
-                    <TableCell align="right">C-Link</TableCell>
-                  </TableRow>
-                </TableHead>
-                {this.state.show ? (
-                  <TableBody>
-                    {FinalNameResult.map((row) => (
-                      <TableRow key={row}>
-                        <TableCell component="th" scope="row">
+        <div id="selected" className="Selected">
+          <TableContainer component={Paper}>
+            <Table className = "project_table" aria-label="customized table">
+              <TableHead>
+                <TableRow >
+                  <TableCell>Project Imported</TableCell>
+                  <TableCell align="right">Confluence Link</TableCell>
+                  <TableCell align = "right"> Operation </TableCell>
+                </TableRow>
+              </TableHead>
+
+              <TableBody>
+                {NameResults.map((row) => (
+                  <TableRow key={row}>
+                    <TableCell component="th" scope="row">
+                    <a href = {LinkResults[NameResults.indexOf(row)]}>
                           {row}
+                        </a>
+                    </TableCell>
+                    <TableCell align="right">
+                          {LinkResults[NameResults.indexOf(row)]}
                         </TableCell>
                         <TableCell align="right">
-                          {FinalLinkResult[FinalNameResult.indexOf(row)]}
+                        <div id="button">
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={() => {
+                              this.handleDelete(row);
+                            }}
+                          >
+                            Delete
+                          </Button>
+                        </div>
                         </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                ) : (
-                  <p></p>
-                )}
-              </Table>
-            </TableContainer>
-          </div>
-        </div>                
+                          
+                  </TableRow>
+                ))}
+
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </div>
+
+
+      </div>
 
                         </div>
                 </div>

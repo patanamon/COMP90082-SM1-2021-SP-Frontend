@@ -1,10 +1,8 @@
 import React from 'react';
 import './ProductQualityPage.css';
-import { storeGet, storePut } from '../_helpers/helper-funcs.js';
 import uomHeader from '../header/uomheader.js';
 import Banner from "../_utils/Banner";
 import DataTable, { createTheme } from "react-data-table-component";
-import Table from "../_utils/Table";
 import { connect } from 'react-redux';
 import { userActions } from '../_actions';
 import 'react-confirm-alert/src/react-confirm-alert.css';
@@ -169,3 +167,4 @@ function mapState(state) {
 
 const ProductQuality = connect(mapState, actionCreators)(ProductQualityPage);
 export { ProductQuality as ProductQualityPage };
+
