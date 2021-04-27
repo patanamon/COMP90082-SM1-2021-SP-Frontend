@@ -34,8 +34,11 @@ export const userActions = {
   //Git commit - Product Quality
   codeCommitsPerMember,
 
+  
   // Configure
-  getConfiguration,
+  getConfigurationConfluence,
+  getConfigurationGit,
+  getConfigurationJira,
   setConfiguration,
 };
 
@@ -314,31 +317,80 @@ function getTeamList(teamID) {
   };
 }
 
-function getConfiguration(teamId, memberId) {
+function getConfigurationConfluence(teamKey) {
   return (dispatch) => {
-    dispatch(request({ teamId, memberId }));
-    userService.getConfiguration(teamId, memberId).then(
-      (teamID) => {
-        dispatch(success());
-        console.log(teamID);
+    userService.getConfigurationConfluence(teamKey).then(
+      (response) => {
+        dispatch(
+          success(userConstants.GETCONFIGURATIONCON_SUCCESS, response)
+          );  
       },
       (error) => {
-        dispatch(failure(error.toString()));
+        dispatch(
+          failure(
+            userConstants.GETCONFIGURATIONCON_FAILURE,
+            error.toString()
+          )
+        );
       }
     );
   };
 }
-
-function setConfiguration(teamId, memberId, gitName, slackEmail) {
+function getConfigurationGit(teamKey) {
   return (dispatch) => {
-    dispatch(request({ teamId, memberId, gitName, slackEmail }));
-    userService.getTeamList(teamId, memberId, gitName, slackEmail).then(
-      (teamID) => {
-        dispatch(success());
-        console.log(teamID);
+    userService.getConfigurationGit(teamKey).then(
+      (response) => {
+        dispatch(
+          success(userConstants.GETCONFIGURATIONGIT_SUCCESS, response)
+          );  
       },
       (error) => {
-        dispatch(failure(error.toString()));
+        dispatch(
+          failure(
+            userConstants.GETCONFIGURATIONGIT_FAILURE,
+            error.toString()
+          )
+        );
+      }
+    );
+  };
+}
+function getConfigurationJira(teamKey) {
+  return (dispatch) => {
+    userService.getConfigurationJira(teamKey).then(
+      (response) => {
+        dispatch(
+          success(userConstants.GETCONFIGURATIONJIRA_SUCCESS, response)
+          );  
+      },
+      (error) => {
+        dispatch(
+          failure(
+            userConstants.GETCONFIGURATIONJIRA_FAILURE,
+            error.toString()
+          )
+        );
+      }
+    );
+  };
+}
+//////////////////!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+function setConfiguration(teamKey) {
+  return (dispatch) => {
+    userService.setConfiguration(teamKey).then(  //!!!!!!!!!!!!!!!!!!!!!!!
+      (response) => {
+        dispatch(
+          success(userConstants.SETCONFIGURATION_SUCCESS, response)
+        );
+        
+      },
+      (error) => {
+        dispatch(
+          failure(
+            userConstants.SETCONFIGURATION_FAILURE,
+            error.toString()
+          )
+        );
       }
     );
   };

@@ -35,11 +35,13 @@ export const userService = {
   getSlackTeam,
 
   // Configure
-  getConfiguration,
-  setConfiguration,
+  getConfigurationConfluence,
+  getConfigurationGit,
+  getConfigurationJira,
+  //setConfiguration,
 };
 
-const baseUrl = "http://localhost:3200/api/v1";
+const baseUrl = "http://localhost:3001/api/v1";
 
 // TODO
 function getTeamConfluencePages(teamKey) {
@@ -439,48 +441,79 @@ function getSlackUser(team, user) {
     });
 }
 
-function setConfiguration(teamId, memberId, gitName, slackEmail) {
-  var url = "http://172.26.88.107:8081/api/v1/team/";
-  url += teamId;
-  url += "/members/";
-  url += memberId;
+// function setConfiguration(teamId, memberId, gitName, slackEmail) {
+//   var url = "http://172.26.88.107:8081/api/v1/team/";
+//   url += teamId;
+//   url += "/members/";
+//   url += memberId;
 
-  var data = {};
+//   var data = {};
 
-  if (gitName != null) {
-    data["git_name"] = gitName;
-  }
-  if (gitName != null) {
-    data["slack_email"] = slackEmail;
-  }
+//   if (gitName != null) {
+//     data["git_name"] = gitName;
+//   }
+//   if (gitName != null) {
+//     data["slack_email"] = slackEmail;
+//   }
 
-  const requestOptions = {
-    method: "POST",
-    credentials: "include",
-    body: JSON.stringify(data),
-  };
+//   const requestOptions = {
+//     method: "POST",
+//     credentials: "include",
+//     body: JSON.stringify(data),
+//   };
 
-  return fetch(url, requestOptions);
-}
+//   return fetch(url, requestOptions);
+// }
 
-function getConfiguration(teamId, memberId) {
-  var url = "http://172.26.88.107:8081/api/v1/team/";
-  url += teamId;
-  url += "/members/";
-  url += memberId;
+function getConfigurationConfluence(teamKey) {
+  let url = baseUrl + "/confluence/spaces" + teamKey;
 
   const requestOptions = {
     method: "GET",
-    credentials: "include",
   };
 
-  console.log(url);
   return fetch(url, requestOptions)
     .then((response) => response.json())
-    .then((jsonData) => {
-      console.log(jsonData);
-      storePut("setting", jsonData.data);
-      return;
+    .then((jsonResponse) => {
+      if (jsonResponse.code == 0) {
+        storePut("ConfluenceUrl", jsonResponse.data);
+
+      };
+      return jsonResponse;
+    });
+}
+function getConfigurationGit(teamKey) {
+  let url = baseUrl + "/git/" + teamKey;
+
+  const requestOptions = {
+    method: "GET",
+  };
+
+  return fetch(url, requestOptions)
+    .then((response) => response.json())
+    .then((jsonResponse) => {
+      if (jsonResponse.code == 0) {
+        storePut("GitUrl", jsonResponse.data);
+
+      };
+      return jsonResponse;
+    });
+}
+function getConfigurationJira(teamKey) {
+  let url = baseUrl + "/jira/" + teamKey;
+
+  const requestOptions = {
+    method: "GET",
+  };
+
+  return fetch(url, requestOptions)
+    .then((response) => response.json())
+    .then((jsonResponse) => {
+      if (jsonResponse.code == 0) {
+        storePut("JiraUrl", jsonResponse.data);
+
+      };
+      return jsonResponse;
     });
 }
 function getSlackTeam(team, sprint) {

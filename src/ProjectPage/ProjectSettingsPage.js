@@ -4,7 +4,7 @@ import './ProjectSettingsPage.css';
 import uomHeader from '../header/uomheader.js';
 import { connect } from 'react-redux';
 import { userActions } from '../_actions';
-import 'react-confirm-alert/src/react-confirm-alert.css';
+import { storeGet } from "../_helpers/helper-funcs";
 
 const input = {
     width: "600px",
@@ -26,16 +26,17 @@ class ProjectSettingsPage extends React.Component {
         super(props); 
         
         this.state = { 
-           confluenceWebsite: "https://confluence.cis.unimelb.edu.au:8443/display/SWEN900132020SP",
-           githubWebsite: "https://bitbucket.cis.unimelb.edu.au:8443/display/SWEN900132020SP",
-           jiraWebsite: "https://jira.cis.unimelb.edu.au:8443/display/SWEN900132020SP",
-               
+        //    confluenceWebsite: "https://confluence.cis.unimelb.edu.au:8443/display/SWEN900132020SP",
+        //    githubWebsite: "https://bitbucket.cis.unimelb.edu.au:8443/display/SWEN900132020SP",
+        //    jiraWebsite: "https://jira.cis.unimelb.edu.au:8443/display/SWEN900132020SP",
+           confluenceWebsite: "",
+           githubWebsite: "",
+           jiraWebsite: "",       
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        
-
+    
     }
 
     handleChange(e) {
@@ -47,19 +48,10 @@ class ProjectSettingsPage extends React.Component {
     
     handleSubmit(e) {
         
-        const web = {
-            confluenceWebsite : this.state.confluenceWebsite,
-            githubWebsite: this.state.githubWebsite,
-            jiraWebsite: this.state.jiraWebsite,
-        }
-        console.log(web)
-        alert('submitted: ' + this.state.confluenceWebsite);
-        alert('submitted: ' + this.state.githubWebsite);
-        alert('submitted: ' + this.state.jiraWebsite);
-
+        this.setState({confluenceWebsite: e.target.value});
         e.preventDefault()
     }
-
+    
 
     render() {
         return (
@@ -107,14 +99,18 @@ class ProjectSettingsPage extends React.Component {
 }
 
 function mapState(state) {
-    const { username, offset } = state;
-    return { username, offset };
+    return {
+        confluenceWebsite: state.user.configureConfluence,
+        githubWebsite: state.user.configureGithub,
+        jiraWebsite: state.user.configureJira,
+      };
 }
 
 const actionCreators = {
-    getTeamList: userActions.getTeamList,
-    getConfiguration: userActions.getConfiguration,
-    setConfiguration: userActions.setConfiguration,
+    getConfigurationConfluence: userActions.getConfigurationConfluence,
+    getConfigurationGit: userActions.getConfigurationGit,
+    getConfigurationJira: userActions.getConfigurationJira,
+    //setConfiguration: userActions.setConfiguration,
 }
 
 const settingPage = connect(mapState, actionCreators)(ProjectSettingsPage);
