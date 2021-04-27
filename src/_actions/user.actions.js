@@ -16,6 +16,8 @@ export const userActions = {
   getTeamGitHubComments,
   getTeamConfluenceMeeting,
 
+  getTeamProductPages,
+
   login,
   logout,
   register,
@@ -164,6 +166,26 @@ function getTeamJiraTickets(teamKey) {
           )
         );
         failureToast(error.toString());
+      }
+    );
+  };
+}
+
+function getTeamProductPages(teamKey) {
+  return (dispatch) => {
+    userService.getTeamProductPages(teamKey).then(
+      (response) => {
+        dispatch(
+          success(userConstants.GET_PRODUCT_QUALITY_PAGES_SUCCESS, response.data)
+        );
+      },
+      (error) => {
+        dispatch(
+          failure(
+            userConstants.GET_PRODUCT_QUALITY_PAGES_FAILURE,
+            error.toString()
+          )
+        );
       }
     );
   };
