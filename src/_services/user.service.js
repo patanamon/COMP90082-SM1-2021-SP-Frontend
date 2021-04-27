@@ -11,7 +11,10 @@ export const userService = {
   getTeamGitHubComments,
   getTeamConfluenceMeeting,
 
+  getTeamProductPages,
+
   setTeamUrl,
+
 
   login,
   logout,
@@ -143,6 +146,23 @@ function setTeamUrl(teamKey, jiraUrl, githubUrl) {
       if (jsonResponse.code == 0) {
         storePut("TeamUrl", payload);
       }
+      return jsonResponse;
+    });
+}
+
+function getTeamProductPages(teamKey) {
+  let url = baseUrl + "/code/" + teamKey + "/matrix";
+
+  const requestOptions = {
+    method: "GET",
+  };
+
+  return fetch(url, requestOptions)
+    .then((response) => response.json())
+    .then((jsonResponse) => {
+      if (jsonResponse.code == 0) {
+        storePut("TeamProductPages", jsonResponse.data);
+      };
       return jsonResponse;
     });
 }

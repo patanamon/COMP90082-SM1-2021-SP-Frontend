@@ -16,6 +16,9 @@ export const userActions = {
   getTeamGitHubComments,
   getTeamConfluenceMeeting,
 
+
+  getTeamProductPages,
+
   setTeamUrl,
 
   login,
@@ -245,6 +248,26 @@ function setTeamUrl(teamKey, jiraUrl, githubUrl) {
       (error) => {
         dispatch(failure(userConstants.SETTEAMURL_FAILURE, error.toString()));
         failureToast(error.toString());
+      }
+    );
+  };
+}
+
+function getTeamProductPages(teamKey) {
+  return (dispatch) => {
+    userService.getTeamProductPages(teamKey).then(
+      (response) => {
+        dispatch(
+          success(userConstants.GET_PRODUCT_QUALITY_PAGES_SUCCESS, response.data)
+        );
+      },
+      (error) => {
+        dispatch(
+          failure(
+            userConstants.GET_PRODUCT_QUALITY_PAGES_FAILURE,
+            error.toString()
+          )
+        );
       }
     );
   };
