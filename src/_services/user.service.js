@@ -13,6 +13,9 @@ export const userService = {
 
   getTeamProductPages,
 
+  setTeamUrl,
+
+
   login,
   logout,
   register,
@@ -34,37 +37,10 @@ export const userService = {
   //Git commit - Product Quality
   loginGit,
   codeCommitsPerMember,
-
-  //Get Slack
-  getSlackUser,
-  getSlackTeam,
-
-  // Configure
-  getConfiguration,
-  setConfiguration,
 };
 
 const baseUrl = "http://localhost:3200/api/v1";
 
-function getTeamGitHubComments(teamKey) {
-  let url = baseUrl + "/git/" + teamKey + "/comment_count";
-
-  const requestOptions = {
-    method: "GET",
-  };
-
-  return fetch(url, requestOptions)
-    .then((response) => response.json())
-    .then((jsonResponse) => {
-      if (jsonResponse.code === 0) {
-        storePut("TeamGitHubComments", jsonResponse.data);
-      };
-      return jsonResponse;
-    });
-
-}
-
-// TODO
 function getTeamConfluencePages(teamKey) {
   let url = baseUrl + "/confluence/spaces/" + teamKey + "/page_count";
 
@@ -77,24 +53,7 @@ function getTeamConfluencePages(teamKey) {
     .then((jsonResponse) => {
       if (jsonResponse.code === 0) {
         storePut("TeamConfluencePages", jsonResponse.data);
-      };
-      return jsonResponse;
-    });
-}
-
-function getTeamConfluenceMeeting(teamKey) {
-  let url = baseUrl + "/confluence/spaces/" + teamKey + "/meeting";
-
-  const requestOptions = {
-    method: "GET",
-  };
-
-  return fetch(url, requestOptions)
-    .then((response) => response.json())
-    .then((jsonResponse) => {
-      if (jsonResponse.code === 0) {
-        storePut("TeamConfluenceMeeting", jsonResponse.data);
-      };
+      }
       return jsonResponse;
     });
 }
@@ -111,7 +70,7 @@ function getTeamGithubCommits(teamKey) {
     .then((jsonResponse) => {
       if (jsonResponse.code === 0) {
         storePut("TeamGithubCommits", jsonResponse.data);
-      };
+      }
       return jsonResponse;
     });
 }
@@ -124,13 +83,71 @@ function getTeamJiraTickets(teamKey) {
   };
 
   return fetch(url, requestOptions)
-  .then((response) => response.json())
-  .then((jsonResponse) => {
-    if (jsonResponse.code == 0) {
-      storePut("TeamJiraTickets", jsonResponse.data);
-    };
-    return jsonResponse;
-  });
+    .then((response) => response.json())
+    .then((jsonResponse) => {
+      if (jsonResponse.code == 0) {
+        storePut("TeamJiraTickets", jsonResponse.data);
+      }
+      return jsonResponse;
+    });
+}
+
+function getTeamConfluenceMeeting(teamKey) {
+  let url = baseUrl + "/confluence/spaces/" + teamKey + "/meeting";
+
+  const requestOptions = {
+    method: "GET",
+  };
+
+  return fetch(url, requestOptions)
+    .then((response) => response.json())
+    .then((jsonResponse) => {
+      if (jsonResponse.code === 0) {
+        storePut("TeamConfluenceMeeting", jsonResponse.data);
+      }
+      return jsonResponse;
+    });
+}
+
+function getTeamGitHubComments(teamKey) {
+  let url = baseUrl + "/git/" + teamKey + "/comment_count";
+
+  const requestOptions = {
+    method: "GET",
+  };
+
+  return fetch(url, requestOptions)
+    .then((response) => response.json())
+    .then((jsonResponse) => {
+      if (jsonResponse.code === 0) {
+        storePut("TeamGitHubComments", jsonResponse.data);
+      }
+      return jsonResponse;
+    });
+}
+
+function setTeamUrl(teamKey, jiraUrl, githubUrl) {
+  let payload = {
+    space_key: teamKey,
+    jira_url: jiraUrl,
+    git_url: githubUrl,
+  };
+
+  let url = baseUrl + "/team/config";
+
+  const requestOptions = {
+    method: "POST",
+    body: JSON.stringify(payload),
+  };
+
+  return fetch(url, requestOptions)
+    .then((response) => response.json())
+    .then((jsonResponse) => {
+      if (jsonResponse.code == 0) {
+        storePut("TeamUrl", payload);
+      }
+      return jsonResponse;
+    });
 }
 
 function getTeamProductPages(teamKey) {
@@ -460,112 +477,6 @@ function codeCommitsPerMember(projectName, MemberName) {
     .then((jsonData) => {
       storePut("commitsPerMember", jsonData.data);
       console.log(storeGet("commitsPerMember"));
-    });
-}
-
-function getSlackUser(team, user) {
-  var url = "http://172.26.88.107:8081/api/v1/slack/";
-  url += team;
-  // url += '1';
-  url += "/member/";
-  url += user;
-  // url += '9020435';
-  url += "?sprint_num=0 ";
-  //var url = 'http://172.26.88.107:8081/api/v1/slack/1';
-
-  const requestOptions = {
-    method: "GET",
-    credentials: "include",
-  };
-
-  console.log("*******************GET SLACK USER******************");
-  console.log(requestOptions);
-
-  return fetch(url, requestOptions)
-    .then((response) => response.json())
-    .then((jsonData) => {
-      console.log("SLACK DATA");
-      console.log(jsonData.data);
-      storePut("slackUser", jsonData.data);
-      console.log(storeGet("slackUser"));
-    })
-    .then((slackUser) => {
-      // store the team tickets
-      //localStorage.setItem('projectList', JSON.stringify(projectList));
-      return slackUser;
-    });
-}
-
-function setConfiguration(teamId, memberId, gitName, slackEmail) {
-  var url = "http://172.26.88.107:8081/api/v1/team/";
-  url += teamId;
-  url += "/members/";
-  url += memberId;
-
-  var data = {};
-
-  if (gitName != null) {
-    data["git_name"] = gitName;
-  }
-  if (gitName != null) {
-    data["slack_email"] = slackEmail;
-  }
-
-  const requestOptions = {
-    method: "POST",
-    credentials: "include",
-    body: JSON.stringify(data),
-  };
-
-  return fetch(url, requestOptions);
-}
-
-function getConfiguration(teamId, memberId) {
-  var url = "http://172.26.88.107:8081/api/v1/team/";
-  url += teamId;
-  url += "/members/";
-  url += memberId;
-
-  const requestOptions = {
-    method: "GET",
-    credentials: "include",
-  };
-
-  console.log(url);
-  return fetch(url, requestOptions)
-    .then((response) => response.json())
-    .then((jsonData) => {
-      console.log(jsonData);
-      storePut("setting", jsonData.data);
-      return;
-    });
-}
-function getSlackTeam(team, sprint) {
-  var url = "http://172.26.88.107:8081/api/v1/slack/";
-  url += team;
-  url += "?sprint_num= ";
-  url += sprint;
-  url += " ";
-  // url += '?sprint_num=0 ';
-
-  const requestOptions = {
-    method: "GET",
-    credentials: "include",
-  };
-
-  console.log("*******************GET SLACK TEAM******************");
-  console.log(requestOptions);
-
-  return fetch(url, requestOptions)
-    .then((response) => response.json())
-    .then((jsonData) => {
-      console.log("SLACK TEAM DATA");
-      console.log(jsonData.data);
-      storePut("slackTeam", jsonData.data);
-      console.log(storeGet("slackTeam"));
-    })
-    .then((slackTeam) => {
-      return slackTeam;
     });
 }
 

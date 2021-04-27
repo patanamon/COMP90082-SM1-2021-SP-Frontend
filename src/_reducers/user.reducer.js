@@ -4,6 +4,9 @@ const initState = {
   requestTeamConfluencePages: false,
   requestTeamGithubCommits: false,
   requestTeamJiraTickets: false,
+  requestSetTeamUrl: false,
+  currentTeamKey: "",
+  currentTeamName: "",
 };
 
 export function user(state = initState, action) {
@@ -79,6 +82,7 @@ export function user(state = initState, action) {
         ...state,
         teamConfluenceMeeting: {},
       };
+
     case userConstants.GET_PRODUCT_QUALITY_PAGES_SUCCESS:
       return {
         ...state,
@@ -89,6 +93,22 @@ export function user(state = initState, action) {
         ...state,
         teamProductPages: []
       }
+    case userConstants.SETTEAMURL_REQUEST:
+      return {
+        ...state,
+        requestSetTeamUrl: true,
+      };
+    case userConstants.SETTEAMURL_SUCCESS:
+      return {
+        ...state,
+        requestSetTeamUrl: false,
+        teamUrl: JSON.parse(localStorage.getItem("TeamUrl")),
+      };
+    case userConstants.SETTEAMURL_FAILURE:
+      return {
+        ...state,
+        requestSetTeamUrl: false,
+      };
     default:
       return state;
   }
