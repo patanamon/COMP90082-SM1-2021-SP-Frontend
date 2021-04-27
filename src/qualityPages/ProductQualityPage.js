@@ -16,7 +16,7 @@ class ProductQualityPage extends React.Component {
         super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
         this.state = {
             ProjectName: "2021-SM1-Software-Project-Database",
-            CodeMatrix: [ { all: 1, classes: 0, decst: 0, excst: 0, file: 0, func: 0, pre: 0, ratio: 0 }
+            CodeMetrics: [ { all: 1, classes: 0, decst: 0, excst: 0, file: 0, func: 0, pre: 0, ratio: 0 }
             ],//mock data*/
         };
         
@@ -35,41 +35,64 @@ class ProductQualityPage extends React.Component {
         console.log(this.state.CodeMatrix)
         console.log(this.props.productqualityData)
         const data = this.props.productqualityData
-        const columns = [
+        const columns1 = [
             {
                 name: 'Number of all lines',
-                selector: 'all'
+                selector: 'all',
+                center: Boolean(true)
             },
             {
                 name: 'Number of classes',
-                selector: 'classes'
+                selector: 'classes',
+                center: Boolean(true)
 
             },
             {
                 name: 'Number of declarible statements',
-                selector: 'decst'
+                selector: 'decst',
+                center: Boolean(true)
             },
             {
                 name: 'Number of excutable statements',
-                selector: 'excst'
-            },
+                selector: 'excst',
+                center: Boolean(true)
+            },     
+        ];
+        const columns2 = [
             {
                 name: 'Number of files',
-                selector: 'file'
+                selector: 'file',
+                center: Boolean(true)
             },
             {
                 name: 'Number of functions',
-                selector: 'func'
+                selector: 'func',
+                center: Boolean(true)
             },
             {
                 name: 'Number of preprocessor lines',
-                selector: 'pre'
+                selector: 'pre',
+                center: Boolean(true)
             },
             {
                 name: 'Ratio of comment lines to code lines',
-                selector: 'ratio'
+                selector: 'ratio',
+                center: Boolean(true)
             },          
         ];
+        const customStyles = {
+            headCells: {
+              style: {
+                fontSize: "20px", 
+                background: "#EEEEEE",
+              },
+            },
+            cells: {
+                style: {
+                    fontSize: "20px",
+                },
+            },
+          };
         
         return (
           <div className="uomcontent">
@@ -77,16 +100,21 @@ class ProductQualityPage extends React.Component {
             <div role="main">
               <div className="page-inner">
                 <Banner projName="2021-SM1-Software-Project-Database" />
-                
                 <DataTable
-                    columns={columns}
+                    customStyles={customStyles}
+                    columns={columns1}
+                    data={this.props.productqualityData}
+                />
+                <DataTable
+                    customStyles={customStyles}
+                    columns={columns2}
                     data={this.props.productqualityData}
                 />
               </div>
             </div>
           </div>
         );
-      }
+    }
     
     /*renderTableData() {
         console.log(this.props.productqualityData)
