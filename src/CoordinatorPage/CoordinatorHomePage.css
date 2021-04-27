@@ -47,3 +47,13 @@
     margin: auto;
 
 }
+.Selected {
+    width: auto;
+    margin-top: 4vh;
+    border-width: 0ch;
+    border: 0px solid red;
+}
+
+.Select_box {
+    margin-top: 4vh;
+}
