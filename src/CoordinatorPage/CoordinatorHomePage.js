@@ -16,6 +16,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import Banner from "../_utils/Banner";
+import DTable from '../_utils/Table';
 
 var NameResults = [];
 var LinkResults = [];
@@ -107,12 +108,12 @@ class CoordinatorHomePage extends Component {
                     <div role="main">
                         <div className="page-inner">
                             <Banner projName="Project Management" />
-
                             <div className="App">
 
 
         <div id="select">
           <Select
+
             styles={colourStyles}
             components={{ DropdownIndicator}}
             labelInValue
@@ -126,6 +127,7 @@ class CoordinatorHomePage extends Component {
           />
         </div>
         <p></p>
+
         <div id="selected" className="Selected">
           <TableContainer component={Paper}>
             <Table className = "project_table" aria-label="customized table">

@@ -2,7 +2,9 @@ import { userConstants } from "../_constants";
 import { userService } from "../_services";
 import { alertActions } from "./";
 import { history } from "../_helpers";
-import {formatLineChartData} from "../_utils/formatLineChartData.js";
+import { formatLineChartData } from "../_utils/formatLineChartData.js";
+import { unixToDate } from "../_utils/unixToDate.js";
+import { failureToast } from "../_utils/toast";
 
 // Remember: Add new actions in here, otherwise it cannot be recognise by this.props.
 // ALSO REMEMBER TO ADD RETURN MSG IN user.constants.js
@@ -10,6 +12,14 @@ export const userActions = {
   getTeamConfluencePages,
   getTeamGithubCommits,
   getTeamJiraTickets,
+
+  getTeamGitHubComments,
+  getTeamConfluenceMeeting,
+
+
+  getTeamProductPages,
+
+  setTeamUrl,
 
   login,
   logout,
@@ -33,10 +43,6 @@ export const userActions = {
 
   //Git commit - Product Quality
   codeCommitsPerMember,
-
-  // Configure
-  getConfiguration,
-  setConfiguration,
 };
 
 function request(action, payload) {
@@ -49,14 +55,39 @@ function failure(action, payload) {
   return { type: action, payload };
 }
 
-//All Pages On Confluence
+function unixToDateHelper(jsonData) {
+  for (let i = 0, len = jsonData.length; i < len; i++) {
+    jsonData[i].time = unixToDate(jsonData[i].time);
+  }
+
+  return jsonData;
+}
+
+function checkRespCode(response) {
+  return response.code == 0;
+}
+
 function getTeamConfluencePages(teamKey) {
   return (dispatch) => {
+    dispatch(request(userConstants.GET_TEAM_CONFLUENCE_PAGES_REQUEST));
     userService.getTeamConfluencePages(teamKey).then(
       (response) => {
-        dispatch(
-          success(userConstants.GET_TEAM_CONFLUENCE_PAGES_SUCCESS, formatLineChartData(response))
-        );
+        if (checkRespCode(response)) {
+          dispatch(
+            success(
+              userConstants.GET_TEAM_CONFLUENCE_PAGES_SUCCESS,
+              formatLineChartData(response)
+            )
+          );
+        } else {
+          dispatch(
+            failure(
+              userConstants.GET_TEAM_CONFLUENCE_PAGES_FAILURE,
+              response.message
+            )
+          );
+          failureToast(response.message);
+        }
       },
       (error) => {
         dispatch(
@@ -65,6 +96,7 @@ function getTeamConfluencePages(teamKey) {
             error.toString()
           )
         );
+        failureToast(error.toString());
       }
     );
   };
@@ -72,11 +104,25 @@ function getTeamConfluencePages(teamKey) {
 
 function getTeamGithubCommits(teamKey) {
   return (dispatch) => {
+    dispatch(request(userConstants.GET_TEAM_GITHUB_COMMITS_REQUEST));
     userService.getTeamGithubCommits(teamKey).then(
       (response) => {
-        dispatch(
-          success(userConstants.GET_TEAM_GITHUB_COMMITS_SUCCESS, formatLineChartData(response))
-        );
+        if (checkRespCode(response)) {
+          dispatch(
+            success(
+              userConstants.GET_TEAM_GITHUB_COMMITS_SUCCESS,
+              formatLineChartData(response)
+            )
+          );
+        } else {
+          dispatch(
+            failure(
+              userConstants.GET_TEAM_GITHUB_COMMITS_FAILURE,
+              response.message
+            )
+          );
+          failureToast(response.message);
+        }
       },
       (error) => {
         dispatch(
@@ -85,6 +131,7 @@ function getTeamGithubCommits(teamKey) {
             error.toString()
           )
         );
+        failureToast(error.toString());
       }
     );
   };
@@ -92,16 +139,132 @@ function getTeamGithubCommits(teamKey) {
 
 function getTeamJiraTickets(teamKey) {
   return (dispatch) => {
+    dispatch(request(userConstants.GET_TEAM_JIRA_TICKETS_REQUEST));
     userService.getTeamJiraTickets(teamKey).then(
       (response) => {
+        if (checkRespCode(response)) {
+          dispatch(
+            success(
+              userConstants.GET_TEAM_JIRA_TICKETS_SUCCESS,
+              formatLineChartData(response)
+            )
+          );
+        } else {
+          dispatch(
+            failure(
+              userConstants.GET_TEAM_JIRA_TICKETS_FAILURE,
+              response.message
+            )
+          );
+          failureToast(response.message);
+        }
+      },
+      (error) => {
         dispatch(
-          success(userConstants.GET_TEAM_JIRA_TICKETS_SUCCESS, formatLineChartData(response))
+          failure(userConstants.GET_TEAM_JIRA_TICKETS_FAILURE, error.toString())
+        );
+        failureToast(error.toString());
+      }
+    );
+  };
+}
+
+function getTeamGitHubComments(teamKey) {
+  return (dispatch) => {
+    userService.getTeamGitHubComments(teamKey).then(
+      (response) => {
+        if (checkRespCode(response)) {
+          dispatch(
+            success(
+              userConstants.GET_TEAM_GITHUB_COMMENTS_SUCCESS,
+              formatLineChartData(response)
+            )
+          );
+        } else {
+          dispatch(
+            failure(
+              userConstants.GET_TEAM_GITHUB_COMMENTS_FAILURE,
+              response.message
+            )
+          );
+        }
+      },
+      (error) => {
+        dispatch(
+          failure(
+            userConstants.GET_TEAM_GITHUB_COMMENTS_FAILURE,
+            error.toString()
+          )
+        );
+      }
+    );
+  };
+}
+
+function getTeamConfluenceMeeting(teamKey) {
+  return (dispatch) => {
+    userService.getTeamConfluenceMeeting(teamKey).then(
+      (response) => {
+        if (checkRespCode(response)) {
+          dispatch(
+            success(
+              userConstants.GET_TEAM_CONFLUENCE_MEETINGS_SUCCESS,
+              unixToDateHelper(response.data)
+            )
+          );
+        } else {
+          dispatch(
+            failure(
+              userConstants.GET_TEAM_CONFLUENCE_MEETINGS_FAILURE,
+              response.message
+            )
+          );
+        }
+      },
+      (error) => {
+        dispatch(
+          failure(
+            userConstants.GET_TEAM_CONFLUENCE_MEETINGS_FAILURE,
+            error.toString()
+          )
+        );
+      }
+    );
+  };
+}
+
+function setTeamUrl(teamKey, jiraUrl, githubUrl) {
+  return (dispatch) => {
+    dispatch(request(userConstants.SETTEAMURL_REQUEST));
+    userService.setTeamUrl(teamKey, jiraUrl, githubUrl).then(
+      (response) => {
+        if (checkRespCode(response)) {
+          dispatch(success(userConstants.SETTEAMURL_SUCCESS));
+        } else {
+          dispatch(failure(userConstants.SETTEAMURL_FAILURE, response.message));
+          failureToast(response.message);
+        }
+      },
+      (error) => {
+        dispatch(failure(userConstants.SETTEAMURL_FAILURE, error.toString()));
+        failureToast(error.toString());
+      }
+    );
+  };
+}
+
+function getTeamProductPages(teamKey) {
+  return (dispatch) => {
+    userService.getTeamProductPages(teamKey).then(
+      (response) => {
+        dispatch(
+          success(userConstants.GET_PRODUCT_QUALITY_PAGES_SUCCESS, response.data)
         );
       },
       (error) => {
         dispatch(
           failure(
-            userConstants.GET_TEAM_JIRA_TICKETS_FAILURE,
+            userConstants.GET_PRODUCT_QUALITY_PAGES_FAILURE,
             error.toString()
           )
         );
@@ -303,36 +466,6 @@ function getTeamList(teamID) {
   return (dispatch) => {
     dispatch(request({ teamID }));
     userService.getTeamList(teamID).then(
-      (teamID) => {
-        dispatch(success());
-        console.log(teamID);
-      },
-      (error) => {
-        dispatch(failure(error.toString()));
-      }
-    );
-  };
-}
-
-function getConfiguration(teamId, memberId) {
-  return (dispatch) => {
-    dispatch(request({ teamId, memberId }));
-    userService.getConfiguration(teamId, memberId).then(
-      (teamID) => {
-        dispatch(success());
-        console.log(teamID);
-      },
-      (error) => {
-        dispatch(failure(error.toString()));
-      }
-    );
-  };
-}
-
-function setConfiguration(teamId, memberId, gitName, slackEmail) {
-  return (dispatch) => {
-    dispatch(request({ teamId, memberId, gitName, slackEmail }));
-    userService.getTeamList(teamId, memberId, gitName, slackEmail).then(
       (teamID) => {
         dispatch(success());
         console.log(teamID);
