@@ -21,9 +21,11 @@ class ProcessQualityPage extends React.Component {
       ],
 
       btnSelected: commonConstants.CONFLUENCE,
+      scrollPosition: 0,
     };
 
     this.handleBtnGroupClick = this.handleBtnGroupClick.bind(this);
+    this.handleScroll = this.handleScroll.bind(this);
   }
 
   handleBtnGroupClick(e) {
@@ -40,14 +42,28 @@ class ProcessQualityPage extends React.Component {
     });
   }
 
+  handleScroll() {
+    this.setState({
+      scrollPosition: window.pageYOffset,
+    });
+  }
+
   componentDidMount() {
     this.props.getTeamConfluencePages("COMP900822021SM1SP");
+    window.addEventListener("scroll", this.handleScroll);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.handleScroll);
+  }
+
+  componentDidUpdate() {
+    window.scrollTo(0, parseInt(this.state.scrollPosition));
   }
 
   render() {
     return (
       <div className="uomcontent">
-        <ToastContainer limit={1} />
         {uomHeader("Process Quality")}
         <div role="main">
           <div className="page-inner">
@@ -55,9 +71,15 @@ class ProcessQualityPage extends React.Component {
             <ButtonGroup
               btnNames={this.state.btnNames}
               clickHandler={this.handleBtnGroupClick}
-              selected = {this.state.btnSelected}
+              selected={this.state.btnSelected}
             />
-            <Spin spinning={this.props.requestTeamConfluencePages || this.props.requestTeamGithubCommits || this.props.requestTeamJiraTickets }>
+            <Spin
+              spinning={
+                this.props.requestTeamConfluencePages ||
+                this.props.requestTeamGithubCommits ||
+                this.props.requestTeamJiraTickets
+              }
+            >
               {this.state.btnSelected == commonConstants.CONFLUENCE && (
                 <LineChart data={this.props.confluenceData} />
               )}
@@ -70,6 +92,7 @@ class ProcessQualityPage extends React.Component {
             </Spin>
           </div>
         </div>
+        <ToastContainer limit={1} />
       </div>
     );
   }

@@ -17,6 +17,11 @@ export const userActions = {
   getTeamGitHubComments,
   getTeamConfluenceMeeting,
 
+
+  getTeamProductPages,
+
+  setTeamUrl,
+
   login,
   logout,
   register,
@@ -39,10 +44,6 @@ export const userActions = {
 
   //Git commit - Product Quality
   codeCommitsPerMember,
-
-  // Configure
-  getConfiguration,
-  setConfiguration,
 
   // Individual Contribution
   getGithubIndividualCommits,
@@ -125,14 +126,39 @@ function getJiraIndividualCount(teamKey) {
 }
 
 //All Pages On Confluence
+function unixToDateHelper(jsonData) {
+  for (let i = 0, len = jsonData.length; i < len; i++) {
+    jsonData[i].time = unixToDate(jsonData[i].time);
+  }
+
+  return jsonData;
+}
+
+function checkRespCode(response) {
+  return response.code == 0;
+}
+
 function getTeamConfluencePages(teamKey) {
   return (dispatch) => {
     dispatch(request(userConstants.GET_TEAM_CONFLUENCE_PAGES_REQUEST));
     userService.getTeamConfluencePages(teamKey).then(
       (response) => {
-        dispatch(
-          success(userConstants.GET_TEAM_CONFLUENCE_PAGES_SUCCESS, formatLineChartData(response))
-        );
+        if (checkRespCode(response)) {
+          dispatch(
+            success(
+              userConstants.GET_TEAM_CONFLUENCE_PAGES_SUCCESS,
+              formatLineChartData(response)
+            )
+          );
+        } else {
+          dispatch(
+            failure(
+              userConstants.GET_TEAM_CONFLUENCE_PAGES_FAILURE,
+              response.message
+            )
+          );
+          failureToast(response.message);
+        }
       },
       (error) => {
         dispatch(
@@ -149,11 +175,25 @@ function getTeamConfluencePages(teamKey) {
 
 function getTeamGithubCommits(teamKey) {
   return (dispatch) => {
+    dispatch(request(userConstants.GET_TEAM_GITHUB_COMMITS_REQUEST));
     userService.getTeamGithubCommits(teamKey).then(
       (response) => {
-        dispatch(
-          success(userConstants.GET_TEAM_GITHUB_COMMITS_SUCCESS, formatLineChartData(response))
-        );
+        if (checkRespCode(response)) {
+          dispatch(
+            success(
+              userConstants.GET_TEAM_GITHUB_COMMITS_SUCCESS,
+              formatLineChartData(response)
+            )
+          );
+        } else {
+          dispatch(
+            failure(
+              userConstants.GET_TEAM_GITHUB_COMMITS_FAILURE,
+              response.message
+            )
+          );
+          failureToast(response.message);
+        }
       },
       (error) => {
         dispatch(
@@ -168,13 +208,57 @@ function getTeamGithubCommits(teamKey) {
   };
 }
 
+function getTeamJiraTickets(teamKey) {
+  return (dispatch) => {
+    dispatch(request(userConstants.GET_TEAM_JIRA_TICKETS_REQUEST));
+    userService.getTeamJiraTickets(teamKey).then(
+      (response) => {
+        if (checkRespCode(response)) {
+          dispatch(
+            success(
+              userConstants.GET_TEAM_JIRA_TICKETS_SUCCESS,
+              formatLineChartData(response)
+            )
+          );
+        } else {
+          dispatch(
+            failure(
+              userConstants.GET_TEAM_JIRA_TICKETS_FAILURE,
+              response.message
+            )
+          );
+          failureToast(response.message);
+        }
+      },
+      (error) => {
+        dispatch(
+          failure(userConstants.GET_TEAM_JIRA_TICKETS_FAILURE, error.toString())
+        );
+        failureToast(error.toString());
+      }
+    );
+  };
+}
+
 function getTeamGitHubComments(teamKey) {
   return (dispatch) => {
     userService.getTeamGitHubComments(teamKey).then(
       (response) => {
-        dispatch(
-          success(userConstants.GET_TEAM_GITHUB_COMMENTS_SUCCESS, formatLineChartData(response))
-        );
+        if (checkRespCode(response)) {
+          dispatch(
+            success(
+              userConstants.GET_TEAM_GITHUB_COMMENTS_SUCCESS,
+              formatLineChartData(response)
+            )
+          );
+        } else {
+          dispatch(
+            failure(
+              userConstants.GET_TEAM_GITHUB_COMMENTS_FAILURE,
+              response.message
+            )
+          );
+        }
       },
       (error) => {
         dispatch(
@@ -192,9 +276,21 @@ function getTeamConfluenceMeeting(teamKey) {
   return (dispatch) => {
     userService.getTeamConfluenceMeeting(teamKey).then(
       (response) => {
-        dispatch(
-          success(userConstants.GET_TEAM_CONFLUENCE_MEETINGS_SUCCESS, unixToDateHelper(response.data))
-        );
+        if (checkRespCode(response)) {
+          dispatch(
+            success(
+              userConstants.GET_TEAM_CONFLUENCE_MEETINGS_SUCCESS,
+              unixToDateHelper(response.data)
+            )
+          );
+        } else {
+          dispatch(
+            failure(
+              userConstants.GET_TEAM_CONFLUENCE_MEETINGS_FAILURE,
+              response.message
+            )
+          );
+        }
       },
       (error) => {
         dispatch(
@@ -208,32 +304,41 @@ function getTeamConfluenceMeeting(teamKey) {
   };
 }
 
-function unixToDateHelper(jsonData) {
-  for (let i = 0, len = jsonData.length; i < len; i++) {
-    jsonData[i].time = unixToDate(jsonData[i].time)
-  }
-
-  return jsonData
-
-  
+function setTeamUrl(teamKey, jiraUrl, githubUrl) {
+  return (dispatch) => {
+    dispatch(request(userConstants.SETTEAMURL_REQUEST));
+    userService.setTeamUrl(teamKey, jiraUrl, githubUrl).then(
+      (response) => {
+        if (checkRespCode(response)) {
+          dispatch(success(userConstants.SETTEAMURL_SUCCESS));
+        } else {
+          dispatch(failure(userConstants.SETTEAMURL_FAILURE, response.message));
+          failureToast(response.message);
+        }
+      },
+      (error) => {
+        dispatch(failure(userConstants.SETTEAMURL_FAILURE, error.toString()));
+        failureToast(error.toString());
+      }
+    );
+  };
 }
 
-function getTeamJiraTickets(teamKey) {
+function getTeamProductPages(teamKey) {
   return (dispatch) => {
-    userService.getTeamJiraTickets(teamKey).then(
+    userService.getTeamProductPages(teamKey).then(
       (response) => {
         dispatch(
-          success(userConstants.GET_TEAM_JIRA_TICKETS_SUCCESS, formatLineChartData(response))
+          success(userConstants.GET_PRODUCT_QUALITY_PAGES_SUCCESS, response.data)
         );
       },
       (error) => {
         dispatch(
           failure(
-            userConstants.GET_TEAM_JIRA_TICKETS_FAILURE,
+            userConstants.GET_PRODUCT_QUALITY_PAGES_FAILURE,
             error.toString()
           )
         );
-        failureToast(error.toString());
       }
     );
   };
@@ -432,36 +537,6 @@ function getTeamList(teamID) {
   return (dispatch) => {
     dispatch(request({ teamID }));
     userService.getTeamList(teamID).then(
-      (teamID) => {
-        dispatch(success());
-        console.log(teamID);
-      },
-      (error) => {
-        dispatch(failure(error.toString()));
-      }
-    );
-  };
-}
-
-function getConfiguration(teamId, memberId) {
-  return (dispatch) => {
-    dispatch(request({ teamId, memberId }));
-    userService.getConfiguration(teamId, memberId).then(
-      (teamID) => {
-        dispatch(success());
-        console.log(teamID);
-      },
-      (error) => {
-        dispatch(failure(error.toString()));
-      }
-    );
-  };
-}
-
-function setConfiguration(teamId, memberId, gitName, slackEmail) {
-  return (dispatch) => {
-    dispatch(request({ teamId, memberId, gitName, slackEmail }));
-    userService.getTeamList(teamId, memberId, gitName, slackEmail).then(
       (teamID) => {
         dispatch(success());
         console.log(teamID);

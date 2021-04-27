@@ -16,6 +16,7 @@ class IndividualContributionPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      projectName: "",
       btnNames: [
         commonConstants.CONFLUENCE,
         commonConstants.GITHUB,
@@ -231,8 +232,7 @@ class IndividualContributionPage extends React.Component {
         <Form inline>
           <Form.Label
             className="col-sm-3"
-            htmlFor="inlineFormCustomSelectPref"
-            
+            htmlFor="inlineFormCustomSelectPref"   
           >
             Student     :
           </Form.Label>

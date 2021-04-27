@@ -4,6 +4,9 @@ const initState = {
   requestTeamConfluencePages: false,
   requestTeamGithubCommits: false,
   requestTeamJiraTickets: false,
+  requestSetTeamUrl: false,
+  currentTeamKey: "",
+  currentTeamName: "",
 };
 
 export function user(state = initState, action) {
@@ -63,56 +66,79 @@ export function user(state = initState, action) {
       return {
         ...state,
         individualGithubCommits: action.payload
-      }
+      };
     case userConstants.GET_INDIVIDUAL_GITHUB_COMMITS_FAILURE:
       return {
         ...state,
         individualGithubCommits: {}
-      }
+      };
     case userConstants.GET_INDIVIDUAL_JIRA_COUNT_SUCCESS:
       return {
         ...state,
         individualJiraCount: action.payload
-      }
+      };
     case userConstants.GET_INDIVIDUAL_JIRA_COUNT_FAILURE:
       return {
         ...state,
         individualJiraCount: {}
-      }
+      };
     case userConstants.GET_INDIVIDUAL_CONFLUENCE_PAGES_SUCCESS:
       return {
         ...state,
         individualConfluencePages: action.payload
-      }
+      };
     case userConstants.GET_INDIVIDUAL_CONFLUENCE_PAGES_FAILURE:
       return {
         ...state,
         individualConfluencePages: {}
-      }
-
+      };
     case userConstants.GET_TEAM_GITHUB_COMMENTS_SUCCESS:
       return {
         ...state,
-        teamGitHubComments: action.payload
-      }
-
+        teamGitHubComments: action.payload,
+      };
     case userConstants.GET_TEAM_GITHUB_COMMENTS_FAILURE:
       return {
         ...state,
-        teamGitHubComments : {}
-      }
-
+        teamGitHubComments: {},
+      };
     case userConstants.GET_TEAM_CONFLUENCE_MEETINGS_SUCCESS:
       return {
         ...state,
-        teamConfluenceMeeting: action.payload
-      }
-
+        teamConfluenceMeeting: action.payload,
+      };
     case userConstants.GET_TEAM_CONFLUENCE_MEETINGS_FAILURE:
       return {
         ...state,
-        teamConfluenceMeeting: {}
-      }        
+        teamConfluenceMeeting: {},
+      };
+
+    case userConstants.GET_PRODUCT_QUALITY_PAGES_SUCCESS:
+      return {
+        ...state,
+        teamProductPages: action.payload
+      }
+    case userConstants.GET_PRODUCT_QUALITY_PAGES_FAILURE:
+      return {
+        ...state,
+        teamProductPages: []
+      }
+    case userConstants.SETTEAMURL_REQUEST:
+      return {
+        ...state,
+        requestSetTeamUrl: true,
+      };
+    case userConstants.SETTEAMURL_SUCCESS:
+      return {
+        ...state,
+        requestSetTeamUrl: false,
+        teamUrl: JSON.parse(localStorage.getItem("TeamUrl")),
+      };
+    case userConstants.SETTEAMURL_FAILURE:
+      return {
+        ...state,
+        requestSetTeamUrl: false,
+      };
     default:
       return state;
   }

@@ -29,14 +29,21 @@
     padding-top: 1%;
     padding-bottom: 1%;
     text-align: center;
-    background-color: #004576;
+    background-color: #ffffff;
     /*"0c304a" unimelb colour*/
     color: white;
 }
 
-#savechanges {
+#saveChanges {
     margin: auto;
     float: right;
     width: 40%;
     padding: 2%;
+}
+
+.ProjectList {
+    width: 40%;
+    min-width: 200px;
+    margin: auto;
+
 }
