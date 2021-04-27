@@ -14,6 +14,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Button from "@material-ui/core/Button";
 import Banner from "../_utils/Banner";
+import DTable from '../_utils/Table';
 
 // temp store for vars
 var KeyResults = [];
@@ -118,12 +119,12 @@ class CoordinatorHomePage extends Component {
                     <div role="main">
                         <div className="page-inner">
                             <Banner projName="Project Management" />
-
                             <div className="App">
 
 
         <div id="select" className = "Select_box">
           <Select
+
             styles={colourStyles}
             components={{ DropdownIndicator}}
             labelInValue

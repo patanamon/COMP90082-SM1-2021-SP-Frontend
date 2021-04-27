@@ -2,11 +2,12 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 
-export default function GroupOrientation(props) {
+export default function BtnGroup(props) {
   const btnNames = props.btnNames;
   const clickHandler = props.clickHandler;
+  const selected = props.selected;
   const  btnItems = btnNames.map(
-    (btnName) => <Button key={btnName} onClick={clickHandler}>{btnName}</Button>
+    (btnName) => <Button key={btnName} onClick={clickHandler} variant={selected == btnName ? "contained" : "outlined"}>{btnName}</Button>
   );
 
   return (
