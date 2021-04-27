@@ -4,7 +4,7 @@ import uomHeader from '../header/uomheader.js';
 import { connect } from 'react-redux'; 
 import { userActions } from '../_actions';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import Select from "react-select";
+import Select , { components }from "react-select";
 import { render } from "react-dom";
 import { projects } from "./ProjectList";
 import Table from "@material-ui/core/Table";
@@ -16,7 +16,6 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import Banner from "../_utils/Banner";
-import DTable from '../_utils/Table';
 
 var NameResults = [];
 var LinkResults = [];
@@ -30,10 +29,38 @@ function uniq(arr, item) {
   return arr;
 }
 
-function del(arr, item){
-  arr.splice(arr.indexOf(item), 1);
-  return arr;
+function del(arr1,arr2, item){
+  arr2.splice(arr1.indexOf(item), 1);
+  arr1.splice(arr1.indexOf(item), 1);
 }
+
+const CaretDownIcon = () => {
+  return <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M15.853 16.56c-1.683 1.517-3.911 2.44-6.353 2.44-5.243 0-9.5-4.257-9.5-9.5s4.257-9.5 9.5-9.5 9.5 4.257 9.5 9.5c0 2.442-.923 4.67-2.44 6.353l7.44 7.44-.707.707-7.44-7.44zm-6.353-15.56c4.691 0 8.5 3.809 8.5 8.5s-3.809 8.5-8.5 8.5-8.5-3.809-8.5-8.5 3.809-8.5 8.5-8.5z"/></svg>;
+};
+
+const DropdownIndicator = props => {
+  return (
+    <components.DropdownIndicator {...props}>
+      <CaretDownIcon />
+    </components.DropdownIndicator>
+  );
+};
+
+const colourStyles = {
+  control: styles => ({ ...styles, backgroundColor: 'white' }),
+  option: (styles, {isFocused }) => {
+    return {
+      ...styles,
+      color:'black',
+      backgroundColor: isFocused
+        ? '#006fdc'
+        : 'white',  
+    };
+  },
+  input: styles => ({ ...styles}),
+  placeholder: styles => ({ ...styles }),
+  singleValue: (styles) => ({ ...styles}),
+};
 
 class CoordinatorHomePage extends Component {
     //This is just as an example to populate the table
@@ -68,8 +95,7 @@ class CoordinatorHomePage extends Component {
    handleDelete = (project) => {
     this.setState({project});
     console.log( project + " deleted");
-    del(NameResults, project);
-    //del(LinkResults, project.link);
+    del(NameResults,LinkResults, project);
     console.log(NameResults);
   };
 
@@ -81,19 +107,25 @@ class CoordinatorHomePage extends Component {
                     <div role="main">
                         <div className="page-inner">
                             <Banner projName="Project Management" />
+
                             <div className="App">
 
 
         <div id="select">
           <Select
+            styles={colourStyles}
+            components={{ DropdownIndicator}}
             labelInValue
+            isSearchable
             name="projects"
             options={projects}
+            autoWidth = {true}
             className="ProjectList"
-            placeholder="Select projects"
+            placeholder="Search projects"
             onChange={this.handleChange}
           />
         </div>
+        <p></p>
         <div id="selected" className="Selected">
           <TableContainer component={Paper}>
             <Table className = "project_table" aria-label="customized table">
