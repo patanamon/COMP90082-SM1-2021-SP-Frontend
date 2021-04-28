@@ -7,6 +7,9 @@ const initState = {
   requestSetTeamUrl: false,
   currentTeamKey: "",
   currentTeamName: "",
+  requestProjectId:false,
+  requestProjectLink:false,
+  requestProjectName:false,
 };
 
 export function user(state = initState, action) {
@@ -109,6 +112,61 @@ export function user(state = initState, action) {
         ...state,
         requestSetTeamUrl: false,
       };
+      
+        case userConstants.GETPROJECTID_REQUEST:
+      return {
+        ...state,
+        requestProjectId: true,
+      };
+    case userConstants.GETPROJECTID_SUCCESS:
+      return {
+        ...state,
+        requestProjectId: false,
+        projectId: action.payload,
+      };
+    case userConstants.GETPROJECTID_FAILURE:
+      return {
+        ...state,
+        requestProjectId: false,
+        projectId: {},
+      };
+    case userConstants.GETPROJECTNAME_REQUEST:
+      return {
+        ...state,
+        requestProjectName: true,
+      };
+    case userConstants.GETPROJECTNAME_SUCCESS:
+      return {
+        ...state,
+        requestProjectName: false,
+        projectName: action.payload,
+      };
+    case userConstants.GETPROJECTNAME_FAILURE:
+      return {
+        ...state,
+        requestProjectName: false,
+        projectName: {},
+      };
+      
+    case userConstants.GETPROJECTLINK_REQUEST:
+      return {
+        ...state,
+        requestProjectLink: true,
+      };
+    case userConstants.GETPROJECTLINK_SUCCESS:
+      return {
+        ...state,
+        requestProjectLink: false,
+        projectLink: action.payload,
+      };
+    case userConstants.GETPROJECTLINK_FAILURE:
+      return {
+        ...state,
+        requestProjectLink: false,
+        projectLink: {},
+      };  
+    
+        
     default:
       return state;
   }
