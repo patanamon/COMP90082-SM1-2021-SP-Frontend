@@ -73,6 +73,7 @@ const colourStyles = {
   singleValue: (styles) => ({ ...styles}),
 };
 
+
 // main export class
 class CoordinatorHomePage extends Component {
     //This is just as an example to populate the table
