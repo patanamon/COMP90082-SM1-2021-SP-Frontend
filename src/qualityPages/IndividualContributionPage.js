@@ -10,42 +10,7 @@ import { ToastContainer } from "react-toastify";
 import Banner from "../_utils/Banner";
 import DonutChart from "../_utils/DonutChart";
 
-const team = 1;
-const teamName = "SWEN90013-2020-SP";
-const styles = {
-  container: {
-    padding: "30px",
-  },
-  navLink: {
-    height: "60px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    textDecorationLine: "none",
-    fontSize: "25px",
-  },
-  label: {
-    color: "rgb(1, 64, 133)",
-    fontSize: "25px",
-  },
-  box: {
-    textAlign: "center",
-    margin: "auto",
-    border: "2px solid lightgray",
-    borderRadius: "10px",
-    padding: "20px",
-  },
-  chart: {
-    margin: "10px auto",
-  },
-  percent: {
-    position: "absolute",
-    top: "45%",
-    left: "37%",
-    fontSize: "100px",
-    color: "gray",
-  },
-};
+import "./IndividualContributionPage.css";
 
 class IndividualContributionPage extends React.Component {
   constructor(props) {
@@ -239,6 +204,14 @@ class IndividualContributionPage extends React.Component {
 
   handleBtnGroupClick(e) {
     let picked = e.currentTarget.firstChild.innerHTML;
+    if (picked == commonConstants.CONFLUENCE) {
+        this.props.getConfluenceIndividualPages("COMP900822021SM1SP");
+        console.log(this.props.individualConfluenceData)
+    } else if (picked == commonConstants.GITHUB) {
+        this.props.getGithubIndividualCommits("COMP900822021SM1SP");
+    } else {
+        this.props.getJiraIndividualCount("COMP900822021SM1SP");
+    }
     this.setState({
         btnSelected: picked
     });
@@ -259,8 +232,7 @@ class IndividualContributionPage extends React.Component {
         <Form inline>
           <Form.Label
             className="col-sm-3"
-            htmlFor="inlineFormCustomSelectPref"
-            style={styles.label}
+            htmlFor="inlineFormCustomSelectPref"   
           >
             Student     :
           </Form.Label>
@@ -286,8 +258,8 @@ class IndividualContributionPage extends React.Component {
         <div role="main">
           <div className="page-inner">
           <Banner projName="2021-SM1-Software-Project" />
-            <Container style={styles.container}>
-              <Tab.Container id="left-tabs-example" defaultActiveKey="jira">
+            <Container>
+              <Tab.Container id="left-tabs-example">
                 <Row>
                   <Col>
                   <ButtonGroup
@@ -318,19 +290,17 @@ class IndividualContributionPage extends React.Component {
 }
 
 function mapState(state) {
-  const { projectName } = state;
-  return { projectName };
+    return{
+        individualGithubData: state.user.individualGithubCommits,
+        individualConfluenceData: state.user.individualConfluencePages,
+        individualJiraData: state.user.individualJiraCount
+    };
 }
 
 const actionCreators = {
-  //loginGit: userActions.loginGit,
-  //totalCodeCommits: userActions.totalCodeCommits,
-  codeCommitsPerMember: userActions.codeCommitsPerMember,
-  //AllPagesOnConfluence: userActions.AllPagesOnConfluence,
-  getTeamList: userActions.getTeamList,
-  getMemberConfiguration: userActions.getMemberConfiguration,
-  getJiraUser: userActions.getJiraUser,
-  numPagesPerMember: userActions.numPagesPerMember,
+    getGithubIndividualCommits: userActions.getGithubIndividualCommits,
+    getConfluenceIndividualPages: userActions.getConfluenceIndividualPages,
+    getJiraIndividualCount: userActions.getJiraIndividualCount
 };
 
 const Product = connect(mapState, actionCreators)(IndividualContributionPage);

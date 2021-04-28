@@ -1,5 +1,6 @@
 import { storeGet, storePut } from "../_helpers/helper-funcs.js";
 import md5 from "md5";
+import { compose } from "redux";
 
 // Remember: Add new actions in here, otherwise it cannot be recognise by this.props.
 // All the console.log needs to be removed when the project finished
@@ -44,6 +45,61 @@ export const userService = {
 
 const baseUrl = "http://localhost:3200/api/v1";
 
+function getConfluenceIndividualPages(teamKey) {
+  let url = baseUrl + "/confluence/spaces" + teamKey + "/pages/contributions";
+
+  const requestOptions = {
+    method: "GET",
+  };
+
+  return fetch(url, requestOptions)
+    .then((response) => response.json())
+    .then((jsonResponse) => {
+      if (jsonResponse.code == 0) {
+        console.log('THIS IS DATA error: ', jsonResponse.json())
+        storePut("IndividualConfluencePages", jsonResponse.data);
+      };
+      return jsonResponse;
+    });
+}
+
+function getGithubIndividualCommits(teamKey) {
+  let url = baseUrl + "/git/" + teamKey + "/commit/contributions";
+
+  const requestOptions = {
+    method: "GET",
+  };
+
+  return fetch(url, requestOptions)
+    .then((response) => response.json())
+    .then((jsonResponse) => {
+      if (jsonResponse.code == 0) {
+        storePut("IndividualGithubCommits", jsonResponse.data);
+      };
+      return jsonResponse;
+    });
+}
+
+
+function getJiraIndividualCount(teamKey) {
+  let url = baseUrl + "/jira/" + teamKey + "/contributions";
+
+  const requestOptions = {
+    method: "GET",
+  };
+
+  return fetch(url, requestOptions)
+    .then((response) => response.json())
+    .then((jsonResponse) => {
+      if (jsonResponse.code == 0) {
+        storePut("IndividualJiraCount", jsonResponse.data);
+      };
+      return jsonResponse;
+    });
+}
+
+function getTeamGitHubComments(teamKey) {
+  let url = baseUrl + "/git/" + teamKey + "/comment_count";
 function getTeamConfluencePages(teamKey) {
   let url = baseUrl + "/confluence/spaces/" + teamKey + "/page_count";
 
@@ -59,6 +115,7 @@ function getTeamConfluencePages(teamKey) {
       }
       return jsonResponse;
     });
+  }
 }
 
 function getProjectInfo() {
@@ -623,4 +680,21 @@ function getMemberConfiguration(teamID, memberID) {
       //localStorage.setItem('projectList', JSON.stringify(projectList));
       return memberID;
     });
+
+  function getTeamGithubCommits(teamKey) {
+  let url = baseUrl + "/git/" + teamKey + "/commit_count";
+
+  const requestOptions = {
+    method: "GET",
+  };
+
+  return fetch(url, requestOptions)
+    .then((response) => response.json())
+    .then((jsonResponse) => {
+      if (jsonResponse.code == 0) {
+        storePut("TeamGithubCommits", jsonResponse.data);
+      };
+      return jsonResponse;
+    });
+}
 }
