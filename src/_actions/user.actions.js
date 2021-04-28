@@ -43,6 +43,11 @@ export const userActions = {
 
   //Git commit - Product Quality
   codeCommitsPerMember,
+
+  //get project information
+  getProjectId,
+  getProjectName,
+  getProjectLink,
 };
 
 function request(action, payload) {
@@ -93,6 +98,42 @@ function getTeamConfluencePages(teamKey) {
         dispatch(
           failure(
             userConstants.GET_TEAM_CONFLUENCE_PAGES_FAILURE,
+            error.toString()
+          )
+        );
+        failureToast(error.toString());
+      }
+    );
+  };
+}
+
+function getProjectName() {
+  return (dispatch) => {
+    dispatch(request(userConstants.GETPROJECTNAME_REQUEST));
+    userService.getProjectName().then(
+      (response) => {
+        if (checkRespCode(response)) {
+          dispatch(
+            success(
+              userConstants.GETPROJECTNAME_SUCCESS,
+              response,
+              //formatLineChartData(response)
+            )
+          );
+        } else {
+          dispatch(
+            failure(
+              userConstants.GETPROJECTNAME_FAILURE,
+              response.message
+            )
+          );
+          failureToast(response.message);
+        }
+      },
+      (error) => {
+        dispatch(
+          failure(
+            userConstants.GETPROJECTNAME_FAILURE,
             error.toString()
           )
         );
