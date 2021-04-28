@@ -16,7 +16,6 @@ import Button from "@material-ui/core/Button";
 import Banner from "../_utils/Banner";
 import DTable from '../_utils/Table';
 
-
 // temp store for vars
 var KeyResults = [];
 var NameResults = [];
@@ -192,7 +191,6 @@ class CoordinatorHomePage extends Component {
         )
     }
 }
-
 
 
 function mapState(state) {
