@@ -7,9 +7,8 @@ const initState = {
   requestSetTeamUrl: false,
   currentTeamKey: "",
   currentTeamName: "",
-  requestProjectId:false,
-  requestProjectLink:false,
-  requestProjectName:false,
+  requestProjectInfo:false,
+  
 };
 
 export function user(state = initState, action) {
@@ -113,58 +112,24 @@ export function user(state = initState, action) {
         requestSetTeamUrl: false,
       };
       
-        case userConstants.GETPROJECTID_REQUEST:
+    case userConstants.GETPROJECTINFO_REQUEST:
       return {
         ...state,
-        requestProjectId: true,
+        requestProjectInfo: true,
       };
-    case userConstants.GETPROJECTID_SUCCESS:
+    case userConstants.GETPROJECTINFO_SUCCESS:
       return {
         ...state,
-        requestProjectId: false,
-        projectId: action.payload,
+        requestProjectInfo: false,
+        projectInfo: action.payload,
       };
-    case userConstants.GETPROJECTID_FAILURE:
+    case userConstants.GETPROJECTINFO_FAILURE:
       return {
         ...state,
-        requestProjectId: false,
-        projectId: {},
+        requestProjectInfo: false,
+        projectInfo: {},
       };
-    case userConstants.GETPROJECTNAME_REQUEST:
-      return {
-        ...state,
-        requestProjectName: true,
-      };
-    case userConstants.GETPROJECTNAME_SUCCESS:
-      return {
-        ...state,
-        requestProjectName: false,
-        projectName: action.payload,
-      };
-    case userConstants.GETPROJECTNAME_FAILURE:
-      return {
-        ...state,
-        requestProjectName: false,
-        projectName: {},
-      };
-      
-    case userConstants.GETPROJECTLINK_REQUEST:
-      return {
-        ...state,
-        requestProjectLink: true,
-      };
-    case userConstants.GETPROJECTLINK_SUCCESS:
-      return {
-        ...state,
-        requestProjectLink: false,
-        projectLink: action.payload,
-      };
-    case userConstants.GETPROJECTLINK_FAILURE:
-      return {
-        ...state,
-        requestProjectLink: false,
-        projectLink: {},
-      };  
+
     
         
     default:
