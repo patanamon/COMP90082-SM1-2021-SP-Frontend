@@ -16,6 +16,7 @@ import Button from "@material-ui/core/Button";
 import Banner from "../_utils/Banner";
 import DTable from '../_utils/Table';
 
+
 // temp store for vars
 var KeyResults = [];
 var NameResults = [];
@@ -95,9 +96,9 @@ class CoordinatorHomePage extends Component {
 
     // actions after item is selected : add to result if it absents 
   handleChange = (project) => {
-    console.log(project.label);
+    /*console.log(project.label);
     this.setState({ project });
-    uniq(KeyResults,NameResults, LinkResults,project);
+    uniq(KeyResults,NameResults, LinkResults,project);*/
     /** 
     console.log(NameResults);
     console.log(FinalNameResult);
@@ -111,7 +112,9 @@ class CoordinatorHomePage extends Component {
     del(KeyResults,NameResults,LinkResults, key);
   };
 
-
+  componentDidMount() {
+    this.props.getProjectInfo();
+  }
   render() {
         return (
             <div class="uomcontent">
@@ -130,7 +133,8 @@ class CoordinatorHomePage extends Component {
             labelInValue
             isSearchable
             name="projects"
-            options={projects}
+            //options={projects}
+            options = {this.props.projectInfo}
             autoWidth = {true}
             className="ProjectList"
             placeholder="Search projects"
@@ -189,11 +193,17 @@ class CoordinatorHomePage extends Component {
 }
 
 
-function mapState(state) {
-    const { username, offset } = state;
-    return { username, offset };
-}
 
+function mapState(state) {
+  return {
+    requestProjectInfo: state.user.requestProjectInfo,
+    //requestTeamGithubCommits: state.user.requestTeamGithubCommits,
+    //requestTeamJiraTickets: state.user.requestTeamJiraTickets,
+    projectInfo: state.user.projectInfo,
+    //githubData: state.user.teamGithubCommits,
+    //jiraData: state.user.teamJiraTickets,
+  };
+}
 const actionCreators = {
     getCoordinatorHomepage: userActions.getCoordinatorHomepage,
     getSupervisor: userActions.getSupervisor,
@@ -201,6 +211,7 @@ const actionCreators = {
     setCoSupervisor: userActions.setCoSupervisor,
     getSupervisors: userActions.getSupervisors,
     getHomepage: userActions.getHomepage,
+    getProjectInfo:userActions.getProjectInfo,
 }
 
 const homePage = connect(mapState, actionCreators)(CoordinatorHomePage);

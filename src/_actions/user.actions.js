@@ -45,9 +45,7 @@ export const userActions = {
   codeCommitsPerMember,
 
   //get project information
-  getProjectId,
-  getProjectName,
-  getProjectLink,
+  getProjectInfo,
 };
 
 function request(action, payload) {
@@ -107,23 +105,41 @@ function getTeamConfluencePages(teamKey) {
   };
 }
 
-function getProjectName() {
+function formatProjectInfo(data){
+    var eachProject = {};
+    var tempoStore = [];
+
+    for (let i = 0, len = data.length; i < len; i++) {
+      
+      eachProject["space_key"] = data[i].space_key;
+      eachProject["label"] = data[i].space_name;
+      eachProject["link"] = "https://confluence.cis.unimelb.edu.au:8443/display/"+data[i].space_key+"/Home";
+      
+      tempoStore.push(eachProject);
+      
+  }
+
+  return tempoStore;
+}
+
+function getProjectInfo() {
   return (dispatch) => {
-    dispatch(request(userConstants.GETPROJECTNAME_REQUEST));
-    userService.getProjectName().then(
+    dispatch(request(userConstants.GETPROJECTINFO_REQUEST));
+    userService.getProjectInfo().then(
       (response) => {
         if (checkRespCode(response)) {
           dispatch(
             success(
-              userConstants.GETPROJECTNAME_SUCCESS,
-              response,
+              userConstants.GETPROJECTINFO_SUCCESS,
+              formatProjectInfo(response)
+              
               //formatLineChartData(response)
             )
           );
         } else {
           dispatch(
             failure(
-              userConstants.GETPROJECTNAME_FAILURE,
+              userConstants.GETPROJECTINFO_FAILURE,
               response.message
             )
           );
@@ -133,7 +149,7 @@ function getProjectName() {
       (error) => {
         dispatch(
           failure(
-            userConstants.GETPROJECTNAME_FAILURE,
+            userConstants.GETPROJECTINFO_FAILURE,
             error.toString()
           )
         );

@@ -37,6 +37,9 @@ export const userService = {
   //Git commit - Product Quality
   loginGit,
   codeCommitsPerMember,
+
+  getProjectInfo,
+  
 };
 
 const baseUrl = "http://localhost:3200/api/v1";
@@ -53,6 +56,23 @@ function getTeamConfluencePages(teamKey) {
     .then((jsonResponse) => {
       if (jsonResponse.code === 0) {
         storePut("TeamConfluencePages", jsonResponse.data);
+      }
+      return jsonResponse;
+    });
+}
+
+function getProjectInfo() {
+  let url = baseUrl + "/imported_projects";
+
+  const requestOptions = {
+    method: "GET",
+  };
+
+  return fetch(url, requestOptions)
+    .then((response) => response.json())
+    .then((jsonResponse) => {
+      if (jsonResponse.code === 0) {
+        storePut("TeamProjectInfo", jsonResponse.data);
       }
       return jsonResponse;
     });
