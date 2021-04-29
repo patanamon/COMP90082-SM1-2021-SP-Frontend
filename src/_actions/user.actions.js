@@ -46,10 +46,8 @@ export const userActions = {
   //Git commit - Product Quality
   codeCommitsPerMember,
 
-  // Individual Contribution
-  getGithubIndividualCommits,
-  getJiraIndividualCount,
-  getConfluenceIndividualPages,
+  //get project information
+  getProjectInfo,
 };
 
 function request(action, payload) {
@@ -172,6 +170,60 @@ function getTeamConfluencePages(teamKey) {
       }
     );
   };
+}
+
+
+function getProjectInfo() {
+  return (dispatch) => {
+    dispatch(request(userConstants.GETPROJECTINFO_REQUEST));
+    userService.getProjectInfo().then(
+      (response) => {
+        if (checkRespCode(response)) {
+          dispatch(
+            success(
+              userConstants.GETPROJECTINFO_SUCCESS,
+              
+              formatProjectInfo(response)
+              
+              //formatLineChartData(response)
+            )
+          );
+          
+        } else {
+          dispatch(
+            failure(
+              userConstants.GETPROJECTINFO_FAILURE,
+              response.message
+            )
+          );
+          failureToast(response.message);
+        }
+      },
+      (error) => {
+        dispatch(
+          failure(
+            userConstants.GETPROJECTINFO_FAILURE,
+            error.toString()
+          )
+        );
+        failureToast(error.toString());
+      }
+    );
+  };
+}
+
+function formatProjectInfo(data){
+  var tempoStore = [];
+  
+
+  for (let i = 0, len = data.data.length; i < len; i++) {    
+    
+    tempoStore.push({"space_key":data.data[i].space_key, "label" : data.data[i].space_name, "link" : "https://confluence.cis.unimelb.edu.au:8443/display/"+data.data[i].space_key+"/Home"});
+    
+}
+
+
+return tempoStore;
 }
 
 function getTeamGithubCommits(teamKey) {

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { userActions } from '../_actions';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import Select , { components }from "react-select";
-import { projects } from "./ProjectList";
+
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -27,12 +27,13 @@ var FinalLinkResult = [];
 
 // check if the item present in results
 function uniq(arr1,arr2,arr3, obj) {
-  if (arr1.indexOf(obj.id) === -1) {
-    arr1.push(obj.id);
+  if (arr1.indexOf(obj.space_key) === -1){
+    arr1.push(obj.space_key);
     arr2.push(obj.label);
     arr3.push(obj.link);
-    console.log( obj.id + " added");
+
   }
+    
 }
 
 // delete item from all results list
@@ -95,10 +96,10 @@ class CoordinatorHomePage extends Component {
   }
 
     // actions after item is selected : add to result if it absents 
-  handleChange = (project) => {
-    console.log(project.label);
-    this.setState({ project });
-    uniq(KeyResults,NameResults, LinkResults,project);
+  handleChange = (selectedProject) => {
+    
+    this.setState({ selectedProject });
+    uniq(KeyResults,NameResults, LinkResults,selectedProject);
     /** 
     console.log(NameResults);
     console.log(FinalNameResult);
@@ -112,7 +113,9 @@ class CoordinatorHomePage extends Component {
     del(KeyResults,NameResults,LinkResults, key);
   };
 
-
+  componentDidMount() {
+    this.props.getProjectInfo();
+  }
   render() {
         return (
             <div class="uomcontent">
@@ -131,7 +134,8 @@ class CoordinatorHomePage extends Component {
             labelInValue
             isSearchable
             name="projects"
-            options={projects}
+            //options={projects}
+            options = {this.props.projectInfo}
             autoWidth = {true}
             className="ProjectList"
             placeholder="Search projects"
@@ -191,10 +195,15 @@ class CoordinatorHomePage extends Component {
 
 
 function mapState(state) {
-    const { username, offset } = state;
-    return { username, offset };
+  return {
+    requestProjectInfo: state.user.requestProjectInfo,
+    //requestTeamGithubCommits: state.user.requestTeamGithubCommits,
+    //requestTeamJiraTickets: state.user.requestTeamJiraTickets,
+    projectInfo: state.user.projectInfo,
+    //githubData: state.user.teamGithubCommits,
+    //jiraData: state.user.teamJiraTickets,
+  };
 }
-
 const actionCreators = {
     getCoordinatorHomepage: userActions.getCoordinatorHomepage,
     getSupervisor: userActions.getSupervisor,
@@ -202,6 +211,7 @@ const actionCreators = {
     setCoSupervisor: userActions.setCoSupervisor,
     getSupervisors: userActions.getSupervisors,
     getHomepage: userActions.getHomepage,
+    getProjectInfo:userActions.getProjectInfo,
 }
 
 const homePage = connect(mapState, actionCreators)(CoordinatorHomePage);

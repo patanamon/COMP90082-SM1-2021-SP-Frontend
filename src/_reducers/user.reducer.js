@@ -7,6 +7,8 @@ const initState = {
   requestSetTeamUrl: false,
   currentTeamKey: "",
   currentTeamName: "",
+  requestProjectInfo:false,
+  
 };
 
 export function user(state = initState, action) {
@@ -139,6 +141,27 @@ export function user(state = initState, action) {
         ...state,
         requestSetTeamUrl: false,
       };
+      
+    case userConstants.GETPROJECTINFO_REQUEST:
+      return {
+        ...state,
+        requestProjectInfo: true,
+      };
+    case userConstants.GETPROJECTINFO_SUCCESS:
+      return {
+        ...state,
+        requestProjectInfo: false,
+        projectInfo: action.payload,
+      };
+    case userConstants.GETPROJECTINFO_FAILURE:
+      return {
+        ...state,
+        requestProjectInfo: false,
+        projectInfo: {},
+      };
+
+    
+        
     default:
       return state;
   }
