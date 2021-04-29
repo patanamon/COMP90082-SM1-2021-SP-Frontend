@@ -298,17 +298,22 @@ function getJiraUser(teamName, user) {
   };
 }
 
-// Get list of team members based on the team id
-function getTeamList(teamID) {
+
+function getTeamList(teamKey) {
   return (dispatch) => {
-    dispatch(request({ teamID }));
-    userService.getTeamList(teamID).then(
-      (teamID) => {
-        dispatch(success());
-        console.log(teamID);
+    userService.getTeamList(teamKey).then(
+      (response) => {
+        dispatch(
+          success(userConstants.GETTEAM_SUCCESS, formatLineChartData(response))
+        );
       },
       (error) => {
-        dispatch(failure(error.toString()));
+        dispatch(
+          failure(
+            userConstants.GETTEAM_FAILURE,
+            error.toString()
+          )
+        );
       }
     );
   };

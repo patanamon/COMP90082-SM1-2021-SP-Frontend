@@ -32,6 +32,16 @@ export function user(state = {}, action) {
         ...state,
         teamJiraTickets: {}
       }
+    case userConstants.GETTEAM_SUCCESS:
+      return {
+        ...state,
+        teamList: action.payload
+      }
+    case userConstants.GETTEAM_FAILURE:
+      return {
+        ...state,
+        teamList: {}
+      }
     default:
       return state;
   }
