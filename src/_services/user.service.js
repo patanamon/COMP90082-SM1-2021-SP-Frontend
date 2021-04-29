@@ -38,14 +38,6 @@ export const userService = {
   loginGit,
   codeCommitsPerMember,
 
-  //Get Slack
-  getSlackUser,
-  getSlackTeam,
-
-  // Configure
-  getConfiguration,
-  setConfiguration,
-
   //Individual Page
   getGithubIndividualCommits,
   getJiraIndividualCount,
