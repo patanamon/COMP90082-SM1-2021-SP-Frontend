@@ -18,5 +18,5 @@ export function failureToast(message) {
 
 export function successToast(message) {
   let text = "😊 " + message;
-  return toast.success(message, options);
+  return toast.success(text, options);
 }
