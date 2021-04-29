@@ -7,7 +7,7 @@ import { ToastContainer } from "react-toastify";
 import { Spin } from "antd";
 
 const input = {
-  width: "600px",
+  width: "642px",
   margin: "10px auto",
   borderRadius: "4px",
   padding: "4px",
@@ -88,7 +88,7 @@ class ProjectSettingsPage extends React.Component {
 
                   <br />
 
-                  <div id="savechanges">
+                  <div style={{textAlign:"right"}} id="savechanges">
                     <input type="submit" value="Submit" />
                   </div>
                 </form>
