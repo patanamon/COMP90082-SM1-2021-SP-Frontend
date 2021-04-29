@@ -6,6 +6,7 @@ import {formatLineChartData} from "../_utils/formatLineChartData.js";
 import {formatDonutChartData} from "../_utils/formatDonutChartData.js";
 import {unixToDate} from "../_utils/unixToDate.js"
 import { failureToast } from "../_utils/toast";
+import { successToast } from "../_utils/toast";
 
 // Remember: Add new actions in here, otherwise it cannot be recognise by this.props.
 // ALSO REMEMBER TO ADD RETURN MSG IN user.constants.js
@@ -310,7 +311,8 @@ function setTeamUrl(teamKey, jiraUrl, githubUrl) {
     userService.setTeamUrl(teamKey, jiraUrl, githubUrl).then(
       (response) => {
         if (checkRespCode(response)) {
-          dispatch(success(userConstants.SETTEAMURL_SUCCESS));
+          dispatch(success(userConstants.SETTEAMURL_SUCCESS, response.message));
+          successToast(response.message);
         } else {
           dispatch(failure(userConstants.SETTEAMURL_FAILURE, response.message));
           failureToast(response.message);

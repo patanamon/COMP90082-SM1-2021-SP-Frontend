@@ -55,7 +55,7 @@ class ProjectSettingsPage extends React.Component {
   render() {
     return (
       <div class="uomcontent">
-        {uomHeader("Configure")}
+        {uomHeader("Project Configuration")}
         <div role="main">
           <div className="page-inner">
             <Banner projName="2021-SM1-Software-Project-Database" />
