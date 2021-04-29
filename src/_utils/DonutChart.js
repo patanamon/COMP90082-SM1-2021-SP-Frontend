@@ -22,10 +22,10 @@ import { Doughnut } from 'react-chartjs-2'
 
 
 export default function DonutChart(props){
-    const data = props.data
-    return (
-        <div style={{ position: "relative", margin: "auto", width: "80vw" }}>
-          <Doughnut data={data} />
-        </div>
-    )
+  const data = props.data
+  return (
+      <div style={{ position: "relative", margin: "auto", width: "80vw" }}>
+        <Doughnut data={data} options={{legend: { display: true, position: "right" }}} />
+      </div>
+  )
 }

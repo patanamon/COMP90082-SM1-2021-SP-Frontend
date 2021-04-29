@@ -19,14 +19,14 @@ const customStyles = {
 
 export default function Table(props) {
   return (
-    <div style={{ position: "relative", margin: "auto", width: "40vw" }}>
+    <div style={{ position: "relative", margin: "auto", width: props.width ? props.width : "40vw" }}>
       <DataTable
         title={props.title}
         columns={props.columns}
         data={props.data}
         customStyles={customStyles}
         fixedHeader={true}
-        fixedHeaderScrollHeight={"20vh"}
+        fixedHeaderScrollHeight={ props.height ? props.height : "20vh"}
         highlightOnHover={true}
       />
     </div>
