@@ -101,18 +101,7 @@ class ProjectHomePage extends Component {
   //   });
   // }
 
-  // renderTableData() {
-  //   return this.state.teamList.map((teamList, index) => {
-  //     const { student_id, fullname, email } = teamList; //destructuring
-  //     return (
-  //       <tr key={fullname}>
-  //         <td>{student_id}</td>
-  //         <td>{fullname}</td>
-  //         <td>{email}</td>
-  //       </tr>
-  //     );
-  //   });
-  // }
+
 
   render() {
     return (
