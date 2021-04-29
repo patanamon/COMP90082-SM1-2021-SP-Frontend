@@ -96,9 +96,9 @@ class CoordinatorHomePage extends Component {
 
     // actions after item is selected : add to result if it absents 
   handleChange = (project) => {
-    /*console.log(project.label);
+    console.log(project.label);
     this.setState({ project });
-    uniq(KeyResults,NameResults, LinkResults,project);*/
+    uniq(KeyResults,NameResults, LinkResults,project);
     /** 
     console.log(NameResults);
     console.log(FinalNameResult);
@@ -133,8 +133,8 @@ class CoordinatorHomePage extends Component {
             labelInValue
             isSearchable
             name="projects"
-            //options={projects}
-            options = {this.props.projectInfo}
+            options={projects}
+            //options = {this.props.projectInfo}
             autoWidth = {true}
             className="ProjectList"
             placeholder="Search projects"
