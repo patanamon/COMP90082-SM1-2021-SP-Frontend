@@ -16,46 +16,46 @@ class ProjectHomePage extends Component {
     super(props); //since we are extending class Table so we have to use super in order to override Component class constructor
     this.state = {
       teamList: "", 
-      show: false,
+      
       //state is by default an object
-      data: [
-        {student: "Student 1", profile:<img alt='Avatar' width='40' src="https://previews.123rf.com/images/djvstock/djvstock1610/djvstock161004225/64775568-teen-boy-character-avatar-vector-illustration-design.jpg"/>, student_id: 123423, email_address: "student1@student.unimleb.edu.au"},
-        {student: "Student 2", profile:<img alt='Avatar' width='40' src="https://previews.123rf.com/images/djvstock/djvstock1610/djvstock161004227/64775584-teen-boy-character-avatar-vector-illustration-design.jpg"/>, student_id: 423456, email_address: "student2@student.unimleb.edu.au"},
-        {student: "Student 3", profile:<img alt='Avatar' width='40' src="https://previews.123rf.com/images/djvstock/djvstock1610/djvstock161004256/64775431-happy-boy-character-avatar-vector-illustration-design.jpg"/>, student_id: 234789, email_address: "student3@student.unimleb.edu.au"},
-        {student: "Student 4", profile:<img alt='Avatar' width='40' src="https://previews.123rf.com/images/djvstock/djvstock1610/djvstock161004225/64775568-teen-boy-character-avatar-vector-illustration-design.jpg"/>, student_id: 122343, email_address: "student4@student.unimleb.edu.au"},
-        {student: "Student 5", profile:<img alt='Avatar' width='40' src="https://previews.123rf.com/images/djvstock/djvstock1610/djvstock161004227/64775584-teen-boy-character-avatar-vector-illustration-design.jpg"/>, student_id: 623452, email_address: "student5@student.unimleb.edu.au"},
-        {student: "Student 6", profile:<img alt='Avatar' width='40' src="https://previews.123rf.com/images/djvstock/djvstock1610/djvstock161004256/64775431-happy-boy-character-avatar-vector-illustration-design.jpg"/>, student_id: 343789, email_address: "student6@student.unimleb.edu.au"},
-        {student: "Student 7", profile:<img alt='Avatar' width='40' src="https://previews.123rf.com/images/djvstock/djvstock1610/djvstock161004225/64775568-teen-boy-character-avatar-vector-illustration-design.jpg"/>, student_id: 89123, email_address: "student7@student.unimleb.edu.au"},
-        {student: "Student 8", profile:<img alt='Avatar' width='40' src="https://previews.123rf.com/images/djvstock/djvstock1610/djvstock161004227/64775584-teen-boy-character-avatar-vector-illustration-design.jpg"/>, student_id: 983456, email_address: "student8@student.unimleb.edu.au"},
-        {student: "Student 9", profile:<img alt='Avatar' width='40' src="https://previews.123rf.com/images/djvstock/djvstock1610/djvstock161004256/64775431-happy-boy-character-avatar-vector-illustration-design.jpg"/>, student_id: 71289, email_address: "student9@student.unimleb.edu.au"},
+      data: [],
+      //   {student: "Student 1", profile:<img alt='Avatar' width='40' src="https://previews.123rf.com/images/djvstock/djvstock1610/djvstock161004225/64775568-teen-boy-character-avatar-vector-illustration-design.jpg"/>, student_id: 123423, email_address: "student1@student.unimleb.edu.au"},
+      //   {student: "Student 2", profile:<img alt='Avatar' width='40' src="https://previews.123rf.com/images/djvstock/djvstock1610/djvstock161004227/64775584-teen-boy-character-avatar-vector-illustration-design.jpg"/>, student_id: 423456, email_address: "student2@student.unimleb.edu.au"},
+      //   {student: "Student 3", profile:<img alt='Avatar' width='40' src="https://previews.123rf.com/images/djvstock/djvstock1610/djvstock161004256/64775431-happy-boy-character-avatar-vector-illustration-design.jpg"/>, student_id: 234789, email_address: "student3@student.unimleb.edu.au"},
+      //   {student: "Student 4", profile:<img alt='Avatar' width='40' src="https://previews.123rf.com/images/djvstock/djvstock1610/djvstock161004225/64775568-teen-boy-character-avatar-vector-illustration-design.jpg"/>, student_id: 122343, email_address: "student4@student.unimleb.edu.au"},
+      //   {student: "Student 5", profile:<img alt='Avatar' width='40' src="https://previews.123rf.com/images/djvstock/djvstock1610/djvstock161004227/64775584-teen-boy-character-avatar-vector-illustration-design.jpg"/>, student_id: 623452, email_address: "student5@student.unimleb.edu.au"},
+      //   {student: "Student 6", profile:<img alt='Avatar' width='40' src="https://previews.123rf.com/images/djvstock/djvstock1610/djvstock161004256/64775431-happy-boy-character-avatar-vector-illustration-design.jpg"/>, student_id: 343789, email_address: "student6@student.unimleb.edu.au"},
+      //   {student: "Student 7", profile:<img alt='Avatar' width='40' src="https://previews.123rf.com/images/djvstock/djvstock1610/djvstock161004225/64775568-teen-boy-character-avatar-vector-illustration-design.jpg"/>, student_id: 89123, email_address: "student7@student.unimleb.edu.au"},
+      //   {student: "Student 8", profile:<img alt='Avatar' width='40' src="https://previews.123rf.com/images/djvstock/djvstock1610/djvstock161004227/64775584-teen-boy-character-avatar-vector-illustration-design.jpg"/>, student_id: 983456, email_address: "student8@student.unimleb.edu.au"},
+      //   {student: "Student 9", profile:<img alt='Avatar' width='40' src="https://previews.123rf.com/images/djvstock/djvstock1610/djvstock161004256/64775431-happy-boy-character-avatar-vector-illustration-design.jpg"/>, student_id: 71289, email_address: "student9@student.unimleb.edu.au"},
  
-      ],
+      // ],
 
       columns: [
         {
           name: "Name",
-          selector: "student",
+          selector: "name",
           center: true,
           sortable: true,
         },
 
         {
           name: "Profile",
-          selector: "profile",
+          selector: "picture",
           center: true,
           sortable: true,
         },
 
         {
           name: "Student ID",
-          selector: "student_id",
+          selector: "id",
           center: true,
           sortable: true,
         },
 
         {
           name: "Email Address",
-          selector: "email_address",
+          selector: "email",
           center: true,
           sortable: true,
         },
@@ -88,7 +88,9 @@ class ProjectHomePage extends Component {
     this.setState({ teamList: storeGet("teamList") });
     this.setState({ processSubmitted: true });
   }
-
+  componentDidMount() {
+    this.props.getTeamList("COMP900822021SM1SP");
+  }
 
 
 
@@ -119,16 +121,7 @@ class ProjectHomePage extends Component {
         <div role="main" >
           <div className="page-inner" >
             <Banner projName="2021-SM1-Software-Project-Database" />
-            <Table columns={this.state.columns} data={this.state.data} title={"Student Information"} width="1000px" height="800px"/>
-            {/* <a className="button cta" onClick={this.handleSubmitTeamList} >Get Team List</a>
-                        {submitted && <table id='projects' className="zebra" data-sortable="">
-                            <h2>Team Member List</h2>
-                            <tbody>
-                            <tr>{this.renderTableHeader()}</tr>
-                            {this.renderTableData()}
-                            </tbody>
-                        </table>
-                        } */}
+            <Table columns={this.state.columns} data={this.props.teamList} title={"Student Information"} width="100vw" height="500vh"/>
           </div>
         </div>
       </div>

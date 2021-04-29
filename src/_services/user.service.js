@@ -583,7 +583,7 @@ function getJiraUser(teamName, user) {
 
 // Get list of team members
 function getTeamList(teamKey) {
-  let url = baseUrl + teamKey + "/team_list";
+  let url = baseUrl +"/"+ teamKey + "/team_list";
 
   const requestOptions = {
     method: "GET",

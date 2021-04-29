@@ -304,8 +304,10 @@ function getTeamList(teamKey) {
     userService.getTeamList(teamKey).then(
       (response) => {
         dispatch(
-          success(userConstants.GETTEAM_SUCCESS, formatLineChartData(response))
+          success(userConstants.GETTEAM_SUCCESS, response.data)
+          
         );
+        // console.log(response.data)
       },
       (error) => {
         dispatch(
