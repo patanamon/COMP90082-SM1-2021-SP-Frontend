@@ -355,3 +355,114 @@ function handleResponse(response) {
     return data;
   });
 }
+
+function getJsonValue(obj, name) {
+  var result = null;
+  var value = null;
+  for (var key in obj) {
+    value = obj[key];
+    if (key == name) {
+      return value;
+    } else {
+      if (typeof value == "object") {
+        result = getJsonValue(value, name);
+        console.log(result);
+      }
+    }
+  }
+  return result;
+}
+
+// Get the JIRA tickets for a user
+function getJiraUser(teamName, user) {
+  // Access the db to retrieve JIRA tickets
+  // var url = 'http://172.26.88.107:8081/api/v1/jira/SWEN90013-2020-SP/tickets';
+  var url = "http://172.26.88.107:8081/api/v1/jira/";
+  url += teamName;
+  url += "/tickets/";
+  url += user;
+
+  const requestOptions = {
+    method: "GET",
+    credentials: "include",
+  };
+
+  console.log("*******************GET JIRA USER******************");
+  console.log(requestOptions);
+
+  return fetch(url, requestOptions)
+    .then((response) => response.json())
+    .then((jsonData) => {
+      console.log(jsonData.data);
+      storePut("jiraUser", jsonData.data);
+      console.log(storeGet("jiraUser"));
+    })
+    .then((jiraUserTickets) => {
+      // store the team tickets
+      //localStorage.setItem('projectList', JSON.stringify(projectList));
+      return jiraUserTickets;
+    });
+}
+
+// Get list of team members
+function getTeamList(teamKey) {
+  let url = baseUrl +"/"+ teamKey + "/team_list";
+
+  const requestOptions = {
+    method: "GET",
+  };
+
+  return fetch(url, requestOptions)
+  .then((response) => response.json())
+  .then((jsonResponse) => {
+    if (jsonResponse.code == 0) {
+      storePut("TeamList", jsonResponse.data);
+    };
+    return jsonResponse;
+  });
+}
+
+// Get a member's IDs Configuration based on the team id
+function getMemberConfiguration(teamID, memberID) {
+  //var url = 'http://172.26.88.107:8081/api/v1/team/1/members/63';
+  var url = "http://172.26.88.107:8081/api/v1/team/1/members/";
+  url += memberID;
+  const requestOptions = {
+    method: "GET",
+    credentials: "include",
+  };
+
+  console.log("*******************GET MEMBER CONFIGURATION******************");
+  console.log(requestOptions);
+
+  return fetch(url, requestOptions)
+    .then((response) => response.json())
+    .then((jsonData) => {
+      console.log(jsonData.data);
+      //console.log(jsonData.data.team_members);
+      storePut("memberConfig", jsonData.data);
+      console.log(storeGet("memberConfig"));
+    })
+    .then((memberID) => {
+      // store the team tickets
+      //localStorage.setItem('projectList', JSON.stringify(projectList));
+      return memberID;
+    });
+
+  function getTeamGithubCommits(teamKey) {
+    let url = baseUrl + "/git/" + teamKey + "/commit_count";
+
+    const requestOptions = {
+      method: "GET",
+    };
+
+    return fetch(url, requestOptions)
+      .then((response) => response.json())
+      .then((jsonResponse) => {
+        if (jsonResponse.code == 0) {
+          storePut("TeamGithubCommits", jsonResponse.data);
+        }
+        return jsonResponse;
+      });
+  }
+}

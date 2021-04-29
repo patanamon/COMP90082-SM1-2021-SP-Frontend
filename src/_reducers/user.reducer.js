@@ -138,6 +138,16 @@ export function user(state = initState, action) {
         ...state,
         requestConfluenceSpaceByKeyWord: false,
       };
+    case userConstants.GETTEAM_SUCCESS:
+      return {
+        ...state,
+        teamList: action.payload
+      }
+    case userConstants.GETTEAM_FAILURE:
+      return {
+        ...state,
+        teamList: {}
+      }
     case userConstants.IMPORT_PROJECT_REQUEST:
       return {
         ...state,

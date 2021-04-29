@@ -411,9 +411,32 @@ function getImportedProject() {
   };
 }
 
+<<<<<<< HEAD
 function setCurrentTeamKey(teamKey) {
   return (dispatch) => {
     dispatch({ type: userConstants.SET_CURRENT_TEAM_KEY, payload: teamKey });
+=======
+
+function getTeamList(teamKey) {
+  return (dispatch) => {
+    userService.getTeamList(teamKey).then(
+      (response) => {
+        dispatch(
+          success(userConstants.GETTEAM_SUCCESS, response.data)
+          
+        );
+        // console.log(response.data)
+      },
+      (error) => {
+        dispatch(
+          failure(
+            userConstants.GETTEAM_FAILURE,
+            error.toString()
+          )
+        );
+      }
+    );
+>>>>>>> 2fddc0c28413f3f4c190d8c0938476a1785f4acf
   };
 }
 
