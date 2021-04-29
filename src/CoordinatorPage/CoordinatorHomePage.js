@@ -57,6 +57,7 @@ class CoordinatorHomePage extends Component {
     super(props); //since we are extending class Table so we have to use super in order to override Component class constructor
     this.state = { project: "", show: false, openMenu: false };
     this.getSearchResult = this.getSearchResult.bind(this);
+    this.handleRedirect = this.handleRedirect.bind(this);
   }
   // not works now, for import project actions
   handleImport() {
@@ -151,7 +152,7 @@ class CoordinatorHomePage extends Component {
                       {KeyResults.map((row) => (
                         <TableRow key={row}>
                           <TableCell component="th" scope="row">
-                            <a onClick={this.handleRedirect}>
+                            <a href="/ProjectHomePage" onClick={this.handleRedirect}>
                               {NameResults[KeyResults.indexOf(row)]}
                             </a>
                           </TableCell>

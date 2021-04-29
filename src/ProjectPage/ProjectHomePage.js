@@ -84,12 +84,12 @@ class ProjectHomePage extends Component {
     e.preventDefault();
   }
   handleSubmitTeamList(e) {
-    this.props.getTeamList(team);
+    this.props.getTeamMemberList(team);
     this.setState({ teamList: storeGet("teamList") });
     this.setState({ processSubmitted: true });
   }
   componentDidMount() {
-    this.props.getTeamList("COMP900822021SM1SP");
+    this.props.getTeamMemberList("COMP900822021SM1SP");
   }
 
 
@@ -110,7 +110,7 @@ class ProjectHomePage extends Component {
         <div role="main" >
           <div className="page-inner" >
             <Banner projName="2021-SM1-Software-Project-Database" />
-            <Table columns={this.state.columns} data={this.props.teamList} title={"Student Information"} width="100vw" height="500vh"/>
+            <Table columns={this.state.columns} data={this.props.teamMemberList} title={"Student Information"} width="100vw" height="500vh"/>
           </div>
         </div>
       </div>
@@ -121,12 +121,11 @@ class ProjectHomePage extends Component {
 
 function mapState(state) {
   return {
-    requestTeamList: state.user.requestTeamList,
-    teamList: state.user.teamList,
+    teamMemberList: state.user.teamMemberList,
   };
 }
 const actionCreators = {
-  getTeamList: userActions.getTeamList,
+  getTeamMemberList: userActions.getTeamMemberList,
 };
 
 const ProjectHome = connect(mapState, actionCreators)(ProjectHomePage);

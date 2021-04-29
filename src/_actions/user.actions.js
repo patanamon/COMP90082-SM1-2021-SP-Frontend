@@ -32,6 +32,8 @@ export const userActions = {
 
   setCurrentTeamKey,
   setCurrentTeamName,
+
+  getTeamMemberList,
 };
 
 function request(action, payload) {
@@ -411,87 +413,80 @@ function getImportedProject() {
   };
 }
 
-<<<<<<< HEAD
 function setCurrentTeamKey(teamKey) {
   return (dispatch) => {
     dispatch({ type: userConstants.SET_CURRENT_TEAM_KEY, payload: teamKey });
-=======
+  };
+}
 
-function getTeamList(teamKey) {
+function getTeamMemberList(teamKey) {
   return (dispatch) => {
-    userService.getTeamList(teamKey).then(
+    userService.getTeamMemberList(teamKey).then(
       (response) => {
-        dispatch(
-          success(userConstants.GETTEAM_SUCCESS, response.data)
-          
-        );
-        // console.log(response.data)
+        dispatch(success(userConstants.GET_TEAM_MEMBER_LIST_SUCCESS, response.data));
       },
       (error) => {
-        dispatch(
-          failure(
-            userConstants.GETTEAM_FAILURE,
-            error.toString()
-          )
-        );
+        dispatch(failure(userConstants.GET_TEAM_MEMBER_LIST_FAILURE, error.toString()));
       }
     );
->>>>>>> 2fddc0c28413f3f4c190d8c0938476a1785f4acf
   };
 }
 
 function setCurrentTeamName(teamName) {
   return (dispatch) => {
-    dispatch({ type: userConstants.SET_CURRENT_TEAM_NAME, payload: teamName });
+    dispatch({
+      type: userConstants.SET_CURRENT_TEAM_NAME,
+      payload: teamName,
+    });
   };
 }
 
-// function login(username, password) {
-//   return (dispatch) => {
-//     dispatch(request({ username }));
+function login(username, password) {
+  return (dispatch) => {
+    dispatch(request({ username }));
 
-//     userService.login(username, password).then(
-//       (user) => {
-//         console.log("****************Login Success*********");
-//         console.log(user);
-//         if (user.message == "success") {
-//           if (user.data.role == 0) {
-//             history.push("/CoordinatorHomePage");
-//           } else {
-//             history.push("/SupervisorHomePage");
-//           }
-//           dispatch(success(user));
-//         } else {
-//           dispatch(failure(user.message));
-//         }
-//       },
-//       (error) => {
-//         dispatch(failure(error.toString()));
-//         dispatch(alertActions.error(error.toString()));
-//       }
-//     );
-//   };
-// }
+    userService.login(username, password).then(
+      (user) => {
+        console.log("****************Login Success*********");
+        console.log(user);
+        if (user.message == "success") {
+          if (user.data.role == 0) {
+            history.push("/CoordinatorHomePage");
+          } else {
+            history.push("/SupervisorHomePage");
+          }
+          dispatch(success(user));
+        } else {
+          dispatch(failure(user.message));
+        }
+      },
+      (error) => {
+        dispatch(failure(error.toString()));
+        dispatch(alertActions.error(error.toString()));
+      }
+    );
+  };
+}
 
-// function logout() {
-//   userService.logout();
-//   return { type: userConstants.LOGOUT };
-// }
+function logout() {
+  userService.logout();
+  return { type: userConstants.LOGOUT };
+}
 
-// function register(user) {
-//   return (dispatch) => {
-//     dispatch(request(user));
+function register(user) {
+  return (dispatch) => {
+    dispatch(request(user));
 
-//     userService.register(user).then(
-//       (user) => {
-//         dispatch(success());
-//         //history.push('/login');
-//         dispatch(alertActions.success("Registration successful"));
-//       },
-//       (error) => {
-//         dispatch(failure(error.toString()));
-//         dispatch(alertActions.error(error.toString()));
-//       }
-//     );
-//   };
-// }
+    userService.register(user).then(
+      (user) => {
+        dispatch(success());
+        //history.push('/login');
+        dispatch(alertActions.success("Registration successful"));
+      },
+      (error) => {
+        dispatch(failure(error.toString()));
+        dispatch(alertActions.error(error.toString()));
+      }
+    );
+  };
+}

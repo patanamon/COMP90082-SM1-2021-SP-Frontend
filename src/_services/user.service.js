@@ -21,6 +21,8 @@ export const userService = {
   getImportedProject,
   importProject,
   getConfluenceSpaceByKeyWord,
+
+  getTeamMemberList,
 };
 
 const baseUrl = "http://localhost:3200/api/v1";
@@ -256,157 +258,8 @@ function getImportedProject() {
     });
 }
 
-/*
-#########################History code###############################################
-*/
-
-//TODO: find a method without too many warning
-function validateEmail(email) {
-  const re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-  return re.test(email);
-}
-
-function login(username, password) {
-  var url = "http://172.26.88.107:8081/api/v1/account/login";
-  var data = {};
-
-  if (validateEmail(username)) {
-    data = {
-      email: username,
-      password: md5(password),
-    };
-    console.log("using email");
-  } else {
-    data = {
-      username: username,
-      password: md5(password),
-    };
-    console.log("using username");
-  }
-
-  const requestOptions = {
-    method: "POST",
-    credentials: "include",
-    body: JSON.stringify(data),
-  };
-
-  console.log("*******************LOGIN******************");
-  console.log(requestOptions);
-
-  return fetch(url, requestOptions)
-    .then(handleResponse)
-    .then((user) => {
-      // store user details and jwt token in local storage to keep user logged in between page refreshes
-      localStorage.setItem("user", JSON.stringify(user));
-      return user;
-    });
-}
-
-function logout() {
-  // remove user from local storage to log user out
-  localStorage.removeItem("user");
-}
-
-// Register
-function register(user) {
-  var url = "http://172.26.88.107:8081/api/v1/invite/accept";
-
-  const requestOptions = {
-    method: "POST",
-    credentials: "include",
-    body: JSON.stringify(user),
-  };
-
-  console.log("*******************REGISTER******************");
-  console.log(requestOptions);
-
-  return fetch(url, requestOptions)
-    .then(function (handleResponse) {
-      console.log("++++++++++++++++REGISTER RESPONSE++++++++++++++++");
-      var response = handleResponse
-        .json()
-        .then((handleResponse) => handleResponse);
-      console.log(response);
-    })
-    .then((user) => {
-      console.log(user);
-
-      return user;
-    });
-}
-
-function handleResponse(response) {
-  return response.text().then((text) => {
-    const data = text && JSON.parse(text);
-
-    console.log("*******************HANDLE RESPOND******************");
-
-    if (!response.ok) {
-      if (response.status == 401) {
-        // auto logout if 401 response returned from api
-        logout();
-        window.location.reload(true);
-      }
-
-      const error = (data && data.message) || response.statusText;
-      return Promise.reject(error);
-    }
-
-    return data;
-  });
-}
-
-function getJsonValue(obj, name) {
-  var result = null;
-  var value = null;
-  for (var key in obj) {
-    value = obj[key];
-    if (key == name) {
-      return value;
-    } else {
-      if (typeof value == "object") {
-        result = getJsonValue(value, name);
-        console.log(result);
-      }
-    }
-  }
-  return result;
-}
-
-// Get the JIRA tickets for a user
-function getJiraUser(teamName, user) {
-  // Access the db to retrieve JIRA tickets
-  // var url = 'http://172.26.88.107:8081/api/v1/jira/SWEN90013-2020-SP/tickets';
-  var url = "http://172.26.88.107:8081/api/v1/jira/";
-  url += teamName;
-  url += "/tickets/";
-  url += user;
-
-  const requestOptions = {
-    method: "GET",
-    credentials: "include",
-  };
-
-  console.log("*******************GET JIRA USER******************");
-  console.log(requestOptions);
-
-  return fetch(url, requestOptions)
-    .then((response) => response.json())
-    .then((jsonData) => {
-      console.log(jsonData.data);
-      storePut("jiraUser", jsonData.data);
-      console.log(storeGet("jiraUser"));
-    })
-    .then((jiraUserTickets) => {
-      // store the team tickets
-      //localStorage.setItem('projectList', JSON.stringify(projectList));
-      return jiraUserTickets;
-    });
-}
-
-// Get list of team members
-function getTeamList(teamKey) {
-  let url = baseUrl +"/"+ teamKey + "/team_list";
+function getTeamMemberList(teamKey) {
+  let url = baseUrl + "/team/" + teamKey;
 
   const requestOptions = {
     method: "GET",
@@ -416,53 +269,203 @@ function getTeamList(teamKey) {
   .then((response) => response.json())
   .then((jsonResponse) => {
     if (jsonResponse.code == 0) {
-      storePut("TeamList", jsonResponse.data);
+      storePut(commonConstants.TEAM_MEMBER_LIST, jsonResponse.data);
     };
     return jsonResponse;
   });
 }
 
-// Get a member's IDs Configuration based on the team id
-function getMemberConfiguration(teamID, memberID) {
-  //var url = 'http://172.26.88.107:8081/api/v1/team/1/members/63';
-  var url = "http://172.26.88.107:8081/api/v1/team/1/members/";
-  url += memberID;
-  const requestOptions = {
-    method: "GET",
-    credentials: "include",
-  };
+/*
+#########################History code###############################################
+*/
 
-  console.log("*******************GET MEMBER CONFIGURATION******************");
-  console.log(requestOptions);
+// //TODO: find a method without too many warning
+// function validateEmail(email) {
+//   const re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+//   return re.test(email);
+// }
 
-  return fetch(url, requestOptions)
-    .then((response) => response.json())
-    .then((jsonData) => {
-      console.log(jsonData.data);
-      //console.log(jsonData.data.team_members);
-      storePut("memberConfig", jsonData.data);
-      console.log(storeGet("memberConfig"));
-    })
-    .then((memberID) => {
-      // store the team tickets
-      //localStorage.setItem('projectList', JSON.stringify(projectList));
-      return memberID;
-    });
+// function login(username, password) {
+//   var url = "http://172.26.88.107:8081/api/v1/account/login";
+//   var data = {};
 
-  function getTeamGithubCommits(teamKey) {
-    let url = baseUrl + "/git/" + teamKey + "/commit_count";
+//   if (validateEmail(username)) {
+//     data = {
+//       email: username,
+//       password: md5(password),
+//     };
+//     console.log("using email");
+//   } else {
+//     data = {
+//       username: username,
+//       password: md5(password),
+//     };
+//     console.log("using username");
+//   }
 
-    const requestOptions = {
-      method: "GET",
-    };
+//   const requestOptions = {
+//     method: "POST",
+//     credentials: "include",
+//     body: JSON.stringify(data),
+//   };
 
-    return fetch(url, requestOptions)
-      .then((response) => response.json())
-      .then((jsonResponse) => {
-        if (jsonResponse.code == 0) {
-          storePut("TeamGithubCommits", jsonResponse.data);
-        }
-        return jsonResponse;
-      });
-  }
-}
+//   console.log("*******************LOGIN******************");
+//   console.log(requestOptions);
+
+//   return fetch(url, requestOptions)
+//     .then(handleResponse)
+//     .then((user) => {
+//       // store user details and jwt token in local storage to keep user logged in between page refreshes
+//       localStorage.setItem("user", JSON.stringify(user));
+//       return user;
+//     });
+// }
+
+// function logout() {
+//   // remove user from local storage to log user out
+//   localStorage.removeItem("user");
+// }
+
+// // Register
+// function register(user) {
+//   var url = "http://172.26.88.107:8081/api/v1/invite/accept";
+
+//   const requestOptions = {
+//     method: "POST",
+//     credentials: "include",
+//     body: JSON.stringify(user),
+//   };
+
+//   console.log("*******************REGISTER******************");
+//   console.log(requestOptions);
+
+//   return fetch(url, requestOptions)
+//     .then(function (handleResponse) {
+//       console.log("++++++++++++++++REGISTER RESPONSE++++++++++++++++");
+//       var response = handleResponse
+//         .json()
+//         .then((handleResponse) => handleResponse);
+//       console.log(response);
+//     })
+//     .then((user) => {
+//       console.log(user);
+
+//       return user;
+//     });
+// }
+
+// function handleResponse(response) {
+//   return response.text().then((text) => {
+//     const data = text && JSON.parse(text);
+
+//     console.log("*******************HANDLE RESPOND******************");
+
+//     if (!response.ok) {
+//       if (response.status == 401) {
+//         // auto logout if 401 response returned from api
+//         logout();
+//         window.location.reload(true);
+//       }
+
+//       const error = (data && data.message) || response.statusText;
+//       return Promise.reject(error);
+//     }
+
+//     return data;
+//   });
+// }
+
+// function getJsonValue(obj, name) {
+//   var result = null;
+//   var value = null;
+//   for (var key in obj) {
+//     value = obj[key];
+//     if (key == name) {
+//       return value;
+//     } else {
+//       if (typeof value == "object") {
+//         result = getJsonValue(value, name);
+//         console.log(result);
+//       }
+//     }
+//   }
+//   return result;
+// }
+
+// // Get the JIRA tickets for a user
+// function getJiraUser(teamName, user) {
+//   // Access the db to retrieve JIRA tickets
+//   // var url = 'http://172.26.88.107:8081/api/v1/jira/SWEN90013-2020-SP/tickets';
+//   var url = "http://172.26.88.107:8081/api/v1/jira/";
+//   url += teamName;
+//   url += "/tickets/";
+//   url += user;
+
+//   const requestOptions = {
+//     method: "GET",
+//     credentials: "include",
+//   };
+
+//   console.log("*******************GET JIRA USER******************");
+//   console.log(requestOptions);
+
+//   return fetch(url, requestOptions)
+//     .then((response) => response.json())
+//     .then((jsonData) => {
+//       console.log(jsonData.data);
+//       storePut("jiraUser", jsonData.data);
+//       console.log(storeGet("jiraUser"));
+//     })
+//     .then((jiraUserTickets) => {
+//       // store the team tickets
+//       //localStorage.setItem('projectList', JSON.stringify(projectList));
+//       return jiraUserTickets;
+//     });
+// }
+
+
+
+// // Get a member's IDs Configuration based on the team id
+// function getMemberConfiguration(teamID, memberID) {
+//   //var url = 'http://172.26.88.107:8081/api/v1/team/1/members/63';
+//   var url = "http://172.26.88.107:8081/api/v1/team/1/members/";
+//   url += memberID;
+//   const requestOptions = {
+//     method: "GET",
+//     credentials: "include",
+//   };
+
+//   console.log("*******************GET MEMBER CONFIGURATION******************");
+//   console.log(requestOptions);
+
+//   return fetch(url, requestOptions)
+//     .then((response) => response.json())
+//     .then((jsonData) => {
+//       console.log(jsonData.data);
+//       //console.log(jsonData.data.team_members);
+//       storePut("memberConfig", jsonData.data);
+//       console.log(storeGet("memberConfig"));
+//     })
+//     .then((memberID) => {
+//       // store the team tickets
+//       //localStorage.setItem('projectList', JSON.stringify(projectList));
+//       return memberID;
+//     });
+
+//   function getTeamGithubCommits(teamKey) {
+//     let url = baseUrl + "/git/" + teamKey + "/commit_count";
+
+//     const requestOptions = {
+//       method: "GET",
+//     };
+
+//     return fetch(url, requestOptions)
+//       .then((response) => response.json())
+//       .then((jsonResponse) => {
+//         if (jsonResponse.code == 0) {
+//           storePut("TeamGithubCommits", jsonResponse.data);
+//         }
+//         return jsonResponse;
+//       });
+//   }
+// }
