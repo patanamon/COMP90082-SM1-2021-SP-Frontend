@@ -1,119 +1,135 @@
-import React from 'react';
-import uomHeader from '../header/uomheader.js';
+import React from "react";
+import uomHeader from "../header/uomheader.js";
 import Banner from "../_utils/Banner";
-import DataTable, { createTheme } from "react-data-table-component";
-import { connect } from 'react-redux';
-import { userActions } from '../_actions';
-import 'react-confirm-alert/src/react-confirm-alert.css';
-
+import DataTable from "react-data-table-component";
+import { connect } from "react-redux";
+import { userActions } from "../_actions";
+import "react-confirm-alert/src/react-confirm-alert.css";
+import Alert from "../_utils/Alert";
 
 class ProductQualityPage extends React.Component {
-    //This is just as an example to populate the table
-    constructor(props) {
-        super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
-        this.state = {
-            ProjectName: "2021-SM1-Software-Project-Database",
-            CodeMetrics: [ { all: 1, classes: 0, decst: 0, excst: 0, file: 0, func: 0, pre: 0, ratio: 0 }
-            ],//mock data*/
-        };
-        
-        this.handleMatrix = this.handleMatrix.bind(this);
-    }
+  //This is just as an example to populate the table
+  constructor(props) {
+    super(props); //since we are extending class Table so we have to use super in order to override Component class constructor
+    this.state = {
+      ProjectName: "2021-SM1-Software-Project-Database",
+      CodeMetrics: [
+        {
+          all: 1,
+          classes: 0,
+          decst: 0,
+          excst: 0,
+          file: 0,
+          func: 0,
+          pre: 0,
+          ratio: 0,
+        },
+      ], //mock data*/
+    };
 
-    handleMatrix(e) {
-        this.props.getTeamProductPages("COMP900822021SM1SP");
-    }
+    this.handleMatrix = this.handleMatrix.bind(this);
+  }
 
-    componentDidMount() {
-        this.props.getTeamProductPages("COMP900822021SM1SP");
-    }
-    
-    render() {
-        console.log(this.state.CodeMatrix)
-        console.log(this.props.productqualityData)
-        const data = this.props.productqualityData
-        const columns1 = [
-            {
-                name: 'Number of all lines',
-                selector: 'all',
-                center: Boolean(true)
-            },
-            {
-                name: 'Number of classes',
-                selector: 'classes',
-                center: Boolean(true)
+  handleMatrix(e) {
+    this.props.getTeamProductPages("COMP900822021SM1SP");
+  }
 
-            },
-            {
-                name: 'Number of declarible statements',
-                selector: 'decst',
-                center: Boolean(true)
-            },
-            {
-                name: 'Number of excutable statements',
-                selector: 'excst',
-                center: Boolean(true)
-            },     
-        ];
-        const columns2 = [
-            {
-                name: 'Number of files',
-                selector: 'file',
-                center: Boolean(true)
-            },
-            {
-                name: 'Number of functions',
-                selector: 'func',
-                center: Boolean(true)
-            },
-            {
-                name: 'Number of preprocessor lines',
-                selector: 'pre',
-                center: Boolean(true)
-            },
-            {
-                name: 'Ratio of comment lines to code lines',
-                selector: 'ratio',
-                center: Boolean(true)
-            },          
-        ];
-        const customStyles = {
-            headCells: {
-              style: {
-                fontSize: "20px", 
-                background: "#EEEEEE",
-              },
-            },
-            cells: {
-                style: {
-                    fontSize: "20px",
-                },
-            },
-          };
-        
-        return (
-          <div className="uomcontent">
-            {uomHeader("Product Quality")}
-            <div role="main">
-              <div className="page-inner">
-                <Banner projName="2021-SM1-Software-Project-Database" />
-                <DataTable
-                    customStyles={customStyles}
-                    columns={columns1}
-                    data={this.props.productqualityData}
-                />
-                <DataTable
-                    customStyles={customStyles}
-                    columns={columns2}
-                    data={this.props.productqualityData}
-                />
-              </div>
-            </div>
+  componentDidMount() {
+    this.props.getTeamProductPages("COMP900822021SM1SP");
+  }
+
+  render() {
+    console.log(this.state.CodeMatrix);
+    console.log(this.props.productqualityData);
+    const data = this.props.productqualityData;
+    const columns1 = [
+      {
+        name: "Number of all lines",
+        selector: "all",
+        center: Boolean(true),
+      },
+      {
+        name: "Number of classes",
+        selector: "classes",
+        center: Boolean(true),
+      },
+      {
+        name: "Number of declarible statements",
+        selector: "decst",
+        center: Boolean(true),
+      },
+      {
+        name: "Number of excutable statements",
+        selector: "excst",
+        center: Boolean(true),
+      },
+    ];
+    const columns2 = [
+      {
+        name: "Number of files",
+        selector: "file",
+        center: Boolean(true),
+      },
+      {
+        name: "Number of functions",
+        selector: "func",
+        center: Boolean(true),
+      },
+      {
+        name: "Number of preprocessor lines",
+        selector: "pre",
+        center: Boolean(true),
+      },
+      {
+        name: "Ratio of comment lines to code lines",
+        selector: "ratio",
+        center: Boolean(true),
+      },
+    ];
+    const customStyles = {
+      headCells: {
+        style: {
+          fontSize: "20px",
+          background: "#EEEEEE",
+        },
+      },
+      cells: {
+        style: {
+          fontSize: "20px",
+        },
+      },
+    };
+
+    return (
+      <div className="uomcontent">
+        {uomHeader("Product Quality")}
+        <div role="main">
+          <div className="page-inner">
+            <Banner projName="2021-SM1-Software-Project-Database" />
+            {this.props.productqualityData && this.props.productqualityData.length != 0 && (
+              <DataTable
+                customStyles={customStyles}
+                columns={columns1}
+                data={this.props.productqualityData}
+              />
+            )}
+            {this.props.productqualityData && this.props.productqualityData.length != 0 && this.props.productqualityData && (
+              <DataTable
+              customStyles={customStyles}
+              columns={columns2}
+              data={this.props.productqualityData}
+            />
+            )}
+            {(!this.props.productqualityData || this.props.productqualityData.length == 0) && (
+              <Alert/>
+            )}
           </div>
-        );
-    }
-    
-    /*renderTableData() {
+        </div>
+      </div>
+    );
+  }
+
+  /*renderTableData() {
         console.log(this.props.productqualityData)
         const codematrix = this.state.CodeMatrix
         return codematrix.map((item, index) => {
@@ -133,7 +149,7 @@ class ProductQualityPage extends React.Component {
         })
     }*/
 
-    /*render() {
+  /*render() {
         return (
             <div class="uomcontent">
                 {uomHeader("Product Quality")}
@@ -155,14 +171,14 @@ class ProductQualityPage extends React.Component {
 }
 
 function mapState(state) {
-    return {
-      productqualityData: state.user.teamProductPages,
-    };
-  }
-  
-  const actionCreators = {
-    getTeamProductPages: userActions.getTeamProductPages,
+  return {
+    productqualityData: state.user.teamProductPages,
   };
+}
+
+const actionCreators = {
+  getTeamProductPages: userActions.getTeamProductPages,
+};
 
 const ProductQuality = connect(mapState, actionCreators)(ProductQualityPage);
 export { ProductQuality as ProductQualityPage };
