@@ -114,7 +114,7 @@ function getTeamConfluencePages(teamKey) {
 }
 
 function getProjectInfo() {
-  let url = baseUrl + "/imported_projects";
+  let url = baseUrl + "/confluence/imported_projects";
 
   const requestOptions = {
     method: "GET",
