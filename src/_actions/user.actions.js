@@ -171,22 +171,6 @@ function getTeamConfluencePages(teamKey) {
   };
 }
 
-function formatProjectInfo(data){
-    var eachProject = {};
-    var tempoStore = [];
-
-    for (let i = 0, len = data.length; i < len; i++) {
-      
-      eachProject["space_key"] = data[i].space_key;
-      eachProject["label"] = data[i].space_name;
-      eachProject["link"] = "https://confluence.cis.unimelb.edu.au:8443/display/"+data[i].space_key+"/Home";
-      
-      tempoStore.push(eachProject);
-      
-  }
-
-  return tempoStore;
-}
 
 function getProjectInfo() {
   return (dispatch) => {
@@ -197,11 +181,13 @@ function getProjectInfo() {
           dispatch(
             success(
               userConstants.GETPROJECTINFO_SUCCESS,
+              
               formatProjectInfo(response)
               
               //formatLineChartData(response)
             )
           );
+          
         } else {
           dispatch(
             failure(
@@ -223,6 +209,20 @@ function getProjectInfo() {
       }
     );
   };
+}
+
+function formatProjectInfo(data){
+  var tempoStore = [];
+  
+
+  for (let i = 0, len = data.data.length; i < len; i++) {    
+    
+    tempoStore.push({"space_key":data.data[i].space_key, "label" : data.data[i].space_name, "link" : "https://confluence.cis.unimelb.edu.au:8443/display/"+data.data[i].space_key+"/Home"});
+    
+}
+
+
+return tempoStore;
 }
 
 function getTeamGithubCommits(teamKey) {
