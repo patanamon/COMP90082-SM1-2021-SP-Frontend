@@ -622,31 +622,21 @@ function getJiraUser(teamName, user) {
 }
 
 // Get list of team members
-function getTeamList(teamID) {
-  // Access the db to retrieve team list
-  var url = "http://172.26.88.107:8081/api/v1/team/";
-  url += teamID;
-  url += "/members";
+function getTeamList(teamKey) {
+  let url = baseUrl +"/"+ teamKey + "/team_list";
 
   const requestOptions = {
     method: "GET",
-    credentials: "include",
   };
 
-  console.log("*******************GET TEAM LIST******************");
-  console.log(requestOptions);
-
   return fetch(url, requestOptions)
-    .then((response) => response.json())
-    .then((jsonData) => {
-      storePut("teamList", jsonData.data.team_members);
-      console.log(storeGet("teamList"));
-    })
-    .then((teamList) => {
-      // store the team tickets
-      //localStorage.setItem('projectList', JSON.stringify(projectList));
-      return teamList;
-    });
+  .then((response) => response.json())
+  .then((jsonResponse) => {
+    if (jsonResponse.code == 0) {
+      storePut("TeamList", jsonResponse.data);
+    };
+    return jsonResponse;
+  });
 }
 
 // Get a member's IDs Configuration based on the team id

@@ -125,6 +125,16 @@ export function user(state = initState, action) {
         ...state,
         teamProductPages: []
       }
+    case userConstants.GETTEAM_SUCCESS:
+      return {
+        ...state,
+        teamList: action.payload
+      }
+    case userConstants.GETTEAM_FAILURE:
+      return {
+        ...state,
+        teamList: {}
+      }
     case userConstants.SETTEAMURL_REQUEST:
       return {
         ...state,
@@ -159,9 +169,6 @@ export function user(state = initState, action) {
         requestProjectInfo: false,
         projectInfo: {},
       };
-
-    
-        
     default:
       return state;
   }
