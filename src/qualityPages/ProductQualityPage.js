@@ -31,11 +31,11 @@ class ProductQualityPage extends React.Component {
   }
 
   handleMatrix(e) {
-    this.props.getTeamProductPages("COMP900822021SM1SP");
+    this.props.getTeamCodeMetrics("COMP900822021SM1SP");
   }
 
   componentDidMount() {
-    this.props.getTeamProductPages("COMP900822021SM1SP");
+    this.props.getTeamCodeMetrics("COMP900822021SM1SP");
   }
 
   render() {
@@ -172,12 +172,12 @@ class ProductQualityPage extends React.Component {
 
 function mapState(state) {
   return {
-    productqualityData: state.user.teamProductPages,
+    teamCodeMetrics: state.user.teamCodeMetrics,
   };
 }
 
 const actionCreators = {
-  getTeamProductPages: userActions.getTeamProductPages,
+  getTeamCodeMetrics: userActions.getTeamCodeMetrics,
 };
 
 const ProductQuality = connect(mapState, actionCreators)(ProductQualityPage);
