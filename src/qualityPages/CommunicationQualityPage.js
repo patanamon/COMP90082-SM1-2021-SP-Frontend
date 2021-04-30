@@ -26,15 +26,12 @@ class CommunicationPage extends React.Component {
             columns: [
                 {
                     name: "Meeting Name",
-                    selector: "meetingName",
+                    selector: "title",
                 },
-                {
-                    name: "Meeting Time",
-                    selector: "time",
-                },
+                
                 {
                     name: "Meeting Minutes",
-                    selector: "meetingMinutes",
+                    selector: "link",
                 }
             ],
 
