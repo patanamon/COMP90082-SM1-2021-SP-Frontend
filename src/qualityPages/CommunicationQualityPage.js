@@ -68,6 +68,7 @@ class CommunicationPage extends React.Component {
                         <ButtonGroup 
                             btnNames={this.state.btnNames}
                             clickHandler={this.handleBtnGroupClick}
+                            selected={this.state.btnSelected}
                         />
                             
                         
