@@ -78,7 +78,7 @@ class CommunicationPage extends React.Component {
                         }
                         {
                             this.state.btnSelected === commonConstants.CONFLUENCE &&
-                                <Table columns={this.state.columns} data={this.props.confluenceData} title={""}/>
+                                <Table columns={this.state.columns} data={this.props.confluenceData} width={"80vw"} title={""}/>
                         }
                         
                     </div>
