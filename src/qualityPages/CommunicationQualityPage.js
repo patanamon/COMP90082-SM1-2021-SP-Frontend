@@ -52,6 +52,10 @@ class CommunicationPage extends React.Component {
         });
       }
 
+    componentDidMount(){
+        this.props.getTeamConfluenceMeeting("COMP900822021SM1SP");
+    }
+
 
     render() {
         return(
