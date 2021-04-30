@@ -25,7 +25,7 @@ var FinalLinkResult = [];
 
 // check if the item present in results
 function uniq(arr1, arr2, arr3, obj) {
-  if (arr1.indexOf(obj.space_key) === -1) {
+  if (arr1.indexOf(obj.value) === -1) {
     arr1.push(obj.value);
     arr2.push(obj.label);
     arr3.push(obj.link);
@@ -39,17 +39,6 @@ function del(arr1, arr2, arr3, item) {
   arr1.splice(arr1.indexOf(item), 1);
 }
 
-// style for dropdown results at search box
-const colourStyles = {
-  control: (styles) => ({ ...styles, backgroundColor: "white" }),
-  option: (styles, { isFocused }) => {
-    return {
-      ...styles,
-      color: "black",
-      backgroundColor: isFocused ? "#006fdc" : "white",
-    };
-  },
-};
 // main export class
 class CoordinatorHomePage extends Component {
   //This is just as an example to populate the table
@@ -132,6 +121,7 @@ class CoordinatorHomePage extends Component {
                   onSelectResetsInput={false}
                   defaultOptions={this.state.options}
                   onChange={this.handleChange}
+                  placeholder="Search projects by entering key words"
                 />
               </div>
               <div id="selected" className="Selected">
