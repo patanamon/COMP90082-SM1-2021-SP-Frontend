@@ -6,6 +6,7 @@ import uomHeader from '../header/uomheader';
 import {userActions} from '../_actions';
 import { connect } from 'react-redux';
 import { commonConstants } from '../_constants';
+
 import Table from '../_utils/Table';
 
 class CommunicationPage extends React.Component {
@@ -14,39 +15,26 @@ class CommunicationPage extends React.Component {
         this.state = {
             teamID : 1,
 
-            confluenceMeeting: [ {id:1, meetingName: "Frontend 23/04/21 meeting", meetingTime: "23/04/21", meetingMinutes: '#' }], 
-
             btnNames: [
                 commonConstants.CONFLUENCE,
                 commonConstants.GITHUB,
             ],
 
             btnSelected : commonConstants.CONFLUENCE,
+            
 
             columns: [
                 {
                     name: "Meeting Name",
-                    selector: "meetingName",
+                    selector: "title",
                 },
-                {
-                    name: "Meeting Time",
-                    selector: "meetingTime",
-                },
+                
                 {
                     name: "Meeting Minutes",
-                    selector: "meetingMinutes",
+                    selector: "link",
+                    cell: row => <a href={row.link}>Link to Meeting Minutes</a>,
                 }
             ],
-
-            githubData : {
-                labels: ["01/03", "10/03", "20/03", "30/03", "09/04", "19/04"],
-                datasets : [
-                    {
-                        label : "Number of Comments",
-                        data : [10, 20, 30, 40, 50, 70]
-                    }
-                ],
-            }
 
         };
         this.handleBtnGroupClick = this.handleBtnGroupClick.bind(this);
@@ -55,10 +43,19 @@ class CommunicationPage extends React.Component {
 
     handleBtnGroupClick(e) {
         let selected = e.currentTarget.firstChild.innerHTML;
+        if (selected === commonConstants.CONFLUENCE) {
+          this.props.getTeamConfluenceMeeting("COMP900822021SM1SP");
+        } else  {
+          this.props.getTeamGitHubComments("COMP900822021SM1SP");
+        } 
         this.setState({
-            btnSelected: selected
+          btnSelected: selected,
         });
       }
+
+    componentDidMount(){
+        this.props.getTeamConfluenceMeeting("COMP900822021SM1SP");
+    }
 
 
     render() {
@@ -72,15 +69,19 @@ class CommunicationPage extends React.Component {
                         <ButtonGroup 
                             btnNames={this.state.btnNames}
                             clickHandler={this.handleBtnGroupClick}
+                            selected={this.state.btnSelected}
                         />
+                            
+                        
                         {
                             this.state.btnSelected === commonConstants.GITHUB &&
-                                <LineChart data={this.state.githubData}/>
+                                <LineChart data={this.props.githubData}/>
                         }
                         {
                             this.state.btnSelected === commonConstants.CONFLUENCE &&
-                                <Table columns={this.state.columns} data={this.state.confluenceMeeting} title={""}/>
+                                <Table columns={this.state.columns} data={this.props.confluenceData} width={"80vw"} title={""}/>
                         }
+                        
                     </div>
                 </div>
 
@@ -90,15 +91,18 @@ class CommunicationPage extends React.Component {
 }
 
 function mapState(state) {
-    const {username, offset} = state;
-    return {username, offset};
-}
+    
+    return {
+      confluenceData: state.user.teamConfluenceMeeting,
+      githubData: state.user.teamGitHubComments,
+    };
+  }
+  
+  const actionCreators = {
+    getTeamGitHubComments: userActions.getTeamGitHubComments,
+    getTeamConfluenceMeeting: userActions.getTeamConfluenceMeeting,
+  };
 
-const actionCreators = {
-    getTeamList: userActions.getTeamList,
-    getConfiguration: userActions.getConfiguration,
-    setConfiguration: userActions.setConfiguration,
-}
 
 const Communication = connect(mapState, actionCreators)(CommunicationPage);
 export { Communication as CommunicationQualityPage};
