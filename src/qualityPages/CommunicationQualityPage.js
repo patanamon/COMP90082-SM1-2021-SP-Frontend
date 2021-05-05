@@ -26,15 +26,13 @@ class CommunicationPage extends React.Component {
             columns: [
                 {
                     name: "Meeting Name",
-                    selector: "meetingName",
+                    selector: "title",
                 },
-                {
-                    name: "Meeting Time",
-                    selector: "time",
-                },
+                
                 {
                     name: "Meeting Minutes",
-                    selector: "meetingMinutes",
+                    selector: "link",
+                    cell: row => <a href={row.link}>Link to Meeting Minutes</a>,
                 }
             ],
 
@@ -55,6 +53,10 @@ class CommunicationPage extends React.Component {
         });
       }
 
+    componentDidMount(){
+        this.props.getTeamConfluenceMeeting("COMP900822021SM1SP");
+    }
+
 
     render() {
         return(
@@ -67,6 +69,7 @@ class CommunicationPage extends React.Component {
                         <ButtonGroup 
                             btnNames={this.state.btnNames}
                             clickHandler={this.handleBtnGroupClick}
+                            selected={this.state.btnSelected}
                         />
                             
                         
@@ -76,7 +79,7 @@ class CommunicationPage extends React.Component {
                         }
                         {
                             this.state.btnSelected === commonConstants.CONFLUENCE &&
-                                <Table columns={this.state.columns} data={this.props.confluenceData} title={""}/>
+                                <Table columns={this.state.columns} data={this.props.confluenceData} width={"80vw"} title={""}/>
                         }
                         
                     </div>

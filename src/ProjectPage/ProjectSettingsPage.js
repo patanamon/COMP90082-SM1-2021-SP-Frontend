@@ -5,9 +5,10 @@ import { connect } from "react-redux";
 import { userActions } from "../_actions";
 import { ToastContainer } from "react-toastify";
 import { Spin } from "antd";
+import { commonConstants } from "../_constants";
 
 const input = {
-  width: "600px",
+  width: "642px",
   margin: "10px auto",
   borderRadius: "4px",
   padding: "4px",
@@ -20,7 +21,7 @@ const label = {
   margin: "10px",
 };
 
-let teamUrl = localStorage.getItem("TeamUrl") ? JSON.parse(localStorage.getItem("TeamUrl")) : {};
+let teamUrl = localStorage.getItem(commonConstants.TEAM_CONFIG_URL) ? JSON.parse(localStorage.getItem(commonConstants.TEAM_CONFIG_URL)) : {};
 
 
 class ProjectSettingsPage extends React.Component {
@@ -55,7 +56,7 @@ class ProjectSettingsPage extends React.Component {
   render() {
     return (
       <div class="uomcontent">
-        {uomHeader("Configure")}
+        {uomHeader("Project Configuration")}
         <div role="main">
           <div className="page-inner">
             <Banner projName="2021-SM1-Software-Project-Database" />
@@ -88,7 +89,7 @@ class ProjectSettingsPage extends React.Component {
 
                   <br />
 
-                  <div id="savechanges">
+                  <div style={{textAlign:"right"}} id="savechanges">
                     <input type="submit" value="Submit" />
                   </div>
                 </form>
