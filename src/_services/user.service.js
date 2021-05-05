@@ -10,7 +10,7 @@ export const userService = {
   getTeamGitHubComments,
   getTeamConfluenceMeeting,
 
-  setTeamUrl,
+  setTeamInfo,
 
   getTeamCodeMetrics,
 
@@ -22,18 +22,10 @@ export const userService = {
   importProject,
   getConfluenceSpaceByKeyWord,
 
-<<<<<<< HEAD
-  // Configure
-  getConfigurationConfluence,
-  getConfigurationGit,
-  getConfigurationJira,
-  //setConfiguration,
-=======
   getTeamMemberList,
->>>>>>> dab870121e036121618a59c0a958dcd9fa576ad4
 };
 
-const baseUrl = "http://localhost:3001/api/v1";
+const baseUrl = "http://localhost:3200/api/v1";
 
 function getTeamConfluencePages(teamKey) {
   let url = baseUrl + "/confluence/spaces/" + teamKey + "/page_count";
@@ -120,11 +112,13 @@ function getTeamGitHubComments(teamKey) {
     });
 }
 
-function setTeamUrl(teamKey, jiraUrl, githubUrl) {
+function setTeamInfo(teamKey, jiraUrl, githubUrl, githubUsername, githubPassword) {
   let payload = {
     space_key: teamKey,
     jira_url: jiraUrl,
     git_url: githubUrl,
+    git_username: githubUsername,
+    git_password: githubPassword,
   };
 
   let url = baseUrl + "/team/config";
@@ -138,7 +132,7 @@ function setTeamUrl(teamKey, jiraUrl, githubUrl) {
     .then((response) => response.json())
     .then((jsonResponse) => {
       if (jsonResponse.code == 0) {
-        storePut(commonConstants.TEAM_CONFIG_URL, payload);
+        storePut(commonConstants.TEAM_CONFIG_INFO, payload);
       }
       return jsonResponse;
     });
@@ -195,71 +189,8 @@ function getJiraIndividualData(teamKey) {
     });
 }
 
-<<<<<<< HEAD
-// function setConfiguration(teamId, memberId, gitName, slackEmail) {
-//   var url = "http://172.26.88.107:8081/api/v1/team/";
-//   url += teamId;
-//   url += "/members/";
-//   url += memberId;
-
-//   var data = {};
-
-//   if (gitName != null) {
-//     data["git_name"] = gitName;
-//   }
-//   if (gitName != null) {
-//     data["slack_email"] = slackEmail;
-//   }
-
-//   const requestOptions = {
-//     method: "POST",
-//     credentials: "include",
-//     body: JSON.stringify(data),
-//   };
-
-//   return fetch(url, requestOptions);
-// }
-
-function getConfigurationConfluence(teamKey) {
-  let url = baseUrl + "/confluence/spaces" + teamKey;
-
-  const requestOptions = {
-    method: "GET",
-  };
-
-  return fetch(url, requestOptions)
-    .then((response) => response.json())
-    .then((jsonResponse) => {
-      if (jsonResponse.code == 0) {
-        storePut("ConfluenceUrl", jsonResponse.data);
-
-      };
-      return jsonResponse;
-    });
-}
-function getConfigurationGit(teamKey) {
-  let url = baseUrl + "/git/" + teamKey;
-
-  const requestOptions = {
-    method: "GET",
-  };
-
-  return fetch(url, requestOptions)
-    .then((response) => response.json())
-    .then((jsonResponse) => {
-      if (jsonResponse.code == 0) {
-        storePut("GitUrl", jsonResponse.data);
-
-      };
-      return jsonResponse;
-    });
-}
-function getConfigurationJira(teamKey) {
-  let url = baseUrl + "/jira/" + teamKey;
-=======
 function getConfluenceIndividualData(teamKey) {
   let url = baseUrl + "/confluence/spaces" + teamKey + "/pages/contributions";
->>>>>>> dab870121e036121618a59c0a958dcd9fa576ad4
 
   const requestOptions = {
     method: "GET",
@@ -269,14 +200,8 @@ function getConfluenceIndividualData(teamKey) {
     .then((response) => response.json())
     .then((jsonResponse) => {
       if (jsonResponse.code == 0) {
-<<<<<<< HEAD
-        storePut("JiraUrl", jsonResponse.data);
-
-      };
-=======
         storePut(commonConstants.TEAM_CONFLUENCE_INDIVIDUAL_DATA, jsonResponse.data);
       }
->>>>>>> dab870121e036121618a59c0a958dcd9fa576ad4
       return jsonResponse;
     });
 }

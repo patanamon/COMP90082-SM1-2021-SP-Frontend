@@ -20,7 +20,7 @@ export const userActions = {
 
   getTeamCodeMetrics,
 
-  setTeamUrl,
+  setTeamInfo,
 
   getConfluenceIndividualData,
   getGithubIndividualData,
@@ -33,16 +33,7 @@ export const userActions = {
   setCurrentTeamKey,
   setCurrentTeamName,
 
-<<<<<<< HEAD
-  
-  // Configure
-  getConfigurationConfluence,
-  getConfigurationGit,
-  getConfigurationJira,
-  setConfiguration,
-=======
   getTeamMemberList,
->>>>>>> dab870121e036121618a59c0a958dcd9fa576ad4
 };
 
 function request(action, payload) {
@@ -233,21 +224,21 @@ function getTeamConfluenceMeeting(teamKey) {
   };
 }
 
-function setTeamUrl(teamKey, jiraUrl, githubUrl) {
+function setTeamInfo(teamKey, jiraUrl, githubUrl, githubUsername, githubPassword) {
   return (dispatch) => {
-    dispatch(request(userConstants.SETTEAMURL_REQUEST));
-    userService.setTeamUrl(teamKey, jiraUrl, githubUrl).then(
+    dispatch(request(userConstants.SETTEAMINFO_REQUEST));
+    userService.setTeamInfo(teamKey, jiraUrl, githubUrl, githubUsername, githubPassword).then(
       (response) => {
         if (checkRespCode(response)) {
-          dispatch(success(userConstants.SETTEAMURL_SUCCESS, response.message));
+          dispatch(success(userConstants.SETTEAMINFO_SUCCESS, response.message));
           successToast(response.message);
         } else {
-          dispatch(failure(userConstants.SETTEAMURL_FAILURE, response.message));
+          dispatch(failure(userConstants.SETTEAMINFO_FAILURE, response.message));
           failureToast(response.message);
         }
       },
       (error) => {
-        dispatch(failure(userConstants.SETTEAMURL_FAILURE, error.toString()));
+        dispatch(failure(userConstants.SETTEAMINFO_FAILURE, error.toString()));
         failureToast(error.toString());
       }
     );
@@ -428,23 +419,6 @@ function setCurrentTeamKey(teamKey) {
   };
 }
 
-<<<<<<< HEAD
-function getConfigurationConfluence(teamKey) {
-  return (dispatch) => {
-    userService.getConfigurationConfluence(teamKey).then(
-      (response) => {
-        dispatch(
-          success(userConstants.GETCONFIGURATIONCON_SUCCESS, response)
-          );  
-      },
-      (error) => {
-        dispatch(
-          failure(
-            userConstants.GETCONFIGURATIONCON_FAILURE,
-            error.toString()
-          )
-        );
-=======
 function getTeamMemberList(teamKey) {
   return (dispatch) => {
     userService.getTeamMemberList(teamKey).then(
@@ -453,68 +427,10 @@ function getTeamMemberList(teamKey) {
       },
       (error) => {
         dispatch(failure(userConstants.GET_TEAM_MEMBER_LIST_FAILURE, error.toString()));
->>>>>>> dab870121e036121618a59c0a958dcd9fa576ad4
       }
     );
   };
 }
-<<<<<<< HEAD
-function getConfigurationGit(teamKey) {
-  return (dispatch) => {
-    userService.getConfigurationGit(teamKey).then(
-      (response) => {
-        dispatch(
-          success(userConstants.GETCONFIGURATIONGIT_SUCCESS, response)
-          );  
-      },
-      (error) => {
-        dispatch(
-          failure(
-            userConstants.GETCONFIGURATIONGIT_FAILURE,
-            error.toString()
-          )
-        );
-      }
-    );
-  };
-}
-function getConfigurationJira(teamKey) {
-  return (dispatch) => {
-    userService.getConfigurationJira(teamKey).then(
-      (response) => {
-        dispatch(
-          success(userConstants.GETCONFIGURATIONJIRA_SUCCESS, response)
-          );  
-      },
-      (error) => {
-        dispatch(
-          failure(
-            userConstants.GETCONFIGURATIONJIRA_FAILURE,
-            error.toString()
-          )
-        );
-      }
-    );
-  };
-}
-//////////////////!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-function setConfiguration(teamKey) {
-  return (dispatch) => {
-    userService.setConfiguration(teamKey).then(  //!!!!!!!!!!!!!!!!!!!!!!!
-      (response) => {
-        dispatch(
-          success(userConstants.SETCONFIGURATION_SUCCESS, response)
-        );
-        
-      },
-      (error) => {
-        dispatch(
-          failure(
-            userConstants.SETCONFIGURATION_FAILURE,
-            error.toString()
-          )
-        );
-=======
 
 function setCurrentTeamName(teamName) {
   return (dispatch) => {
@@ -547,7 +463,6 @@ function login(username, password) {
       (error) => {
         dispatch(failure(error.toString()));
         dispatch(alertActions.error(error.toString()));
->>>>>>> dab870121e036121618a59c0a958dcd9fa576ad4
       }
     );
   };

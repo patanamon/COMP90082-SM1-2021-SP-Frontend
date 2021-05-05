@@ -5,7 +5,7 @@ const initState = {
   requestTeamConfluencePages: false,
   requestTeamGithubCommits: false,
   requestTeamJiraTickets: false,
-  requestSetTeamUrl: false,
+  requestSetTeamInfo: false,
   requestTeamCodeMetrics: false,
   requestConfluenceSpaceByKeyWord: false,
   importProject: false,
@@ -64,50 +64,6 @@ export function user(state = initState, action) {
     case userConstants.GET_TEAM_JIRA_TICKETS_FAILURE:
       return {
         ...state,
-<<<<<<< HEAD
-        teamJiraTickets: {}
-      }
-    case userConstants.GETCONFIGURATIONCON_SUCCESS:
-      return {
-        ...state,
-        confluenceUrl: action.payload
-      }
-    case userConstants.GETCONFIGURATIONCON_FAILURE:
-      return {
-        ...state,
-        confluenceUrl: {}
-      }
-    case userConstants.GETCONFIGURATIONGIT_SUCCESS:
-      return {
-        ...state,
-        gitUrl: action.payload
-      }
-    case userConstants.GETCONFIGURATIONGIT_FAILURE:
-      return {
-        ...state,
-        gitUrl: {}
-      }
-    case userConstants.GETCONFIGURATIONJIRA_SUCCESS:
-      return {
-        ...state,
-        jiraUrl: action.payload
-      }
-    case userConstants.GETCONFIGURATIONJIRA_FAILURE:
-      return {
-        ...state,
-        jiraUrl: {}
-      }    
-    case userConstants.SETCONFIGURATION_SUCCESS:
-      return {
-        ...state,
-        teamUrl: action.payload
-      }
-    case userConstants.SETCONFIGURATION_FAILURE:
-      return {
-        ...state,
-        teamUrl: {}
-      }
-=======
         requestTeamJiraTickets: false,
         teamJiraTickets: {},
       };
@@ -148,23 +104,23 @@ export function user(state = initState, action) {
         ...state,
         requestTeamCodeMetrics: false,
       };
-    case userConstants.SETTEAMURL_REQUEST:
+    case userConstants.SETTEAMINFO_REQUEST:
       return {
         ...state,
-        requestSetTeamUrl: true,
+        requestSetTeamInfo: true,
       };
-    case userConstants.SETTEAMURL_SUCCESS:
+    case userConstants.SETTEAMINFO_SUCCESS:
       return {
         ...state,
-        requestSetTeamUrl: false,
-        teamUrl: JSON.parse(
-          localStorage.getItem(commonConstants.TEAM_CONFIG_URL)
+        requestSetTeamInfo: false,
+        teamInfo: JSON.parse(
+          localStorage.getItem(commonConstants.TEAM_CONFIG_INFO)
         ),
       };
-    case userConstants.SETTEAMURL_FAILURE:
+    case userConstants.SETTEAMINFO_FAILURE:
       return {
         ...state,
-        requestSetTeamUrl: false,
+        requestSetTeamInfo: false,
       };
     case userConstants.GET_CONFLUENCE_SPACE_BY_KEY_WORD_REQUEST:
       return {
@@ -233,7 +189,6 @@ export function user(state = initState, action) {
         ...state,
         currentTeamKey: action.payload,
       };
->>>>>>> dab870121e036121618a59c0a958dcd9fa576ad4
     default:
       return state;
   }
