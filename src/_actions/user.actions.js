@@ -447,7 +447,7 @@ function getImportedProject() {
       (response) => {
         if (checkRespCode(response)) {
           dispatch(
-            success(userConstants.GET_IMPORTED_PROJECT_SUCCESS, response)
+            success(userConstants.GET_IMPORTED_PROJECT_SUCCESS, response.data)
           );
         } else {
           dispatch(

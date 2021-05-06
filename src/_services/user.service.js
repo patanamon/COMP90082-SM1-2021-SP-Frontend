@@ -13,7 +13,7 @@ export const userService = {
   setTeamUrl,
 
   getTeamCodeMetrics,
-  
+
   getConfluenceIndividualData,
   getGithubIndividualData,
   getJiraIndividualData,
@@ -25,7 +25,9 @@ export const userService = {
   getTeamMemberList,
 };
 
-const baseUrl = "http://localhost:3200/api/v1";
+//const baseUrl = "http://localhost:3200/api/v1";
+const baseUrl = "http://18.167.74.23:18000/api/v1";
+
 
 function getTeamConfluencePages(teamKey) {
   let url = baseUrl + "/confluence/spaces/" + teamKey + "/page_count";
@@ -231,6 +233,7 @@ function getConfluenceSpaceByKeyWord(keyWord) {
   return fetch(url, requestOptions)
     .then((response) => response.json())
     .then((jsonResponse) => {
+      //console.log(jsonResponse);
       return jsonResponse;
     });
 }
@@ -271,6 +274,7 @@ function getImportedProject() {
       if (jsonResponse.code == 0) {
         storePut(commonConstants.COORDINATOR_IMPORTED_PROJECT, jsonResponse.data);
       }
+      //console.log(jsonResponse);
       return jsonResponse;
     });
 }

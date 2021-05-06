@@ -14,6 +14,11 @@ import Banner from "../_utils/Banner";
 import AsyncSelect from "react-select/async";
 import { userService } from "../_services";
 import { formatSearchResult } from "../_utils/formatSearchResult.js";
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 // temp store for vars
 var KeyResults = [];
@@ -24,15 +29,34 @@ var FinalNameResult = [];
 var FinalLinkResult = [];
 
 // check if the item present in results
+function uniqImported(arr1, arr2, arr3, obj) {
+  if (arr1.indexOf(obj.space_key) === -1) {
+    arr1.push(obj.space_key);
+    arr2.push(obj.space_name);
+    //console.log(obj);
+    let link = getConfluenceLink(obj.space_key);
+    //arr3.push(obj.link);
+    arr3.push(link);
+  }
+    
+}
 function uniq(arr1, arr2, arr3, obj) {
   if (arr1.indexOf(obj.value) === -1) {
     arr1.push(obj.value);
     arr2.push(obj.label);
-    arr3.push(obj.link);
+    //console.log(obj);
+    let link = getConfluenceLink(obj.value);
+    //arr3.push(obj.link);
+    arr3.push(link);
   }
     
 }
 
+function getConfluenceLink(spaceK){
+    var baseurl = "https://confluence.cis.unimelb.edu.au:8443/display/";
+    var confluenceLink = baseurl+spaceK;
+    return confluenceLink
+  }
 // delete item from all results list
 function del(arr1, arr2, arr3, item) {
   arr2.splice(arr1.indexOf(item), 1);
@@ -49,6 +73,8 @@ class CoordinatorHomePage extends Component {
     this.getSearchResult = this.getSearchResult.bind(this);
     this.handleRedirect = this.handleRedirect.bind(this);
   }
+
+  
   // not works now, for import project actions
   handleImport() {
     for (let i = 0; i < NameResults.length; i++) {
@@ -65,7 +91,10 @@ class CoordinatorHomePage extends Component {
   // actions after item is selected : add to result if it absents
   handleChange = (selectedProject) => {
     this.setState({ selectedProject });
+    console.log("check selected Project");
+    console.log(selectedProject);
     uniq(KeyResults, NameResults, LinkResults, selectedProject);
+    
   };
 
   // actions for removing specific item
@@ -79,9 +108,20 @@ class CoordinatorHomePage extends Component {
     this.props.setCurrentTeamKey(spaceKey);
   }
 
-  // componentDidMount() {
-  //   this.props.getImportedProject();
-  // }
+  componentDidMount() {
+    this.props.getImportedProject();
+
+  }
+
+  componentDidUpdate(){
+    this.props.getImportedProject();
+    const projects = this.props.importedProject; 
+    console.log("check projects");
+    //console.log(projects[0].space_key);
+    //console.log(projects[0].space_name);
+  Object.keys(projects).map(idx => uniqImported(KeyResults, NameResults, LinkResults, projects[idx]));  
+    
+  }
 
   getSearchResult(keyWord) {
     return userService.getConfluenceSpaceByKeyWord(keyWord).then(
@@ -89,6 +129,7 @@ class CoordinatorHomePage extends Component {
         if (response.code == 0 && response.data.length != 0) {
           let options = formatSearchResult(response.data);
           this.setState({ openMenu: true, options: options });
+          //console.log(options);
           return options;
         } else {
           this.setState({ openMenu: false });
@@ -102,6 +143,48 @@ class CoordinatorHomePage extends Component {
     );
   }
 
+ AlertDialog() { 
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    //this.handleDelete(row);
+  };
+
+  return (
+    <div>
+      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+        Open alert dialog
+      </Button>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Use Google's location service?"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Let Google help apps determine location. This means sending anonymous location data to
+            Google, even when no apps are running.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Disagree
+          </Button>
+          <Button onClick={handleClose} color="primary" autoFocus>
+            Agree
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
+}
   render() {
     return (
       <div class="uomcontent">
@@ -156,6 +239,7 @@ class CoordinatorHomePage extends Component {
                                 variant="contained"
                                 color="primary"
                                 onClick={() => {
+                                  //this.AlertDialog()
                                   this.handleDelete(row);
                                 }}
                               >
