@@ -10,7 +10,7 @@ export const userService = {
   getTeamGitHubComments,
   getTeamConfluenceMeeting,
 
-  setTeamUrl,
+  setTeamInfo,
 
   getTeamCodeMetrics,
 
@@ -112,11 +112,13 @@ function getTeamGitHubComments(teamKey) {
     });
 }
 
-function setTeamUrl(teamKey, jiraUrl, githubUrl) {
+function setTeamInfo(teamKey, jiraUrl, githubUrl, githubUsername, githubPassword) {
   let payload = {
     space_key: teamKey,
     jira_url: jiraUrl,
     git_url: githubUrl,
+    git_username: githubUsername,
+    git_password: githubPassword,
   };
 
   let url = baseUrl + "/team/config";
@@ -130,7 +132,7 @@ function setTeamUrl(teamKey, jiraUrl, githubUrl) {
     .then((response) => response.json())
     .then((jsonResponse) => {
       if (jsonResponse.code == 0) {
-        storePut(commonConstants.TEAM_CONFIG_URL, payload);
+        storePut(commonConstants.TEAM_CONFIG_INFO, payload);
       }
       return jsonResponse;
     });

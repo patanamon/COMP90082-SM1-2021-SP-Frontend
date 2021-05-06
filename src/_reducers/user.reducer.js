@@ -5,7 +5,7 @@ const initState = {
   requestTeamConfluencePages: false,
   requestTeamGithubCommits: false,
   requestTeamJiraTickets: false,
-  requestSetTeamUrl: false,
+  requestSetTeamInfo: false,
   requestTeamCodeMetrics: false,
   requestConfluenceSpaceByKeyWord: false,
   importProject: false,
@@ -104,23 +104,23 @@ export function user(state = initState, action) {
         ...state,
         requestTeamCodeMetrics: false,
       };
-    case userConstants.SETTEAMURL_REQUEST:
+    case userConstants.SETTEAMINFO_REQUEST:
       return {
         ...state,
-        requestSetTeamUrl: true,
+        requestSetTeamInfo: true,
       };
-    case userConstants.SETTEAMURL_SUCCESS:
+    case userConstants.SETTEAMINFO_SUCCESS:
       return {
         ...state,
-        requestSetTeamUrl: false,
-        teamUrl: JSON.parse(
-          localStorage.getItem(commonConstants.TEAM_CONFIG_URL)
+        requestSetTeamInfo: false,
+        teamInfo: JSON.parse(
+          localStorage.getItem(commonConstants.TEAM_CONFIG_INFO)
         ),
       };
-    case userConstants.SETTEAMURL_FAILURE:
+    case userConstants.SETTEAMINFO_FAILURE:
       return {
         ...state,
-        requestSetTeamUrl: false,
+        requestSetTeamInfo: false,
       };
     case userConstants.GET_CONFLUENCE_SPACE_BY_KEY_WORD_REQUEST:
       return {

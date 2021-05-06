@@ -20,7 +20,7 @@ export const userActions = {
 
   getTeamCodeMetrics,
 
-  setTeamUrl,
+  setTeamInfo,
 
   getConfluenceIndividualData,
   getGithubIndividualData,
@@ -224,21 +224,21 @@ function getTeamConfluenceMeeting(teamKey) {
   };
 }
 
-function setTeamUrl(teamKey, jiraUrl, githubUrl) {
+function setTeamInfo(teamKey, jiraUrl, githubUrl, githubUsername, githubPassword) {
   return (dispatch) => {
-    dispatch(request(userConstants.SETTEAMURL_REQUEST));
-    userService.setTeamUrl(teamKey, jiraUrl, githubUrl).then(
+    dispatch(request(userConstants.SETTEAMINFO_REQUEST));
+    userService.setTeamInfo(teamKey, jiraUrl, githubUrl, githubUsername, githubPassword).then(
       (response) => {
         if (checkRespCode(response)) {
-          dispatch(success(userConstants.SETTEAMURL_SUCCESS, response.message));
+          dispatch(success(userConstants.SETTEAMINFO_SUCCESS, response.message));
           successToast(response.message);
         } else {
-          dispatch(failure(userConstants.SETTEAMURL_FAILURE, response.message));
+          dispatch(failure(userConstants.SETTEAMINFO_FAILURE, response.message));
           failureToast(response.message);
         }
       },
       (error) => {
-        dispatch(failure(userConstants.SETTEAMURL_FAILURE, error.toString()));
+        dispatch(failure(userConstants.SETTEAMINFO_FAILURE, error.toString()));
         failureToast(error.toString());
       }
     );
