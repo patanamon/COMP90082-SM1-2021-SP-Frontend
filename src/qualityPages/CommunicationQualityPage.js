@@ -32,7 +32,7 @@ class CommunicationPage extends React.Component {
                 {
                     name: "Meeting Minutes",
                     selector: "link",
-                    cell: row => <a href={row.link}>Link to Meeting Minutes</a>,
+                    cell: row => <a href={row.link}>{row.link}</a>,
                 }
             ],
 
