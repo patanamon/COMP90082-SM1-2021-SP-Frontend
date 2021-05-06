@@ -79,7 +79,7 @@ function getTeamJiraTickets(teamKey) {
 }
 
 function getTeamConfluenceMeeting(teamKey) {
-  let url = baseUrl + "/confluence/spaces/" + teamKey + "/meeting";
+  let url = baseUrl + "/confluence/" + teamKey + "/meeting_minutes";
 
   const requestOptions = {
     method: "GET",
