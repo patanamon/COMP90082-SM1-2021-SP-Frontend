@@ -10,8 +10,6 @@ import { ToastContainer } from "react-toastify";
 import Banner from "../_utils/Banner";
 import DonutChart from "../_utils/DonutChart";
 
-import "./IndividualContributionPage.css";
-
 class IndividualContributionPage extends React.Component {
   constructor(props) {
     super(props);
