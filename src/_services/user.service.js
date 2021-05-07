@@ -7,7 +7,7 @@ export const userService = {
   getTeamGithubCommits,
   getTeamJiraTickets,
 
-  getTeamGitHubComments,
+  
   getTeamConfluenceMeeting,
 
   setTeamInfo,
@@ -25,7 +25,7 @@ export const userService = {
   getTeamMemberList,
 };
 
-const baseUrl = "http://localhost:3200/api/v1";
+const baseUrl = "http://18.167.74.23:18000/api/v1";
 
 function getTeamConfluencePages(teamKey) {
   let url = baseUrl + "/confluence/spaces/" + teamKey + "/page_count";
@@ -95,22 +95,6 @@ function getTeamConfluenceMeeting(teamKey) {
     });
 }
 
-function getTeamGitHubComments(teamKey) {
-  let url = baseUrl + "/git/" + teamKey + "/comment_count";
-
-  const requestOptions = {
-    method: "GET",
-  };
-
-  return fetch(url, requestOptions)
-    .then((response) => response.json())
-    .then((jsonResponse) => {
-      if (jsonResponse.code == 0) {
-        storePut(commonConstants.TEAM_GITHUB_COMMENT, jsonResponse.data);
-      }
-      return jsonResponse;
-    });
-}
 
 function setTeamInfo(teamKey, jiraUrl, githubUrl, githubUsername, githubPassword) {
   let payload = {

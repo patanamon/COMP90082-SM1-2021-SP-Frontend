@@ -67,16 +67,6 @@ export function user(state = initState, action) {
         requestTeamJiraTickets: false,
         teamJiraTickets: {},
       };
-    case userConstants.GET_TEAM_GITHUB_COMMENTS_SUCCESS:
-      return {
-        ...state,
-        teamGitHubComments: action.payload,
-      };
-    case userConstants.GET_TEAM_GITHUB_COMMENTS_FAILURE:
-      return {
-        ...state,
-        teamGitHubComments: {},
-      };
     case userConstants.GET_TEAM_CONFLUENCE_MEETINGS_SUCCESS:
       return {
         ...state,
