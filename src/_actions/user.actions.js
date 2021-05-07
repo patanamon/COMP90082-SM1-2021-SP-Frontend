@@ -15,7 +15,6 @@ export const userActions = {
   getTeamGithubCommits,
   getTeamJiraTickets,
 
-  getTeamGitHubComments,
   getTeamConfluenceMeeting,
 
   getTeamCodeMetrics,
@@ -155,38 +154,6 @@ function getTeamJiraTickets(teamKey) {
           failure(userConstants.GET_TEAM_JIRA_TICKETS_FAILURE, error.toString())
         );
         failureToast(error.toString());
-      }
-    );
-  };
-}
-
-function getTeamGitHubComments(teamKey) {
-  return (dispatch) => {
-    userService.getTeamGitHubComments(teamKey).then(
-      (response) => {
-        if (checkRespCode(response)) {
-          dispatch(
-            success(
-              userConstants.GET_TEAM_GITHUB_COMMENTS_SUCCESS,
-              formatLineChartData(response)
-            )
-          );
-        } else {
-          dispatch(
-            failure(
-              userConstants.GET_TEAM_GITHUB_COMMENTS_FAILURE,
-              response.message
-            )
-          );
-        }
-      },
-      (error) => {
-        dispatch(
-          failure(
-            userConstants.GET_TEAM_GITHUB_COMMENTS_FAILURE,
-            error.toString()
-          )
-        );
       }
     );
   };
