@@ -7,7 +7,7 @@ export const userService = {
   getTeamGithubCommits,
   getTeamJiraTickets,
 
-  getTeamGitHubComments,
+  
   getTeamConfluenceMeeting,
 
   setTeamUrl,
@@ -95,22 +95,6 @@ function getTeamConfluenceMeeting(teamKey) {
     });
 }
 
-function getTeamGitHubComments(teamKey) {
-  let url = baseUrl + "/git/" + teamKey + "/comment_count";
-
-  const requestOptions = {
-    method: "GET",
-  };
-
-  return fetch(url, requestOptions)
-    .then((response) => response.json())
-    .then((jsonResponse) => {
-      if (jsonResponse.code == 0) {
-        storePut(commonConstants.TEAM_GITHUB_COMMENT, jsonResponse.data);
-      }
-      return jsonResponse;
-    });
-}
 
 function setTeamUrl(teamKey, jiraUrl, githubUrl) {
   let payload = {
