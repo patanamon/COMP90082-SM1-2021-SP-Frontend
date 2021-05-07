@@ -39,7 +39,7 @@ class CommunicationPage extends React.Component {
                 <div role="main">
                     <div className="page-inner">
                         <Banner projName="2021-SM1-Software-Project-Database" />     
-                        <Table columns={this.state.columns} data={this.props.confluenceData} width={"80vw"} title={""}/>
+                        <Table columns={this.state.columns} data={this.props.confluenceData} width={"80vw"} height={"50vh"} title={""}/>
                     </div>
                 </div>
             </div>
