@@ -21,9 +21,6 @@ class IndividualContributionPage extends React.Component {
         commonConstants.JIRA,
       ],
       btnSelected: commonConstants.CONFLUENCE,
-      total: [{ student_id: "", fullname: "" }],
-      students : ["All", "Sara1", "Sara2", "Sara3"],
-      
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -38,10 +35,10 @@ class IndividualContributionPage extends React.Component {
 
   handleBtnGroupClick(e) {
     let picked = e.currentTarget.firstChild.innerHTML;
-    if (picked == commonConstants.CONFLUENCE) {
+    if (picked === commonConstants.CONFLUENCE) {
         this.props.getConfluenceIndividualPages("COMP900822021SM1SP");
         console.log(this.props.individualConfluenceData)
-    } else if (picked == commonConstants.GITHUB) {
+    } else if (picked === commonConstants.GITHUB) {
         this.props.getGithubIndividualCommits("COMP900822021SM1SP");
     } else {
         this.props.getJiraIndividualCount("COMP900822021SM1SP");
@@ -103,13 +100,13 @@ class IndividualContributionPage extends React.Component {
                   </Col>
                   <Col>
                   <Col>{Student()}</Col>
-                    {this.state.btnSelected == commonConstants.CONFLUENCE && (
+                    {this.state.btnSelected === commonConstants.CONFLUENCE && (
                     <DonutChart data={this.state.dataset['confluence'][this.state.selected]} />
                     )} 
-                    {this.state.btnSelected == commonConstants.GITHUB && (
+                    {this.state.btnSelected === commonConstants.GITHUB && (
                     <DonutChart data={this.state.dataset['git'][this.state.selected]} />
                     )}
-                    {this.state.btnSelected == commonConstants.JIRA && (
+                    {this.state.btnSelected === commonConstants.JIRA && (
                     <DonutChart data={this.state.dataset['jira'][this.state.selected]} />
                     )}
                   </Col>
