@@ -14,6 +14,7 @@ import Banner from "../_utils/Banner";
 import AsyncSelect from "react-select/async";
 import { userService } from "../_services";
 import { formatSearchResult } from "../_utils/formatSearchResult.js";
+import { Link } from "react-router-dom";
 
 // temp store for vars
 var KeyResults = [];
@@ -74,13 +75,12 @@ class CoordinatorHomePage extends Component {
   };
 
   handleRedirect(e){
-    let spaceKey = e.target.innerText;
-    this.props.setCurrentTeamKey(spaceKey);
+    this.props.setCurrentTeamKey(e.target.innerText);
   }
 
-  // componentDidMount() {
-  //   this.props.getImportedProject();
-  // }
+  componentDidMount() {
+    this.props.getImportedProject(); 
+  }
 
   getSearchResult(keyWord) {
     return userService.getConfluenceSpaceByKeyWord(keyWord).then(
@@ -142,9 +142,9 @@ class CoordinatorHomePage extends Component {
                       {KeyResults.map((row) => (
                         <TableRow key={row}>
                           <TableCell component="th" scope="row">
-                            <a href="/ProjectHomePage" onClick={this.handleRedirect}>
+                            <Link to="/ProjectHomePage" onClick={this.handleRedirect}>
                               {NameResults[KeyResults.indexOf(row)]}
-                            </a>
+                            </Link>
                           </TableCell>
                           <TableCell align="right">
                             {LinkResults[KeyResults.indexOf(row)]}
