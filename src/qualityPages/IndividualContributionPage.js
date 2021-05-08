@@ -3,7 +3,7 @@ import uomHeader from "../header/uomheader.js";
 import { connect } from "react-redux";
 import { userActions } from "../_actions";
 //import { storeGet } from "../_helpers/helper-funcs.js";
-import { Nav, Tab, Col, Row, Container, Form } from "react-bootstrap";
+import { Tab, Col, Row, Container, Form } from "react-bootstrap";
 import ButtonGroup from "../_utils/ButtonGroup";
 import { commonConstants } from "../_constants";
 import { ToastContainer } from "react-toastify";
@@ -21,16 +21,12 @@ class IndividualContributionPage extends React.Component {
         commonConstants.JIRA,
       ],
       btnSelected: commonConstants.CONFLUENCE,
+
+      selectStudent: "All",
     }
 
-    this.handleChange = this.handleChange.bind(this);
     this.selectStudent = this.selectStudent.bind(this);
     this.handleBtnGroupClick = this.handleBtnGroupClick.bind(this);
-  }
-
-  handleChange(e) {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
   }
 
   handleBtnGroupClick(e) {
@@ -49,15 +45,15 @@ class IndividualContributionPage extends React.Component {
   }
 
   selectStudent(e) {
-    this.setState({ selected: e.target.value });
+    this.setState({ selectedStudent: e.target.value });
+  }
+
+  studentListGenerator() {
+    let studentList = this.props.individualConfluenceData.labels.push("All");
+    return studentList;
   }
 
   render() {
-    const {
-        students,
-      selected,
-    } = this.state;
-
     const Student = () => {
       return (
         <Form inline>
@@ -74,7 +70,7 @@ class IndividualContributionPage extends React.Component {
             custom
             onChange={this.selectStudent}
           >
-            {students.map((student, index) => (
+            {this.studentListGenerator().map((student, index) => (
               <option key={index} value={index}>{student}</option>
             ))}
           </Form.Control>
@@ -101,13 +97,13 @@ class IndividualContributionPage extends React.Component {
                   <Col>
                   <Col>{Student()}</Col>
                     {this.state.btnSelected === commonConstants.CONFLUENCE && (
-                    <DonutChart data={this.state.dataset['confluence'][this.state.selected]} />
+                    <DonutChart data={this.state.dataset['confluence'][this.state.selectedStudent]} />
                     )} 
                     {this.state.btnSelected === commonConstants.GITHUB && (
-                    <DonutChart data={this.state.dataset['git'][this.state.selected]} />
+                    <DonutChart data={this.state.dataset['git'][this.state.selectedStudent]} />
                     )}
                     {this.state.btnSelected === commonConstants.JIRA && (
-                    <DonutChart data={this.state.dataset['jira'][this.state.selected]} />
+                    <DonutChart data={this.state.dataset['jira'][this.state.selectedStudent]} />
                     )}
                   </Col>
                 </Row>
