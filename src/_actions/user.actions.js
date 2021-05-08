@@ -283,7 +283,7 @@ function getJiraIndividualData(teamKey) {
       (response) => {
         dispatch(
           success(
-            userConstants.GET_INDIVIDUAL_JIRA_COUNT_SUCCESS,
+            userConstants.GET_INDIVIDUAL_JIRA_COUNTS_SUCCESS,
             formatDonutChartData(response)
           )
         );
@@ -291,7 +291,7 @@ function getJiraIndividualData(teamKey) {
       (error) => {
         dispatch(
           failure(
-            userConstants.GET_INDIVIDUAL_JIRA_COUNT_FAILURE,
+            userConstants.GET_INDIVIDUAL_JIRA_COUNTS_FAILURE,
             error.toString()
           )
         );
