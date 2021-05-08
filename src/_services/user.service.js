@@ -149,7 +149,7 @@ function getGithubIndividualData(teamKey) {
   return fetch(url, requestOptions)
     .then((response) => response.json())
     .then((jsonResponse) => {
-      if (jsonResponse.code == 0) {
+      if (jsonResponse.code === 0) {
         storePut(commonConstants.TEAM_GITHUB_INDIVIDUAL_DATA, jsonResponse.data);
       }
       return jsonResponse;
@@ -166,7 +166,7 @@ function getJiraIndividualData(teamKey) {
   return fetch(url, requestOptions)
     .then((response) => response.json())
     .then((jsonResponse) => {
-      if (jsonResponse.code == 0) {
+      if (jsonResponse.code === 0) {
         storePut(commonConstants.TEAM_JIRA_INDIVIDUAL_DATA, jsonResponse.data);
       }
       return jsonResponse;
@@ -183,7 +183,7 @@ function getConfluenceIndividualData(teamKey) {
   return fetch(url, requestOptions)
     .then((response) => response.json())
     .then((jsonResponse) => {
-      if (jsonResponse.code == 0) {
+      if (jsonResponse.code === 0) {
         storePut(commonConstants.TEAM_CONFLUENCE_INDIVIDUAL_DATA, jsonResponse.data);
       }
       return jsonResponse;
