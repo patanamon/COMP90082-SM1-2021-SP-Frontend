@@ -7,10 +7,10 @@ export const userService = {
   getTeamGithubCommits,
   getTeamJiraTickets,
 
-  getTeamGitHubComments,
+  
   getTeamConfluenceMeeting,
 
-  setTeamUrl,
+  setTeamInfo,
 
   getTeamCodeMetrics,
 
@@ -79,7 +79,7 @@ function getTeamJiraTickets(teamKey) {
 }
 
 function getTeamConfluenceMeeting(teamKey) {
-  let url = baseUrl + "/confluence/spaces/" + teamKey + "/meeting";
+  let url = baseUrl + "/confluence/" + teamKey + "/meeting_minutes";
 
   const requestOptions = {
     method: "GET",
@@ -95,28 +95,14 @@ function getTeamConfluenceMeeting(teamKey) {
     });
 }
 
-function getTeamGitHubComments(teamKey) {
-  let url = baseUrl + "/git/" + teamKey + "/comment_count";
 
-  const requestOptions = {
-    method: "GET",
-  };
-
-  return fetch(url, requestOptions)
-    .then((response) => response.json())
-    .then((jsonResponse) => {
-      if (jsonResponse.code == 0) {
-        storePut(commonConstants.TEAM_GITHUB_COMMENT, jsonResponse.data);
-      }
-      return jsonResponse;
-    });
-}
-
-function setTeamUrl(teamKey, jiraUrl, githubUrl) {
+function setTeamInfo(teamKey, jiraUrl, githubUrl, githubUsername, githubPassword) {
   let payload = {
     space_key: teamKey,
     jira_url: jiraUrl,
     git_url: githubUrl,
+    git_username: githubUsername,
+    git_password: githubPassword,
   };
 
   let url = baseUrl + "/team/config";
@@ -130,7 +116,7 @@ function setTeamUrl(teamKey, jiraUrl, githubUrl) {
     .then((response) => response.json())
     .then((jsonResponse) => {
       if (jsonResponse.code == 0) {
-        storePut(commonConstants.TEAM_CONFIG_URL, payload);
+        storePut(commonConstants.TEAM_CONFIG_INFO, payload);
       }
       return jsonResponse;
     });

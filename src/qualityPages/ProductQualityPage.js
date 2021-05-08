@@ -106,21 +106,21 @@ class ProductQualityPage extends React.Component {
         <div role="main">
           <div className="page-inner">
             <Banner projName="2021-SM1-Software-Project-Database" />
-            {this.props.productqualityData && this.props.productqualityData.length != 0 && (
+            {this.props.teamCodeMetrics && this.props.teamCodeMetrics.length != 0 && (
               <DataTable
                 customStyles={customStyles}
                 columns={columns1}
-                data={this.props.productqualityData}
+                data={this.props.teamCodeMetrics}
               />
             )}
-            {this.props.productqualityData && this.props.productqualityData.length != 0 && this.props.productqualityData && (
+            {this.props.teamCodeMetrics && this.props.teamCodeMetrics.length != 0 && this.props.teamCodeMetrics && (
               <DataTable
               customStyles={customStyles}
               columns={columns2}
-              data={this.props.productqualityData}
+              data={this.props.teamCodeMetrics}
             />
             )}
-            {(!this.props.productqualityData || this.props.productqualityData.length == 0) && (
+            {(!this.props.teamCodeMetrics || this.props.teamCodeMetrics.length == 0) && (
               <Alert/>
             )}
           </div>
@@ -182,3 +182,4 @@ const actionCreators = {
 
 const ProductQuality = connect(mapState, actionCreators)(ProductQualityPage);
 export { ProductQuality as ProductQualityPage };
+
