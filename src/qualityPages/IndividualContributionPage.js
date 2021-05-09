@@ -55,7 +55,6 @@ class IndividualContributionPage extends React.Component {
       return this.props.individualGithubData.labels.slice().push("All");
     } 
     return this.props.individualConfluenceData.labels.slice().push("All");
-    
   }
 
   render() {
