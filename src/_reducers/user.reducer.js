@@ -71,7 +71,7 @@ export function user(state = initState, action) {
         return {
           ...state,
           requestIndividualJiraCounts: false,
-          individualJIraCounts: {},
+          individualJiraCounts: {},
         }
 
     case userConstants.GET_TEAM_CONFLUENCE_PAGES_REQUEST:

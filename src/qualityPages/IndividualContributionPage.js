@@ -118,16 +118,16 @@ class IndividualContributionPage extends React.Component {
 
 function mapState(state) {
     return{
-        individualGithubData: state.user.individualGithubCommits,
+        individualGithubData: state.user.individualGitHubCommits,
         individualConfluenceData: state.user.individualConfluencePages,
-        individualJiraData: state.user.individualJiraCount
+        individualJiraData: state.user.individualJiraCounts
     };
 }
 
 const actionCreators = {
-    getGithubIndividualCommits: userActions.getGithubIndividualCommits,
-    getConfluenceIndividualPages: userActions.getConfluenceIndividualPages,
-    getJiraIndividualCount: userActions.getJiraIndividualCount
+    getGithubIndividualData: userActions.getGithubIndividualData,
+    getConfluenceIndividualData: userActions.getConfluenceIndividualData,
+    getJiraIndividualData: userActions.getJiraIndividualData
 };
 
 const Product = connect(mapState, actionCreators)(IndividualContributionPage);
