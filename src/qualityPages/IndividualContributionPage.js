@@ -9,6 +9,7 @@ import { commonConstants } from "../_constants";
 import { ToastContainer } from "react-toastify";
 import Banner from "../_utils/Banner";
 import DonutChart from "../_utils/DonutChart";
+import { formatDonutChartDataForOneStudent } from "../_utils/formatDonutChartData"
 
 class IndividualContributionPage extends React.Component {
   constructor(props) {
@@ -22,7 +23,7 @@ class IndividualContributionPage extends React.Component {
       ],
       btnSelected: commonConstants.CONFLUENCE,
 
-      selectStudent: "All",
+      selectedStudent: "All",
     }
 
     this.selectStudent = this.selectStudent.bind(this);
@@ -46,6 +47,10 @@ class IndividualContributionPage extends React.Component {
 
   selectStudent(e) {
     this.setState({ selectedStudent: e.target.value });
+  }
+
+  componentDidMount() {
+    this.props.getConfluenceIndividualData("COMP900822021SM1SP");
   }
 
   studentListGenerator(type) {
@@ -101,13 +106,13 @@ class IndividualContributionPage extends React.Component {
                   <Col>
                   <Col>{Student()}</Col>
                     {this.state.btnSelected === commonConstants.CONFLUENCE && (
-                    <DonutChart data={this.state.dataset['confluence'][this.state.selectedStudent]} />
+                    <DonutChart data={formatDonutChartDataForOneStudent(this.props.individualConfluenceData, this.state.selectedStudent)} />
                     )} 
                     {this.state.btnSelected === commonConstants.GITHUB && (
-                    <DonutChart data={this.state.dataset['git'][this.state.selectedStudent]} />
+                    <DonutChart data={formatDonutChartDataForOneStudent(this.props.individualGithubData, this.state.selectedStudent)} />
                     )}
                     {this.state.btnSelected === commonConstants.JIRA && (
-                    <DonutChart data={this.state.dataset['jira'][this.state.selectedStudent]} />
+                    <DonutChart data={formatDonutChartDataForOneStudent(this.props.individualJiraData, this.state.selectedStudent)} />
                     )}
                   </Col>
                 </Row>
