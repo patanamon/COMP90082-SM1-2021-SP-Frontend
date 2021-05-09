@@ -75,7 +75,7 @@ class IndividualContributionPage extends React.Component {
             custom
             onChange={this.selectStudent}
           >
-            {this.studentListGenerator().map((student, index) => (
+            {this.studentListGenerator(this.state.btnSelected).map((student, index) => (
               <option key={index} value={index}>{student}</option>
             ))}
           </Form.Control>
