@@ -48,9 +48,14 @@ class IndividualContributionPage extends React.Component {
     this.setState({ selectedStudent: e.target.value });
   }
 
-  studentListGenerator() {
-    let studentList = this.props.individualConfluenceData.labels.push("All");
-    return studentList;
+  studentListGenerator(type) {
+    if (type === commonConstants.JIRA) {
+      return this.props.individualJiraData.labels.slice().push("All");
+    } else if (type === commonConstants.GITHUB) {
+      return this.props.individualGithubData.labels.slice().push("All");
+    } 
+    return this.props.individualConfluenceData.labels.slice().push("All");
+    
   }
 
   render() {
