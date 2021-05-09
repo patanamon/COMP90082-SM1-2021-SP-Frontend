@@ -32,12 +32,12 @@ class IndividualContributionPage extends React.Component {
   handleBtnGroupClick(e) {
     let picked = e.currentTarget.firstChild.innerHTML;
     if (picked === commonConstants.CONFLUENCE) {
-        this.props.getConfluenceIndividualPages("COMP900822021SM1SP");
-        console.log(this.props.individualConfluenceData)
+        this.props.getConfluenceIndividualData("COMP900822021SM1SP");
+        
     } else if (picked === commonConstants.GITHUB) {
-        this.props.getGithubIndividualCommits("COMP900822021SM1SP");
+        this.props.getGithubIndividualData("COMP900822021SM1SP");
     } else {
-        this.props.getJiraIndividualCount("COMP900822021SM1SP");
+        this.props.getJiraIndividualData("COMP900822021SM1SP");
     }
     this.setState({
         btnSelected: picked
