@@ -33,6 +33,7 @@ export const userActions = {
   setCurrentTeamName,
 
   getTeamMemberList,
+  sendImport,
 };
 
 function request(action, payload) {
@@ -90,6 +91,95 @@ function getTeamConfluencePages(teamKey) {
       }
     );
   };
+}
+
+function sendImport(teamKey) {
+  return (dispatch) => {
+    dispatch(request(userConstants.SEND_IMPORT_REQUEST));
+    userService.sendImport(teamKey).then(
+      (response) => {
+        if (checkRespCode(response)) {
+          dispatch(
+            success(
+              userConstants.SEND_IMPORT_SUCCESS,
+              //to do
+            )
+          );
+        } else {
+          dispatch(
+            failure(
+              userConstants.SEND_IMPORT_FAILURE,
+              response.message
+            )
+          );
+          failureToast(response.message);
+        }
+      },
+      (error) => {
+        dispatch(
+          failure(
+            userConstants.SEND_IMPORT_FAILURE,
+            error.toString()
+          )
+        );
+        failureToast(error.toString());
+      }
+    );
+  };
+}
+
+
+function getProjectInfo() {
+  return (dispatch) => {
+    dispatch(request(userConstants.GETPROJECTINFO_REQUEST));
+    userService.getProjectInfo().then(
+      (response) => {
+        if (checkRespCode(response)) {
+          dispatch(
+            success(
+              userConstants.GETPROJECTINFO_SUCCESS,
+              
+              formatProjectInfo(response)
+              
+              //formatLineChartData(response)
+            )
+          );
+          
+        } else {
+          dispatch(
+            failure(
+              userConstants.GETPROJECTINFO_FAILURE,
+              response.message
+            )
+          );
+          failureToast(response.message);
+        }
+      },
+      (error) => {
+        dispatch(
+          failure(
+            userConstants.GETPROJECTINFO_FAILURE,
+            error.toString()
+          )
+        );
+        failureToast(error.toString());
+      }
+    );
+  };
+}
+
+function formatProjectInfo(data){
+  var tempoStore = [];
+  
+
+  for (let i = 0, len = data.data.length; i < len; i++) {    
+    
+    tempoStore.push({"space_key":data.data[i].space_key, "label" : data.data[i].space_name, "link" : "https://confluence.cis.unimelb.edu.au:8443/display/"+data.data[i].space_key+"/Home"});
+    
+}
+
+
+return tempoStore;
 }
 
 function getTeamGithubCommits(teamKey) {
