@@ -3,6 +3,7 @@ import { Tab, Col, Row, Container, Form } from "react-bootstrap";
 
 export default function DropdownMenus(props) {
     const data = props.data;
+    console.log(data);
     return (
         <Form inline>
           <Form.Label
@@ -18,7 +19,7 @@ export default function DropdownMenus(props) {
             custom
             onChange={props.onChange}
           >
-            {{data}.map((student, index) => (
+            {data.map((student, index) => (
               <option key={index} value={index}>{student}</option>
             ))}
           </Form.Control>
