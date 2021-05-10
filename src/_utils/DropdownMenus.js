@@ -3,7 +3,7 @@ import { Tab, Col, Row, Container, Form } from "react-bootstrap";
 
 export default function DropdownMenus(props) {
     const data = props.data;
-    console.log(data);
+    data.push("All");
     return (
         <Form inline>
           <Form.Label
