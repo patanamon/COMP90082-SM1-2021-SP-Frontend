@@ -12,11 +12,15 @@ export function formatLineChartData(response) {
       datasets.push({
         label: key,
         data: labelDataMap[key],
+        fill: true,
+        borderColor: getRandomColor(),
+        tension: 0.1
       });
     }
   }
   let formattedData = {
-    labels: xaxis,
+    labels: ['all', 'classes', 'decst',
+      'excst', 'file', 'func', 'pre', 'ratio'],
     datasets: datasets,
   };
 
@@ -35,4 +39,14 @@ function getlabelDataMap(rawData) {
     }
   }
   return labelDataMap;
+}
+
+
+function getRandomColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
 }
