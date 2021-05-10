@@ -4,6 +4,7 @@ export function formatDonutChartData(response) {
   let labelDataMap = getlabelDataMap(rawData);
   let xaxis = [];
   let datasets = [];
+  let result = {};
   for (let key in labelDataMap) {
     if (key == "student") {
       xaxis = labelDataMap[key];
@@ -19,13 +20,16 @@ export function formatDonutChartData(response) {
     datasets: datasets,
   };
 
-  return formattedData;
+  result["ALl"] = formattedData;
+  for (let student in formattedData.labels) {
+    results[student] = formatDonutChartDataForOneStudent(formattedData, student)
+  }
+
+  return result;
 }
 
-export function formatDonutChartDataForOneStudent(formattedData, student) {
-  if (student === "All") {
-    return formattedData
-  } else {
+function formatDonutChartDataForOneStudent(formattedData, student) {
+  
     let index = 0;
     let excludedSum = 0;
     for (let i = 0, len = formattedData.labels; i < len; i++) {
@@ -46,7 +50,7 @@ export function formatDonutChartDataForOneStudent(formattedData, student) {
 
     return result;
   }
-}
+
 
 function getlabelDataMap(rawData) {
   let labelDataMap = {};
