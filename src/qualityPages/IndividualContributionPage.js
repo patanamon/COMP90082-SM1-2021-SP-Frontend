@@ -10,6 +10,7 @@ import { ToastContainer } from "react-toastify";
 import Banner from "../_utils/Banner";
 import DonutChart from "../_utils/DonutChart";
 import { formatDonutChartDataForOneStudent } from "../_utils/formatDonutChartData"
+import DropdownMenus from "../_utils/DropdownMenus";
 
 class IndividualContributionPage extends React.Component {
   constructor(props) {
@@ -51,42 +52,11 @@ class IndividualContributionPage extends React.Component {
 
   componentDidMount() {
     this.props.getConfluenceIndividualData("COMP900822021SM1SP");
-  }
-
-  studentListGenerator(type) {
-    if (type === commonConstants.JIRA) {
-      return this.props.individualJiraData.labels.slice().push("All");
-    } else if (type === commonConstants.GITHUB) {
-      return this.props.individualGithubData.labels.slice().push("All");
-    } 
-    return this.props.individualConfluenceData.labels.slice().push("All");
+    
   }
 
   render() {
-    const Student = () => {
-      return (
-        <Form inline>
-          <Form.Label
-            className="col-sm-3"
-            htmlFor="inlineFormCustomSelectPref"   
-          >
-            Student     :
-          </Form.Label>
-          <Form.Control
-            as="select"
-            className="col-sm-5"
-            id="inlineFormCustomSelectPref"
-            custom
-            onChange={this.selectStudent}
-          >
-            {this.studentListGenerator(this.state.btnSelected).map((student, index) => (
-              <option key={index} value={index}>{student}</option>
-            ))}
-          </Form.Control>
-        </Form>
-      );
-    };
-
+    if (typeof this.props.individualConfluenceData !== "undefined") {
     return (
       <div className="uomcontent">
         <ToastContainer limit={1} />
@@ -104,7 +74,19 @@ class IndividualContributionPage extends React.Component {
                   />
                   </Col>
                   <Col>
-                  <Col>{Student()}</Col>
+                      {this.state.btnSelected === commonConstants.CONFLUENCE && (
+                        <DropdownMenus data={this.props.individualConfluenceData.labels} onChange={this.selectStudent} />
+                      )}
+                      {this.state.btnSelected === commonConstants.GITHUB && (
+                          <DropdownMenus data={this.props.individualGithubData.labels.slice().push("All")} onChange={this.selectStudent} />
+                      )}
+
+                      {this.state.btnSelected === commonConstants.JIRA && (
+                     <DropdownMenus data={this.props.individualGithubData.labels.slice().push("All")} onChange={this.selectStudent} />
+                      )}
+                    </Col>
+                  <Col>
+                
                     {this.state.btnSelected === commonConstants.CONFLUENCE && (
                     <DonutChart data={formatDonutChartDataForOneStudent(this.props.individualConfluenceData, this.state.selectedStudent)} />
                     )} 
@@ -122,7 +104,21 @@ class IndividualContributionPage extends React.Component {
         </div>
       </div>
     );
+  } else {
+    return (
+      <div className="uomcontent">
+      {uomHeader("Individual Contribution Page")}
+
+      <div role="main">
+          <div className="page-inner">
+              <Banner projName="2021-SM1-Software-Project-Database" />     
+             
+          </div>
+      </div>
+  </div>
+    )
   }
+}
 }
 
 function mapState(state) {
