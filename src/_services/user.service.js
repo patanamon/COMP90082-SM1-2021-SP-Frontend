@@ -23,6 +23,7 @@ export const userService = {
   getConfluenceSpaceByKeyWord,
 
   getTeamMemberList,
+  SendImportRequest,
 };
 
 const baseUrl = "http://localhost:3200/api/v1";
@@ -41,6 +42,23 @@ function getTeamConfluencePages(teamKey) {
     .then((jsonResponse) => {
       if (jsonResponse.code == 0) {
         storePut(commonConstants.TEAM_CONFLUENCE_PAGE_COUNT, jsonResponse.data);
+      }
+      return jsonResponse;
+    });
+}
+
+function SendImportRequest(teamKey) {
+  let url = baseUrl + "/confluence/spaces/" + teamKey + "/project_info";
+
+  const requestOptions = {
+    method: "GET",
+  };
+
+  return fetch(url, requestOptions)
+    .then((response) => response.json())
+    .then((jsonResponse) => {
+      if (jsonResponse.code == 0) {
+        storePut(commonConstants.SEND_IMPORT, jsonResponse.data);
       }
       return jsonResponse;
     });

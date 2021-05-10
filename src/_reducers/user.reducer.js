@@ -13,11 +13,30 @@ const initState = {
   currentTeamKey: "",
   currentTeamName: "",
   requestProjectInfo:false,
+  sendImportRequest:false,
   
 };
 
 export function user(state = initState, action) {
   switch (action.type) {
+
+    case userConstants.SEND_IMPORT_REQUEST:
+      return {
+        ...state,
+        sendImportRequest: true,
+      };
+    case userConstants.SEND_IMPORT_SUCCESS:
+      return {
+        ...state,
+        sendImportRequest: false,
+        importRequest: action.payload,
+      };
+    case userConstants.SEND_IMPORT_FAILURE:
+      return {
+        ...state,
+        sendImportRequest: false,
+        importRequest: {},
+      };
     case userConstants.GET_TEAM_CONFLUENCE_PAGES_REQUEST:
       return {
         ...state,

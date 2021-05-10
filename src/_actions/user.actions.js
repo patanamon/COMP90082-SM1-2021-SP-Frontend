@@ -34,6 +34,7 @@ export const userActions = {
   setCurrentTeamName,
 
   getTeamMemberList,
+  sendImport,
 };
 
 function request(action, payload) {
@@ -84,6 +85,41 @@ function getTeamConfluencePages(teamKey) {
         dispatch(
           failure(
             userConstants.GET_TEAM_CONFLUENCE_PAGES_FAILURE,
+            error.toString()
+          )
+        );
+        failureToast(error.toString());
+      }
+    );
+  };
+}
+
+function sendImport(teamKey) {
+  return (dispatch) => {
+    dispatch(request(userConstants.SEND_IMPORT_REQUEST));
+    userService.sendImport(teamKey).then(
+      (response) => {
+        if (checkRespCode(response)) {
+          dispatch(
+            success(
+              userConstants.SEND_IMPORT_SUCCESS,
+              //to do
+            )
+          );
+        } else {
+          dispatch(
+            failure(
+              userConstants.SEND_IMPORT_FAILURE,
+              response.message
+            )
+          );
+          failureToast(response.message);
+        }
+      },
+      (error) => {
+        dispatch(
+          failure(
+            userConstants.SEND_IMPORT_FAILURE,
             error.toString()
           )
         );
