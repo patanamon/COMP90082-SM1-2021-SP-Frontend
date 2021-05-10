@@ -25,7 +25,7 @@ export const userService = {
   getTeamMemberList,
 };
 
-const baseUrl = "http://localhost:3200/api/v1";
+const baseUrl = "http://18.167.74.23:18000/api/v1";
 
 function getTeamConfluencePages(teamKey) {
   let url = baseUrl + "/confluence/spaces/" + teamKey + "/page_count";
@@ -269,7 +269,7 @@ function getTeamMemberList(teamKey) {
   .then((response) => response.json())
   .then((jsonResponse) => {
     if (jsonResponse.code == 0) {
-      storePut(commonConstants.TEAM_MEMBER_LIST, jsonResponse.data);
+      storePut(commonConstants.TEAM_MEMBER_LIST, jsonResponse.data.user_list);
     };
     return jsonResponse;
   });

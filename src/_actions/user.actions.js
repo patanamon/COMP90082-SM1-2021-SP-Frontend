@@ -423,7 +423,7 @@ function getTeamMemberList(teamKey) {
   return (dispatch) => {
     userService.getTeamMemberList(teamKey).then(
       (response) => {
-        dispatch(success(userConstants.GET_TEAM_MEMBER_LIST_SUCCESS, response.data));
+        dispatch(success(userConstants.GET_TEAM_MEMBER_LIST_SUCCESS, response.data.user_list));
       },
       (error) => {
         dispatch(failure(userConstants.GET_TEAM_MEMBER_LIST_FAILURE, error.toString()));
