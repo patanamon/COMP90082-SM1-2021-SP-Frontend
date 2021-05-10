@@ -130,7 +130,6 @@ class ProductQualityPage extends React.Component {
               data={this.props.teamCodeMetrics}
             />
             )}
-            
             {(!this.props.teamCodeMetrics || this.props.teamCodeMetrics.length == 0) && (
               <Alert/>
             )}

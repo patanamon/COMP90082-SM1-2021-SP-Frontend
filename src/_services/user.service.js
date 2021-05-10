@@ -7,10 +7,10 @@ export const userService = {
   getTeamGithubCommits,
   getTeamJiraTickets,
 
-  getTeamGitHubComments,
+  
   getTeamConfluenceMeeting,
 
-  setTeamUrl,
+  setTeamInfo,
 
   getTeamCodeMetrics,
 
@@ -23,9 +23,11 @@ export const userService = {
   getConfluenceSpaceByKeyWord,
 
   getTeamMemberList,
+  SendImportRequest,
 };
 
 const baseUrl = "http://localhost:3200/api/v1";
+//const baseUrl = "http://18.167.74.23:18000/api/v1";
 
 function getTeamConfluencePages(teamKey) {
   let url = baseUrl + "/confluence/spaces/" + teamKey + "/page_count";
@@ -39,6 +41,40 @@ function getTeamConfluencePages(teamKey) {
     .then((jsonResponse) => {
       if (jsonResponse.code == 0) {
         storePut(commonConstants.TEAM_CONFLUENCE_PAGE_COUNT, jsonResponse.data);
+      }
+      return jsonResponse;
+    });
+}
+
+function SendImportRequest(teamKey) {
+  let url = baseUrl + "/confluence/spaces/" + teamKey + "/project_info";
+
+  const requestOptions = {
+    method: "GET",
+  };
+
+  return fetch(url, requestOptions)
+    .then((response) => response.json())
+    .then((jsonResponse) => {
+      if (jsonResponse.code == 0) {
+        storePut(commonConstants.SEND_IMPORT, jsonResponse.data);
+      }
+      return jsonResponse;
+    });
+}
+
+function getProjectInfo() {
+  let url = baseUrl + "/confluence/imported_projects";
+
+  const requestOptions = {
+    method: "GET",
+  };
+
+  return fetch(url, requestOptions)
+    .then((response) => response.json())
+    .then((jsonResponse) => {
+      if (jsonResponse.code === 0) {
+        storePut("TeamProjectInfo", jsonResponse.data);
       }
       return jsonResponse;
     });
@@ -95,28 +131,14 @@ function getTeamConfluenceMeeting(teamKey) {
     });
 }
 
-function getTeamGitHubComments(teamKey) {
-  let url = baseUrl + "/git/" + teamKey + "/comment_count";
 
-  const requestOptions = {
-    method: "GET",
-  };
-
-  return fetch(url, requestOptions)
-    .then((response) => response.json())
-    .then((jsonResponse) => {
-      if (jsonResponse.code == 0) {
-        storePut(commonConstants.TEAM_GITHUB_COMMENT, jsonResponse.data);
-      }
-      return jsonResponse;
-    });
-}
-
-function setTeamUrl(teamKey, jiraUrl, githubUrl) {
+function setTeamInfo(teamKey, jiraUrl, githubUrl, githubUsername, githubPassword) {
   let payload = {
     space_key: teamKey,
     jira_url: jiraUrl,
     git_url: githubUrl,
+    git_username: githubUsername,
+    git_password: githubPassword,
   };
 
   let url = baseUrl + "/team/config";
@@ -130,7 +152,7 @@ function setTeamUrl(teamKey, jiraUrl, githubUrl) {
     .then((response) => response.json())
     .then((jsonResponse) => {
       if (jsonResponse.code == 0) {
-        storePut(commonConstants.TEAM_CONFIG_URL, payload);
+        storePut(commonConstants.TEAM_CONFIG_INFO, payload);
       }
       return jsonResponse;
     });

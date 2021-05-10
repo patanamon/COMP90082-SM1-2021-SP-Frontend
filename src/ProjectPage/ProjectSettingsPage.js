@@ -21,17 +21,18 @@ const label = {
   margin: "10px",
 };
 
-let teamUrl = localStorage.getItem(commonConstants.TEAM_CONFIG_URL) ? JSON.parse(localStorage.getItem(commonConstants.TEAM_CONFIG_URL)) : {};
+let teamInfo = localStorage.getItem(commonConstants.TEAM_CONFIG_INFO) ? JSON.parse(localStorage.getItem(commonConstants.TEAM_CONFIG_INFO)) : {};
 
-
-class ProjectSettingsPage extends React.Component {
+class ProjectSettingsPage extends React.Component { 
   //This is just as an example to populate the table
   constructor(props) {
     super(props);
 
     this.state = {
-      jiraWebsite: JSON.stringify(teamUrl) == '{}' ? "" : teamUrl.jira_url,
-      githubWebsite: JSON.stringify(teamUrl) == '{}' ? "" : teamUrl.git_url,
+      jiraWebsite: JSON.stringify(teamInfo) == '{}' ? "" : teamInfo.jira_url,
+      githubWebsite: JSON.stringify(teamInfo) == '{}' ? "" : teamInfo.git_url,
+      githubUsername: JSON.stringify(teamInfo) == '{}' ? "" : teamInfo.git_username,
+      githubPassword: JSON.stringify(teamInfo) == '{}' ? "" : teamInfo.git_password, 
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -45,14 +46,16 @@ class ProjectSettingsPage extends React.Component {
   }
 
   handleSubmit(e) {
-    this.props.setTeamUrl(
+    this.props.setTeamInfo(
       "COMP900822021SM1SP",
       this.state.jiraWebsite,
-      this.state.githubWebsite
+      this.state.githubWebsite,
+      this.state.githubUsername,
+      this.state.githubPassword
     );
     e.preventDefault();
   }
-
+  
   render() {
     return (
       <div class="uomcontent">
@@ -60,9 +63,23 @@ class ProjectSettingsPage extends React.Component {
         <div role="main">
           <div className="page-inner">
             <Banner projName="2021-SM1-Software-Project-Database" />
-            <Spin spinning={this.props.requestSetTeamUrl}>
+            <Spin spinning={this.props.requestSetTeamInfo}>
               <div className="web">
                 <form onSubmit={this.handleSubmit}>
+                  <label style={label}>
+                    Jira:
+                    <input
+                      type="text"
+                      style={input}
+                      value={this.state.jiraWebsite}
+                      name="jiraWebsite"
+                      onChange={this.handleChange}
+                    />
+                  </label>
+
+                  <br />
+
+
                   <label style={label}>
                     Git:
                     <input
@@ -77,17 +94,28 @@ class ProjectSettingsPage extends React.Component {
                   <br />
 
                   <label style={label}>
-                    Jira:
+                    Git Username:
                     <input
                       type="text"
                       style={input}
-                      value={this.state.jiraWebsite}
-                      name="jiraWebsite"
+                      value={this.state.githubUsername}
+                      name="githubUsername"
                       onChange={this.handleChange}
                     />
                   </label>
 
                   <br />
+
+                  <label style={label}>
+                    Git Password:
+                    <input
+                      type="text"
+                      style={input}
+                      value={this.state.githubPassword}
+                      name="githubPassword"
+                      onChange={this.handleChange}
+                    />
+                  </label>
 
                   <div style={{textAlign:"right"}} id="savechanges">
                     <input type="submit" value="Submit" />
@@ -105,13 +133,13 @@ class ProjectSettingsPage extends React.Component {
 
 function mapState(state) {
   return {
-    requestSetTeamUrl: state.user.requestSetTeamUrl,
-    teamUrl: state.user.teamUrl,
+    requestSetTeamInfo: state.user.requestSetTeamInfo,
+    teamInfo: state.user.teamInfo,
   };
 }
 
 const actionCreators = {
-  setTeamUrl: userActions.setTeamUrl,
+  setTeamInfo: userActions.setTeamInfo,
 };
 
 const settingPage = connect(mapState, actionCreators)(ProjectSettingsPage);

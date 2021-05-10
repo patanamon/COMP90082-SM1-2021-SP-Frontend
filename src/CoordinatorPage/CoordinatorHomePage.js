@@ -14,6 +14,8 @@ import Banner from "../_utils/Banner";
 import AsyncSelect from "react-select/async";
 import { userService } from "../_services";
 import { formatSearchResult } from "../_utils/formatSearchResult.js";
+import { Link } from "react-router-dom";
+
 
 // temp store for vars
 var KeyResults = [];
@@ -23,15 +25,36 @@ var LinkResults = [];
 var FinalNameResult = [];
 var FinalLinkResult = [];
 
+
 // check if the item present in results
+function uniqImported(arr1, arr2, arr3, obj) {
+  if (arr1.indexOf(obj.space_key) === -1) {
+    arr1.push(obj.space_key);
+    arr2.push(obj.space_name);
+    //console.log(obj);
+    let link = getConfluenceLink(obj.space_key);
+    //arr3.push(obj.link);
+    arr3.push(link);
+  }
+    
+}
 function uniq(arr1, arr2, arr3, obj) {
   if (arr1.indexOf(obj.value) === -1) {
     arr1.push(obj.value);
     arr2.push(obj.label);
-    arr3.push(obj.link);
+    //console.log(obj);
+    let link = getConfluenceLink(obj.value);
+    //arr3.push(obj.link);
+    arr3.push(link);
   }
+    
 }
 
+function getConfluenceLink(spaceK){
+    var baseurl = "https://confluence.cis.unimelb.edu.au:8443/display/";
+    var confluenceLink = baseurl+spaceK;
+    return confluenceLink
+  }
 // delete item from all results list
 function del(arr1, arr2, arr3, item) {
   arr2.splice(arr1.indexOf(item), 1);
@@ -47,7 +70,10 @@ class CoordinatorHomePage extends Component {
     this.state = { project: "", show: false, openMenu: false };
     this.getSearchResult = this.getSearchResult.bind(this);
     this.handleRedirect = this.handleRedirect.bind(this);
+
   }
+
+  
   // not works now, for import project actions
   handleImport() {
     for (let i = 0; i < NameResults.length; i++) {
@@ -64,7 +90,12 @@ class CoordinatorHomePage extends Component {
   // actions after item is selected : add to result if it absents
   handleChange = (selectedProject) => {
     this.setState({ selectedProject });
+    console.log("check selected Project");
+    console.log(selectedProject);
     uniq(KeyResults, NameResults, LinkResults, selectedProject);
+
+    
+    
   };
 
   // actions for removing specific item
@@ -74,12 +105,22 @@ class CoordinatorHomePage extends Component {
   };
 
   handleRedirect(e){
-    let spaceKey = e.target.innerText;
-    this.props.setCurrentTeamKey(spaceKey);
+    this.props.setCurrentTeamKey(e.target.innerText);
   }
 
   // componentDidMount() {
   //   this.props.getImportedProject();
+
+  // }
+
+  // componentDidUpdate(){
+  //   this.props.getImportedProject();
+  //   const projects = this.props.importedProject; 
+  //   console.log("check projects");
+  //   //console.log(projects[0].space_key);
+  //   //console.log(projects[0].space_name);
+  //   Object.keys(projects).map(idx => uniqImported(KeyResults, NameResults, LinkResults, projects[idx]));  
+    
   // }
 
   getSearchResult(keyWord) {
@@ -88,6 +129,7 @@ class CoordinatorHomePage extends Component {
         if (response.code == 0 && response.data.length != 0) {
           let options = formatSearchResult(response.data);
           this.setState({ openMenu: true, options: options });
+          //console.log(options);
           return options;
         } else {
           this.setState({ openMenu: false });
@@ -101,8 +143,11 @@ class CoordinatorHomePage extends Component {
     );
   }
 
+
   render() {
+
     return (
+      
       <div class="uomcontent">
         {uomHeader("Coordinator Home")}
         <div role="main">
@@ -134,7 +179,7 @@ class CoordinatorHomePage extends Component {
                       <TableRow>
                         <TableCell>Project Name</TableCell>
                         <TableCell align="right">Confluence Link</TableCell>
-                        <TableCell align="right"> Operation</TableCell>
+                        <TableCell align="right" colSpan={2}> Operation</TableCell>
                       </TableRow>
                     </TableHead>
 
@@ -142,25 +187,47 @@ class CoordinatorHomePage extends Component {
                       {KeyResults.map((row) => (
                         <TableRow key={row}>
                           <TableCell component="th" scope="row">
-                            <a href="/ProjectHomePage" onClick={this.handleRedirect}>
+                            <Link to="/ProjectHomePage" onClick={this.handleRedirect}>
                               {NameResults[KeyResults.indexOf(row)]}
-                            </a>
+                            </Link>
                           </TableCell>
-                          <TableCell align="right">
+                          <TableCell align="right" >
                             {LinkResults[KeyResults.indexOf(row)]}
                           </TableCell>
                           <TableCell align="right">
-                            <div id="button">
+                            
+                              <div id="button" float="left" >
                               <Button
                                 variant="contained"
                                 color="primary"
-                                onClick={() => {
-                                  this.handleDelete(row);
-                                }}
+                                onClick={() => 
+                                //   {
+                                  
+                                //   this.handleDelete(row);
+                                // }}
+                                { if (window.confirm('Are you sure you wish to delete this item?')) this.handleDelete(row) } } 
+                                
                               >
                                 Delete
                               </Button>
-                            </div>
+                              </div>
+
+                          
+                            
+                          </TableCell>
+ <TableCell align="right">
+
+                              <div id="button" float="left" >
+                                <Button
+                                variant="contained"
+                                color="primary"
+                                onClick={() => {}}
+                              >
+                                View
+                              </Button>
+                              </div>
+                          
+                            
                           </TableCell>
                         </TableRow>
                       ))}
@@ -183,6 +250,7 @@ function mapState(state) {
     requestImportedProject: state.user.requestImportedProject,
     confluenceSpaceSearchResult: state.user.confluenceSpaceSearchResult,
     importedProject: state.user.importedProject,
+    sendImport:state.user.sendImport,
   };
 }
 const actionCreators = {
@@ -191,6 +259,7 @@ const actionCreators = {
   getImportedProject: userActions.getImportedProject,
   setCurrentTeamKey: userActions.setCurrentTeamKey,
   setCurrentTeamName: userActions.setCurrentTeamName,
+  sendImport:userActions.sendImport,
 };
 
 const homePage = connect(mapState, actionCreators)(CoordinatorHomePage);
