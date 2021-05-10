@@ -251,7 +251,6 @@ function getConfluenceSpaceByKeyWord(keyWord) {
   return fetch(url, requestOptions)
     .then((response) => response.json())
     .then((jsonResponse) => {
-      //console.log(jsonResponse);
       return jsonResponse;
     });
 }
@@ -292,7 +291,6 @@ function getImportedProject() {
       if (jsonResponse.code == 0) {
         storePut(commonConstants.COORDINATOR_IMPORTED_PROJECT, jsonResponse.data);
       }
-      //console.log(jsonResponse);
       return jsonResponse;
     });
 }
