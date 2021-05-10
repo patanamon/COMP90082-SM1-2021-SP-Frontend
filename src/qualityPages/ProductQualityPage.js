@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { userActions } from "../_actions";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import Alert from "../_utils/Alert";
+import BarChartPlot from "../_utils/DonutChart";
 
 class ProductQualityPage extends React.Component {
   //This is just as an example to populate the table
@@ -24,7 +25,17 @@ class ProductQualityPage extends React.Component {
           pre: 0,
           ratio: 0,
         },
-      ], //mock data*/
+      ],
+      data : [{
+        all: 10,
+        classes: 30,
+        decst: 40,
+        excst: 50,
+        file: 50,
+        func: 60,
+        pre: 30,
+        ratio: 50,
+      }],
     };
 
     this.handleMatrix = this.handleMatrix.bind(this);
@@ -41,7 +52,7 @@ class ProductQualityPage extends React.Component {
   render() {
     console.log(this.state.CodeMatrix);
     console.log(this.props.productqualityData);
-    const data = this.props.productqualityData;
+    //const data = this.props.productqualityData;
     const columns1 = [
       {
         name: "Number of all lines",
@@ -99,33 +110,37 @@ class ProductQualityPage extends React.Component {
         },
       },
     };
-
     return (
       <div className="uomcontent">
         {uomHeader("Product Quality")}
         <div role="main">
           <div className="page-inner">
             <Banner projName="2021-SM1-Software-Project-Database" />
-            {this.props.productqualityData && this.props.productqualityData.length != 0 && (
+            {this.props.teamCodeMetrics && this.props.teamCodeMetrics.length != 0 && (
               <DataTable
                 customStyles={customStyles}
                 columns={columns1}
-                data={this.props.productqualityData}
+                data={this.state.data}//{this.props.teamCodeMetrics}
               />
             )}
-            {this.props.productqualityData && this.props.productqualityData.length != 0 && this.props.productqualityData && (
+            {this.props.teamCodeMetrics && this.props.teamCodeMetrics.length != 0 && (
               <DataTable
               customStyles={customStyles}
               columns={columns2}
-              data={this.props.productqualityData}
+              data={this.props.teamCodeMetrics}
             />
             )}
-            {(!this.props.productqualityData || this.props.productqualityData.length == 0) && (
+            
+            {(!this.props.teamCodeMetrics || this.props.teamCodeMetrics.length == 0) && (
               <Alert/>
+            )}
+            {this.props.teamCodeMetrics && this.props.teamCodeMetrics.length != 0 && (
+              (<BarChartPlot data={this.props.teamCodeMetrics} />)
             )}
           </div>
         </div>
       </div>
+      
     );
   }
 
@@ -182,3 +197,4 @@ const actionCreators = {
 
 const ProductQuality = connect(mapState, actionCreators)(ProductQualityPage);
 export { ProductQuality as ProductQualityPage };
+
