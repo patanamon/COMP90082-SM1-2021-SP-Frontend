@@ -25,6 +25,7 @@ class IndividualContributionPage extends React.Component {
       btnSelected: commonConstants.CONFLUENCE,
 
       selectedStudent: "All",
+      studentList: [],
     }
 
     this.selectStudent = this.selectStudent.bind(this);
@@ -56,7 +57,7 @@ class IndividualContributionPage extends React.Component {
   }
 
   render() {
-    if (typeof this.props.individualConfluenceData !== "undefined") {
+      
     return (
       <div className="uomcontent">
         <ToastContainer limit={1} />
@@ -74,15 +75,15 @@ class IndividualContributionPage extends React.Component {
                   />
                   </Col>
                   <Col>
-                      {this.state.btnSelected === commonConstants.CONFLUENCE && (
-                        <DropdownMenus data={this.props.individualConfluenceData.labels} onChange={this.selectStudent} />
+                      {this.state.btnSelected === commonConstants.CONFLUENCE && typeof this.props.individualConfluenceData !== "undefined" && (
+                        <DropdownMenus data={this.props.individualConfluenceData.labels.slice()} onChange={this.selectStudent} />
                       )}
-                      {this.state.btnSelected === commonConstants.GITHUB && (
-                          <DropdownMenus data={this.props.individualGithubData.labels.slice().push("All")} onChange={this.selectStudent} />
+                      {this.state.btnSelected === commonConstants.GITHUB && typeof this.props.individualGithubData !== "undefined" && (
+                          <DropdownMenus data={this.props.individualGithubData.labels.slice()} onChange={this.selectStudent} />
                       )}
 
-                      {this.state.btnSelected === commonConstants.JIRA && (
-                     <DropdownMenus data={this.props.individualGithubData.labels.slice().push("All")} onChange={this.selectStudent} />
+                      {this.state.btnSelected === commonConstants.JIRA && typeof this.props.individualJiraData !== "undefined" && (
+                     <DropdownMenus data={this.props.individualGithubData.labels.slice()} onChange={this.selectStudent} />
                       )}
                     </Col>
                   <Col>
@@ -104,22 +105,10 @@ class IndividualContributionPage extends React.Component {
         </div>
       </div>
     );
-  } else {
-    return (
-      <div className="uomcontent">
-      {uomHeader("Individual Contribution Page")}
-
-      <div role="main">
-          <div className="page-inner">
-              <Banner projName="2021-SM1-Software-Project-Database" />     
-             
-          </div>
-      </div>
-  </div>
-    )
+  } 
   }
-}
-}
+
+
 
 function mapState(state) {
     return{
