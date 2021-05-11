@@ -13,16 +13,16 @@ export function formatDonutChartData(response) {
       datasets.push({
         label: key,
         data: labelDataMap[key],
+        backgroundColor: randomColor({
+          count: xaxis.length,
+          format: 'rgb'
+        })
       });
     }
   }
   let formattedData = {
     labels: xaxis,
     datasets: datasets,
-    backgroundColor: randomColor({
-      count: xaxis.length,
-      format: 'rgb'
-    })
   };
   
   let colorForOtherElseStudents = randomColor();
@@ -32,7 +32,7 @@ export function formatDonutChartData(response) {
     result[formattedData.labels[i]] = formatDonutChartDataForOneStudent(formattedData, formattedData.labels[i], colorForOtherElseStudents);
     
   }
-
+  console.log(result["All"]);
   return result;
 }
 
@@ -53,7 +53,7 @@ function formatDonutChartDataForOneStudent(formattedData, student, colorForOther
       datasets: [{
         label: formattedData.datasets[0].label,
         data: [formattedData.datasets[0].data[index], excludedSum],
-        backgroundColor: [formattedData.backgroundColor[index], colorForOtherElseStudents]
+        backgroundColor: [formattedData.datasets[0].backgroundColor[index], colorForOtherElseStudents]
       }]
     };
 
