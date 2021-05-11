@@ -56,7 +56,7 @@ class IndividualContributionPage extends React.Component {
   }
 
   render() {
-    
+
     return (
       <div className="uomcontent">
         <ToastContainer limit={1} />
@@ -88,13 +88,13 @@ class IndividualContributionPage extends React.Component {
                   <Col>
                 
                     {this.state.btnSelected === commonConstants.CONFLUENCE && typeof this.props.individualConfluenceData !== "undefined" && (
-                    <DonutChart data={this.props.individualConfluenceData[this.state.selectedStudent]} />
+                    <DonutChart data={JSON.parse(JSON.stringify(this.props.individualConfluenceData[this.state.selectedStudent]))} />
                     )} 
                     {this.state.btnSelected === commonConstants.GITHUB && typeof this.props.individualGithubData !== "undefined" && (
-                    <DonutChart data={this.props.individualGithubData[this.state.selectedStudent]} />
+                    <DonutChart data={JSON.parse(JSON.stringify(this.props.individualGithubData[this.state.selectedStudent]))} />
                     )}
                     {this.state.btnSelected === commonConstants.JIRA && typeof this.props.individualJiraData !== "undefined" &&(
-                    <DonutChart data={this.props.individualJiraData[this.state.selectedStudent]} />
+                    <DonutChart data={JSON.parse(JSON.stringify(this.props.individualJiraData[this.state.selectedStudent]))} />
                     )}
                   </Col>
                 </Row>
