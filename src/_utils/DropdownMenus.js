@@ -18,7 +18,7 @@ export default function DropdownMenus(props) {
             id="inlineFormCustomSelectPref"
             custom
             onChange={props.onChange}
-          >
+          > value={"All"}
             {data.map((student, index) => (
               <option key={index} value={index}>{student}</option>
             ))}
