@@ -27,23 +27,23 @@ https://confluence.cis.unimelb.edu.au:8443/display/SWEN900132020SP/3.4+Deploymen
 
 # Table of Contents
 
-[1.0 Installation](https://github.com/Jarrent/CIS_SP_frontend/blob/master/README.md#10-installation)
+[1.0 Installation](#1.0)
 
-[2.0 Usage](https://github.com/Jarrent/CIS_SP_frontend/blob/master/README.md#20-usage)
+[2.0 Usage](#2.0)
 
- [2.1 Database](https://github.com/Jarrent/CIS_SP_frontend/blob/master/README.md#21-database)
+ *[2.1 Database](#2.1)
 
- [2.2 API Documentation](https://github.com/Jarrent/CIS_SP_frontend/blob/master/README.md#22-api-documentation)
+ *[2.2 API Documentation](#2.2)
 
- [2.3 Web Application](https://github.com/Jarrent/CIS_SP_frontend/blob/master/README.md#23-web-application)
+ *[2.3 Web Application](#2.3)
 
-[3.0 Contributing / Extending](https://github.com/Jarrent/CIS_SP_frontend/blob/master/README.md#30-contributing--extending)
+[3.0 Contributing / Extending](#3.0)
 
- [3.1 APIs](https://github.com/Jarrent/CIS_SP_frontend/blob/master/README.md#31-apis)
+ *[3.1 APIs](#3.1)
 
- [3.2 Web Application](https://github.com/Jarrent/CIS_SP_frontend/blob/master/README.md#32-web-application)
+ *[3.2 Web Application](#3.2)
 
-# 1.0 Installation
+<h2 id="1.0"> 1.0 Installation </h2>
 
 ## Packages used
 
