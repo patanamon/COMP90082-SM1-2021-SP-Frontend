@@ -75,14 +75,14 @@ class IndividualContributionPage extends React.Component {
                   </Col>
                   <Col>
                       {this.state.btnSelected === commonConstants.CONFLUENCE && typeof this.props.individualConfluenceData !== "undefined" && (
-                        <DropdownMenus data={this.props.individualConfluenceData["All"].labels} onChange={this.selectStudent} />
+                        <DropdownMenus data={this.props.individualConfluenceData["All"].labels} onChange={this.selectStudent} value = {this.state.selectedStudent}/>
                       )}
                       {this.state.btnSelected === commonConstants.GITHUB && typeof this.props.individualGithubData !== "undefined" && (
-                          <DropdownMenus data={this.props.individualGithubData["All"].labels} onChange={this.selectStudent} />
+                          <DropdownMenus data={this.props.individualGithubData["All"].labels} onChange={this.selectStudent} value = {this.state.selectedStudent} />
                       )}
 
                       {this.state.btnSelected === commonConstants.JIRA && typeof this.props.individualJiraData !== "undefined" && (
-                     <DropdownMenus data={this.props.individualGithubData["All"].labels} onChange={this.selectStudent} />
+                     <DropdownMenus data={this.props.individualGithubData["All"].labels} onChange={this.selectStudent} value = {this.state.selectedStudent} />
                       )}
                     </Col>
                   <Col>

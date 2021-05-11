@@ -3,7 +3,9 @@ import { Tab, Col, Row, Container, Form } from "react-bootstrap";
 
 export default function DropdownMenus(props) {
     const data = props.data;
-    data.push("All");
+    const value = props.value;
+    let studentList = data.slice();
+    studentList.push("All");
     return (
         <Form inline>
           <Form.Label
@@ -13,14 +15,15 @@ export default function DropdownMenus(props) {
             Student     :
           </Form.Label>
           <Form.Control
+            value={value}
             as="select"
             className="col-sm-5"
             id="inlineFormCustomSelectPref"
             custom
             onChange={props.onChange}
-          > value={"All"}
-            {data.map((student, index) => (
-              <option key={index} value={index}>{student}</option>
+          >
+            {studentList.map((student,index) => (
+              <option key={index} value={student}>{student}</option>
             ))}
           </Form.Control>
         </Form>
