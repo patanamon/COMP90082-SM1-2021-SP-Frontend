@@ -1,5 +1,5 @@
-import {randomcolor} from "randomcolor";
- 
+import randomColor from "randomcolor";
+
 export function formatDonutChartData(response) {
   console.log("IN DONUT CHART: ", response.data)
   let rawData = response.data;
@@ -20,17 +20,21 @@ export function formatDonutChartData(response) {
   let formattedData = {
     labels: xaxis,
     datasets: datasets,
+    backgroundColor: randomColor({
+      count: labels.length,
+      format: 'rgb'
+    })
   };
-
+  let colorForOtherElseStudents = randomColor();
   result["All"] = formattedData;
   for (let student in formattedData.labels) {
-    results[student] = formatDonutChartDataForOneStudent(formattedData, student)
+    results[student] = formatDonutChartDataForOneStudent(formattedData, student, colorForOtherElseStudents)
   }
 
   return result;
 }
 
-function formatDonutChartDataForOneStudent(formattedData, student) {
+function formatDonutChartDataForOneStudent(formattedData, student, colorForOtherElseStudents) {
   
     let index = 0;
     let excludedSum = 0;
@@ -46,7 +50,8 @@ function formatDonutChartDataForOneStudent(formattedData, student) {
       labels: [student, "Other else students"],
       datasets: [{
         label: formattedData.datasets.label,
-        data: [formattedData.datasets.data[index], excludedSum]
+        data: [formattedData.datasets.data[index], excludedSum],
+        backgroundColor: [formattedData.datasets.backgroundColor[index], colorForOtherElseStudents]
       }]
     };
 
