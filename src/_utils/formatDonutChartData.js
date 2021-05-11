@@ -12,12 +12,12 @@ export function formatDonutChartData(response) {
     } else {
       datasets.push({
         label: key,
-        data: labelDataMap[key],
+        data: labelDataMap[key].slice(),
         backgroundColor: randomColor({
           count: xaxis.length,
           format: 'rgb',
           seed: 1
-        })
+        }).slice()
       });
     }
   }
@@ -26,19 +26,25 @@ export function formatDonutChartData(response) {
     datasets: datasets,
   };
   
-  let colorForOtherElseStudents = randomColor();
-  result["All"] = formattedData;
-  for (let i = 0, len=formattedData.labels.length; i < len; i++) {
+  let colorForOtherElseStudents = randomColor({
+    seed: 2
+  });
+  let studentList = formattedData.labels.slice();
+  studentList.push("All");
+  for (let i = 0, len=studentList.length; i < len; i++) {
     
-    result[formattedData.labels[i]] = formatDonutChartDataForOneStudent(formattedData, formattedData.labels[i], colorForOtherElseStudents);
+    result[studentList[i]] = formatDonutChartDataForOneStudent(formattedData, studentList[i], colorForOtherElseStudents);
     
   }
-  console.log(result["All"]);
+  
   return result;
 }
 
 function formatDonutChartDataForOneStudent(formattedData, student, colorForOtherElseStudents) {
-  
+    if (student === "All") {
+      
+      return formattedData;
+    }
     let index = 0;
     let excludedSum = 0;
     for (let i = 0, len = formattedData.labels.length; i < len; i++) {
