@@ -1,3 +1,5 @@
+import {randomcolor} from "randomcolor";
+ 
 export function formatDonutChartData(response) {
   console.log("IN DONUT CHART: ", response.data)
   let rawData = response.data;
