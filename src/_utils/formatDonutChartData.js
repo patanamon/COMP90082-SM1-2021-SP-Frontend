@@ -15,7 +15,8 @@ export function formatDonutChartData(response) {
         data: labelDataMap[key],
         backgroundColor: randomColor({
           count: xaxis.length,
-          format: 'rgb'
+          format: 'rgb',
+          seed: 1
         })
       });
     }
