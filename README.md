@@ -4,48 +4,44 @@
 
 # CIS Software Engineering Project System
 
-This project aims to have a software system that automatically gathers and summarises all aspects of the software engineering activities of CIS (Computing and Information Systems) Software Engineering projects (SWEN90013 and SWEN90014) developed. This will allow supervisors and course coordinators to monitor and promptly provide meaningful feedback to teams, improve the quality of processes used in development and software systems developed, thus ensuring software deployment at the end of every project.
-
-## System Architecture Diagrams
-
-### Logical View
-
-https://confluence.cis.unimelb.edu.au:8443/display/SWEN900132020SP/3.1+Logical+View
-
-### Process View
-
-https://confluence.cis.unimelb.edu.au:8443/display/SWEN900132020SP/3.2+Process+View
-
-### Implementation View
-
-https://confluence.cis.unimelb.edu.au:8443/display/SWEN900132020SP/3.3+Implementation+View
-
-### Deployment View
-
-https://confluence.cis.unimelb.edu.au:8443/display/SWEN900132020SP/3.4+Deployment+View
+This project aims to have a software system that automatically gathers and summarise all aspects of the software engineering activities of CIS (Computing and Information Systems) Software Projects (COMP90082) developed. This will allow course coordinators to monitor and promptly provide meaningful feedback to teams, improve the quality of processes used in development and software systems developed, thus ensuring software deployment at the end of every project.
 
 
 # Table of Contents
+[1.0 Project Overview](#1.0)
 
-#[1.0 Installation](#1.0)
+[2.0 Installation](#2.0)
 
-#[2.0 Usage](#2.0)
+[3.0 Usage](#2.0)
 
- #[2.1 Database](#2.1)
+  * [3.1 Database](#3.1)
 
- #[2.2 API Documentation](#2.2)
+  * [3.2 API Documentation](#3.2)
 
- #[2.3 Web Application](#2.3)
+  * [3.3 Web Application](#3.3)
 
-#[3.0 Contributing / Extending](#3.0)
+[4.0 Contributing / Extending](#4.0)
 
- #[3.1 APIs](#3.1)
+  * [4.1 APIs](#4.1)
 
- #[3.2 Web Application](#3.2)
+  * [4.2 Web Application](#3.2)
+ 
+[5.0 Architecture Diagrams](#5.0)
 
-<h1 id="1.0"> 1.0 Installation </h1>
+<h1 id="1.0"> 1.0 Project Overview </h1>
 
-## Packages used
+## Background
+Software Projects Subject (COMP90082) is the subject for students to perform necessary Software Engineering practices to successfully build a high-quality software product for real-world clients. To monitor, evaluate, and provide feedback to students, a supervisor will observe the Software Projects activities of a student team through the software development tools used and through student-supervisor meetings. The involved software development tools include a Version Control System (Git, GitHub/BitBucket/GitLab), a Task Management Tool (JIRA/Trello) and a Documentation tool (Confluence). Some processes would be considered to assess students include Software Testing, Code Review, Continuous Integration, and Deployment.
+
+## Problem
+The tools and processes that students use for these projects (as stated in Background) are diverse and are all accessed on different websites/platforms. Currently, supervisors have to manually open each tool to analyse the complete tasks on each of them. It is an inefficient and tedious process, especially if a supervisor monitors more than ten teams. Although some development tools (e.g., JIRA) provide visual summaries of a team's work, the visualisation only shows data from a single activity. Thus, it is difficult and time-consuming for supervisors to offer detailed and insightful feedback to students, especially if a supervisor has more than one team to supervise.
+
+## Project
+This project aims to have a software system that automatically gathers and summarise all aspects of the software engineering activities of CIS (Computing and Information Systems) Software Projects (COMP90082) developed. This will allow course coordinators to monitor and promptly provide meaningful feedback to teams, improve the quality of processes used in development and software systems developed, thus ensuring software deployment at the end of every project.
+
+<h1 id="2.0"> 2.0 Installation </h1>
+
+## Packages used (to do)
 
 |                                              Package                                               |       Install command       |
 | :------------------------------------------------------------------------------------------------: | :-------------------------: |
@@ -66,7 +62,7 @@ https://confluence.cis.unimelb.edu.au:8443/display/SWEN900132020SP/3.4+Deploymen
 
 Note: These packages should be automatically installed as they are part of the package.json file.
 
-## Available Scripts
+## Available Scripts (need update?)
 
 In the project directory, you can run:
 
@@ -103,103 +99,111 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-<h1 id="2.0"> 2.0 Usage <h1>
+<h1 id="3.0"> 3.0 Usage (to do) </h1>
 
 v1: 15/11/2020
 
-<h1 id="2.1"> 2.1 Database <h1>
+<h1 id="3.1"> 3.1 Database </h1>
 
-### Data Model:
+### Database Schema:
 
-https://confluence.cis.unimelb.edu.au:8443/display/SWEN900132020SP/6.0+Database+Schema
+https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.1.0+Database+schema
 
-### Connecting to SP's Database
+### Connecting to SP's Database (to do)
 
 Connection can be made to our Database using the below credentials:
 [Image of DB Credentials](https://github.com/Jarrent/CIS_SP_frontend/blob/master/sp_database.PNG)
 
- <h1 id="2.2">2.2 API Documentation <h1>
-
-### Account + User:
-
-https://confluence.cis.unimelb.edu.au:8443/pages/viewpage.action?pageId=62165585
+ <h1 id="3.2">3.2 API Documentation </h1>
+<h2> Spring 1 </h2>
 
 ### Subject:
 
-https://confluence.cis.unimelb.edu.au:8443/display/SWEN900132020SP/6.2+Subject
+https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.1.1+Subject
 
 ### Project:
 
-https://confluence.cis.unimelb.edu.au:8443/display/SWEN900132020SP/6.3+Project
+https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.1.2+Project
 
 ### Team:
 
-https://confluence.cis.unimelb.edu.au:8443/pages/viewpage.action?pageId=62190859
+https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.1.3+Team
 
-### Individual:
+### Confluence:
 
-https://confluence.cis.unimelb.edu.au:8443/display/SWEN900132020SP/6.5+Individual
+https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.1.4+Confluence
 
-### Confluence APIs:
+### Jira:
 
-https://confluence.cis.unimelb.edu.au:8443/display/SWEN900132020SP/6.6.1+Confluence
-https://confluence.cis.unimelb.edu.au:8443/display/SWEN900132020SP/6.6.3+Get+team+and+members+from+Confluence
+https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.1.5+Jira
 
-### JIRA APIs:
+### Git:
 
-https://confluence.cis.unimelb.edu.au:8443/display/SWEN900132020SP/6.6.2+Jira
+https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.1.6+Git
 
-### Slack APIs:
 
-https://confluence.cis.unimelb.edu.au:8443/display/SWEN900132020SP/6.6.4+Slack
+<h2> Spring 2 </h2>
 
-### Git APIs:
+### Acceptance Test
 
-https://confluence.cis.unimelb.edu.au:8443/display/SWEN900132020SP/6.7+Git
+https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.2.1+Acceptance+Test
 
-<h1 id="2.3"> 2.3 Web Application <h1>
+### Confluence API Designer
+
+https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.2.2+Confluence+API+Design
+
+### Database Design
+
+https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.2.3+Database+Design
+
+### Data Sample
+
+https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.2.4+Data+Sample
+
+### Mock API Constructor
+
+https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.2.5+Mock+API+Construction+Instructions
+
+### Workload Separation
+
+https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.2.6+Workload+Separation
+
+<h2> Spring 3 </h2>
+
+https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.3+Sprint+2%3A+API
+
+<h1 id="3.3"> 3.3 Web Application (working) </h1>
 
 ### Digital Prototype
 
-The below link shows the intended behavior and look of the application as a prototype:
-https://6q4szw.axshare.com/#id=e3piv1&p=frame pwd: digitalWrenchisfun9
+Digital Prototype Package is able to download via below link:
 
-### Login
+https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/4+Prototypes
 
-Currently, login is handled by the system with md5 encryption.
-Temporary Coordinator account is username: egg, password: egg. (New coordinator account must be added manually via the DB)
-Temporary Supervisor account is username: test, password: test.
 
 ### Viewing Projects
-As a coordinator or supervisor, access your home page to view all projects assigned to you (or all projects in system if you are a coordinator). Choose a subject and/or year for all your projects to display. Please note that the subject selection bar and year selection bar are currently not functional.
+
+As a coordinator, access your home page to view all imported projects.
 
 ### Importing Projects
 
-As a coordinator, access the 'Import Projects' feature by clicking on the relevant sidebar button. Confluence login details will need to be provided (account that can access project workspaces on confluence will be needed.) PLEASE NOTE: these details are not securely encrypted currently!!!
+As a coordinator, select projects that coordinator wants to import. The coordinator can search through the search bar for the project name that he/she wants to import, and then select the project name. The project is automatically loaded into the select project area below, allowing the coordinator to select multiple projects at once. Then click Import button to import multiple items at once. And all imported projects will show the name of the project, Confluence Link, in the table below.
 
-### Inviting Supervisors
+Please note that the subject selection bar are currently not functional.
 
-As a coordinator, access the 'Manage Supervisors' feature by clicking on the relevant sidebar button. Instructions are provided on the page on how to invite supervisors into the system via email.
-
-As a supervisor, a link to create your account on the system will be found in an invitation email. Once registered, you are able to access the system as a supervisor.
-
-### Assigning Supervisors to Projects
-
-As a coordinator, access the home page to view all projects in the system and assign supervisors to projects without primary and/or secondary supervisors.
-
-### Viewing Project Team
+### Viewing Specific Imported Project
 
 As a coordinator or a supervisor who is managing the team in question, click on the button under that team's ID column to access the details about that team. Currently, this button is hardcoded to link to team SP's details and will need to be extended in order to view the details of any team.
 
-### Team Configuration Page
+### Team Configuration Page (to do)
 
 As a coordinator or a supervisor who is managing the team in question, you may update the team configuration by clicking on the 'Configuration' button on the sidebar. Here the URLs for each of the team's tools should be set (currently not implemented). The account names/ emails for each team member's Slack and github accounts must be set in order to access their individual details in the 'Individual Contribution' section.
 
-### Viewing Team's Process Quality
+### Viewing Team's Process Quality (to do)
 
 As a coordinator or a supervisor who is managing the team in question, you may view a team's Process Quality by clicking on the 'Process Quality' button on the sidebar. Currently, you will be required to provide JIRA login details (PLEASE NOTE: these details are not securely encrypted currently!!!) that have access to the team's JIRA space each time you access this page. Here information about how the team has progressed with the project in terms of their processes should be displayed. As of now, current data on the breakdown of the team's JIRA tickets will be shown only.
 
-### Viewing Team's Communication Quality
+### Viewing Team's Communication Quality (to do)
 
 As a coordinator or a supervisor who is managing the team in question, you may view a team's Communication Quality by clicking on the 'Communication Quality' button on the sidebar. Authorization to access these details is currently hardcoded to use Team SP's Slack token. This token will need to be set in the configuration file to access any given team's Slack space information. Here information about how the team has communicated regarding the project will be displayed. 
 
@@ -207,23 +211,23 @@ Currently this feature is not properly bug fixed. Testing has shown that it only
 
 As of now, information regarding the number of messages sent by the team in all channels with over 20 messages will be shown graphically. This information can be filtered based on the sprint.
 
-### Viewing Team Individuals' Contribution
+### Viewing Team Individuals' Contribution (to do)
 
 As a coordinator or a supervisor who is managing the team in question, you may view a team's Individual Contributions by clicking on the 'Individual Contribution' button on the sidebar. Here the details for how each individual from the team has contributed to the project should be shown. 
 
 Currently, this feature is not working as intended - it crashes upon trying to display the Radar Charts for all members of the team, or simply does not pull data for any tools besides Git. This is because authorization to access Slack, JIRA and Confluence are currently done manually. Login details for these tools should be stored in the database for a Coordinator or Supervisor user so that they can seamlessly use the API for accessing Slack, JIRA and Confluence without needing to manually login.
 
-<h1 id="3.0"> 3.0 Contributing / Extending <h1>
+<h1 id="4.0"> 4.0 Contributing / Extending </h1>
 
 v1: 15/11/2020
 
-<h1 id="3.1"> 3.1 APIs <h1>
+<h1 id="4.1"> 4.1 APIs </h1>
 
-### API versions
+### API versions (to do)
 
 The currently available API endpoints are written in "TeamSPBackend/api/urls_v1.py" in the backend repository. To create a new or updated set of API endpoints, create a new "urls_vX.py" for version X and add the corresponding version path in 'urlpatterns' in the "TeamSPBackend/api/urls.py" file.
 
-### Structuring files
+### Structuring files (to do)
 
 To create new APIs or extend existing ones, kindly put the API endpoints (URLs) in "TeamSPBackend/api/urls_vX.py" (for version X) with their corresponding API functions. Kindly refer to "TeamSPBackend/api/urls_v1.py" for more info.
 
@@ -238,17 +242,17 @@ To create new models and/or APIs utilizing them, kindly follow the current direc
 - API endpoints (URLs) in "TeamSPBackend/api/urls_vX.py" for version X
 - For any API functions that require multiple files, put those files under a sub-folder in "TeamSPBackend/api/views/". E.g. "TeamSPBackend/api/views/newModel/"
 
-<h1 id="3.2"> 3.2 Web Application <h1>
+<h1 id="4.2"> 4.2 Web Application (to do)</h1>
 
 ### Calling APIs
 
 Please see /_services/user.service.js for API interfaces.
 
-### Viewing Projects
+### Viewing Project list
 
-Relevant files are: /CoordinatorPage/CoordinatorHomePage.js & /CoordinatorPage/CoordinatorHomePage.css & /SupervisorPage/SupervisorHomePage.js & /SupervisorPage/SupervisorHomePage.css
+Relevant files are: /CoordinatorPage/CoordinatorHomePage.js & /CoordinatorPage/CoordinatorHomePage.css 
 
-Currently, this page is working fine aside from the filter by subject and/or year - all of the user's projects from all years/ subjects will display. Also, projects are not updated unless the bar selection is changed. There are not currently fully developed APIs for filtering projects by the subject and/or year, so those will need to be developed/ tested first. Once that is done, these filters can be made functional.
+
 
 ### Importing Projects
 
@@ -313,3 +317,20 @@ Relevant files are: /qualityPages/IndividualContributionPage.js and /qualityPage
 
 Currently, this page is not functioning as requested. Authorisation to access Atlassian and Slack tools needs to be built into the system to be automatic. Currently, information required for authorisation is not built into the user's data nor are there any APIs to facilitate this. Each time data is accessed from the software engineering tools, authorisation to access the data needs to be provided - that is why no data is able to be automatically pulled. (Similar issue as above in Team Process quality and Importing projects feature.
 
+<h1 id="5.0">  Architecture Diagrams </h1>
+
+### Use Case Diagram
+
+https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/3.1+Use+Case+Diagram
+
+### Domain Model
+
+https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/3.2+Domain+Model
+
+### Process Diagram
+
+https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/3.3+Process+Diagram
+
+### Communication Diagram
+
+https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/3.4+Communication+Diagram
