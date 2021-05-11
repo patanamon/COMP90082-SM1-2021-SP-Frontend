@@ -76,26 +76,26 @@ class IndividualContributionPage extends React.Component {
                   </Col>
                   <Col>
                       {this.state.btnSelected === commonConstants.CONFLUENCE && typeof this.props.individualConfluenceData !== "undefined" && (
-                        <DropdownMenus data={this.props.individualConfluenceData.labels.slice()} onChange={this.selectStudent} />
+                        <DropdownMenus data={this.props.individualConfluenceData["All"].labels} onChange={this.selectStudent} />
                       )}
                       {this.state.btnSelected === commonConstants.GITHUB && typeof this.props.individualGithubData !== "undefined" && (
-                          <DropdownMenus data={this.props.individualGithubData.labels.slice()} onChange={this.selectStudent} />
+                          <DropdownMenus data={this.props.individualGithubData["All"].labels} onChange={this.selectStudent} />
                       )}
 
                       {this.state.btnSelected === commonConstants.JIRA && typeof this.props.individualJiraData !== "undefined" && (
-                     <DropdownMenus data={this.props.individualGithubData.labels.slice()} onChange={this.selectStudent} />
+                     <DropdownMenus data={this.props.individualGithubData["All"].labels} onChange={this.selectStudent} />
                       )}
                     </Col>
                   <Col>
                 
                     {this.state.btnSelected === commonConstants.CONFLUENCE && (
-                    <DonutChart data={formatDonutChartDataForOneStudent(this.props.individualConfluenceData, this.state.selectedStudent)} />
+                    <DonutChart data={this.props.individualConfluenceData[this.state.selectedStudent]} />
                     )} 
                     {this.state.btnSelected === commonConstants.GITHUB && (
-                    <DonutChart data={formatDonutChartDataForOneStudent(this.props.individualGithubData, this.state.selectedStudent)} />
+                    <DonutChart data={this.props.individualGithubData[this.state.selectedStudent]} />
                     )}
                     {this.state.btnSelected === commonConstants.JIRA && (
-                    <DonutChart data={formatDonutChartDataForOneStudent(this.props.individualJiraData, this.state.selectedStudent)} />
+                    <DonutChart data={this.props.individualJiraData[this.state.selectedStudent]} />
                     )}
                   </Col>
                 </Row>
