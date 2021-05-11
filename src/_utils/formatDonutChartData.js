@@ -20,7 +20,7 @@ export function formatDonutChartData(response) {
     datasets: datasets,
   };
 
-  result["ALl"] = formattedData;
+  result["All"] = formattedData;
   for (let student in formattedData.labels) {
     results[student] = formatDonutChartDataForOneStudent(formattedData, student)
   }
