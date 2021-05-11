@@ -14,9 +14,14 @@ import Banner from "../_utils/Banner";
 import AsyncSelect from "react-select/async";
 import { userService } from "../_services";
 import { formatSearchResult } from "../_utils/formatSearchResult.js";
+<<<<<<< HEAD
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { Drawer, Divider, IconButton } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
+=======
+import { Link } from "react-router-dom";
+
+>>>>>>> b99000215398a420bd0eb9e94a00108474579cde
 
 // temp store for vars
 var KeyResults = [];
@@ -144,8 +149,7 @@ closeDrawer = () => {
   };
 
   handleRedirect(e){
-    let spaceKey = e.target.innerText;
-    this.props.setCurrentTeamKey(spaceKey);
+    this.props.setCurrentTeamKey(e.target.innerText);
   }
 
   // componentDidMount() {
@@ -227,6 +231,7 @@ closeDrawer = () => {
 
                     <TableBody>
                       {KeyResults.map((row) => (
+<<<<<<< HEAD
                         <StyledTableRow key={row}>
                           <StyledTableCell component="th" scope="row" >
                             <a href="/ProjectHomePage" onClick={this.handleRedirect}>
@@ -234,6 +239,15 @@ closeDrawer = () => {
                             </a>
                           </StyledTableCell>
                           <StyledTableCell align="right" >
+=======
+                        <TableRow key={row}>
+                          <TableCell component="th" scope="row">
+                            <Link to="/ProjectHomePage" onClick={this.handleRedirect}>
+                              {NameResults[KeyResults.indexOf(row)]}
+                            </Link>
+                          </TableCell>
+                          <TableCell align="right" >
+>>>>>>> b99000215398a420bd0eb9e94a00108474579cde
                             {LinkResults[KeyResults.indexOf(row)]}
                           </StyledTableCell>
                           <StyledTableCell align="right">
