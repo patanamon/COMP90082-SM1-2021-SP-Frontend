@@ -27,21 +27,21 @@ https://confluence.cis.unimelb.edu.au:8443/display/SWEN900132020SP/3.4+Deploymen
 
 # Table of Contents
 
-*[1.0 Installation](#1.0)
+#[1.0 Installation](#1.0)
 
-*[2.0 Usage](#2.0)
+#[2.0 Usage](#2.0)
 
- *[2.1 Database](#2.1)
+ #[2.1 Database](#2.1)
 
- *[2.2 API Documentation](#2.2)
+ #[2.2 API Documentation](#2.2)
 
- *[2.3 Web Application](#2.3)
+ #[2.3 Web Application](#2.3)
 
-*[3.0 Contributing / Extending](#3.0)
+#[3.0 Contributing / Extending](#3.0)
 
- *[3.1 APIs](#3.1)
+ #[3.1 APIs](#3.1)
 
- *[3.2 Web Application](#3.2)
+ #[3.2 Web Application](#3.2)
 
 <h1 id="1.0"> 1.0 Installation </h1>
 
