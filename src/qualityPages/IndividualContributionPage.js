@@ -42,7 +42,8 @@ class IndividualContributionPage extends React.Component {
         this.props.getJiraIndividualData("COMP900822021SM1SP");
     }
     this.setState({
-        btnSelected: picked
+        btnSelected: picked,
+        selectedStudent: "All"
     });
   }
 
