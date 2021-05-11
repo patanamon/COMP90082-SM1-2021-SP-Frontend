@@ -88,13 +88,13 @@ class IndividualContributionPage extends React.Component {
                     </Col>
                   <Col>
                 
-                    {this.state.btnSelected === commonConstants.CONFLUENCE && (
+                    {this.state.btnSelected === commonConstants.CONFLUENCE && typeof this.props.individualConfluenceData !== "undefined" && (
                     <DonutChart data={this.props.individualConfluenceData[this.state.selectedStudent]} />
                     )} 
-                    {this.state.btnSelected === commonConstants.GITHUB && (
+                    {this.state.btnSelected === commonConstants.GITHUB && typeof this.props.individualGithubData !== "undefined" && (
                     <DonutChart data={this.props.individualGithubData[this.state.selectedStudent]} />
                     )}
-                    {this.state.btnSelected === commonConstants.JIRA && (
+                    {this.state.btnSelected === commonConstants.JIRA && typeof this.props.individualJiraData !== "undefined" &&(
                     <DonutChart data={this.props.individualJiraData[this.state.selectedStudent]} />
                     )}
                   </Col>
