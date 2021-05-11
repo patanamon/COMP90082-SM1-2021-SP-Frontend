@@ -43,7 +43,7 @@ https://confluence.cis.unimelb.edu.au:8443/display/SWEN900132020SP/3.4+Deploymen
 
  *[3.2 Web Application](#3.2)
 
-<h2 id="1.0"> 1.0 Installation </h2>
+<h1 id="1.0"> 1.0 Installation </h1>
 
 ## Packages used
 
@@ -103,11 +103,11 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-# 2.0 Usage
+<h1 id="2.0"> 2.0 Usage <h1>
 
 v1: 15/11/2020
 
-## 2.1 Database
+<h1 id="2.1"> 2.1 Database <h1>
 
 ### Data Model:
 
@@ -118,7 +118,7 @@ https://confluence.cis.unimelb.edu.au:8443/display/SWEN900132020SP/6.0+Database+
 Connection can be made to our Database using the below credentials:
 [Image of DB Credentials](https://github.com/Jarrent/CIS_SP_frontend/blob/master/sp_database.PNG)
 
-## 2.2 API Documentation
+ <h1 id="2.2">2.2 API Documentation <h1>
 
 ### Account + User:
 
@@ -157,7 +157,7 @@ https://confluence.cis.unimelb.edu.au:8443/display/SWEN900132020SP/6.6.4+Slack
 
 https://confluence.cis.unimelb.edu.au:8443/display/SWEN900132020SP/6.7+Git
 
-## 2.3 Web Application
+<h1 id="2.3"> 2.3 Web Application <h1>
 
 ### Digital Prototype
 
@@ -213,11 +213,11 @@ As a coordinator or a supervisor who is managing the team in question, you may v
 
 Currently, this feature is not working as intended - it crashes upon trying to display the Radar Charts for all members of the team, or simply does not pull data for any tools besides Git. This is because authorization to access Slack, JIRA and Confluence are currently done manually. Login details for these tools should be stored in the database for a Coordinator or Supervisor user so that they can seamlessly use the API for accessing Slack, JIRA and Confluence without needing to manually login.
 
-# 3.0 Contributing / Extending
+<h1 id="3.0"> 3.0 Contributing / Extending <h1>
 
 v1: 15/11/2020
 
-## 3.1 APIs
+<h1 id="3.1"> 3.1 APIs <h1>
 
 ### API versions
 
@@ -238,7 +238,7 @@ To create new models and/or APIs utilizing them, kindly follow the current direc
 - API endpoints (URLs) in "TeamSPBackend/api/urls_vX.py" for version X
 - For any API functions that require multiple files, put those files under a sub-folder in "TeamSPBackend/api/views/". E.g. "TeamSPBackend/api/views/newModel/"
 
-## 3.2 Web Application
+<h1 id="3.2"> 3.2 Web Application <h1>
 
 ### Calling APIs
 
