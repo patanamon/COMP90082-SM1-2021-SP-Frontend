@@ -56,7 +56,7 @@ class IndividualContributionPage extends React.Component {
   }
 
   render() {
-      
+    
     return (
       <div className="uomcontent">
         <ToastContainer limit={1} />
