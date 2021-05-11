@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import "./CoordinatorHomePage.css";
 import uomHeader from "../header/uomheader.js";
 import { connect } from "react-redux";
@@ -14,7 +14,9 @@ import Banner from "../_utils/Banner";
 import AsyncSelect from "react-select/async";
 import { userService } from "../_services";
 import { formatSearchResult } from "../_utils/formatSearchResult.js";
-
+import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { Drawer, Divider, IconButton } from '@material-ui/core';
+import Paper from '@material-ui/core/Paper';
 
 // temp store for vars
 var KeyResults = [];
@@ -24,6 +26,37 @@ var LinkResults = [];
 var FinalNameResult = [];
 var FinalLinkResult = [];
 
+const StyledTableCell = withStyles((theme) => ({
+  head: {
+    backgroundColor: "#0b2F4A",
+    color: theme.palette.common.white,
+  },
+  body: {
+    fontSize: 14,
+  },
+  
+}))(TableCell);
+
+const StyledTableRow = withStyles((theme) => ({
+  root: {
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover,
+    },
+  },
+}))(TableRow);
+
+
+function createData(name, email) {
+  return { name, email};
+}
+
+const rows = [
+  createData('Student 1', "student1@student.unimelb.edu.au"),
+  createData('Student 2', "student2@student.unimelb.edu.au"),
+  createData('Student 3', "student3@student.unimelb.edu.au"),
+  createData('Student 4', "student4@student.unimelb.edu.au"),
+  createData('Student 5', "student5@student.unimelb.edu.au"),
+];
 
 // check if the item present in results
 function uniqImported(arr1, arr2, arr3, obj) {
@@ -66,13 +99,22 @@ class CoordinatorHomePage extends Component {
   //This is just as an example to populate the table
   constructor(props) {
     super(props); //since we are extending class Table so we have to use super in order to override Component class constructor
-    this.state = { project: "", show: false, openMenu: false };
+    this.state = { project: "", show: false, openMenu: false, isDrawerOpened: false };
     this.getSearchResult = this.getSearchResult.bind(this);
     this.handleRedirect = this.handleRedirect.bind(this);
 
   }
 
-  
+  toggleDrawerStatus = () => {
+  this.setState({
+    isDrawerOpened: true,
+  })
+}
+closeDrawer = () => {
+  this.setState({
+    isDrawerOpened: false,
+  })
+}
   // not works now, for import project actions
   handleImport() {
     for (let i = 0; i < NameResults.length; i++) {
@@ -93,8 +135,6 @@ class CoordinatorHomePage extends Component {
     console.log(selectedProject);
     uniq(KeyResults, NameResults, LinkResults, selectedProject);
 
-    
-    
   };
 
   // actions for removing specific item
@@ -142,10 +182,10 @@ class CoordinatorHomePage extends Component {
       }
     );
   }
-
-
+  
   render() {
-
+    const { isDrawerOpened } = this.state;
+    
     return (
       
       <div class="uomcontent">
@@ -157,6 +197,7 @@ class CoordinatorHomePage extends Component {
               <div id="select" className="Select_box">
                 <AsyncSelect
                   className="ProjectList"
+                  //onScroll = {this.getSearchResult}
                   loadOptions={this.getSearchResult}
                   components={{
                     DropdownIndicator: () => null,
@@ -167,6 +208,7 @@ class CoordinatorHomePage extends Component {
                   defaultOptions={this.state.options}
                   onChange={this.handleChange}
                   placeholder="Search projects by entering key words"
+                  
                 />
               </div>
               <div id="selected" className="Selected">
@@ -177,32 +219,32 @@ class CoordinatorHomePage extends Component {
                   >
                     <TableHead>
                       <TableRow>
-                        <TableCell>Project Name</TableCell>
-                        <TableCell align="right">Confluence Link</TableCell>
-                        <TableCell align="right" colSpan={2}> Operation</TableCell>
+                        <StyledTableCell>Project Name</StyledTableCell>
+                        <StyledTableCell align="right">Confluence Link</StyledTableCell>
+                        <StyledTableCell align="right" colSpan={2}> Operation</StyledTableCell>
                       </TableRow>
                     </TableHead>
 
                     <TableBody>
                       {KeyResults.map((row) => (
-                        <TableRow key={row}>
-                          <TableCell component="th" scope="row" >
+                        <StyledTableRow key={row}>
+                          <StyledTableCell component="th" scope="row" >
                             <a href="/ProjectHomePage" onClick={this.handleRedirect}>
                               {NameResults[KeyResults.indexOf(row)]}
                             </a>
-                          </TableCell>
-                          <TableCell align="right" >
+                          </StyledTableCell>
+                          <StyledTableCell align="right" >
                             {LinkResults[KeyResults.indexOf(row)]}
-                          </TableCell>
-                          <TableCell align="right">
+                          </StyledTableCell>
+                          <StyledTableCell align="right">
                             
                               <div id="button" float="left" >
                               <Button
                                 variant="contained"
+                                color = "#194988"
                                 color="primary"
                                 onClick={() => 
                                 //   {
-                                  
                                 //   this.handleDelete(row);
                                 // }}
                                 { if (window.confirm('Are you sure you wish to delete this item?')) this.handleDelete(row) } } 
@@ -211,29 +253,62 @@ class CoordinatorHomePage extends Component {
                                 Delete
                               </Button>
                               </div>
-
-                          
                             
-                          </TableCell>
- <TableCell align="right">
+                          </StyledTableCell>
+                          <StyledTableCell align="right">
 
                               <div id="button" float="left" >
                                 <Button
                                 variant="contained"
                                 color="primary"
-                                onClick={() => {}}
+                                onClick={this.toggleDrawerStatus}
                               >
                                 View
                               </Button>
+                              <Drawer
+                                variant="temporary"
+                                open={isDrawerOpened}
+                                onClose={this.closeDrawer}
+                                anchor = "right"
+                              >
+
+                              <TableContainer component={Paper}>
+                                    <p> </p>
+                                    <div align="center"><h2>Project Name</h2></div>
+                                    <p> </p>
+                                    <Table aria-label="simple table">
+                                      <TableHead>
+                                        <StyledTableRow align="center">
+                                          <StyledTableCell align="center">Student Name</StyledTableCell>
+                                          <StyledTableCell align="center">Student Email</StyledTableCell>
+           
+                                        </StyledTableRow>
+                                      </TableHead>
+                                      <TableBody>
+                                        {rows.map((row) => (
+                                          <StyledTableRow key={row.name}>
+                                            <StyledTableCell component="th" scope="row" align="center">
+                                              {row.name}
+                                            </StyledTableCell>
+                                            <StyledTableCell align="center">{row.email}</StyledTableCell>
+
+                                          </StyledTableRow>
+                                        ))}
+                                      </TableBody>
+                                    </Table>
+                                  </TableContainer>
+                              </Drawer>
                               </div>
                           
                             
-                          </TableCell>
-                        </TableRow>
+                          </StyledTableCell>
+                        </StyledTableRow>
                       ))}
                     </TableBody>
                   </Table>
                 </TableContainer>
+                <p> </p>
+                <p> </p>
               </div>
             </div>
           </div>
