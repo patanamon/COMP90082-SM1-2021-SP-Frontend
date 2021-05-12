@@ -8,12 +8,12 @@ import Banner from "../_utils/Banner";
 
 const team =  "SWEN90013-2020-SP";
 
+
 class ProjectHomePage extends Component {
   //This is just as an example to populate the table
   constructor(props) {
     super(props); //since we are extending class Table so we have to use super in order to override Component class constructor
     this.state = {
-      teamList: "", 
       data: [],
 
       columns: [
@@ -29,6 +29,8 @@ class ProjectHomePage extends Component {
           selector: "picture",
           center: true,
           sortable: true,
+          cell: row => <img alt='Avatar' width='40' src={row.picture}></img>,
+ 
         },
 
         {
@@ -61,11 +63,13 @@ class ProjectHomePage extends Component {
   }
   handleSubmitTeamList(e) {
     this.props.getTeamMemberList(team);
+    this.props.getTeamMemberNumber(team);
     this.setState({ teamList: storeGet("teamList") });
     this.setState({ processSubmitted: true });
   }
   componentDidMount() {
-    this.props.getTeamMemberList("COMP900822021SM1SP");
+    this.props.getTeamMemberList("VIS3");
+    // this.props.getTeamMemberNumber("VIS3");
   }
 
   render() {
@@ -74,8 +78,8 @@ class ProjectHomePage extends Component {
         {uomHeader("Project Overview")}
         <div role="main" >
           <div className="page-inner" >
-            <Banner projName={this.props.currentTeamKey} />
-            <Table columns={this.state.columns} data={this.props.teamMemberList} title={"Student Information"} width="100vw" height="500vh"/>
+            <Banner projName="2021-SM1-Software-Project-Database" />
+            <Table columns={this.state.columns} data={this.props.teamMemberList} title={"Student Information"} width="80vw" height="500vh"/>
           </div>
         </div>
       </div>
@@ -87,11 +91,12 @@ class ProjectHomePage extends Component {
 function mapState(state) {
   return {
     teamMemberList: state.user.teamMemberList,
-    currentTeamKey: state.user.currentTeamKey,
+    teamMemberNumber: state.user.teamMemberNumber,
   };
 }
 const actionCreators = {
   getTeamMemberList: userActions.getTeamMemberList,
+  getTeamMemberNumber: userActions.getTeamMemberNumber,
 };
 
 const ProjectHome = connect(mapState, actionCreators)(ProjectHomePage);

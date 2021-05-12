@@ -3,6 +3,10 @@ import md5 from "md5";
 import { commonConstants } from "../_constants";
 
 export const userService = {
+  login,
+  logout,
+  register,
+
   getTeamConfluencePages,
   getTeamGithubCommits,
   getTeamJiraTickets,
@@ -23,6 +27,7 @@ export const userService = {
   getConfluenceSpaceByKeyWord,
 
   getTeamMemberList,
+  getTeamMemberNumber,
   SendImportRequest,
 };
 
@@ -131,7 +136,6 @@ function getTeamConfluenceMeeting(teamKey) {
     });
 }
 
-
 function setTeamInfo(teamKey, jiraUrl, githubUrl, githubUsername, githubPassword) {
   let payload = {
     space_key: teamKey,
@@ -141,7 +145,7 @@ function setTeamInfo(teamKey, jiraUrl, githubUrl, githubUsername, githubPassword
     git_password: githubPassword,
   };
 
-  let url = baseUrl + "/team/config";
+  let url = baseUrl + "/git/config";
 
   const requestOptions = {
     method: "POST",
@@ -159,7 +163,7 @@ function setTeamInfo(teamKey, jiraUrl, githubUrl, githubUsername, githubPassword
 }
 
 function getTeamCodeMetrics(teamKey) {
-  let url = baseUrl + "/code/" + teamKey + "/matrix";
+  let url = baseUrl + "/git/" + "/metrics/" + teamKey;
 
   const requestOptions = {
     method: "GET",
@@ -291,111 +295,121 @@ function getTeamMemberList(teamKey) {
   .then((response) => response.json())
   .then((jsonResponse) => {
     if (jsonResponse.code == 0) {
-      storePut(commonConstants.TEAM_MEMBER_LIST, jsonResponse.data);
+      storePut(commonConstants.TEAM_MEMBER_LIST, jsonResponse.data.user_list);
     };
     return jsonResponse;
   });
 }
+
+function getTeamMemberNumber(teamKey) {
+  let url = baseUrl + "/team/" + teamKey;
+
+  const requestOptions = {
+    method: "GET",
+  };
+
+  return fetch(url, requestOptions)
+  .then((response) => response.json())
+  .then((jsonResponse) => {
+    if (jsonResponse.code == 0) {
+      storePut(commonConstants.TEAM_MEMBER_NUMBER, jsonResponse.data.total);
+    };
+    return jsonResponse;
+  });
+}
+
+
 
 /*
 #########################History code###############################################
 */
 
 // //TODO: find a method without too many warning
-// function validateEmail(email) {
-//   const re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-//   return re.test(email);
-// }
+function validateEmail(email) {
+  const re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+  return re.test(email);
+}
 
-// function login(username, password) {
-//   var url = "http://172.26.88.107:8081/api/v1/account/login";
-//   var data = {};
+function login(username, password) {
+  var url = baseUrl + "/sso/login";
+  var data = {};
 
-//   if (validateEmail(username)) {
-//     data = {
-//       email: username,
-//       password: md5(password),
-//     };
-//     console.log("using email");
-//   } else {
-//     data = {
-//       username: username,
-//       password: md5(password),
-//     };
-//     console.log("using username");
-//   }
+  data = {
+    "username": username,
+    "password": password,
+  };
 
-//   const requestOptions = {
-//     method: "POST",
-//     credentials: "include",
-//     body: JSON.stringify(data),
-//   };
+  const requestOptions = {
+    method: "POST",
+    credentials: "include",
+    body: JSON.stringify(data),
+  };
 
-//   console.log("*******************LOGIN******************");
-//   console.log(requestOptions);
+  console.log("*******************LOGIN******************");
+  console.log(requestOptions);
 
-//   return fetch(url, requestOptions)
-//     .then(handleResponse)
-//     .then((user) => {
-//       // store user details and jwt token in local storage to keep user logged in between page refreshes
-//       localStorage.setItem("user", JSON.stringify(user));
-//       return user;
-//     });
-// }
+  return fetch(url, requestOptions)
+    .then(handleResponse)
+    .then((user) => {
+      // store user details and jwt token in local storage to keep user logged in between page refreshes
+      localStorage.setItem("user", JSON.stringify(user));
+      return user;
+    });
+}
 
-// function logout() {
-//   // remove user from local storage to log user out
-//   localStorage.removeItem("user");
-// }
+function logout() {
+  // remove user from local storage to log user out
+  localStorage.removeItem("user");
+}
 
 // // Register
-// function register(user) {
-//   var url = "http://172.26.88.107:8081/api/v1/invite/accept";
+function register(user) {
+  var url = "http://172.26.88.107:8081/api/v1/invite/accept";
 
-//   const requestOptions = {
-//     method: "POST",
-//     credentials: "include",
-//     body: JSON.stringify(user),
-//   };
+  const requestOptions = {
+    method: "POST",
+    credentials: "include",
+    body: JSON.stringify(user),
+  };
 
-//   console.log("*******************REGISTER******************");
-//   console.log(requestOptions);
+  console.log("*******************REGISTER******************");
+  console.log(requestOptions);
 
-//   return fetch(url, requestOptions)
-//     .then(function (handleResponse) {
-//       console.log("++++++++++++++++REGISTER RESPONSE++++++++++++++++");
-//       var response = handleResponse
-//         .json()
-//         .then((handleResponse) => handleResponse);
-//       console.log(response);
-//     })
-//     .then((user) => {
-//       console.log(user);
+  return fetch(url, requestOptions)
+    .then(function (handleResponse) {
+      console.log("++++++++++++++++REGISTER RESPONSE++++++++++++++++");
+      var response = handleResponse
+        .json()
+        .then((handleResponse) => handleResponse);
+      console.log(response);
+    })
+    .then((user) => {
+      console.log(user);
 
-//       return user;
-//     });
-// }
+      return user;
+    });
+}
 
-// function handleResponse(response) {
-//   return response.text().then((text) => {
-//     const data = text && JSON.parse(text);
+function handleResponse(response) {
+  return response.text().then((text) => {
+    const data = text && JSON.parse(text);
+    
+    console.log("*******************HANDLE RESPOND******************");
 
-//     console.log("*******************HANDLE RESPOND******************");
+    if (!response.ok) {
+      if (response.status == 401) {
+        // auto logout if 401 response returned from api
+        logout();
+        window.location.reload(true);
+      }
 
-//     if (!response.ok) {
-//       if (response.status == 401) {
-//         // auto logout if 401 response returned from api
-//         logout();
-//         window.location.reload(true);
-//       }
+      const error = (data && data.message) || response.statusText;
+      return Promise.reject(error);
+    }
 
-//       const error = (data && data.message) || response.statusText;
-//       return Promise.reject(error);
-//     }
-
-//     return data;
-//   });
-// }
+    return data;
+  });
+}
 
 // function getJsonValue(obj, name) {
 //   var result = null;

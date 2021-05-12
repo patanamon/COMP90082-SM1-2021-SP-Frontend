@@ -317,7 +317,7 @@ Relevant files are: /qualityPages/IndividualContributionPage.js and /qualityPage
 
 Currently, this page is not functioning as requested. Authorisation to access Atlassian and Slack tools needs to be built into the system to be automatic. Currently, information required for authorisation is not built into the user's data nor are there any APIs to facilitate this. Each time data is accessed from the software engineering tools, authorisation to access the data needs to be provided - that is why no data is able to be automatically pulled. (Similar issue as above in Team Process quality and Importing projects feature.
 
-<h1 id="5.0">  Architecture Diagrams </h1>
+<h1 id="5.0"> 5.0 Architecture Diagrams </h1>
 
 ### Use Case Diagram
 

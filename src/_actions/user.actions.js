@@ -11,6 +11,9 @@ import { successToast } from "../_utils/toast";
 // Remember: Add new actions in here, otherwise it cannot be recognise by this.props.
 // ALSO REMEMBER TO ADD RETURN MSG IN user.constants.js
 export const userActions = {
+  login,
+  logout,
+
   getTeamConfluencePages,
   getTeamGithubCommits,
   getTeamJiraTickets,
@@ -33,6 +36,7 @@ export const userActions = {
   setCurrentTeamName,
 
   getTeamMemberList,
+  getTeamMemberNumber,
   sendImport,
 };
 
@@ -476,11 +480,13 @@ function setCurrentTeamKey(teamKey) {
   };
 }
 
+
+
 function getTeamMemberList(teamKey) {
   return (dispatch) => {
     userService.getTeamMemberList(teamKey).then(
       (response) => {
-        dispatch(success(userConstants.GET_TEAM_MEMBER_LIST_SUCCESS, response.data));
+        dispatch(success(userConstants.GET_TEAM_MEMBER_LIST_SUCCESS, response.data.user_list));
       },
       (error) => {
         dispatch(failure(userConstants.GET_TEAM_MEMBER_LIST_FAILURE, error.toString()));
@@ -488,6 +494,21 @@ function getTeamMemberList(teamKey) {
     );
   };
 }
+
+function getTeamMemberNumber(teamKey) {
+  return (dispatch) => {
+    userService.getTeamMemberNumber(teamKey).then(
+      (response) => {
+        dispatch(success(userConstants.GET_TEAM_MEMBER_NUMBER_SUCCESS, response.data.total));
+      },
+      (error) => {
+        dispatch(failure(userConstants.GET_TEAM_MEMBER_NUMBER_FAILURE, error.toString()));
+      }
+    );
+  };
+}
+
+
 
 function setCurrentTeamName(teamName) {
   return (dispatch) => {
@@ -507,17 +528,15 @@ function login(username, password) {
         console.log("****************Login Success*********");
         console.log(user);
         if (user.message == "success") {
-          if (user.data.role == 0) {
-            history.push("/CoordinatorHomePage");
-          } else {
-            history.push("/SupervisorHomePage");
-          }
+          history.push("/CoordinatorHomePage");
           dispatch(success(user));
         } else {
-          dispatch(failure(user.message));
+          //dispatch(failure(userConstants.LOGIN_FAILURE, user.message));
+          dispatch(alertActions.error(user.msg.toString()));
         }
       },
       (error) => {
+        console.log(error)
         dispatch(failure(error.toString()));
         dispatch(alertActions.error(error.toString()));
       }
