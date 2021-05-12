@@ -36,6 +36,7 @@ export const userActions = {
   setCurrentTeamName,
 
   getTeamMemberList,
+  getTeamMemberNumber,
   sendImport,
 };
 
@@ -479,11 +480,13 @@ function setCurrentTeamKey(teamKey) {
   };
 }
 
+
+
 function getTeamMemberList(teamKey) {
   return (dispatch) => {
     userService.getTeamMemberList(teamKey).then(
       (response) => {
-        dispatch(success(userConstants.GET_TEAM_MEMBER_LIST_SUCCESS, response.data));
+        dispatch(success(userConstants.GET_TEAM_MEMBER_LIST_SUCCESS, response.data.user_list));
       },
       (error) => {
         dispatch(failure(userConstants.GET_TEAM_MEMBER_LIST_FAILURE, error.toString()));
@@ -491,6 +494,21 @@ function getTeamMemberList(teamKey) {
     );
   };
 }
+
+function getTeamMemberNumber(teamKey) {
+  return (dispatch) => {
+    userService.getTeamMemberNumber(teamKey).then(
+      (response) => {
+        dispatch(success(userConstants.GET_TEAM_MEMBER_NUMBER_SUCCESS, response.data.total));
+      },
+      (error) => {
+        dispatch(failure(userConstants.GET_TEAM_MEMBER_NUMBER_FAILURE, error.toString()));
+      }
+    );
+  };
+}
+
+
 
 function setCurrentTeamName(teamName) {
   return (dispatch) => {

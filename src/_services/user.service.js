@@ -27,6 +27,7 @@ export const userService = {
   getConfluenceSpaceByKeyWord,
 
   getTeamMemberList,
+  getTeamMemberNumber,
   SendImportRequest,
 };
 
@@ -294,11 +295,30 @@ function getTeamMemberList(teamKey) {
   .then((response) => response.json())
   .then((jsonResponse) => {
     if (jsonResponse.code == 0) {
-      storePut(commonConstants.TEAM_MEMBER_LIST, jsonResponse.data);
+      storePut(commonConstants.TEAM_MEMBER_LIST, jsonResponse.data.user_list);
     };
     return jsonResponse;
   });
 }
+
+function getTeamMemberNumber(teamKey) {
+  let url = baseUrl + "/team/" + teamKey;
+
+  const requestOptions = {
+    method: "GET",
+  };
+
+  return fetch(url, requestOptions)
+  .then((response) => response.json())
+  .then((jsonResponse) => {
+    if (jsonResponse.code == 0) {
+      storePut(commonConstants.TEAM_MEMBER_NUMBER, jsonResponse.data.total);
+    };
+    return jsonResponse;
+  });
+}
+
+
 
 /*
 #########################History code###############################################
