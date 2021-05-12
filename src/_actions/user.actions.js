@@ -11,6 +11,9 @@ import { successToast } from "../_utils/toast";
 // Remember: Add new actions in here, otherwise it cannot be recognise by this.props.
 // ALSO REMEMBER TO ADD RETURN MSG IN user.constants.js
 export const userActions = {
+  login,
+  logout,
+
   getTeamConfluencePages,
   getTeamGithubCommits,
   getTeamJiraTickets,
@@ -507,17 +510,15 @@ function login(username, password) {
         console.log("****************Login Success*********");
         console.log(user);
         if (user.message == "success") {
-          if (user.data.role == 0) {
-            history.push("/CoordinatorHomePage");
-          } else {
-            history.push("/SupervisorHomePage");
-          }
+          history.push("/CoordinatorHomePage");
           dispatch(success(user));
         } else {
-          dispatch(failure(user.message));
+          //dispatch(failure(userConstants.LOGIN_FAILURE, user.message));
+          dispatch(alertActions.error(user.msg.toString()));
         }
       },
       (error) => {
+        console.log(error)
         dispatch(failure(error.toString()));
         dispatch(alertActions.error(error.toString()));
       }
