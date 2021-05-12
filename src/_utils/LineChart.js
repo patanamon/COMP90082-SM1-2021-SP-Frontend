@@ -7,6 +7,5 @@ export default function LineChart(props) {
     <div style={{ position: "relative", margin: "auto", width: "80vw" }}>
       <Line data={data} />
     </div>
-  )
-    
+  );
 }

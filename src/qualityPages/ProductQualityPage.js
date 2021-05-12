@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { userActions } from "../_actions";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import Alert from "../_utils/Alert";
+import BarChartPlot from "../_utils/DonutChart";
 
 class ProductQualityPage extends React.Component {
   //This is just as an example to populate the table
@@ -24,65 +25,75 @@ class ProductQualityPage extends React.Component {
           pre: 0,
           ratio: 0,
         },
-      ], //mock data*/
+      ],
+      data : [{
+        all: 10,
+        classes: 30,
+        decst: 40,
+        excst: 50,
+        file: 50,
+        func: 60,
+        pre: 30,
+        ratio: 50,
+      }],
     };
 
     this.handleMatrix = this.handleMatrix.bind(this);
   }
 
   handleMatrix(e) {
-    this.props.getTeamCodeMetrics("COMP900822021SM1SP");
+    this.props.getTeamCodeMetrics("abc");
   }
 
   componentDidMount() {
-    this.props.getTeamCodeMetrics("COMP900822021SM1SP");
+    this.props.getTeamCodeMetrics("abc");
   }
 
   render() {
     console.log(this.state.CodeMatrix);
     console.log(this.props.productqualityData);
-    const data = this.props.productqualityData;
+    //const data = this.props.productqualityData;
     const columns1 = [
       {
         name: "Number of all lines",
-        selector: "all",
+        selector: "code_lines_count",
         center: Boolean(true),
       },
       {
         name: "Number of classes",
-        selector: "classes",
+        selector: "class_count",
         center: Boolean(true),
       },
       {
-        name: "Number of declarible statements",
-        selector: "decst",
+        name: "Number of files",
+        selector: "file_count",
         center: Boolean(true),
       },
       {
-        name: "Number of excutable statements",
-        selector: "excst",
+        name: "Number of functions",
+        selector: "function_count",
         center: Boolean(true),
       },
     ];
     const columns2 = [
       {
-        name: "Number of files",
-        selector: "file",
-        center: Boolean(true),
-      },
-      {
-        name: "Number of functions",
-        selector: "func",
-        center: Boolean(true),
-      },
-      {
-        name: "Number of preprocessor lines",
-        selector: "pre",
+        name: "Number of comment lines",
+        selector: "comment_lines_count",
         center: Boolean(true),
       },
       {
         name: "Ratio of comment lines to code lines",
-        selector: "ratio",
+        selector: "comment_to_code_ratio",
+        center: Boolean(true),
+      },
+      {
+        name: "Number of declarible statements",
+        selector: "declarative_lines_count",
+        center: Boolean(true),
+      },
+      {
+        name: "Number of excutable statements",
+        selector: "executable_lines_count",
         center: Boolean(true),
       },
     ];
@@ -99,7 +110,6 @@ class ProductQualityPage extends React.Component {
         },
       },
     };
-
     return (
       <div className="uomcontent">
         {uomHeader("Product Quality")}
@@ -110,10 +120,10 @@ class ProductQualityPage extends React.Component {
               <DataTable
                 customStyles={customStyles}
                 columns={columns1}
-                data={this.props.teamCodeMetrics}
+                data={this.state.data}//{this.props.teamCodeMetrics}
               />
             )}
-            {this.props.teamCodeMetrics && this.props.teamCodeMetrics.length != 0 && this.props.teamCodeMetrics && (
+            {this.props.teamCodeMetrics && this.props.teamCodeMetrics.length != 0 && (
               <DataTable
               customStyles={customStyles}
               columns={columns2}
@@ -123,9 +133,13 @@ class ProductQualityPage extends React.Component {
             {(!this.props.teamCodeMetrics || this.props.teamCodeMetrics.length == 0) && (
               <Alert/>
             )}
+            {this.props.teamCodeMetrics && this.props.teamCodeMetrics.length != 0 && (
+              (<BarChartPlot data={this.props.teamCodeMetrics} />)
+            )}
           </div>
         </div>
       </div>
+      
     );
   }
 
