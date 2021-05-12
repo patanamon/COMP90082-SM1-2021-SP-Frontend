@@ -11,16 +11,18 @@ import { successToast } from "../_utils/toast";
 // Remember: Add new actions in here, otherwise it cannot be recognise by this.props.
 // ALSO REMEMBER TO ADD RETURN MSG IN user.constants.js
 export const userActions = {
+  login,
+  logout,
+
   getTeamConfluencePages,
   getTeamGithubCommits,
   getTeamJiraTickets,
 
-  getTeamGitHubComments,
   getTeamConfluenceMeeting,
 
   getTeamCodeMetrics,
 
-  setTeamUrl,
+  setTeamInfo,
 
   getConfluenceIndividualData,
   getGithubIndividualData,
@@ -35,6 +37,7 @@ export const userActions = {
 
   getTeamMemberList,
   getTeamMemberNumber,
+  sendImport,
 };
 
 function request(action, payload) {
@@ -92,6 +95,95 @@ function getTeamConfluencePages(teamKey) {
       }
     );
   };
+}
+
+function sendImport(teamKey) {
+  return (dispatch) => {
+    dispatch(request(userConstants.SEND_IMPORT_REQUEST));
+    userService.sendImport(teamKey).then(
+      (response) => {
+        if (checkRespCode(response)) {
+          dispatch(
+            success(
+              userConstants.SEND_IMPORT_SUCCESS,
+              //to do
+            )
+          );
+        } else {
+          dispatch(
+            failure(
+              userConstants.SEND_IMPORT_FAILURE,
+              response.message
+            )
+          );
+          failureToast(response.message);
+        }
+      },
+      (error) => {
+        dispatch(
+          failure(
+            userConstants.SEND_IMPORT_FAILURE,
+            error.toString()
+          )
+        );
+        failureToast(error.toString());
+      }
+    );
+  };
+}
+
+
+function getProjectInfo() {
+  return (dispatch) => {
+    dispatch(request(userConstants.GETPROJECTINFO_REQUEST));
+    userService.getProjectInfo().then(
+      (response) => {
+        if (checkRespCode(response)) {
+          dispatch(
+            success(
+              userConstants.GETPROJECTINFO_SUCCESS,
+              
+              formatProjectInfo(response)
+              
+              //formatLineChartData(response)
+            )
+          );
+          
+        } else {
+          dispatch(
+            failure(
+              userConstants.GETPROJECTINFO_FAILURE,
+              response.message
+            )
+          );
+          failureToast(response.message);
+        }
+      },
+      (error) => {
+        dispatch(
+          failure(
+            userConstants.GETPROJECTINFO_FAILURE,
+            error.toString()
+          )
+        );
+        failureToast(error.toString());
+      }
+    );
+  };
+}
+
+function formatProjectInfo(data){
+  var tempoStore = [];
+  
+
+  for (let i = 0, len = data.data.length; i < len; i++) {    
+    
+    tempoStore.push({"space_key":data.data[i].space_key, "label" : data.data[i].space_name, "link" : "https://confluence.cis.unimelb.edu.au:8443/display/"+data.data[i].space_key+"/Home"});
+    
+}
+
+
+return tempoStore;
 }
 
 function getTeamGithubCommits(teamKey) {
@@ -161,38 +253,6 @@ function getTeamJiraTickets(teamKey) {
   };
 }
 
-function getTeamGitHubComments(teamKey) {
-  return (dispatch) => {
-    userService.getTeamGitHubComments(teamKey).then(
-      (response) => {
-        if (checkRespCode(response)) {
-          dispatch(
-            success(
-              userConstants.GET_TEAM_GITHUB_COMMENTS_SUCCESS,
-              formatLineChartData(response)
-            )
-          );
-        } else {
-          dispatch(
-            failure(
-              userConstants.GET_TEAM_GITHUB_COMMENTS_FAILURE,
-              response.message
-            )
-          );
-        }
-      },
-      (error) => {
-        dispatch(
-          failure(
-            userConstants.GET_TEAM_GITHUB_COMMENTS_FAILURE,
-            error.toString()
-          )
-        );
-      }
-    );
-  };
-}
-
 function getTeamConfluenceMeeting(teamKey) {
   return (dispatch) => {
     userService.getTeamConfluenceMeeting(teamKey).then(
@@ -225,21 +285,21 @@ function getTeamConfluenceMeeting(teamKey) {
   };
 }
 
-function setTeamUrl(teamKey, jiraUrl, githubUrl) {
+function setTeamInfo(teamKey, jiraUrl, githubUrl, githubUsername, githubPassword) {
   return (dispatch) => {
-    dispatch(request(userConstants.SETTEAMURL_REQUEST));
-    userService.setTeamUrl(teamKey, jiraUrl, githubUrl).then(
+    dispatch(request(userConstants.SETTEAMINFO_REQUEST));
+    userService.setTeamInfo(teamKey, jiraUrl, githubUrl, githubUsername, githubPassword).then(
       (response) => {
         if (checkRespCode(response)) {
-          dispatch(success(userConstants.SETTEAMURL_SUCCESS, response.message));
+          dispatch(success(userConstants.SETTEAMINFO_SUCCESS, response.message));
           successToast(response.message);
         } else {
-          dispatch(failure(userConstants.SETTEAMURL_FAILURE, response.message));
+          dispatch(failure(userConstants.SETTEAMINFO_FAILURE, response.message));
           failureToast(response.message);
         }
       },
       (error) => {
-        dispatch(failure(userConstants.SETTEAMURL_FAILURE, error.toString()));
+        dispatch(failure(userConstants.SETTEAMINFO_FAILURE, error.toString()));
         failureToast(error.toString());
       }
     );
@@ -394,7 +454,7 @@ function getImportedProject() {
       (response) => {
         if (checkRespCode(response)) {
           dispatch(
-            success(userConstants.GET_IMPORTED_PROJECT_SUCCESS, response)
+            success(userConstants.GET_IMPORTED_PROJECT_SUCCESS, response.data)
           );
         } else {
           dispatch(
@@ -468,17 +528,15 @@ function login(username, password) {
         console.log("****************Login Success*********");
         console.log(user);
         if (user.message == "success") {
-          if (user.data.role == 0) {
-            history.push("/CoordinatorHomePage");
-          } else {
-            history.push("/SupervisorHomePage");
-          }
+          history.push("/CoordinatorHomePage");
           dispatch(success(user));
         } else {
-          dispatch(failure(user.message));
+          //dispatch(failure(userConstants.LOGIN_FAILURE, user.message));
+          dispatch(alertActions.error(user.msg.toString()));
         }
       },
       (error) => {
+        console.log(error)
         dispatch(failure(error.toString()));
         dispatch(alertActions.error(error.toString()));
       }

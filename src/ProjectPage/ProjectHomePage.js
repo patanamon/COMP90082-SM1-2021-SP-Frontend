@@ -5,8 +5,6 @@ import { storeGet } from "../_helpers/helper-funcs";
 import { userActions } from "../_actions";
 import Table from "../_utils/Table";
 import Banner from "../_utils/Banner";
-import { commonConstants } from "../_constants";
-
 
 const team =  "SWEN90013-2020-SP";
 
@@ -16,7 +14,6 @@ class ProjectHomePage extends Component {
   constructor(props) {
     super(props); //since we are extending class Table so we have to use super in order to override Component class constructor
     this.state = {
-      //state is by default an object
       data: [],
 
       columns: [
@@ -57,15 +54,6 @@ class ProjectHomePage extends Component {
     this.handleSubmitTeamList = this.handleSubmitTeamList.bind(this);
   }
   
-  // handleSubmitTeamList(e) {
-  //   e.preventDefault();
-  //   this.props.getTeamList(team);
-  //   console.log(storeGet("teamList"));
-  //   this.setState({ teamList: storeGet("teamList") });
-  //   console.log(this.state.teamList);
-  //   this.setState({ submitted: true });
-  // }
-
   handleChange(e) {
     const { name, value } = e.target;
     this.setState({ [name]: value });
@@ -83,17 +71,6 @@ class ProjectHomePage extends Component {
     this.props.getTeamMemberList("VIS3");
     // this.props.getTeamMemberNumber("VIS3");
   }
-
-
-
-  // renderTableHeader() {
-  //   let header = Object.keys(this.state.teamList[0]);
-  //   return header.map((key, index) => {
-  //     return <th key={index}>{key.toUpperCase()}</th>;
-  //   });
-  // }
-
-
 
   render() {
     return (
