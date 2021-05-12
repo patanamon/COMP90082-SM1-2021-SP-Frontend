@@ -10,7 +10,7 @@ This project aims to have a software system that automatically gathers and summa
 # Table of Contents
 [1.0 Project Overview](#1.0)
 
-[2.0 Installation](#2.0)
+[2.0 Deployment](#2.0)
 
 [3.0 Usage](#2.0)
 
@@ -39,28 +39,28 @@ The tools and processes that students use for these projects (as stated in Backg
 ## Project
 This project aims to have a software system that automatically gathers and summarise all aspects of the software engineering activities of CIS (Computing and Information Systems) Software Projects (COMP90082) developed. This will allow course coordinators to monitor and promptly provide meaningful feedback to teams, improve the quality of processes used in development and software systems developed, thus ensuring software deployment at the end of every project.
 
-<h1 id="2.0"> 2.0 Installation </h1>
+<h1 id="2.0"> 2.0 Deployment </h1>
 
-## Packages used (to do)
+<h2> Overview </h2>
+The Software Project application is developed by JavaScript in the front-end and Python3 Django framework and MySQL databases in the back-end.
 
-|                                              Package                                               |       Install command       |
-| :------------------------------------------------------------------------------------------------: | :-------------------------: |
-|                               [bootstrap](https://getbootstrap.com/)                               |      `npm i bootstrap`      |
-|                     [history](https://github.com/ReactTraining/history#readme)                     |       `npm i history`       |
-|                     [js-cookie](https://github.com/js-cookie/js-cookie#readme)                     |      `npm i js-cookie`      |
-|                          [md5](https://github.com/pvorb/node-md5#readme)                           |         `npm i md5`         |
-|                       [react-bootstrap](https://react-bootstrap.github.io/)                        |   `npm i react-bootstrap`   |
-|                [react-confirm-alert](https://github.com/GA-MO/react-confirm-alert)                 | `npm i react-confirm-alert` |
-| [react-cookie](https://github.com/reactivestack/cookies/tree/master/packages/react-cookie/#readme) |    `npm i react-cookie`     |
-|                       [react-redux](https://github.com/reduxjs/react-redux)                        |     `npm i react-redux`     |
-|              [react-router-dom](https://github.com/ReactTraining/react-router#readme)              |  `npm i react-router-dom`   |
-|                          [recharts](https://github.com/recharts/recharts)                          |      `npm i recharts`       |
-|                                   [redux](https://redux.js.org/)                                   |        `npm i redux`        |
-|                  [redux-logger](https://github.com/LogRocket/redux-logger#readme)                  |    `npm i redux-logger`     |
-|                       [redux-thunk](https://github.com/reduxjs/redux-thunk)                        |     `npm i redux-thunk`     |
-|                        [styled-components](https://styled-components.com/)                         |  `npm i styled-components`  |
+The steps for installing and deploying Software Project easily is as follows:
 
-Note: These packages should be automatically installed as they are part of the package.json file.
+<h2>1. To start a front-end for developing: </h2>
+
+1. install npm, can refer to https://www.npmjs.com/get-npm  
+2. Install the front-end project, in CLI:  npm install   
+3. npm start  The front-end is now running on hhttp://18.167.74.23:18000/api/v1  
+
+<h2>2. To start a back-end for developing:</h2>
+
+1. Install Python3.7 and MySQL  
+2. Install all packages needed pip install -r requirements.txt (Do not install another version of packages which can help you miss many unwanted mistakes) If multiple version of python are installed, use python3 and pip3 or python3.x and pip3.x instead.  
+3. Start MySQL server on localhost:3306, and create a database named "sp90013", i.e., run "CREATE DATABASE sp90013;"  
+4. Modify the MySQL username and password config in TeamSPBackend/settings/dev.py and TeamSPBackend/settings/prod.py (don't forget to modify 'DATABASES/default/TEST/PASSWORD' in prod.py)  
+5. Create MySQL tables python manage.py migrate. If the database changes, use command python manage.py makemigrations to update metadata of database, then python manage.py migrate to update database structure.  
+6. Start server python manage.py runserver,  the back-end is now running on http://127.0.0.1:8000/  
+
 
 ## Available Scripts (need update?)
 
@@ -193,11 +193,11 @@ Please note that the subject selection bar are currently not functional.
 
 ### Viewing Specific Imported Project
 
-As a coordinator or a supervisor who is managing the team in question, click on the button under that team's ID column to access the details about that team. Currently, this button is hardcoded to link to team SP's details and will need to be extended in order to view the details of any team.
+As a coordinator, click on the specific project name to access the details about that team. Currently, this button is hardcoded to link to team SP's details and will need to be extended in order to view the details of any team.
 
-### Team Configuration Page (to do)
+### Team Configuration Page 
 
-As a coordinator or a supervisor who is managing the team in question, you may update the team configuration by clicking on the 'Configuration' button on the sidebar. Here the URLs for each of the team's tools should be set (currently not implemented). The account names/ emails for each team member's Slack and github accounts must be set in order to access their individual details in the 'Individual Contribution' section.
+As a coordinator, you may update the team configuration by clicking on the 'Configuration' button on the sidebar. Here the URLs for each of the team's tools should be set (currently not implemented). The account names/ emails for each team member's Slack and github accounts must be set in order to access their individual details in the 'Individual Contribution' section.
 
 ### Viewing Team's Process Quality (to do)
 
