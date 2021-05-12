@@ -30,13 +30,8 @@ export const userService = {
   SendImportRequest,
 };
 
-<<<<<<< Updated upstream
 const baseUrl = "http://localhost:3200/api/v1";
 //const baseUrl = "http://18.167.74.23:18000/api/v1";
-=======
-const baseUrl = "http://18.167.74.23:18000/api/v1";
-//const baseUrl = "http://localhost:3200/api/v1";
->>>>>>> Stashed changes
 
 function getTeamConfluencePages(teamKey) {
   let url = baseUrl + "/confluence/spaces/" + teamKey + "/page_count";
