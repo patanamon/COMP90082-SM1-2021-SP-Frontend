@@ -10,13 +10,15 @@ import { commonConstants } from "../_constants";
 
 const team =  "SWEN90013-2020-SP";
 
+
 class ProjectHomePage extends Component {
   //This is just as an example to populate the table
   constructor(props) {
     super(props); //since we are extending class Table so we have to use super in order to override Component class constructor
     this.state = {
-      teamList: "", 
+      teamList: "",
       
+
       //state is by default an object
       data: [],
 
@@ -76,11 +78,13 @@ class ProjectHomePage extends Component {
   }
   handleSubmitTeamList(e) {
     this.props.getTeamMemberList(team);
+    this.props.getTeamMemberNumber(team);
     this.setState({ teamList: storeGet("teamList") });
     this.setState({ processSubmitted: true });
   }
   componentDidMount() {
-    this.props.getTeamMemberList("VIS2");
+    this.props.getTeamMemberList("VIS3");
+    // this.props.getTeamMemberNumber("VIS3");
   }
 
 
@@ -113,10 +117,12 @@ class ProjectHomePage extends Component {
 function mapState(state) {
   return {
     teamMemberList: state.user.teamMemberList,
+    teamMemberNumber: state.user.teamMemberNumber,
   };
 }
 const actionCreators = {
   getTeamMemberList: userActions.getTeamMemberList,
+  getTeamMemberNumber: userActions.getTeamMemberNumber,
 };
 
 const ProjectHome = connect(mapState, actionCreators)(ProjectHomePage);

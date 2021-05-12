@@ -23,6 +23,7 @@ export const userService = {
   getConfluenceSpaceByKeyWord,
 
   getTeamMemberList,
+  getTeamMemberNumber,
 };
 
 const baseUrl = "http://18.167.74.23:18000/api/v1";
@@ -274,6 +275,25 @@ function getTeamMemberList(teamKey) {
     return jsonResponse;
   });
 }
+
+function getTeamMemberNumber(teamKey) {
+  let url = baseUrl + "/team/" + teamKey;
+
+  const requestOptions = {
+    method: "GET",
+  };
+
+  return fetch(url, requestOptions)
+  .then((response) => response.json())
+  .then((jsonResponse) => {
+    if (jsonResponse.code == 0) {
+      storePut(commonConstants.TEAM_MEMBER_NUMBER, jsonResponse.data.total);
+    };
+    return jsonResponse;
+  });
+}
+
+
 
 /*
 #########################History code###############################################
