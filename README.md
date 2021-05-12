@@ -181,7 +181,7 @@ Digital Prototype Package is able to download via below link:
 https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/4+Prototypes
 
 
-## 1. Coordinator Homepage: 
+## 1. Coordinator Homepage: (Done by Sarah)
 
 In coordinator homepage: Shows the list of team members and their corresponding projects.
 A coordinator can Viewing Project, Importing Project and Viewing Specific Imported Project.
