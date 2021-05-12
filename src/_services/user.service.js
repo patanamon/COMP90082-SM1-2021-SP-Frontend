@@ -135,7 +135,6 @@ function getTeamConfluenceMeeting(teamKey) {
     });
 }
 
-
 function setTeamInfo(teamKey, jiraUrl, githubUrl, githubUsername, githubPassword) {
   let payload = {
     space_key: teamKey,
@@ -145,7 +144,7 @@ function setTeamInfo(teamKey, jiraUrl, githubUrl, githubUsername, githubPassword
     git_password: githubPassword,
   };
 
-  let url = baseUrl + "/team/config";
+  let url = baseUrl + "/git/config";
 
   const requestOptions = {
     method: "POST",
