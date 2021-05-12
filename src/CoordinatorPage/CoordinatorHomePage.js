@@ -14,14 +14,10 @@ import Banner from "../_utils/Banner";
 import AsyncSelect from "react-select/async";
 import { userService } from "../_services";
 import { formatSearchResult } from "../_utils/formatSearchResult.js";
-<<<<<<< HEAD
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { Drawer, Divider, IconButton } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
-=======
 import { Link } from "react-router-dom";
-
->>>>>>> b99000215398a420bd0eb9e94a00108474579cde
 
 // temp store for vars
 var KeyResults = [];
@@ -62,6 +58,7 @@ const rows = [
   createData('Student 4', "student4@student.unimelb.edu.au"),
   createData('Student 5', "student5@student.unimelb.edu.au"),
 ];
+
 
 // check if the item present in results
 function uniqImported(arr1, arr2, arr3, obj) {
@@ -120,6 +117,7 @@ closeDrawer = () => {
     isDrawerOpened: false,
   })
 }
+  
   // not works now, for import project actions
   handleImport() {
     for (let i = 0; i < NameResults.length; i++) {
@@ -189,7 +187,6 @@ closeDrawer = () => {
   
   render() {
     const { isDrawerOpened } = this.state;
-    
     return (
       
       <div class="uomcontent">
@@ -231,7 +228,6 @@ closeDrawer = () => {
 
                     <TableBody>
                       {KeyResults.map((row) => (
-<<<<<<< HEAD
                         <StyledTableRow key={row}>
                           <StyledTableCell component="th" scope="row" >
                             <a href="/ProjectHomePage" onClick={this.handleRedirect}>
@@ -239,19 +235,9 @@ closeDrawer = () => {
                             </a>
                           </StyledTableCell>
                           <StyledTableCell align="right" >
-=======
-                        <TableRow key={row}>
-                          <TableCell component="th" scope="row">
-                            <Link to="/ProjectHomePage" onClick={this.handleRedirect}>
-                              {NameResults[KeyResults.indexOf(row)]}
-                            </Link>
-                          </TableCell>
-                          <TableCell align="right" >
->>>>>>> b99000215398a420bd0eb9e94a00108474579cde
                             {LinkResults[KeyResults.indexOf(row)]}
                           </StyledTableCell>
-                          <StyledTableCell align="right">
-                            
+                          <StyledTableCell align="right">                
                               <div id="button" float="left" >
                               <Button
                                 variant="contained"
