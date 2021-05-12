@@ -25,7 +25,7 @@ export const userService = {
   getTeamMemberList,
 };
 
-const baseUrl = "http://localhost:3200/api/v1";
+const baseUrl = "http://18.167.74.23:18000/api/v1";
 
 function getTeamConfluencePages(teamKey) {
   let url = baseUrl + "/confluence/spaces/" + teamKey + "/page_count";
@@ -121,7 +121,7 @@ function setTeamInfo(teamKey, jiraUrl, githubUrl, githubUsername, githubPassword
     git_password: githubPassword,
   };
 
-  let url = baseUrl + "/team/config";
+  let url = baseUrl + "/git/config";
 
   const requestOptions = {
     method: "POST",
