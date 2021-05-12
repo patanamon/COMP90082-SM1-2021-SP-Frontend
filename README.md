@@ -115,7 +115,7 @@ Connection can be made to our Database using the below credentials:
 [Image of DB Credentials](https://github.com/Jarrent/CIS_SP_frontend/blob/master/sp_database.PNG)
 
  <h1 id="3.2">3.2 API Documentation </h1>
-<h2> Spring 1 </h2>
+<h2> Sprint 0</h2>
 
 ### Subject:
 
@@ -142,7 +142,7 @@ https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.1.5+Jira
 https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.1.6+Git
 
 
-<h2> Spring 2 </h2>
+<h2> Sprint 1 </h2>
 
 ### Acceptance Test
 
@@ -168,7 +168,7 @@ https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.2.5+Mock
 
 https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.2.6+Workload+Separation
 
-<h2> Spring 3 </h2>
+<h2> Sprint 2 </h2>
 
 https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.3+Sprint+2%3A+API
 
@@ -181,41 +181,52 @@ Digital Prototype Package is able to download via below link:
 https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/4+Prototypes
 
 
-### Viewing Projects
+## 1. Coordinator Homepage: 
+
+In coordinator homepage: Shows the list of team members and their corresponding projects.
+A coordinator can Viewing Project, Importing Project and Viewing Specific Imported Project.
+https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/Design+update+-+Front-end+team#DesignupdateFrontendteam-1.Coordinatorhomepage 
+
+### 1.1 Viewing Projects
 
 As a coordinator, access your home page to view all imported projects.
 
-### Importing Projects
+### 1.2 Importing Projects
 
 As a coordinator, select projects that coordinator wants to import. The coordinator can search through the search bar for the project name that he/she wants to import, and then select the project name. The project is automatically loaded into the select project area below, allowing the coordinator to select multiple projects at once. Then click Import button to import multiple items at once. And all imported projects will show the name of the project, Confluence Link, in the table below.
 
 Please note that the subject selection bar are currently not functional.
 
-### Viewing Specific Imported Project
+### 1.3 Viewing Specific Imported Project
 
 As a coordinator, click on the specific project name to access the details about that team. Currently, this button is hardcoded to link to team SP's details and will need to be extended in order to view the details of any team.
 
-### Team Configuration Page 
+## 2. Team Configuration Page 
 
 As a coordinator, you may update the team configuration by clicking on the 'Configuration' button on the sidebar. Here the URLs for each of the team's tools should be set (currently not implemented). The account names/ emails for each team member's Slack and github accounts must be set in order to access their individual details in the 'Individual Contribution' section.
 
-### Viewing Team's Process Quality (to do)
+https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/Design+update+-+Front-end+team#DesignupdateFrontendteam-7.Configuration
 
-As a coordinator or a supervisor who is managing the team in question, you may view a team's Process Quality by clicking on the 'Process Quality' button on the sidebar. Currently, you will be required to provide JIRA login details (PLEASE NOTE: these details are not securely encrypted currently!!!) that have access to the team's JIRA space each time you access this page. Here information about how the team has progressed with the project in terms of their processes should be displayed. As of now, current data on the breakdown of the team's JIRA tickets will be shown only.
+## 3. Viewing Team's Process Quality (to do - Done by Sarah)
 
-### Viewing Team's Communication Quality (to do)
+In process quality page includes statistical and/or graphical summaries on sprint velocity and burndown, documentation on Confluence, code review frequency and coverage and code commits. 
+For software engineering tools include GitHub, JIRA and Confluence.
+Here is the link to the UI of the process quality page. 
+https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/Design+update+-+Front-end+team#DesignupdateFrontendteam-3.Processquality
 
-As a coordinator or a supervisor who is managing the team in question, you may view a team's Communication Quality by clicking on the 'Communication Quality' button on the sidebar. Authorization to access these details is currently hardcoded to use Team SP's Slack token. This token will need to be set in the configuration file to access any given team's Slack space information. Here information about how the team has communicated regarding the project will be displayed. 
+## 4.Viewing Team's Communication Quality (to do- Done by Sarah)
 
-Currently this feature is not properly bug fixed. Testing has shown that it only occasionally renders or pulls the Slack data correctly. The Both the backend and frontend code will need to be examined to bug fix this.
+In communication quality page includes statistical and/or graphical summaries on comments from engineering tools which are GitHub, Confluence.
+Here is the link to the UI of the current communication quality page. 
+https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/Design+update+-+Front-end+team#DesignupdateFrontendteam-5.Communicationquality
 
-As of now, information regarding the number of messages sent by the team in all channels with over 20 messages will be shown graphically. This information can be filtered based on the sprint.
+## 5.Viewing Team Individuals' Contribution (to do- Done by Sarah)
 
-### Viewing Team Individuals' Contribution (to do)
+In individuals' contribution page includes statistical and/or graphical summaries of every team member's activities which are: task completion on JIRA, Code reviews on Git and Documentation contribution on Confluence.
+For software engineering tools include Git (Team's choice of GitHub, GitLab or BitBucket), JIRA, and Confluence.
+Here is the link to the UI of the current individuals' contribution page.
+https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/Design+update+-+Front-end+team#DesignupdateFrontendteam-6.Individualcontributionpage
 
-As a coordinator or a supervisor who is managing the team in question, you may view a team's Individual Contributions by clicking on the 'Individual Contribution' button on the sidebar. Here the details for how each individual from the team has contributed to the project should be shown. 
-
-Currently, this feature is not working as intended - it crashes upon trying to display the Radar Charts for all members of the team, or simply does not pull data for any tools besides Git. This is because authorization to access Slack, JIRA and Confluence are currently done manually. Login details for these tools should be stored in the database for a Coordinator or Supervisor user so that they can seamlessly use the API for accessing Slack, JIRA and Confluence without needing to manually login.
 
 <h1 id="4.0"> 4.0 Contributing / Extending </h1>
 
@@ -223,9 +234,17 @@ v1: 15/11/2020
 
 <h1 id="4.1"> 4.1 APIs </h1>
 
-### API versions (to do)
+### API versions (to do- Done by Sarah)
 
-The currently available API endpoints are written in "TeamSPBackend/api/urls_v1.py" in the backend repository. To create a new or updated set of API endpoints, create a new "urls_vX.py" for version X and add the corresponding version path in 'urlpatterns' in the "TeamSPBackend/api/urls.py" file.
+Sprint 0 API:
+https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.1+Sprint+0%3A+API
+
+Sprint 1 API:
+https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.2+Sprint+1%3A+API
+
+Sprint 2 API:
+https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.3+Sprint+2%3A+API
+
 
 ### Structuring files (to do)
 
@@ -251,8 +270,6 @@ Please see /_services/user.service.js for API interfaces.
 ### Viewing Project list
 
 Relevant files are: /CoordinatorPage/CoordinatorHomePage.js & /CoordinatorPage/CoordinatorHomePage.css 
-
-
 
 ### Importing Projects
 
