@@ -39,7 +39,7 @@ class IndividualContributionPage extends React.Component {
     } else if (picked === commonConstants.GITHUB) {
         this.props.getGithubIndividualData("COMP900822021SM1SP");
     } else {
-        this.props.getJiraIndividualData("COMP900822021SM1SP");
+        this.props.getJiraIndividualData("swen90013-2020-sp");
     }
     this.setState({
         btnSelected: picked,
@@ -84,7 +84,7 @@ class IndividualContributionPage extends React.Component {
                       )}
 
                       {this.state.btnSelected === commonConstants.JIRA && typeof this.props.individualJiraData !== "undefined" && (
-                     <DropdownMenus data={this.props.individualGithubData["All"].labels} onChange={this.selectStudent} value = {this.state.selectedStudent} />
+                     <DropdownMenus data={this.props.individualJiraData["All"].labels} onChange={this.selectStudent} value = {this.state.selectedStudent} />
                       )}
                     </Col>
                   <Col>
