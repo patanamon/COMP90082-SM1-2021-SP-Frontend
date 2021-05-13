@@ -181,7 +181,7 @@ Digital Prototype Package is able to download via below link:
 https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/4+Prototypes
 
 
-## 1. Coordinator Homepage: (Done by Sarah)
+## 1. Coordinator Homepage:
 
 In coordinator homepage: Shows the list of team members and their corresponding projects.
 A coordinator can Viewing Project, Importing Project and Viewing Specific Imported Project.
@@ -201,7 +201,7 @@ Please note that the subject selection bar are currently not functional.
 
 As a coordinator, click on the specific project name to access the details about that team. Currently, this button is hardcoded to link to team SP's details and will need to be extended in order to view the details of any team.
 
-## 2. Viewing Team's Product Quality (to do - Done by Sarah)
+## 2. Viewing Team's Product Quality
 In product quality page includes statistical and/or graphical summaries by code analysed tool (TBC) on: Code quality, Test code quality. For Software Engineering tools include Git (Team's choice of GitHub, GitLab or Bitbucket).
 Here is the link to the UI of the product quality page. 
 https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/Design+update+-+Front-end+team#DesignupdateFrontendteam-4.Productquality 
@@ -212,20 +212,20 @@ As a coordinator, you may update the team configuration by clicking on the 'Conf
 
 https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/Design+update+-+Front-end+team#DesignupdateFrontendteam-7.Configuration
 
-## 4. Viewing Team's Process Quality (to do - Done by Sarah)
+## 4. Viewing Team's Process Quality
 
 In process quality page includes statistical and/or graphical summaries on sprint velocity and burndown, documentation on Confluence, code review frequency and coverage and code commits. 
 For software engineering tools include GitHub, JIRA and Confluence.
 Here is the link to the UI of the process quality page. 
 https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/Design+update+-+Front-end+team#DesignupdateFrontendteam-3.Processquality
 
-## 5. Viewing Team's Communication Quality (to do- Done by Sarah)
+## 5. Viewing Team's Communication Quality
 
 In communication quality page includes statistical and/or graphical summaries on comments from engineering tools which are GitHub, Confluence.
 Here is the link to the UI of the current communication quality page. 
 https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/Design+update+-+Front-end+team#DesignupdateFrontendteam-5.Communicationquality
 
-## 6. Viewing Team Individuals' Contribution (to do- Done by Sarah)
+## 6. Viewing Team Individuals' Contribution
 
 In individuals' contribution page includes statistical and/or graphical summaries of every team member's activities which are: task completion on JIRA, Code reviews on Git and Documentation contribution on Confluence.
 For software engineering tools include Git (Team's choice of GitHub, GitLab or BitBucket), JIRA, and Confluence.
@@ -239,7 +239,7 @@ v1: 15/11/2020
 
 <h1 id="4.1"> 4.1 APIs </h1>
 
-### API versions (to do- Done by Sarah)
+### API versions
 
 Sprint 0 API:
 https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.1+Sprint+0%3A+API
