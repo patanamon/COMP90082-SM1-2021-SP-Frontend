@@ -18,17 +18,29 @@ const customStyles = {
 };
 
 export default function Table(props) {
+  let tableData = getUserList(props.data, 'user_list');
+
   return (
-    <div style={{ position: "relative", margin: "auto", width: props.width ? props.width : "40vw" }}>
+    <div style={{ position: "relative", margin: "auto"}}>
       <DataTable
         title={props.title}
         columns={props.columns}
-        data={props.data}
+        data={tableData}
         customStyles={customStyles}
         fixedHeader={true}
-        fixedHeaderScrollHeight={ props.height ? props.height : "20vh"}
         highlightOnHover={true}
       />
     </div>
   );
+}
+
+
+function getUserList(data, req) {
+  let labelDataMap = [];
+  for (let key in data) {
+    if (!labelDataMap[key] && key == req) {
+      labelDataMap = [data[key]];
+    } 
+  }
+  return labelDataMap;
 }
