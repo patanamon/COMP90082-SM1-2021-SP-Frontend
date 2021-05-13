@@ -6,7 +6,7 @@ import { userActions } from "../_actions";
 import Table from "../_utils/Table";
 import Banner from "../_utils/Banner";
 import { commonConstants } from "../_constants";
-
+import Alert from "../_utils/Alert";
 
 const team =  "SWEN90013-2020-SP";
 
@@ -81,10 +81,8 @@ class ProjectHomePage extends Component {
   }
   componentDidMount() {
     this.props.getTeamMemberList("VIS3");
-    // this.props.getTeamMemberNumber("VIS3");
+    this.props.getTeamMemberNumber("VIS3");
   }
-
-
 
   // renderTableHeader() {
   //   let header = Object.keys(this.state.teamList[0]);
@@ -93,23 +91,38 @@ class ProjectHomePage extends Component {
   //   });
   // }
 
-
-
+  
   render() {
+    
+    if(this.props.teamMemberNumber<30){
     return (
       <div className="uomcontent">
         {uomHeader("Project Overview")}
         <div role="main" >
           <div className="page-inner" >
             <Banner projName="2021-SM1-Software-Project-Database" />
+
             <Table columns={this.state.columns} data={this.props.teamMemberList} title={"Student Information"} width="80vw" height="500vh"/>
           </div>
         </div>
       </div>
     );
+    }
+    else{
+      return(
+      <div className="uomcontent">
+        {uomHeader("Project Overview")}
+        <div role="main" >
+          <div className="page-inner" >
+            <Banner projName="2021-SM1-Software-Project-Database" />
+            <Alert message="The number of team member is out of range(30)."></Alert>
+          </div>
+        </div>
+      </div>
+      );
+    }
   }
 }
-
 
 function mapState(state) {
   return {
