@@ -40,7 +40,7 @@ export default function DonutChart(props){
             //calculate the precentage based on the total and current item, also this does a rough rounding to give a whole number
             var percentage = Math.floor(((currentValue/total) * 100)+0.5);
 
-            return data.labels[tooltipItem.index] + ": " +percentage + "%";
+            return data.labels[tooltipItem.index] + ": " +currentValue + "(" + percentage + "%" + ")";
     }
   }
 } }} />
