@@ -23,6 +23,7 @@ import { Doughnut } from 'react-chartjs-2'
 
 export default function DonutChart(props){
   const data = props.data
+  const label = props.dataLabel ? props.dataLabel: data.datasets[0].label;
   return (
       <div style={{ position: "relative", margin: "auto", width: "80vw" }}>
         <Doughnut data={data} options={{legend: { display: true, position: "right", labels: {fontSize: 25} },
@@ -40,7 +41,7 @@ export default function DonutChart(props){
             //calculate the precentage based on the total and current item, also this does a rough rounding to give a whole number
             var percentage = Math.floor(((currentValue/total) * 100)+0.5);
 
-            return data.labels[tooltipItem.index] + ": " +currentValue + "(" + percentage + "%" + ")";
+            return  data.labels[tooltipItem.index] + "'s " + label + ": " +currentValue + "(" + percentage + "%" + ")";
     }
   }
 } }} />
