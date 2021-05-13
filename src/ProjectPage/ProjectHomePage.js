@@ -16,7 +16,6 @@ class ProjectHomePage extends Component {
   constructor(props) {
     super(props); //since we are extending class Table so we have to use super in order to override Component class constructor
     this.state = {
-      //state is by default an object
       data: [],
 
       columns: [
@@ -57,15 +56,6 @@ class ProjectHomePage extends Component {
     this.handleSubmitTeamList = this.handleSubmitTeamList.bind(this);
   }
   
-  // handleSubmitTeamList(e) {
-  //   e.preventDefault();
-  //   this.props.getTeamList(team);
-  //   console.log(storeGet("teamList"));
-  //   this.setState({ teamList: storeGet("teamList") });
-  //   console.log(this.state.teamList);
-  //   this.setState({ submitted: true });
-  // }
-
   handleChange(e) {
     const { name, value } = e.target;
     this.setState({ [name]: value });

@@ -5,17 +5,38 @@ const initState = {
   requestTeamConfluencePages: false,
   requestTeamGithubCommits: false,
   requestTeamJiraTickets: false,
-  requestSetTeamUrl: false,
+  requestSetTeamInfo: false,
   requestTeamCodeMetrics: false,
   requestConfluenceSpaceByKeyWord: false,
   importProject: false,
   requestImportedProject: false,
   currentTeamKey: "",
   currentTeamName: "",
+  requestProjectInfo:false,
+  sendImportRequest:false,
+  
 };
 
 export function user(state = initState, action) {
   switch (action.type) {
+
+    case userConstants.SEND_IMPORT_REQUEST:
+      return {
+        ...state,
+        sendImportRequest: true,
+      };
+    case userConstants.SEND_IMPORT_SUCCESS:
+      return {
+        ...state,
+        sendImportRequest: false,
+        importRequest: action.payload,
+      };
+    case userConstants.SEND_IMPORT_FAILURE:
+      return {
+        ...state,
+        sendImportRequest: false,
+        importRequest: {},
+      };
     case userConstants.GET_TEAM_CONFLUENCE_PAGES_REQUEST:
       return {
         ...state,
@@ -67,16 +88,6 @@ export function user(state = initState, action) {
         requestTeamJiraTickets: false,
         teamJiraTickets: {},
       };
-    case userConstants.GET_TEAM_GITHUB_COMMENTS_SUCCESS:
-      return {
-        ...state,
-        teamGitHubComments: action.payload,
-      };
-    case userConstants.GET_TEAM_GITHUB_COMMENTS_FAILURE:
-      return {
-        ...state,
-        teamGitHubComments: {},
-      };
     case userConstants.GET_TEAM_CONFLUENCE_MEETINGS_SUCCESS:
       return {
         ...state,
@@ -104,23 +115,23 @@ export function user(state = initState, action) {
         ...state,
         requestTeamCodeMetrics: false,
       };
-    case userConstants.SETTEAMURL_REQUEST:
+    case userConstants.SETTEAMINFO_REQUEST:
       return {
         ...state,
-        requestSetTeamUrl: true,
+        requestSetTeamInfo: true,
       };
-    case userConstants.SETTEAMURL_SUCCESS:
+    case userConstants.SETTEAMINFO_SUCCESS:
       return {
         ...state,
-        requestSetTeamUrl: false,
-        teamUrl: JSON.parse(
-          localStorage.getItem(commonConstants.TEAM_CONFIG_URL)
+        requestSetTeamInfo: false,
+        teamInfo: JSON.parse(
+          localStorage.getItem(commonConstants.TEAM_CONFIG_INFO)
         ),
       };
-    case userConstants.SETTEAMURL_FAILURE:
+    case userConstants.SETTEAMINFO_FAILURE:
       return {
         ...state,
-        requestSetTeamUrl: false,
+        requestSetTeamInfo: false,
       };
     case userConstants.GET_CONFLUENCE_SPACE_BY_KEY_WORD_REQUEST:
       return {
@@ -199,6 +210,27 @@ export function user(state = initState, action) {
         ...state,
         currentTeamKey: action.payload,
       };
+      
+    case userConstants.GETPROJECTINFO_REQUEST:
+      return {
+        ...state,
+        requestProjectInfo: true,
+      };
+    case userConstants.GETPROJECTINFO_SUCCESS:
+      return {
+        ...state,
+        requestProjectInfo: false,
+        projectInfo: action.payload,
+      };
+    case userConstants.GETPROJECTINFO_FAILURE:
+      return {
+        ...state,
+        requestProjectInfo: false,
+        projectInfo: {},
+      };
+
+    
+        
     default:
       return state;
   }
