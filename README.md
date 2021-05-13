@@ -201,8 +201,9 @@ Please note that the subject selection bar are currently not functional.
 
 As a coordinator, click on the specific project name to access the details about that team. Currently, this button is hardcoded to link to team SP's details and will need to be extended in order to view the details of any team.
 
-## 2. Product Quality Page (to do - Done by Sarah)
+## 2. Viewing Team's Product Quality (to do - Done by Sarah)
 In product quality page includes statistical and/or graphical summaries by code analysed tool (TBC) on: Code quality, Test code quality. For Software Engineering tools include Git (Team's choice of GitHub, GitLab or Bitbucket).
+Here is the link to the UI of the product quality page. 
 https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/Design+update+-+Front-end+team#DesignupdateFrontendteam-4.Productquality 
 
 ## 3. Team Configuration Page 
