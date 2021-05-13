@@ -15,6 +15,9 @@ const initState = {
   requestImportedProject: false,
   currentTeamKey: "",
   currentTeamName: "",
+  requestProjectInfo:false,
+  sendImportRequest:false,
+  
 };
 
 export function user(state = initState, action) {
@@ -73,7 +76,23 @@ export function user(state = initState, action) {
           requestIndividualJiraCounts: false,
           individualJiraCounts: {},
         }
-
+    case userConstants.SEND_IMPORT_REQUEST:
+      return {
+        ...state,
+        sendImportRequest: true,
+      };
+    case userConstants.SEND_IMPORT_SUCCESS:
+      return {
+        ...state,
+        sendImportRequest: false,
+        importRequest: action.payload,
+      };
+    case userConstants.SEND_IMPORT_FAILURE:
+      return {
+        ...state,
+        sendImportRequest: false,
+        importRequest: {},
+      };
     case userConstants.GET_TEAM_CONFLUENCE_PAGES_REQUEST:
       return {
         ...state,
@@ -196,6 +215,16 @@ export function user(state = initState, action) {
         ...state,
         teamMemberList: {},
       };
+    case userConstants.GET_TEAM_MEMBER_NUMBER_SUCCESS:
+      return {
+        ...state,
+        teamMemberNumber: action.payload,
+      };
+    case userConstants.GET_TEAM_MEMBER_NUMBER_FAILURE:
+      return {
+        ...state,
+        teamMemberLNumber: {},
+      };
     case userConstants.IMPORT_PROJECT_REQUEST:
       return {
         ...state,
@@ -237,6 +266,24 @@ export function user(state = initState, action) {
         ...state,
         currentTeamKey: action.payload,
       };
+      
+    case userConstants.GETPROJECTINFO_REQUEST:
+      return {
+        ...state,
+        requestProjectInfo: true,
+      };
+    case userConstants.GETPROJECTINFO_SUCCESS:
+      return {
+        ...state,
+        requestProjectInfo: false,
+        projectInfo: action.payload,
+      };
+    case userConstants.GETPROJECTINFO_FAILURE:
+      return {
+        ...state,
+        requestProjectInfo: false,
+        projectInfo: {},
+      };  
     default:
       return state;
   }
