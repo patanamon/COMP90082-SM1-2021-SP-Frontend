@@ -325,7 +325,7 @@ function getTeamCodeMetrics(teamKey) {
 
 function getConfluenceIndividualData(teamKey) {
   return (dispatch) => {
-    userService.getConfluenceIndividualPages(teamKey).then(
+    userService.getConfluenceIndividualData(teamKey).then(
       (response) => {
         dispatch(
           success(
@@ -349,7 +349,7 @@ function getConfluenceIndividualData(teamKey) {
 
 function getGithubIndividualData(teamKey) {
   return (dispatch) => {
-    userService.getGithubIndividualCommits(teamKey).then(
+    userService.getGithubIndividualData(teamKey).then(
       (response) => {
         dispatch(
           success(
@@ -373,11 +373,11 @@ function getGithubIndividualData(teamKey) {
 
 function getJiraIndividualData(teamKey) {
   return (dispatch) => {
-    userService.getJiraIndividualCount(teamKey).then(
+    userService.getJiraIndividualData(teamKey).then(
       (response) => {
         dispatch(
           success(
-            userConstants.GET_INDIVIDUAL_JIRA_COUNT_SUCCESS,
+            userConstants.GET_INDIVIDUAL_JIRA_COUNTS_SUCCESS,
             formatDonutChartData(response)
           )
         );
@@ -385,7 +385,7 @@ function getJiraIndividualData(teamKey) {
       (error) => {
         dispatch(
           failure(
-            userConstants.GET_INDIVIDUAL_JIRA_COUNT_FAILURE,
+            userConstants.GET_INDIVIDUAL_JIRA_COUNTS_FAILURE,
             error.toString()
           )
         );
