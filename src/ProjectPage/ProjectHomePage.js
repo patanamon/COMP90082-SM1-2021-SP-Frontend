@@ -91,7 +91,6 @@ class ProjectHomePage extends Component {
         <div role="main" >
           <div className="page-inner" >
             <Banner projName="2021-SM1-Software-Project-Database" />
-
             <Table columns={this.state.columns} data={this.props.teamMemberList} title={"Student Information"} width="80vw" height="500vh"/>
           </div>
         </div>

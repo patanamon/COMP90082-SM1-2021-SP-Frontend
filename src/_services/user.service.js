@@ -180,7 +180,7 @@ function getTeamCodeMetrics(teamKey) {
 }
 
 function getGithubIndividualData(teamKey) {
-  let url = baseUrl + "/git/" + teamKey + "/commit/contributions";
+  let url = baseUrl + "/git/individual_commits/" + teamKey;
 
   const requestOptions = {
     method: "GET",
@@ -189,7 +189,7 @@ function getGithubIndividualData(teamKey) {
   return fetch(url, requestOptions)
     .then((response) => response.json())
     .then((jsonResponse) => {
-      if (jsonResponse.code == 0) {
+      if (jsonResponse.code === 0) {
         storePut(commonConstants.TEAM_GITHUB_INDIVIDUAL_DATA, jsonResponse.data);
       }
       return jsonResponse;
@@ -206,7 +206,7 @@ function getJiraIndividualData(teamKey) {
   return fetch(url, requestOptions)
     .then((response) => response.json())
     .then((jsonResponse) => {
-      if (jsonResponse.code == 0) {
+      if (jsonResponse.code === 0) {
         storePut(commonConstants.TEAM_JIRA_INDIVIDUAL_DATA, jsonResponse.data);
       }
       return jsonResponse;
@@ -214,7 +214,7 @@ function getJiraIndividualData(teamKey) {
 }
 
 function getConfluenceIndividualData(teamKey) {
-  let url = baseUrl + "/confluence/spaces" + teamKey + "/pages/contributions";
+  let url = baseUrl + "/confluence/spaces/" + teamKey + "/pages/contributions";
 
   const requestOptions = {
     method: "GET",
@@ -223,7 +223,7 @@ function getConfluenceIndividualData(teamKey) {
   return fetch(url, requestOptions)
     .then((response) => response.json())
     .then((jsonResponse) => {
-      if (jsonResponse.code == 0) {
+      if (jsonResponse.code === 0) {
         storePut(commonConstants.TEAM_CONFLUENCE_INDIVIDUAL_DATA, jsonResponse.data);
       }
       return jsonResponse;

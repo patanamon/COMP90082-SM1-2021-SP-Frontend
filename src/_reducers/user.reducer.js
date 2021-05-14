@@ -2,6 +2,9 @@ import { userConstants } from "../_constants";
 import { commonConstants } from "../_constants";
 
 const initState = {
+  requestIndividualConfluencePages: false,
+  requestIndividualGitHubCommits: false,
+  requestIndividualJiraCounts: false,
   requestTeamConfluencePages: false,
   requestTeamGithubCommits: false,
   requestTeamJiraTickets: false,
@@ -19,7 +22,60 @@ const initState = {
 
 export function user(state = initState, action) {
   switch (action.type) {
+    case userConstants.GET_INDIVIDUAL_CONFLUENCE_PAGES_REQUEST:
+      return {
+        ...state,
+        requestIndividualConfluencePages: true,
+      }
 
+    case userConstants.GET_INDIVIDUAL_CONFLUENCE_PAGES_SUCCESS:
+      return {
+        ...state,
+        requestIndividualConfluencePages: false,
+        individualConfluencePages: action.payload,
+      }
+    case userConstants.GET_INDIVIDUAL_CONFLUENCE_PAGES_FAILURE:
+      return {
+        ...state,
+        requestIndividualConfluencePages: false,
+        individualConfluencePages: {},
+      }
+    case userConstants.GET_INDIVIDUAL_GITHUB_COMMITS_REQUEST:
+      return {
+        ...state,
+        requestIndividualGitHubCommits: true,
+      }
+  
+    case userConstants.GET_INDIVIDUAL_GITHUB_COMMITS_SUCCESS:
+      return {
+        ...state,
+        requestIndividualGitHubCommits: false,
+        individualGitHubCommits: action.payload,
+      }
+    case userConstants.GET_INDIVIDUAL_GITHUB_COMMITS_FAILURE:
+      return {
+        ...state,
+        requestIndividualGitHubCommits: false,
+        individualGitHubCommits: {},
+      }
+    case userConstants.GET_INDIVIDUAL_JIRA_COUNTS_REQUEST:
+      return {
+        ...state,
+        requestIndividualJiraCounts: true,
+      }
+    
+    case userConstants.GET_INDIVIDUAL_JIRA_COUNTS_SUCCESS:
+      return {
+          ...state,
+          requestIndividualJiraCounts: false,
+          individualJiraCounts: action.payload,
+        }
+      case userConstants.GET_INDIVIDUAL_JIRA_COUNTS_FAILURE:
+        return {
+          ...state,
+          requestIndividualJiraCounts: false,
+          individualJiraCounts: {},
+        }
     case userConstants.SEND_IMPORT_REQUEST:
       return {
         ...state,
@@ -227,10 +283,7 @@ export function user(state = initState, action) {
         ...state,
         requestProjectInfo: false,
         projectInfo: {},
-      };
-
-    
-        
+      };  
     default:
       return state;
   }
