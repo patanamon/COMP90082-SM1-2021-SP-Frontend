@@ -26,8 +26,8 @@ export const userService = {
   SendImportRequest,
 };
 
-const baseUrl = "http://localhost:3200/api/v1";
-//const baseUrl = "http://18.167.74.23:18000/api/v1";
+//const baseUrl = "http://localhost:3200/api/v1";
+const baseUrl = "http://18.167.74.23:18000/api/v1";
 
 function getTeamConfluencePages(teamKey) {
   let url = baseUrl + "/confluence/spaces/" + teamKey + "/page_count";
