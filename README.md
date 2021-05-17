@@ -28,6 +28,8 @@ This project aims to have a software system that automatically gathers and summa
  
 [5.0 Architecture Diagrams](#5.0)
 
+[6.0 Change Log](#6.0)
+
 <h1 id="1.0"> 1.0 Project Overview </h1>
 
 ## Background
@@ -348,3 +350,61 @@ https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/3.3+Proces
 ### Communication Diagram
 
 https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/3.4+Communication+Diagram
+
+<h1 id="6.0"> 6.0 Change Log </h1> 
+
+#  Versions
+
+## 1.0	2021.4.02  
+### 1.1	2021.3.27  
+•	Initial GitHub Project created  
+•	Digital Prototype 1.0 Completed  
+•	Digital Prototype 2.0 Completed according to Client’s feedback  
+
+### 1.2	2021.4.02  
+•	Created Data Sample: JSON format in an API level for each API  
+
+## 2.0	2021.4.30  
+### 2.1	2021.4.22  
+•	Created configure page  
+### 2.2	2021.4.24  
+•	Communication page UI was finished   
+•	Updated UI and added showing history function for configure page  
+### 2.3	2021.4.26  
+•	Finished project overview page  
+### 2.4	2021.4.27  
+•	Changed layout for Individual Page  
+•	Coordinator homepage completed a part of API connections with backend   
+•	Communication quality page can interact with backend locally  
+### 2.5	2021.4.28  
+•	Coordinator Homepage UI updated  
+•	Product quality completed API connections  
+•	Updated Coordinator Homepage UI  
+### 2.6	2021.4.29  
+•	Updated API code for Individual Contribution Page  
+•	Coordinator Home page removed box shadow  
+### 2.7	2021.4.30  
+•	Modified project homepage  
+•	Coordinator homepage local API deployment  
+•	Project homepage API code completed  
+
+## 3.0	2021.5.31  
+### 3.1	2021.5.01  
+•	Bug fix communication quality page  
+### 3.2	2021.5.05  
+•	Product quality API unify testing with backend  
+
+### 3.3	2021.5.06  
+•	Bugfix communication quality page  
+### 3.4	2021.5.07  
+•	Bugfix communication quality page  
+•	Added saving git username and password function  
+•	Changed the context of the column of meeting minutes to clickable URLs  
+### 3.5	2021.5.08  
+•	Completed Sprint 2 communication quality page  
+### 3.6	2021.5.13  
+•	Coordinator Homepage UI added a drawer for showing student information  
+•	Updated API for Configure page  
+
+
+
