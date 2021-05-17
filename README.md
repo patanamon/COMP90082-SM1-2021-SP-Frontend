@@ -272,7 +272,7 @@ To create new models and/or APIs utilizing them, kindly follow the current direc
 
 ## Calling APIs
 
-Relevant file are for API interfaces: 
+Relevant file is for API interfaces: 
 src/_services/user.service.js
 
 You can use this Url to call the API http://18.167.74.23:18000/api/v1 
@@ -290,28 +290,28 @@ The project list page shows all the projects that the coordinator is responsible
 
 ## 2. Project Overview Page
 
-Relevant files are: 
+Relevant files is: 
 src/ProjectPage/ProjectHomePage.js
 
 The form provides student information including student name, student profile, student ID and email address for the project.
 
 ## 3. Process Quality Page
 
-Relevant files are: 
+Relevant files is: 
 src/ProjectPage/ProcessQualityPage.js
 
 This part helps coordinators to evaluate the process quality of the project through Jira, Confluence, and Github. Different buttons present different charts of the tool, and the selected button is dark to let the user know which platform is on the screen. By clicking on the Github filter, coordinators can make a view of the line chart of commit times over time. Jira filter illustrates the line chart of items on the To-do-list. The confluence filter shows the line chart of the number of pages.  
 
 ## 4. Product Quality Page
 
-Relevant files are: 
+Relevant files is: 
 src/ProjectPage/ProductQualityPage.js
 
 This page helps coordinators to evaluate the product quality based on static code analysis. Includes project name and a list of criteria that measures product quality. 
 
 ## 5. Communication Page
 
-Relevant files are: 
+Relevant files is: 
 src/qualityPages/CommunicationQualityPage.js
 
 This page shows the activeness of communication on Confluence and Github. Check the Confluence button, it will show a list of every meeting with meeting time and meeting minutes, the cells of meeting minutes will be links that are able to be clicked. Check the Github card, it will show a line chart of the number of comments over time.
@@ -326,7 +326,7 @@ This page helps coordinators to see the proportion of individual contribution di
 
 ## 7. Project Configuration Page 
 
-Relevant files are: 
+Relevant files is: 
 src/ProjectPage/ProjectSettingsPage.js
 
 This page allows the user to check and update the link of Github, Jira. Paste the link of the two channels on this page to get all the information easily on other pages. 
