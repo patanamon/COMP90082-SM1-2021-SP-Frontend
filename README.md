@@ -24,7 +24,7 @@ This project aims to have a software system that automatically gathers and summa
 
   * [4.1 APIs](#4.1)
 
-  * [4.2 Web Application](#3.2)
+  * [4.2 Web Application](#4.2)
  
 [5.0 Architecture Diagrams](#5.0)
 
