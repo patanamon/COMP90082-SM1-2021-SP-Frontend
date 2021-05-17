@@ -31,28 +31,32 @@ This project aims to have a software system that automatically gathers and summa
 <h1 id="1.0"> 1.0 Project Overview </h1>
 
 ## Background
+
 Software Projects Subject (COMP90082) is the subject for students to perform necessary Software Engineering practices to successfully build a high-quality software product for real-world clients. To monitor, evaluate, and provide feedback to students, a supervisor will observe the Software Projects activities of a student team through the software development tools used and through student-supervisor meetings. The involved software development tools include a Version Control System (Git, GitHub/BitBucket/GitLab), a Task Management Tool (JIRA/Trello) and a Documentation tool (Confluence). Some processes would be considered to assess students include Software Testing, Code Review, Continuous Integration, and Deployment.
 
 ## Problem
+
 The tools and processes that students use for these projects (as stated in Background) are diverse and are all accessed on different websites/platforms. Currently, supervisors have to manually open each tool to analyse the complete tasks on each of them. It is an inefficient and tedious process, especially if a supervisor monitors more than ten teams. Although some development tools (e.g., JIRA) provide visual summaries of a team's work, the visualisation only shows data from a single activity. Thus, it is difficult and time-consuming for supervisors to offer detailed and insightful feedback to students, especially if a supervisor has more than one team to supervise.
 
 ## Project
+
 This project aims to have a software system that automatically gathers and summarise all aspects of the software engineering activities of CIS (Computing and Information Systems) Software Projects (COMP90082) developed. This will allow course coordinators to monitor and promptly provide meaningful feedback to teams, improve the quality of processes used in development and software systems developed, thus ensuring software deployment at the end of every project.
 
 <h1 id="2.0"> 2.0 Deployment </h1>
 
-<h2> Overview </h2>
+## Overview 
+
 The Software Project application is developed by JavaScript in the front-end and Python3 Django framework and MySQL databases in the back-end.
 
 The steps for installing and deploying Software Project easily is as follows:
 
-<h2>1. To start a front-end for developing: </h2>
+### 1. To start a front-end for developing:
 
 1. install npm, can refer to https://www.npmjs.com/get-npm  
 2. Install the front-end project, in CLI:  npm install   
 3. npm start  The front-end is now running on hhttp://18.167.74.23:18000/api/v1  
 
-<h2>2. To start a back-end for developing:</h2>
+### 2. To start a back-end for developing:
 
 1. Install Python3.7 and MySQL  
 2. Install all packages needed pip install -r requirements.txt (Do not install another version of packages which can help you miss many unwanted mistakes) If multiple version of python are installed, use python3 and pip3 or python3.x and pip3.x instead.  
@@ -142,7 +146,7 @@ https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.1.5+Jira
 https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.1.6+Git
 
 
-<h2> Sprint 1 </h2>
+## Sprint 1: 
 
 ### Acceptance Test
 
@@ -168,7 +172,7 @@ https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.2.5+Mock
 
 https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.2.6+Workload+Separation
 
-<h2> Sprint 2 </h2>
+## Sprint 2:
 
 https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.3+Sprint+2%3A+API
 
@@ -235,8 +239,6 @@ https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/Design+upd
 
 <h1 id="4.0"> 4.0 Contributing / Extending </h1>
 
-v1: 15/11/2020
-
 <h1 id="4.1"> 4.1 APIs </h1>
 
 ### API versions
@@ -266,21 +268,23 @@ To create new models and/or APIs utilizing them, kindly follow the current direc
 - API endpoints (URLs) in "TeamSPBackend/api/urls_vX.py" for version X
 - For any API functions that require multiple files, put those files under a sub-folder in "TeamSPBackend/api/views/". E.g. "TeamSPBackend/api/views/newModel/"
 
-<h1 id="4.2"> 4.2 Web Application (to do)</h1>
+<h1 id="4.2"> 4.2 Web Application </h1>
 
 ## Calling APIs
 
-Please see /_services/user.service.js for API interfaces.
+Relevant file are for API interfaces: 
+src/_services/user.service.js
+
 You can use this Url to call the API http://18.167.74.23:18000/api/v1 
 
 ## 1. Coordinator Home Page
 
 Relevant files are: 
 src/CoordinatorPage/CoordinatorHomePage.js 
-src/CoordinatorPage/CoordinatorHomePage.css 
-src/CoordinatorPage/ImportProjectPage.js
-src/CoordinatorPage/ImportProjectPage.css
-src/CoordinatorPage/ProjectList.js
+& src/CoordinatorPage/CoordinatorHomePage.css 
+& src/CoordinatorPage/ImportProjectPage.js
+& src/CoordinatorPage/ImportProjectPage.css
+& src/CoordinatorPage/ProjectList.js
 
 The project list page shows all the projects that the coordinator is responsible for. Details of the project provide the information of confluence link and "Delete" buttons. The homepage also supports importing projects by a search bar.
 
@@ -316,7 +320,7 @@ This page shows the activeness of communication on Confluence and Github. Check 
 
 Relevant files are: 
 src/qualityPages/IndividualContributionPage.js
-src/qualityPages/IndividualContributionPage.css
+& src/qualityPages/IndividualContributionPage.css
 
 This page helps coordinators to see the proportion of individual contribution directly. It has a drop-down option bar that has a list of student names to select. The button group of three platforms represents Github, Jira, and Confluence. Check the drop-down option bars to see every student’s contribution in the three channels. The contribution is shown in a pie chart. The pie chart shows the contribution of the selected student.
 
