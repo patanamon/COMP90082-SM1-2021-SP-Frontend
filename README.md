@@ -268,76 +268,64 @@ To create new models and/or APIs utilizing them, kindly follow the current direc
 
 <h1 id="4.2"> 4.2 Web Application (to do)</h1>
 
-### Calling APIs
+## Calling APIs
 
 Please see /_services/user.service.js for API interfaces.
+You can use this Url to call the API http://18.167.74.23:18000/api/v1 
 
-### Viewing Project list
+## 1. Coordinator Home Page
 
-Relevant files are: /CoordinatorPage/CoordinatorHomePage.js & /CoordinatorPage/CoordinatorHomePage.css 
+Relevant files are: 
+src/CoordinatorPage/CoordinatorHomePage.js 
+src/CoordinatorPage/CoordinatorHomePage.css 
+src/CoordinatorPage/ImportProjectPage.js
+src/CoordinatorPage/ImportProjectPage.css
+src/CoordinatorPage/ProjectList.js
 
-### Importing Projects
+The project list page shows all the projects that the coordinator is responsible for. Details of the project provide the information of confluence link and "Delete" buttons. The homepage also supports importing projects by a search bar.
 
-Relevant files are: /CoordinatorPage/ImportProjectPage.js & /CoordinatorPage/ImportProjectPage.css
+## 2. Project Overview Page
 
-As of now, this page has not been able to be tested for abitrary projects, since confluence access to the project page of the project being imported is required. We only have access to the SP project page so have tested it with this project and it importss into the system successfully.
+Relevant files are: 
+src/ProjectPage/ProjectHomePage.js
 
-Currently, Confluence login in needed to be provided everytime. (PLEASE NOTE: these details are not securely encrypted currently!!!) This is due to the database not storing the login details for a user. There should be a settings page added to the web application to allow the user to input their Atlassian login so that it can be used for authorization automatically.
-Relevant fields in the User table of the database already exist. API do not exist. 
+The form provides student information including student name, student profile, student ID and email address for the project.
 
-### Inviting Supervisors
+## 3. Process Quality Page
 
-Relevant files are all found within the /ManageSupervisor/ folder.
+Relevant files are: 
+src/ProjectPage/ProcessQualityPage.js
 
-Currently, this feature is working as intended and extensions can be made by making updates to the files in the above path.
+This part helps coordinators to evaluate the process quality of the project through Jira, Confluence, and Github. Different buttons present different charts of the tool, and the selected button is dark to let the user know which platform is on the screen. By clicking on the Github filter, coordinators can make a view of the line chart of commit times over time. Jira filter illustrates the line chart of items on the To-do-list. The confluence filter shows the line chart of the number of pages.  
 
-### Assigning Supervisors to Projects
+## 4. Product Quality Page
 
-Relevant files are: /CoordinatorPage/CoordinatorHomePage.js & /CoordinatorPage/CoordinatorHomePage.css
+Relevant files are: 
+src/ProjectPage/ProductQualityPage.js
 
-Currently, this feature is working as intended. However, an edit supervisor button would be good to have. All relevant database field and API are available to make this change.
+This page helps coordinators to evaluate the product quality based on static code analysis. Includes project name and a list of criteria that measures product quality. 
 
-### Viewing Project Team
+## 5. Communication Page
 
-Relevant files are: /ProjectPage/ProjectHomePage.js & /ProjectPage/ProjectHomePage.css
+Relevant files are: 
+src/qualityPages/CommunicationQualityPage.js
 
-Currently, this feature is working, however it requires polish. A Get Team button must be clicked in order to view the team. Ideally, it should automatically display. A button for updating the team (which calls the Confluence API to update the team member list) needs to be implemented.
+This page shows the activeness of communication on Confluence and Github. Check the Confluence button, it will show a list of every meeting with meeting time and meeting minutes, the cells of meeting minutes will be links that are able to be clicked. Check the Github card, it will show a line chart of the number of comments over time.
 
-### Team Configuration Page
+## 6. Individual Contribution Page
 
-Relevant files are /ProjectPage/ProjectSettingsPage.js & /ProjectPage/ProjectSettingsPage.css
+Relevant files are: 
+src/qualityPages/IndividualContributionPage.js
+src/qualityPages/IndividualContributionPage.css
 
-Currently, this page is missing the fields to input a project team's URLs/ token for accessing their respective tools. The fields to input the slack email/ github account name for each teammember are present, however there is no way to submit these to the backend for processing/ storing in the database. Some APIs are developed to undertake these tasks (See the API Documentation), however they are not fully functional.
+This page helps coordinators to see the proportion of individual contribution directly. It has a drop-down option bar that has a list of student names to select. The button group of three platforms represents Github, Jira, and Confluence. Check the drop-down option bars to see every student’s contribution in the three channels. The contribution is shown in a pie chart. The pie chart shows the contribution of the selected student.
 
-Also, an extension required for this feature is the functionality of adding multiple github accounts per user. This will require changes to the database and/or the API.
+## 7. Project Configuration Page 
 
-### Viewing Team's Product Quality
+Relevant files are: 
+src/ProjectPage/ProjectSettingsPage.js
 
-Currently, this feature was pushed to a future release. Requirements for this page/ feature are illustrated in the below user stories:
-
-[Product Quality User Stories](https://github.com/Jarrent/CIS_SP_frontend/blob/master/productQuality.PNG)
-
-### Viewing Team's Process Quality
-
-Relevant files are: /qualityPages/ProcessQualityPage.js and /qualityPages/ProcessQualityPage.css
-
-Currently, this feature is incomplete. It is missing the filtering by Sprint feature, because the JIRA APIs did not support filtering tickets by sprint/ date. These APIs will need to be updated first. Secondly, it is missing the link between JIRA data and GIT data. Please see the Digital Prototype for a better illustration of the expected behaviour for this page.
-
-Additionally, similar to the issue with authorization we have run into with the 'Import Projects' feature, the user will need to log in before accessing this feature. Once that fix is implemented, this page should function without needing the login. PLEASE NOTE: these details are not securely encrypted currently!!!
-
-### Viewing Team's Communication Quality
-
-Relevant files are: /qualityPages/CommunicationQualityPage.js and /qualityPages/CommunicationQualityPage.css
-
-Currently, this page is functioning as requested. It may have some integration issues with connecting to the configuration page data since it is currently using the Slack token for Team SP's workspace. The slack token will need to be inputted on the configuration page and stored by the system, so that the user is authorized to pull data from the team's slack channel.
-
-Similar to the issue with authorization we have run into with the 'Import Projects' feature, the user will need to log in before accessing this feature. Once that fix is implemented, this page should function without needing the login.
-
-### Viewing Team Individuals' Contribution
-
-Relevant files are: /qualityPages/IndividualContributionPage.js and /qualityPages/IndividualContributionPage.css
-
-Currently, this page is not functioning as requested. Authorisation to access Atlassian and Slack tools needs to be built into the system to be automatic. Currently, information required for authorisation is not built into the user's data nor are there any APIs to facilitate this. Each time data is accessed from the software engineering tools, authorisation to access the data needs to be provided - that is why no data is able to be automatically pulled. (Similar issue as above in Team Process quality and Importing projects feature.
+This page allows the user to check and update the link of Github, Jira. Paste the link of the two channels on this page to get all the information easily on other pages. 
 
 <h1 id="5.0"> 5.0 Architecture Diagrams </h1>
 
