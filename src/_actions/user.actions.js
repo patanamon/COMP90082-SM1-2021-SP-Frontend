@@ -1,6 +1,5 @@
 import { userConstants } from "../_constants";
 import { userService } from "../_services";
-import { alertActions } from "./";
 import { history } from "../_helpers";
 import { formatLineChartData } from "../_utils/formatLineChartData.js";
 import { formatDonutChartData } from "../_utils/formatDonutChartData.js";
@@ -8,36 +7,25 @@ import { unixToDate } from "../_utils/unixToDate.js";
 import { failureToast } from "../_utils/toast";
 import { successToast } from "../_utils/toast";
 
-// Remember: Add new actions in here, otherwise it cannot be recognise by this.props.
-// ALSO REMEMBER TO ADD RETURN MSG IN user.constants.js
 export const userActions = {
   login,
   logout,
-
   getTeamConfluencePages,
   getTeamGithubCommits,
   getTeamJiraTickets,
-
   getTeamConfluenceMeeting,
-
   getTeamCodeMetrics,
-
   setTeamInfo,
-
   getConfluenceIndividualData,
   getGithubIndividualData,
   getJiraIndividualData,
-
   getConfluenceSpaceByKeyWord,
   importProject,
   getImportedProject,
-
+  deleteImportedProject,
   setCurrentTeamKey,
   setCurrentTeamName,
-
   getTeamMemberList,
-  getTeamMemberNumber,
-  sendImport,
 };
 
 function request(action, payload) {
@@ -95,95 +83,6 @@ function getTeamConfluencePages(teamKey) {
       }
     );
   };
-}
-
-function sendImport(teamKey) {
-  return (dispatch) => {
-    dispatch(request(userConstants.SEND_IMPORT_REQUEST));
-    userService.sendImport(teamKey).then(
-      (response) => {
-        if (checkRespCode(response)) {
-          dispatch(
-            success(
-              userConstants.SEND_IMPORT_SUCCESS,
-              //to do
-            )
-          );
-        } else {
-          dispatch(
-            failure(
-              userConstants.SEND_IMPORT_FAILURE,
-              response.message
-            )
-          );
-          failureToast(response.message);
-        }
-      },
-      (error) => {
-        dispatch(
-          failure(
-            userConstants.SEND_IMPORT_FAILURE,
-            error.toString()
-          )
-        );
-        failureToast(error.toString());
-      }
-    );
-  };
-}
-
-
-function getProjectInfo() {
-  return (dispatch) => {
-    dispatch(request(userConstants.GETPROJECTINFO_REQUEST));
-    userService.getProjectInfo().then(
-      (response) => {
-        if (checkRespCode(response)) {
-          dispatch(
-            success(
-              userConstants.GETPROJECTINFO_SUCCESS,
-              
-              formatProjectInfo(response)
-              
-              //formatLineChartData(response)
-            )
-          );
-          
-        } else {
-          dispatch(
-            failure(
-              userConstants.GETPROJECTINFO_FAILURE,
-              response.message
-            )
-          );
-          failureToast(response.message);
-        }
-      },
-      (error) => {
-        dispatch(
-          failure(
-            userConstants.GETPROJECTINFO_FAILURE,
-            error.toString()
-          )
-        );
-        failureToast(error.toString());
-      }
-    );
-  };
-}
-
-function formatProjectInfo(data){
-  var tempoStore = [];
-  
-
-  for (let i = 0, len = data.data.length; i < len; i++) {    
-    
-    tempoStore.push({"space_key":data.data[i].space_key, "label" : data.data[i].space_name, "link" : "https://confluence.cis.unimelb.edu.au:8443/display/"+data.data[i].space_key+"/Home"});
-    
-}
-
-
-return tempoStore;
 }
 
 function getTeamGithubCommits(teamKey) {
@@ -285,24 +184,38 @@ function getTeamConfluenceMeeting(teamKey) {
   };
 }
 
-function setTeamInfo(teamKey, jiraUrl, githubUrl, githubUsername, githubPassword) {
+function setTeamInfo(
+  teamKey,
+  jiraUrl,
+  githubUrl,
+  githubUsername,
+  githubPassword
+) {
   return (dispatch) => {
     dispatch(request(userConstants.SETTEAMINFO_REQUEST));
-    userService.setTeamInfo(teamKey, jiraUrl, githubUrl, githubUsername, githubPassword).then(
-      (response) => {
-        if (checkRespCode(response)) {
-          dispatch(success(userConstants.SETTEAMINFO_SUCCESS, response.message));
-          successToast(response.message);
-        } else {
-          dispatch(failure(userConstants.SETTEAMINFO_FAILURE, response.message));
-          failureToast(response.message);
+    userService
+      .setTeamInfo(teamKey, jiraUrl, githubUrl, githubUsername, githubPassword)
+      .then(
+        (response) => {
+          if (checkRespCode(response)) {
+            dispatch(
+              success(userConstants.SETTEAMINFO_SUCCESS, response.message)
+            );
+            successToast(response.message);
+          } else {
+            dispatch(
+              failure(userConstants.SETTEAMINFO_FAILURE, response.message)
+            );
+            failureToast(response.message);
+          }
+        },
+        (error) => {
+          dispatch(
+            failure(userConstants.SETTEAMINFO_FAILURE, error.toString())
+          );
+          failureToast(error.toString());
         }
-      },
-      (error) => {
-        dispatch(failure(userConstants.SETTEAMINFO_FAILURE, error.toString()));
-        failureToast(error.toString());
-      }
-    );
+      );
   };
 }
 
@@ -327,12 +240,19 @@ function getConfluenceIndividualData(teamKey) {
   return (dispatch) => {
     userService.getConfluenceIndividualData(teamKey).then(
       (response) => {
-        dispatch(
-          success(
-            userConstants.GET_INDIVIDUAL_CONFLUENCE_PAGES_SUCCESS,
-            formatDonutChartData(response)
-          )
-        );
+        if (checkRespCode(response)) {
+          dispatch(
+            success(
+              userConstants.GET_INDIVIDUAL_CONFLUENCE_PAGES_SUCCESS,
+              formatDonutChartData(response)
+            )
+          );
+        } else {
+          dispatch(
+            failure(userConstants.GET_INDIVIDUAL_CONFLUENCE_PAGES_FAILURE)
+          );
+          failureToast(response.message);
+        }
       },
       (error) => {
         dispatch(
@@ -351,12 +271,19 @@ function getGithubIndividualData(teamKey) {
   return (dispatch) => {
     userService.getGithubIndividualData(teamKey).then(
       (response) => {
-        dispatch(
-          success(
-            userConstants.GET_INDIVIDUAL_GITHUB_COMMITS_SUCCESS,
-            formatDonutChartData(response)
-          )
-        );
+        if (checkRespCode(response)) {
+          dispatch(
+            success(
+              userConstants.GET_INDIVIDUAL_GITHUB_COMMITS_SUCCESS,
+              formatDonutChartData(response)
+            )
+          );
+        } else {
+          dispatch(
+            failure(userConstants.GET_INDIVIDUAL_GITHUB_COMMITS_FAILURE)
+          );
+          failureToast(response.message);
+        }
       },
       (error) => {
         dispatch(
@@ -375,12 +302,17 @@ function getJiraIndividualData(teamKey) {
   return (dispatch) => {
     userService.getJiraIndividualData(teamKey).then(
       (response) => {
-        dispatch(
-          success(
-            userConstants.GET_INDIVIDUAL_JIRA_COUNTS_SUCCESS,
-            formatDonutChartData(response)
-          )
-        );
+        if (checkRespCode(response)) {
+          dispatch(
+            success(
+              userConstants.GET_INDIVIDUAL_JIRA_COUNTS_SUCCESS,
+              formatDonutChartData(response)
+            )
+          );
+        } else {
+          dispatch(failure(userConstants.GET_INDIVIDUAL_JIRA_COUNTS_FAILURE));
+          failureToast(response.msg);
+        }
       },
       (error) => {
         dispatch(
@@ -427,10 +359,10 @@ function getConfluenceSpaceByKeyWord(keyWord) {
   };
 }
 
-function importProject(coordinatorId, spaceNameList) {
+function importProject(teamKey) {
   return (dispatch) => {
-    dispatch(userConstants.IMPORT_PROJECT_REQUEST);
-    userService.importProject(coordinatorId, spaceNameList).then(
+    dispatch(request(userConstants.IMPORT_PROJECT_REQUEST));
+    userService.importProject(teamKey).then(
       (response) => {
         if (checkRespCode(response)) {
           dispatch(success(userConstants.IMPORT_PROJECT_SUCCESS));
@@ -448,9 +380,30 @@ function importProject(coordinatorId, spaceNameList) {
   };
 }
 
+function deleteImportedProject(teamKey) {
+  return (dispatch) => {
+    dispatch(request(userConstants.DELETE_IMPORTED_PROJECT_REQUEST));
+    userService.deleteImportedProject(teamKey).then(
+      (response) => {
+        if (checkRespCode(response)) {
+          dispatch(success(userConstants.DELETE_IMPORTED_PROJECT_SUCCESS));
+          successToast(response.msg);
+        } else {
+          dispatch(failure(userConstants.DELETE_IMPORTED_PROJECT_FAILUER));
+          failureToast(response.msg);
+        }
+      },
+      (error) => {
+        dispatch(failure(userConstants.DELETE_IMPORTED_PROJECT_FAILUER));
+        failureToast(error.toString());
+      }
+    );
+  };
+}
+
 function getImportedProject() {
   return (dispatch) => {
-    userService.getImportedProject().then(
+    return userService.getImportedProject().then(
       (response) => {
         if (checkRespCode(response)) {
           dispatch(
@@ -480,35 +433,25 @@ function setCurrentTeamKey(teamKey) {
   };
 }
 
-
-
 function getTeamMemberList(teamKey) {
   return (dispatch) => {
     userService.getTeamMemberList(teamKey).then(
       (response) => {
-        dispatch(success(userConstants.GET_TEAM_MEMBER_LIST_SUCCESS, response.data.user_list));
+        dispatch(
+          success(
+            userConstants.GET_TEAM_MEMBER_LIST_SUCCESS,
+            response.data.user_list
+          )
+        );
       },
       (error) => {
-        dispatch(failure(userConstants.GET_TEAM_MEMBER_LIST_FAILURE, error.toString()));
+        dispatch(
+          failure(userConstants.GET_TEAM_MEMBER_LIST_FAILURE, error.toString())
+        );
       }
     );
   };
 }
-
-function getTeamMemberNumber(teamKey) {
-  return (dispatch) => {
-    userService.getTeamMemberNumber(teamKey).then(
-      (response) => {
-        dispatch(success(userConstants.GET_TEAM_MEMBER_NUMBER_SUCCESS, response.data.total));
-      },
-      (error) => {
-        dispatch(failure(userConstants.GET_TEAM_MEMBER_NUMBER_FAILURE, error.toString()));
-      }
-    );
-  };
-}
-
-
 
 function setCurrentTeamName(teamName) {
   return (dispatch) => {
@@ -521,48 +464,29 @@ function setCurrentTeamName(teamName) {
 
 function login(username, password) {
   return (dispatch) => {
-    dispatch(request({ username }));
-
+    dispatch(request(userConstants.LOGIN_REQUEST), username);
     userService.login(username, password).then(
-      (user) => {
-        console.log("****************Login Success*********");
-        console.log(user);
-        if (user.message == "success") {
-          history.push("/CoordinatorHomePage");
-          dispatch(success(user));
+      (response) => {
+        if (checkRespCode(response)) {
+          dispatch(success(userConstants.LOGIN_SUCCESS, username));
+          history.push("/coordinator");
         } else {
-          //dispatch(failure(userConstants.LOGIN_FAILURE, user.message));
-          dispatch(alertActions.error(user.msg.toString()));
+          dispatch(failure(userConstants.LOGIN_FAILURE, response.msg));
+          failureToast(response.msg);
         }
       },
       (error) => {
-        console.log(error)
-        dispatch(failure(error.toString()));
-        dispatch(alertActions.error(error.toString()));
+        dispatch(failure(userConstants.LOGIN_FAILURE, error.toString()));
+        failureToast(error.toString());
       }
     );
   };
 }
 
 function logout() {
-  userService.logout();
-  return { type: userConstants.LOGOUT };
-}
-
-function register(user) {
   return (dispatch) => {
-    dispatch(request(user));
-
-    userService.register(user).then(
-      (user) => {
-        dispatch(success());
-        //history.push('/login');
-        dispatch(alertActions.success("Registration successful"));
-      },
-      (error) => {
-        dispatch(failure(error.toString()));
-        dispatch(alertActions.error(error.toString()));
-      }
-    );
+    dispatch({
+      type: userConstants.LOGOUT_SUCCESS,
+    });
   };
 }
