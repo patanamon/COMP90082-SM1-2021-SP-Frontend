@@ -24,35 +24,41 @@ This project aims to have a software system that automatically gathers and summa
 
   * [4.1 APIs](#4.1)
 
-  * [4.2 Web Application](#3.2)
+  * [4.2 Web Application](#4.2)
  
 [5.0 Architecture Diagrams](#5.0)
+
+[6.0 Change Log](#6.0)
 
 <h1 id="1.0"> 1.0 Project Overview </h1>
 
 ## Background
+
 Software Projects Subject (COMP90082) is the subject for students to perform necessary Software Engineering practices to successfully build a high-quality software product for real-world clients. To monitor, evaluate, and provide feedback to students, a supervisor will observe the Software Projects activities of a student team through the software development tools used and through student-supervisor meetings. The involved software development tools include a Version Control System (Git, GitHub/BitBucket/GitLab), a Task Management Tool (JIRA/Trello) and a Documentation tool (Confluence). Some processes would be considered to assess students include Software Testing, Code Review, Continuous Integration, and Deployment.
 
 ## Problem
+
 The tools and processes that students use for these projects (as stated in Background) are diverse and are all accessed on different websites/platforms. Currently, supervisors have to manually open each tool to analyse the complete tasks on each of them. It is an inefficient and tedious process, especially if a supervisor monitors more than ten teams. Although some development tools (e.g., JIRA) provide visual summaries of a team's work, the visualisation only shows data from a single activity. Thus, it is difficult and time-consuming for supervisors to offer detailed and insightful feedback to students, especially if a supervisor has more than one team to supervise.
 
 ## Project
+
 This project aims to have a software system that automatically gathers and summarise all aspects of the software engineering activities of CIS (Computing and Information Systems) Software Projects (COMP90082) developed. This will allow course coordinators to monitor and promptly provide meaningful feedback to teams, improve the quality of processes used in development and software systems developed, thus ensuring software deployment at the end of every project.
 
 <h1 id="2.0"> 2.0 Deployment </h1>
 
-<h2> Overview </h2>
+## Overview 
+
 The Software Project application is developed by JavaScript in the front-end and Python3 Django framework and MySQL databases in the back-end.
 
 The steps for installing and deploying Software Project easily is as follows:
 
-<h2>1. To start a front-end for developing: </h2>
+### 1. To start a front-end for developing:
 
 1. install npm, can refer to https://www.npmjs.com/get-npm  
 2. Install the front-end project, in CLI:  npm install   
 3. npm start  The front-end is now running on hhttp://18.167.74.23:18000/api/v1  
 
-<h2>2. To start a back-end for developing:</h2>
+### 2. To start a back-end for developing:
 
 1. Install Python3.7 and MySQL  
 2. Install all packages needed pip install -r requirements.txt (Do not install another version of packages which can help you miss many unwanted mistakes) If multiple version of python are installed, use python3 and pip3 or python3.x and pip3.x instead.  
@@ -142,7 +148,7 @@ https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.1.5+Jira
 https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.1.6+Git
 
 
-<h2> Sprint 1 </h2>
+## Sprint 1: 
 
 ### Acceptance Test
 
@@ -168,7 +174,7 @@ https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.2.5+Mock
 
 https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.2.6+Workload+Separation
 
-<h2> Sprint 2 </h2>
+## Sprint 2:
 
 https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.3+Sprint+2%3A+API
 
@@ -235,8 +241,6 @@ https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/Design+upd
 
 <h1 id="4.0"> 4.0 Contributing / Extending </h1>
 
-v1: 15/11/2020
-
 <h1 id="4.1"> 4.1 APIs </h1>
 
 ### API versions
@@ -266,78 +270,68 @@ To create new models and/or APIs utilizing them, kindly follow the current direc
 - API endpoints (URLs) in "TeamSPBackend/api/urls_vX.py" for version X
 - For any API functions that require multiple files, put those files under a sub-folder in "TeamSPBackend/api/views/". E.g. "TeamSPBackend/api/views/newModel/"
 
-<h1 id="4.2"> 4.2 Web Application (to do)</h1>
+<h1 id="4.2"> 4.2 Web Application </h1>
 
-### Calling APIs
+## Calling APIs
 
-Please see /_services/user.service.js for API interfaces.
+Relevant file is for API interfaces: 
+src/_services/user.service.js
 
-### Viewing Project list
+You can use this Url to call the API http://18.167.74.23:18000/api/v1 
 
-Relevant files are: /CoordinatorPage/CoordinatorHomePage.js & /CoordinatorPage/CoordinatorHomePage.css 
+## 1. Coordinator Home Page
 
-### Importing Projects
+Relevant files are: 
+src/CoordinatorPage/CoordinatorHomePage.js 
+& src/CoordinatorPage/CoordinatorHomePage.css 
+& src/CoordinatorPage/ImportProjectPage.js
+& src/CoordinatorPage/ImportProjectPage.css
+& src/CoordinatorPage/ProjectList.js
 
-Relevant files are: /CoordinatorPage/ImportProjectPage.js & /CoordinatorPage/ImportProjectPage.css
+The project list page shows all the projects that the coordinator is responsible for. Details of the project provide the information of confluence link and "Delete" buttons. The homepage also supports importing projects by a search bar.
 
-As of now, this page has not been able to be tested for abitrary projects, since confluence access to the project page of the project being imported is required. We only have access to the SP project page so have tested it with this project and it importss into the system successfully.
+## 2. Project Overview Page
 
-Currently, Confluence login in needed to be provided everytime. (PLEASE NOTE: these details are not securely encrypted currently!!!) This is due to the database not storing the login details for a user. There should be a settings page added to the web application to allow the user to input their Atlassian login so that it can be used for authorization automatically.
-Relevant fields in the User table of the database already exist. API do not exist. 
+Relevant files is: 
+src/ProjectPage/ProjectHomePage.js
 
-### Inviting Supervisors
+The form provides student information including student name, student profile, student ID and email address for the project.
 
-Relevant files are all found within the /ManageSupervisor/ folder.
+## 3. Process Quality Page
 
-Currently, this feature is working as intended and extensions can be made by making updates to the files in the above path.
+Relevant files is: 
+src/ProjectPage/ProcessQualityPage.js
 
-### Assigning Supervisors to Projects
+This part helps coordinators to evaluate the process quality of the project through Jira, Confluence, and Github. Different buttons present different charts of the tool, and the selected button is dark to let the user know which platform is on the screen. By clicking on the Github filter, coordinators can make a view of the line chart of commit times over time. Jira filter illustrates the line chart of items on the To-do-list. The confluence filter shows the line chart of the number of pages.  
 
-Relevant files are: /CoordinatorPage/CoordinatorHomePage.js & /CoordinatorPage/CoordinatorHomePage.css
+## 4. Product Quality Page
 
-Currently, this feature is working as intended. However, an edit supervisor button would be good to have. All relevant database field and API are available to make this change.
+Relevant files is: 
+src/ProjectPage/ProductQualityPage.js
 
-### Viewing Project Team
+This page helps coordinators to evaluate the product quality based on static code analysis. Includes project name and a list of criteria that measures product quality. 
 
-Relevant files are: /ProjectPage/ProjectHomePage.js & /ProjectPage/ProjectHomePage.css
+## 5. Communication Page
 
-Currently, this feature is working, however it requires polish. A Get Team button must be clicked in order to view the team. Ideally, it should automatically display. A button for updating the team (which calls the Confluence API to update the team member list) needs to be implemented.
+Relevant files is: 
+src/qualityPages/CommunicationQualityPage.js
 
-### Team Configuration Page
+This page shows the activeness of communication on Confluence and Github. Check the Confluence button, it will show a list of every meeting with meeting time and meeting minutes, the cells of meeting minutes will be links that are able to be clicked. Check the Github card, it will show a line chart of the number of comments over time.
 
-Relevant files are /ProjectPage/ProjectSettingsPage.js & /ProjectPage/ProjectSettingsPage.css
+## 6. Individual Contribution Page
 
-Currently, this page is missing the fields to input a project team's URLs/ token for accessing their respective tools. The fields to input the slack email/ github account name for each teammember are present, however there is no way to submit these to the backend for processing/ storing in the database. Some APIs are developed to undertake these tasks (See the API Documentation), however they are not fully functional.
+Relevant files are: 
+src/qualityPages/IndividualContributionPage.js
+& src/qualityPages/IndividualContributionPage.css
 
-Also, an extension required for this feature is the functionality of adding multiple github accounts per user. This will require changes to the database and/or the API.
+This page helps coordinators to see the proportion of individual contribution directly. It has a drop-down option bar that has a list of student names to select. The button group of three platforms represents Github, Jira, and Confluence. Check the drop-down option bars to see every student’s contribution in the three channels. The contribution is shown in a pie chart. The pie chart shows the contribution of the selected student.
 
-### Viewing Team's Product Quality
+## 7. Project Configuration Page 
 
-Currently, this feature was pushed to a future release. Requirements for this page/ feature are illustrated in the below user stories:
+Relevant files is: 
+src/ProjectPage/ProjectSettingsPage.js
 
-[Product Quality User Stories](https://github.com/Jarrent/CIS_SP_frontend/blob/master/productQuality.PNG)
-
-### Viewing Team's Process Quality
-
-Relevant files are: /qualityPages/ProcessQualityPage.js and /qualityPages/ProcessQualityPage.css
-
-Currently, this feature is incomplete. It is missing the filtering by Sprint feature, because the JIRA APIs did not support filtering tickets by sprint/ date. These APIs will need to be updated first. Secondly, it is missing the link between JIRA data and GIT data. Please see the Digital Prototype for a better illustration of the expected behaviour for this page.
-
-Additionally, similar to the issue with authorization we have run into with the 'Import Projects' feature, the user will need to log in before accessing this feature. Once that fix is implemented, this page should function without needing the login. PLEASE NOTE: these details are not securely encrypted currently!!!
-
-### Viewing Team's Communication Quality
-
-Relevant files are: /qualityPages/CommunicationQualityPage.js and /qualityPages/CommunicationQualityPage.css
-
-Currently, this page is functioning as requested. It may have some integration issues with connecting to the configuration page data since it is currently using the Slack token for Team SP's workspace. The slack token will need to be inputted on the configuration page and stored by the system, so that the user is authorized to pull data from the team's slack channel.
-
-Similar to the issue with authorization we have run into with the 'Import Projects' feature, the user will need to log in before accessing this feature. Once that fix is implemented, this page should function without needing the login.
-
-### Viewing Team Individuals' Contribution
-
-Relevant files are: /qualityPages/IndividualContributionPage.js and /qualityPages/IndividualContributionPage.css
-
-Currently, this page is not functioning as requested. Authorisation to access Atlassian and Slack tools needs to be built into the system to be automatic. Currently, information required for authorisation is not built into the user's data nor are there any APIs to facilitate this. Each time data is accessed from the software engineering tools, authorisation to access the data needs to be provided - that is why no data is able to be automatically pulled. (Similar issue as above in Team Process quality and Importing projects feature.
+This page allows the user to check and update the link of Github, Jira. Paste the link of the two channels on this page to get all the information easily on other pages. 
 
 <h1 id="5.0"> 5.0 Architecture Diagrams </h1>
 
@@ -356,3 +350,61 @@ https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/3.3+Proces
 ### Communication Diagram
 
 https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/3.4+Communication+Diagram
+
+<h1 id="6.0"> 6.0 Change Log </h1> 
+
+#  Versions
+
+## 1.0	2021.4.02  
+### 1.1	2021.3.27  
+•	Initial GitHub Project created  
+•	Digital Prototype 1.0 Completed  
+•	Digital Prototype 2.0 Completed according to Client’s feedback  
+
+### 1.2	2021.4.02  
+•	Created Data Sample: JSON format in an API level for each API  
+
+## 2.0	2021.4.30  
+### 2.1	2021.4.22  
+•	Created configure page  
+### 2.2	2021.4.24  
+•	Communication page UI was finished   
+•	Updated UI and added showing history function for configure page  
+### 2.3	2021.4.26  
+•	Finished project overview page  
+### 2.4	2021.4.27  
+•	Changed layout for Individual Page  
+•	Coordinator homepage completed a part of API connections with backend   
+•	Communication quality page can interact with backend locally  
+### 2.5	2021.4.28  
+•	Coordinator Homepage UI updated  
+•	Product quality completed API connections  
+•	Updated Coordinator Homepage UI  
+### 2.6	2021.4.29  
+•	Updated API code for Individual Contribution Page  
+•	Coordinator Home page removed box shadow  
+### 2.7	2021.4.30  
+•	Modified project homepage  
+•	Coordinator homepage local API deployment  
+•	Project homepage API code completed  
+
+## 3.0	2021.5.31  
+### 3.1	2021.5.01  
+•	Bug fix communication quality page  
+### 3.2	2021.5.05  
+•	Product quality API unify testing with backend  
+
+### 3.3	2021.5.06  
+•	Bugfix communication quality page  
+### 3.4	2021.5.07  
+•	Bugfix communication quality page  
+•	Added saving git username and password function  
+•	Changed the context of the column of meeting minutes to clickable URLs  
+### 3.5	2021.5.08  
+•	Completed Sprint 2 communication quality page  
+### 3.6	2021.5.13  
+•	Coordinator Homepage UI added a drawer for showing student information  
+•	Updated API for Configure page  
+
+
+
