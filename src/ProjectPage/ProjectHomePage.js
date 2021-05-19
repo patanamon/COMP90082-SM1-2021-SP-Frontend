@@ -5,8 +5,6 @@ import { storeGet } from "../_helpers/helper-funcs";
 import { userActions } from "../_actions";
 import Table from "../_utils/Table";
 import Banner from "../_utils/Banner";
-import { commonConstants } from "../_constants";
-import Alert from "../_utils/Alert";
 
 const team =  "SWEN90013-2020-SP";
 
@@ -16,6 +14,7 @@ class ProjectHomePage extends Component {
   constructor(props) {
     super(props); //since we are extending class Table so we have to use super in order to override Component class constructor
     this.state = {
+      teamList: "", 
       data: [],
 
       columns: [
@@ -74,14 +73,6 @@ class ProjectHomePage extends Component {
     this.props.getTeamMemberNumber("VIS3");
   }
 
-  // renderTableHeader() {
-  //   let header = Object.keys(this.state.teamList[0]);
-  //   return header.map((key, index) => {
-  //     return <th key={index}>{key.toUpperCase()}</th>;
-  //   });
-  // }
-
-  
   render() {
     
     if(this.props.teamMemberNumber<30){
@@ -90,8 +81,8 @@ class ProjectHomePage extends Component {
         {uomHeader("Project Overview")}
         <div role="main" >
           <div className="page-inner" >
-            <Banner projName="2021-SM1-Software-Project-Database" />
-            <Table columns={this.state.columns} data={this.props.teamMemberList} title={"Student Information"} width="80vw" height="500vh"/>
+            <Banner projName={this.props.currentTeamKey} />
+            <Table columns={this.state.columns} data={this.props.teamMemberList} title={"Student Information"} width="100vw" height="500vh"/>
           </div>
         </div>
       </div>
@@ -116,7 +107,7 @@ class ProjectHomePage extends Component {
 function mapState(state) {
   return {
     teamMemberList: state.user.teamMemberList,
-    teamMemberNumber: state.user.teamMemberNumber,
+    currentTeamKey: state.user.currentTeamKey,
   };
 }
 const actionCreators = {

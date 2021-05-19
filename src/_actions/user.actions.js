@@ -36,7 +36,6 @@ export const userActions = {
   setCurrentTeamName,
 
   getTeamMemberList,
-  getTeamMemberNumber,
   sendImport,
 };
 

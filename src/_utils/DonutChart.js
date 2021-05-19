@@ -23,6 +23,7 @@ import { Doughnut } from 'react-chartjs-2'
 
 export default function DonutChart(props){
   const data = props.data
+<<<<<<< HEAD
   const label = props.dataLabel ? props.dataLabel: data.datasets[0].label;
   return (
       <div style={{ position: "relative", margin: "auto", width: "80vw" }}>
@@ -45,6 +46,11 @@ export default function DonutChart(props){
     }
   }
 } }} />
+=======
+  return (
+      <div style={{ position: "relative", margin: "auto", width: "80vw" }}>
+        <Doughnut data={data} options={{legend: { display: true, position: "right" }}} />
+>>>>>>> 4bd9099a86bb6bc99018b6638583bb0c163261d7
       </div>
   )
 }

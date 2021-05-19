@@ -9,7 +9,6 @@ import { commonConstants } from "../_constants";
 import { ToastContainer } from "react-toastify";
 import Banner from "../_utils/Banner";
 import DonutChart from "../_utils/DonutChart";
-import DropdownMenus from "../_utils/DropdownMenus";
 
 class IndividualContributionPage extends React.Component {
   constructor(props) {
