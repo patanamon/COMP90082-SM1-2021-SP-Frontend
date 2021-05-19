@@ -57,10 +57,10 @@ class ProjectHomePage extends Component {
         <div role="main">
           <div className="page-inner">
             <Banner projName={this.props.currentTeamName} />
-            {this.props.teamMemberList.length >= 30 && (
+            {(!this.props.teamMemberList || this.props.teamMemberList.length >= 30) && (
               <Warining message={alertConstants.WRONG_CONFIG} />
             )}
-            {this.props.teamMemberList.length < 30 && (
+            {this.props.teamMemberList && this.props.teamMemberList.length < 30 && (
               <Table
                 columns={this.state.columns}
                 data={this.props.teamMemberList}
