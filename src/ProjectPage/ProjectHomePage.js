@@ -8,7 +8,6 @@ import { Warining } from "../_utils/Alert";
 import { alertConstants } from "../_constants";
 import { Alert } from "antd";
 
-
 class ProjectHomePage extends Component {
   constructor(props) {
     super(props);
@@ -53,8 +52,6 @@ class ProjectHomePage extends Component {
   }
 
   render() {
-    
-    if(this.props.teamMemberNumber<30){
     return (
       <div className="uomcontent">
         {uomHeader("Project Overview")}
@@ -76,20 +73,8 @@ class ProjectHomePage extends Component {
         </div>
       </div>
     );
-    }
-    else{
-      return(
-      <div className="uomcontent">
-        {uomHeader("Project Overview")}
-        <div role="main" >
-          <div className="page-inner" >
-            <Banner projName="2021-SM1-Software-Project-Database" />
-            <Alert message="The number of team member is out of range(30)."></Alert>
-          </div>
-        </div>
-      </div>
-      );
-    }
+    
+ 
   }
 }
 

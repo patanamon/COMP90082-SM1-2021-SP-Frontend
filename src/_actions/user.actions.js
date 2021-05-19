@@ -433,8 +433,6 @@ function setCurrentTeamKey(teamKey) {
   };
 }
 
-
-
 function getTeamMemberList(teamKey) {
   return (dispatch) => {
     return userService.getTeamMemberList(teamKey).then(
@@ -454,21 +452,6 @@ function getTeamMemberList(teamKey) {
     );
   };
 }
-
-function getTeamMemberNumber(teamKey) {
-  return (dispatch) => {
-    userService.getTeamMemberNumber(teamKey).then(
-      (response) => {
-        dispatch(success(userConstants.GET_TEAM_MEMBER_NUMBER_SUCCESS, response.data.total));
-      },
-      (error) => {
-        dispatch(failure(userConstants.GET_TEAM_MEMBER_NUMBER_FAILURE, error.toString()));
-      }
-    );
-  };
-}
-
-
 
 function setCurrentTeamName(teamName) {
   return (dispatch) => {

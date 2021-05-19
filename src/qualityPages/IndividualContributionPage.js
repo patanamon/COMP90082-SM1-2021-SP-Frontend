@@ -155,9 +155,7 @@ class IndividualContributionPage extends React.Component {
       </div>
     );
   } 
-  }
-
-
+}
 
 function mapState(state) {
   return {

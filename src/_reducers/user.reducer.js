@@ -210,16 +210,6 @@ export function user(state = initState, action) {
         requestTeamMemberList: false,
         getTeamMemberListSuccess: false,
       };
-    case userConstants.GET_TEAM_MEMBER_NUMBER_SUCCESS:
-      return {
-        ...state,
-        teamMemberNumber: action.payload,
-      };
-    case userConstants.GET_TEAM_MEMBER_NUMBER_FAILURE:
-      return {
-        ...state,
-        teamMemberLNumber: {},
-      };
     case userConstants.IMPORT_PROJECT_REQUEST:
       return {
         ...state,
