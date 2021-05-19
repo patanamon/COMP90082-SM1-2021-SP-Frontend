@@ -73,8 +73,6 @@ class ProjectHomePage extends Component {
         </div>
       </div>
     );
-    
- 
   }
 }
 
@@ -87,7 +85,6 @@ function mapState(state) {
 }
 const actionCreators = {
   getTeamMemberList: userActions.getTeamMemberList,
-  getTeamMemberNumber: userActions.getTeamMemberNumber,
 };
 
 const ProjectHome = connect(mapState, actionCreators)(ProjectHomePage);
