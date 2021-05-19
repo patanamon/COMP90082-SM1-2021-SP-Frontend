@@ -21,9 +21,6 @@ const initState = {
 
 export function user(state = initState, action) {
   switch (action.type) {
-<<<<<<< HEAD
-    case userConstants.SEND_IMPORT_REQUEST:
-=======
     case userConstants.GET_INDIVIDUAL_CONFLUENCE_PAGES_REQUEST:
       return {
         ...state,
@@ -55,7 +52,6 @@ export function user(state = initState, action) {
         individualGitHubCommits: action.payload,
       };
     case userConstants.GET_INDIVIDUAL_GITHUB_COMMITS_FAILURE:
->>>>>>> db9e65837e2a0dc33c1746c1aa9873688b9180f9
       return {
         ...state,
         requestIndividualGitHubCommits: false,

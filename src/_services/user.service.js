@@ -78,9 +78,6 @@ function getTeamConfluenceMeeting(teamKey) {
     });
 }
 
-<<<<<<< HEAD
-function setTeamInfo(teamKey, jiraUrl, githubUrl, githubUsername, githubPassword) {
-=======
 function setTeamInfo(
   teamKey,
   jiraUrl,
@@ -88,7 +85,6 @@ function setTeamInfo(
   githubUsername,
   githubPassword
 ) {
->>>>>>> db9e65837e2a0dc33c1746c1aa9873688b9180f9
   let payload = {
     space_key: teamKey,
     jira_url: jiraUrl,
@@ -138,12 +134,6 @@ function getGithubIndividualData(teamKey) {
   return fetch(url, requestOptions)
     .then((response) => response.json())
     .then((jsonResponse) => {
-<<<<<<< HEAD
-      if (jsonResponse.code === 0) {
-        storePut(commonConstants.TEAM_GITHUB_INDIVIDUAL_DATA, jsonResponse.data);
-      }
-=======
->>>>>>> db9e65837e2a0dc33c1746c1aa9873688b9180f9
       return jsonResponse;
     });
 }
@@ -159,12 +149,6 @@ function getJiraIndividualData(teamKey) {
   return fetch(url, requestOptions)
     .then((response) => response.json())
     .then((jsonResponse) => {
-<<<<<<< HEAD
-      if (jsonResponse.code === 0) {
-        storePut(commonConstants.TEAM_JIRA_INDIVIDUAL_DATA, jsonResponse.data);
-      }
-=======
->>>>>>> db9e65837e2a0dc33c1746c1aa9873688b9180f9
       return jsonResponse;
     });
 }
@@ -180,12 +164,6 @@ function getConfluenceIndividualData(teamKey) {
   return fetch(url, requestOptions)
     .then((response) => response.json())
     .then((jsonResponse) => {
-<<<<<<< HEAD
-      if (jsonResponse.code === 0) {
-        storePut(commonConstants.TEAM_CONFLUENCE_INDIVIDUAL_DATA, jsonResponse.data);
-      }
-=======
->>>>>>> db9e65837e2a0dc33c1746c1aa9873688b9180f9
       return jsonResponse;
     });
 }
@@ -254,49 +232,10 @@ function deleteImportedProject(teamKey) {
   };
 
   return fetch(url, requestOptions)
-<<<<<<< HEAD
-  .then((response) => response.json())
-  .then((jsonResponse) => {
-    if (jsonResponse.code == 0) {
-      storePut(commonConstants.TEAM_MEMBER_LIST, jsonResponse.data.user_list);
-    };
-    return jsonResponse;
-  });
-}
-
-function getTeamMemberNumber(teamKey) {
-  let url = baseUrl + "/team/" + teamKey;
-
-  const requestOptions = {
-    method: "GET",
-  };
-
-  return fetch(url, requestOptions)
-  .then((response) => response.json())
-  .then((jsonResponse) => {
-    if (jsonResponse.code == 0) {
-      storePut(commonConstants.TEAM_MEMBER_NUMBER, jsonResponse.data.total);
-    };
-    return jsonResponse;
-  });
-}
-
-
-
-/*
-#########################History code###############################################
-*/
-
-// //TODO: find a method without too many warning
-function validateEmail(email) {
-  const re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-  return re.test(email);
-=======
     .then((response) => response.json())
     .then((jsonResponse) => {
       return jsonResponse;
     });
->>>>>>> db9e65837e2a0dc33c1746c1aa9873688b9180f9
 }
 
 function getTeamMemberList(teamKey) {

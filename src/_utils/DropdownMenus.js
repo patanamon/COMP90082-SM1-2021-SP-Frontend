@@ -1,9 +1,5 @@
 import React from 'react';
-<<<<<<< HEAD
-import { Tab, Col, Row, Container, Form } from "react-bootstrap";
-=======
 import { Form } from "react-bootstrap";
->>>>>>> db9e65837e2a0dc33c1746c1aa9873688b9180f9
 
 export default function DropdownMenus(props) {
     const data = props.data;

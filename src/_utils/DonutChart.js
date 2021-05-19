@@ -23,36 +23,6 @@ import { Doughnut } from 'react-chartjs-2'
 
 export default function DonutChart(props){
   const data = props.data
-<<<<<<< HEAD
-<<<<<<< HEAD
-  const label = props.dataLabel ? props.dataLabel: data.datasets[0].label;
-  return (
-      <div style={{ position: "relative", margin: "auto", width: "80vw" }}>
-        <Doughnut data={data} options={{legend: { display: true, position: "right", labels: {fontSize: 25} },
-        tooltips: {
-          callbacks: {
-            label: function(tooltipItem, data) {
-            //get the concerned dataset
-            var dataset = data.datasets[tooltipItem.datasetIndex];
-            //calculate the total of this data set
-            var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
-              return previousValue + currentValue;
-            });
-            //get the current items value
-            var currentValue = dataset.data[tooltipItem.index];
-            //calculate the precentage based on the total and current item, also this does a rough rounding to give a whole number
-            var percentage = Math.floor(((currentValue/total) * 100)+0.5);
-
-            return  data.labels[tooltipItem.index] + "'s " + label + ": " +currentValue + "(" + percentage + "%" + ")";
-    }
-  }
-} }} />
-=======
-  return (
-      <div style={{ position: "relative", margin: "auto", width: "80vw" }}>
-        <Doughnut data={data} options={{legend: { display: true, position: "right" }}} />
->>>>>>> 4bd9099a86bb6bc99018b6638583bb0c163261d7
-=======
   const label = props.dataLabel ? props.dataLabel: data.datasets[0].label;
   return (
       <div style={{ position: "relative", margin: "auto", width: "80vw" }}>
@@ -75,7 +45,6 @@ export default function DonutChart(props){
     }
   }
 } }} />
->>>>>>> db9e65837e2a0dc33c1746c1aa9873688b9180f9
       </div>
   )
 }

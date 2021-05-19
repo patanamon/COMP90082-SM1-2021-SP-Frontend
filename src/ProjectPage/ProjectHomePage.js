@@ -6,6 +6,7 @@ import Table from "../_utils/Table";
 import Banner from "../_utils/Banner";
 import { Warining } from "../_utils/Alert";
 import { alertConstants } from "../_constants";
+import { Alert } from "antd";
 
 
 class ProjectHomePage extends Component {
@@ -27,12 +28,7 @@ class ProjectHomePage extends Component {
           selector: "picture",
           center: true,
           sortable: true,
-<<<<<<< HEAD
-          cell: row => <img alt='Avatar' width='40' src={row.picture}></img>,
- 
-=======
           cell: (row) => <img alt="Avatar" width="40" src={row.picture}></img>,
->>>>>>> db9e65837e2a0dc33c1746c1aa9873688b9180f9
         },
 
         {
@@ -50,36 +46,10 @@ class ProjectHomePage extends Component {
         },
       ],
     };
-<<<<<<< HEAD
-    
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmitTeamList = this.handleSubmitTeamList.bind(this);
-  }
-  
-  handleChange(e) {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
-  }
-  handleSubmit(e) {
-    e.preventDefault();
-  }
-  handleSubmitTeamList(e) {
-    this.props.getTeamMemberList(team);
-    this.props.getTeamMemberNumber(team);
-    this.setState({ teamList: storeGet("teamList") });
-    this.setState({ processSubmitted: true });
-=======
->>>>>>> db9e65837e2a0dc33c1746c1aa9873688b9180f9
   }
 
   componentDidMount() {
-<<<<<<< HEAD
-    this.props.getTeamMemberList("VIS3");
-    this.props.getTeamMemberNumber("VIS3");
-=======
     this.props.getTeamMemberList(this.props.currentTeamKey);
->>>>>>> db9e65837e2a0dc33c1746c1aa9873688b9180f9
   }
 
   render() {
