@@ -6,7 +6,6 @@ import Table from "../_utils/Table";
 import Banner from "../_utils/Banner";
 import { Warining } from "../_utils/Alert";
 import { alertConstants } from "../_constants";
-import { Alert } from "antd";
 
 class ProjectHomePage extends Component {
   constructor(props) {
