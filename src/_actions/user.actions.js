@@ -11,11 +11,13 @@ import { successToast } from "../_utils/toast";
 // Remember: Add new actions in here, otherwise it cannot be recognise by this.props.
 // ALSO REMEMBER TO ADD RETURN MSG IN user.constants.js
 export const userActions = {
+  login,
+  logout,
+
   getTeamConfluencePages,
   getTeamGithubCommits,
   getTeamJiraTickets,
 
-  getTeamGitHubComments,
   getTeamConfluenceMeeting,
 
   getTeamCodeMetrics,
@@ -34,6 +36,8 @@ export const userActions = {
   setCurrentTeamName,
 
   getTeamMemberList,
+  getTeamMemberNumber,
+  sendImport,
 };
 
 function request(action, payload) {
@@ -91,6 +95,95 @@ function getTeamConfluencePages(teamKey) {
       }
     );
   };
+}
+
+function sendImport(teamKey) {
+  return (dispatch) => {
+    dispatch(request(userConstants.SEND_IMPORT_REQUEST));
+    userService.sendImport(teamKey).then(
+      (response) => {
+        if (checkRespCode(response)) {
+          dispatch(
+            success(
+              userConstants.SEND_IMPORT_SUCCESS,
+              //to do
+            )
+          );
+        } else {
+          dispatch(
+            failure(
+              userConstants.SEND_IMPORT_FAILURE,
+              response.message
+            )
+          );
+          failureToast(response.message);
+        }
+      },
+      (error) => {
+        dispatch(
+          failure(
+            userConstants.SEND_IMPORT_FAILURE,
+            error.toString()
+          )
+        );
+        failureToast(error.toString());
+      }
+    );
+  };
+}
+
+
+function getProjectInfo() {
+  return (dispatch) => {
+    dispatch(request(userConstants.GETPROJECTINFO_REQUEST));
+    userService.getProjectInfo().then(
+      (response) => {
+        if (checkRespCode(response)) {
+          dispatch(
+            success(
+              userConstants.GETPROJECTINFO_SUCCESS,
+              
+              formatProjectInfo(response)
+              
+              //formatLineChartData(response)
+            )
+          );
+          
+        } else {
+          dispatch(
+            failure(
+              userConstants.GETPROJECTINFO_FAILURE,
+              response.message
+            )
+          );
+          failureToast(response.message);
+        }
+      },
+      (error) => {
+        dispatch(
+          failure(
+            userConstants.GETPROJECTINFO_FAILURE,
+            error.toString()
+          )
+        );
+        failureToast(error.toString());
+      }
+    );
+  };
+}
+
+function formatProjectInfo(data){
+  var tempoStore = [];
+  
+
+  for (let i = 0, len = data.data.length; i < len; i++) {    
+    
+    tempoStore.push({"space_key":data.data[i].space_key, "label" : data.data[i].space_name, "link" : "https://confluence.cis.unimelb.edu.au:8443/display/"+data.data[i].space_key+"/Home"});
+    
+}
+
+
+return tempoStore;
 }
 
 function getTeamGithubCommits(teamKey) {
@@ -155,38 +248,6 @@ function getTeamJiraTickets(teamKey) {
           failure(userConstants.GET_TEAM_JIRA_TICKETS_FAILURE, error.toString())
         );
         failureToast(error.toString());
-      }
-    );
-  };
-}
-
-function getTeamGitHubComments(teamKey) {
-  return (dispatch) => {
-    userService.getTeamGitHubComments(teamKey).then(
-      (response) => {
-        if (checkRespCode(response)) {
-          dispatch(
-            success(
-              userConstants.GET_TEAM_GITHUB_COMMENTS_SUCCESS,
-              formatLineChartData(response)
-            )
-          );
-        } else {
-          dispatch(
-            failure(
-              userConstants.GET_TEAM_GITHUB_COMMENTS_FAILURE,
-              response.message
-            )
-          );
-        }
-      },
-      (error) => {
-        dispatch(
-          failure(
-            userConstants.GET_TEAM_GITHUB_COMMENTS_FAILURE,
-            error.toString()
-          )
-        );
       }
     );
   };
@@ -264,7 +325,7 @@ function getTeamCodeMetrics(teamKey) {
 
 function getConfluenceIndividualData(teamKey) {
   return (dispatch) => {
-    userService.getConfluenceIndividualPages(teamKey).then(
+    userService.getConfluenceIndividualData(teamKey).then(
       (response) => {
         dispatch(
           success(
@@ -288,7 +349,7 @@ function getConfluenceIndividualData(teamKey) {
 
 function getGithubIndividualData(teamKey) {
   return (dispatch) => {
-    userService.getGithubIndividualCommits(teamKey).then(
+    userService.getGithubIndividualData(teamKey).then(
       (response) => {
         dispatch(
           success(
@@ -312,11 +373,11 @@ function getGithubIndividualData(teamKey) {
 
 function getJiraIndividualData(teamKey) {
   return (dispatch) => {
-    userService.getJiraIndividualCount(teamKey).then(
+    userService.getJiraIndividualData(teamKey).then(
       (response) => {
         dispatch(
           success(
-            userConstants.GET_INDIVIDUAL_JIRA_COUNT_SUCCESS,
+            userConstants.GET_INDIVIDUAL_JIRA_COUNTS_SUCCESS,
             formatDonutChartData(response)
           )
         );
@@ -324,7 +385,7 @@ function getJiraIndividualData(teamKey) {
       (error) => {
         dispatch(
           failure(
-            userConstants.GET_INDIVIDUAL_JIRA_COUNT_FAILURE,
+            userConstants.GET_INDIVIDUAL_JIRA_COUNTS_FAILURE,
             error.toString()
           )
         );
@@ -393,7 +454,7 @@ function getImportedProject() {
       (response) => {
         if (checkRespCode(response)) {
           dispatch(
-            success(userConstants.GET_IMPORTED_PROJECT_SUCCESS, response)
+            success(userConstants.GET_IMPORTED_PROJECT_SUCCESS, response.data)
           );
         } else {
           dispatch(
@@ -419,11 +480,13 @@ function setCurrentTeamKey(teamKey) {
   };
 }
 
+
+
 function getTeamMemberList(teamKey) {
   return (dispatch) => {
     userService.getTeamMemberList(teamKey).then(
       (response) => {
-        dispatch(success(userConstants.GET_TEAM_MEMBER_LIST_SUCCESS, response.data));
+        dispatch(success(userConstants.GET_TEAM_MEMBER_LIST_SUCCESS, response.data.user_list));
       },
       (error) => {
         dispatch(failure(userConstants.GET_TEAM_MEMBER_LIST_FAILURE, error.toString()));
@@ -431,6 +494,21 @@ function getTeamMemberList(teamKey) {
     );
   };
 }
+
+function getTeamMemberNumber(teamKey) {
+  return (dispatch) => {
+    userService.getTeamMemberNumber(teamKey).then(
+      (response) => {
+        dispatch(success(userConstants.GET_TEAM_MEMBER_NUMBER_SUCCESS, response.data.total));
+      },
+      (error) => {
+        dispatch(failure(userConstants.GET_TEAM_MEMBER_NUMBER_FAILURE, error.toString()));
+      }
+    );
+  };
+}
+
+
 
 function setCurrentTeamName(teamName) {
   return (dispatch) => {
@@ -450,17 +528,15 @@ function login(username, password) {
         console.log("****************Login Success*********");
         console.log(user);
         if (user.message == "success") {
-          if (user.data.role == 0) {
-            history.push("/CoordinatorHomePage");
-          } else {
-            history.push("/SupervisorHomePage");
-          }
+          history.push("/CoordinatorHomePage");
           dispatch(success(user));
         } else {
-          dispatch(failure(user.message));
+          //dispatch(failure(userConstants.LOGIN_FAILURE, user.message));
+          dispatch(alertActions.error(user.msg.toString()));
         }
       },
       (error) => {
+        console.log(error)
         dispatch(failure(error.toString()));
         dispatch(alertActions.error(error.toString()));
       }
