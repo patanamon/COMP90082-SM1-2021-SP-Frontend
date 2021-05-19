@@ -4,7 +4,7 @@ import uomHeader from "../header/uomheader.js";
 import { userActions } from "../_actions";
 import Table from "../_utils/Table";
 import Banner from "../_utils/Banner";
-import { Warining } from "../_utils/Alert";
+import { Warining, InformationalNote } from "../_utils/Alert";
 import { alertConstants } from "../_constants";
 
 class ProjectHomePage extends Component {
@@ -57,25 +57,31 @@ class ProjectHomePage extends Component {
         <div role="main">
           <div className="page-inner">
             <Banner projName={this.props.currentTeamName} />
-            {(!this.props.teamMemberList || this.props.teamMemberList.length >= 30) && (
-              <Warining message={alertConstants.WRONG_CONFIG} />)}
-            {(!this.props.teamMemberList || this.props.teamMemberList.length >= 30) && (
-        
+            {!this.props.teamMemberList && (
+              <InformationalNote message={alertConstants.NO_DATA} />
+            )}
+            {this.props.teamMemberList &&
+              this.props.teamMemberList.length >= 30 && (
+                <Warining message={alertConstants.WRONG_CONFIG} />
+              )}
+            {this.props.teamMemberList &&
+              this.props.teamMemberList.length >= 30 && (
               <Table
                 columns={this.state.columns}
-                data={this.props.teamMemberList.slice(0,30)}
+                data={this.props.teamMemberList.slice(0, 30)}
                 width="80vw"
-                height="500vh"
-              />)
-            }
-            {this.props.teamMemberList && this.props.teamMemberList.length < 30 && (
-              <Table
-                columns={this.state.columns}
-                data={this.props.teamMemberList}
-                width="80vw"
-                height="500vh"
+                height="50vh"
               />
             )}
+            {this.props.teamMemberList &&
+              this.props.teamMemberList.length < 30 && (
+                <Table
+                  columns={this.state.columns}
+                  data={this.props.teamMemberList}
+                  width="80vw"
+                  height="50vh"
+                />
+              )}
           </div>
         </div>
       </div>

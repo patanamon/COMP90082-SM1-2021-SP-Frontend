@@ -193,20 +193,25 @@ function setTeamInfo(
 ) {
   return (dispatch) => {
     dispatch(request(userConstants.SETTEAMINFO_REQUEST));
-    userService
+    return userService
       .setTeamInfo(teamKey, jiraUrl, githubUrl, githubUsername, githubPassword)
       .then(
         (response) => {
           if (checkRespCode(response)) {
             dispatch(
-              success(userConstants.SETTEAMINFO_SUCCESS, response.message)
+              success(userConstants.SETTEAMINFO_SUCCESS, {
+                [teamKey]: {
+                  jiraUrl,
+                  githubUrl,
+                  githubUsername,
+                  githubPassword,
+                },
+              })
             );
-            successToast(response.message);
+            successToast(response.msg);
           } else {
-            dispatch(
-              failure(userConstants.SETTEAMINFO_FAILURE, response.message)
-            );
-            failureToast(response.message);
+            dispatch(failure(userConstants.SETTEAMINFO_FAILURE));
+            failureToast(response.msg);
           }
         },
         (error) => {

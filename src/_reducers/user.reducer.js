@@ -1,5 +1,4 @@
 import { userConstants } from "../_constants";
-import { commonConstants } from "../_constants";
 
 const initState = {
   requestIndividualConfluencePages: false,
@@ -17,6 +16,7 @@ const initState = {
   currentTeamName: "",
   isLogin: false,
   Login: false,
+  teamInfo:{},
 };
 
 export function user(state = initState, action) {
@@ -167,14 +167,14 @@ export function user(state = initState, action) {
       return {
         ...state,
         requestSetTeamInfo: false,
-        teamInfo: JSON.parse(
-          localStorage.getItem(commonConstants.TEAM_CONFIG_INFO)
-        ),
+        teamInfo: Object.assign(state.teamInfo, action.payload),
+        setTeamInfoSuccess: true,
       };
     case userConstants.SETTEAMINFO_FAILURE:
       return {
         ...state,
         requestSetTeamInfo: false,
+        setTeamInfoSuccess: false,
       };
     case userConstants.GET_CONFLUENCE_SPACE_BY_KEY_WORD_REQUEST:
       return {
