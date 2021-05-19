@@ -26,7 +26,7 @@ export default function DonutChart(props){
   const label = props.dataLabel ? props.dataLabel: data.datasets[0].label;
   return (
       <div style={{ position: "relative", margin: "auto", width: "80vw" }}>
-        <Doughnut data={data} options={{legend: { display: true, position: "right", labels: {fontSize: 25} },
+        <Doughnut data={data} options={{legend: { display: true, position: "right", labels: {fontSize: 12} },
         tooltips: {
           callbacks: {
             label: function(tooltipItem, data) {

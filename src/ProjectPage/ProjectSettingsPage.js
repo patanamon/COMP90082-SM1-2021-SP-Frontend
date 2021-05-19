@@ -21,18 +21,21 @@ const label = {
   margin: "10px",
 };
 
-let teamInfo = localStorage.getItem(commonConstants.TEAM_CONFIG_INFO) ? JSON.parse(localStorage.getItem(commonConstants.TEAM_CONFIG_INFO)) : {};
+let teamInfo = localStorage.getItem(commonConstants.TEAM_CONFIG_INFO)
+  ? JSON.parse(localStorage.getItem(commonConstants.TEAM_CONFIG_INFO))
+  : {};
 
-class ProjectSettingsPage extends React.Component { 
-  //This is just as an example to populate the table
+class ProjectSettingsPage extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      jiraWebsite: JSON.stringify(teamInfo) == '{}' ? "" : teamInfo.jira_url,
-      githubWebsite: JSON.stringify(teamInfo) == '{}' ? "" : teamInfo.git_url,
-      githubUsername: JSON.stringify(teamInfo) == '{}' ? "" : teamInfo.git_username,
-      githubPassword: JSON.stringify(teamInfo) == '{}' ? "" : teamInfo.git_password, 
+      jiraWebsite: JSON.stringify(teamInfo) == "{}" ? "" : teamInfo.jira_url,
+      githubWebsite: JSON.stringify(teamInfo) == "{}" ? "" : teamInfo.git_url,
+      githubUsername:
+        JSON.stringify(teamInfo) == "{}" ? "" : teamInfo.git_username,
+      githubPassword:
+        JSON.stringify(teamInfo) == "{}" ? "" : teamInfo.git_password,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -47,7 +50,7 @@ class ProjectSettingsPage extends React.Component {
 
   handleSubmit(e) {
     this.props.setTeamInfo(
-      "COMP900822021SM1SP",
+      this.props.currentTeamKey,
       this.state.jiraWebsite,
       this.state.githubWebsite,
       this.state.githubUsername,
@@ -55,14 +58,14 @@ class ProjectSettingsPage extends React.Component {
     );
     e.preventDefault();
   }
-  
+
   render() {
     return (
-      <div class="uomcontent">
+      <div className="uomcontent">
         {uomHeader("Project Configuration")}
         <div role="main">
           <div className="page-inner">
-            <Banner projName="2021-SM1-Software-Project-Database" />
+            <Banner projName={this.props.currentTeamName} />
             <Spin spinning={this.props.requestSetTeamInfo}>
               <div className="web">
                 <form onSubmit={this.handleSubmit}>
@@ -78,7 +81,6 @@ class ProjectSettingsPage extends React.Component {
                   </label>
 
                   <br />
-
 
                   <label style={label}>
                     Git:
@@ -117,7 +119,7 @@ class ProjectSettingsPage extends React.Component {
                     />
                   </label>
 
-                  <div style={{textAlign:"right"}} id="savechanges">
+                  <div style={{ textAlign: "right" }} id="savechanges">
                     <input type="submit" value="Submit" />
                   </div>
                 </form>
@@ -135,6 +137,8 @@ function mapState(state) {
   return {
     requestSetTeamInfo: state.user.requestSetTeamInfo,
     teamInfo: state.user.teamInfo,
+    currentTeamKey: state.user.currentTeamKey,
+    currentTeamName: state.user.currentTeamName,
   };
 }
 

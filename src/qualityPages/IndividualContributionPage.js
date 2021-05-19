@@ -2,7 +2,6 @@ import React from "react";
 import uomHeader from "../header/uomheader.js";
 import { connect } from "react-redux";
 import { userActions } from "../_actions";
-//import { storeGet } from "../_helpers/helper-funcs.js";
 import { Tab, Col, Row, Container, Form } from "react-bootstrap";
 import ButtonGroup from "../_utils/ButtonGroup";
 import { commonConstants } from "../_constants";
@@ -25,7 +24,7 @@ class IndividualContributionPage extends React.Component {
 
       selectedStudent: "All",
       studentList: [],
-    }
+    };
 
     this.selectStudent = this.selectStudent.bind(this);
     this.handleBtnGroupClick = this.handleBtnGroupClick.bind(this);
@@ -34,16 +33,15 @@ class IndividualContributionPage extends React.Component {
   handleBtnGroupClick(e) {
     let picked = e.currentTarget.firstChild.innerHTML;
     if (picked === commonConstants.CONFLUENCE) {
-        this.props.getConfluenceIndividualData("COMP900822021SM1SP");
-        
+      this.props.getConfluenceIndividualData(this.props.currentTeamKey);
     } else if (picked === commonConstants.GITHUB) {
-        this.props.getGithubIndividualData("COMP900822021SM1SP");
+      this.props.getGithubIndividualData(this.props.currentTeamKey);
     } else {
-        this.props.getJiraIndividualData("swen90013-2020-sp");
+      this.props.getJiraIndividualData(this.props.currentTeamKey);
     }
     this.setState({
-        btnSelected: picked,
-        selectedStudent: "All"
+      btnSelected: picked,
+      selectedStudent: "All",
     });
   }
 
@@ -52,52 +50,102 @@ class IndividualContributionPage extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getConfluenceIndividualData("COMP900822021SM1SP");
-    
+    this.props.getConfluenceIndividualData(this.props.currentTeamKey);
   }
 
   render() {
-
     return (
       <div className="uomcontent">
         <ToastContainer limit={1} />
-        {uomHeader("Individual Contribution Page")}
+        {uomHeader("Individual Contribution")}
         <div role="main">
           <div className="page-inner">
-          <Banner projName="2021-SM1-Software-Project" />
+            <Banner projName={this.props.currentTeamName} />
             <Container>
               <Tab.Container id="left-tabs-example">
                 <Row>
                   <Col>
-                  <ButtonGroup
-                    btnNames={this.state.btnNames}
-                    clickHandler={this.handleBtnGroupClick}
-                    selected={this.state.btnSelected}
-                  />
+                    <ButtonGroup
+                      btnNames={this.state.btnNames}
+                      clickHandler={this.handleBtnGroupClick}
+                      selected={this.state.btnSelected}
+                    />
                   </Col>
                   <Col>
-                      {this.state.btnSelected === commonConstants.CONFLUENCE && typeof this.props.individualConfluenceData !== "undefined" && (
-                        <DropdownMenus data={this.props.individualConfluenceData["All"].labels} onChange={this.selectStudent} value = {this.state.selectedStudent}/>
+                    {this.state.btnSelected === commonConstants.CONFLUENCE &&
+                      typeof this.props.individualConfluenceData !==
+                        "undefined" &&
+                      JSON.stringify(this.props.individualConfluenceData) !== "{}" && (
+                        <DropdownMenus
+                          data={
+                            this.props.individualConfluenceData["All"].labels
+                          }
+                          onChange={this.selectStudent}
+                          value={this.state.selectedStudent}
+                        />
                       )}
-                      {this.state.btnSelected === commonConstants.GITHUB && typeof this.props.individualGithubData !== "undefined" && (
-                          <DropdownMenus data={this.props.individualGithubData["All"].labels} onChange={this.selectStudent} value = {this.state.selectedStudent} />
+                    {this.state.btnSelected === commonConstants.GITHUB &&
+                      typeof this.props.individualGithubData !==
+                        "undefined" && JSON.stringify(this.props.individualGithubData) !== "{}" && (
+                        <DropdownMenus
+                          data={this.props.individualGithubData["All"].labels}
+                          onChange={this.selectStudent}
+                          value={this.state.selectedStudent}
+                        />
                       )}
 
-                      {this.state.btnSelected === commonConstants.JIRA && typeof this.props.individualJiraData !== "undefined" && (
-                     <DropdownMenus data={this.props.individualJiraData["All"].labels} onChange={this.selectStudent} value = {this.state.selectedStudent} />
+                    {this.state.btnSelected === commonConstants.JIRA &&
+                      typeof this.props.individualJiraData !== "undefined" && JSON.stringify(this.props.individualJiraData) !== "{}" && (
+                        <DropdownMenus
+                          data={this.props.individualJiraData["All"].labels}
+                          onChange={this.selectStudent}
+                          value={this.state.selectedStudent}
+                        />
                       )}
-                    </Col>
+                  </Col>
                   <Col>
-                
-                    {this.state.btnSelected === commonConstants.CONFLUENCE && typeof this.props.individualConfluenceData !== "undefined" && (
-                    <DonutChart data={JSON.parse(JSON.stringify(this.props.individualConfluenceData[this.state.selectedStudent]))} dataLabel={"Edited Pages"} />
-                    )} 
-                    {this.state.btnSelected === commonConstants.GITHUB && typeof this.props.individualGithubData !== "undefined" && (
-                    <DonutChart data={JSON.parse(JSON.stringify(this.props.individualGithubData[this.state.selectedStudent]))} dataLabel={"Number of Commits"} />
-                    )}
-                    {this.state.btnSelected === commonConstants.JIRA && typeof this.props.individualJiraData !== "undefined" &&(
-                    <DonutChart data={JSON.parse(JSON.stringify(this.props.individualJiraData[this.state.selectedStudent])) } dataLabel={"Completed Tasks"} />
-                    )}
+                    {this.state.btnSelected === commonConstants.CONFLUENCE &&
+                      typeof this.props.individualConfluenceData !==
+                        "undefined" &&
+                        JSON.stringify(this.props.individualConfluenceData) !== "{}" && (
+                        <DonutChart
+                          data={JSON.parse(
+                            JSON.stringify(
+                              this.props.individualConfluenceData[
+                                this.state.selectedStudent
+                              ]
+                            )
+                          )}
+                          dataLabel={"Edited Pages"}
+                        />
+                      )}
+                    {this.state.btnSelected === commonConstants.GITHUB &&
+                      typeof this.props.individualGithubData !==
+                        "undefined" && JSON.stringify(this.props.individualGithubData) !== "{}" && (
+                        <DonutChart
+                          data={JSON.parse(
+                            JSON.stringify(
+                              this.props.individualGithubData[
+                                this.state.selectedStudent
+                              ]
+                            )
+                          )}
+                          dataLabel={"Number of Commits"}
+                        />
+                      )}
+                    {this.state.btnSelected === commonConstants.JIRA &&
+                      typeof this.props.individualJiraData !== "undefined" && JSON.stringify(this.props.individualJiraData) !== "{}" && (
+                        <DonutChart
+                          data={JSON.parse(
+                            JSON.stringify(
+                              this.props.individualJiraData[
+                                this.state.selectedStudent
+                              ]
+                            )
+                          )}
+                          dataLabel={"Completed Tasks"}
+                        />
+                      )}
                   </Col>
                 </Row>
               </Tab.Container>
@@ -106,23 +154,23 @@ class IndividualContributionPage extends React.Component {
         </div>
       </div>
     );
-  } 
   }
-
-
+}
 
 function mapState(state) {
-    return{
-        individualGithubData: state.user.individualGitHubCommits,
-        individualConfluenceData: state.user.individualConfluencePages,
-        individualJiraData: state.user.individualJiraCounts
-    };
+  return {
+    individualGithubData: state.user.individualGitHubCommits,
+    individualConfluenceData: state.user.individualConfluencePages,
+    individualJiraData: state.user.individualJiraCounts,
+    currentTeamKey: state.user.currentTeamKey,
+    currentTeamName: state.user.currentTeamName,
+  };
 }
 
 const actionCreators = {
-    getGithubIndividualData: userActions.getGithubIndividualData,
-    getConfluenceIndividualData: userActions.getConfluenceIndividualData,
-    getJiraIndividualData: userActions.getJiraIndividualData
+  getGithubIndividualData: userActions.getGithubIndividualData,
+  getConfluenceIndividualData: userActions.getConfluenceIndividualData,
+  getJiraIndividualData: userActions.getJiraIndividualData,
 };
 
 const Product = connect(mapState, actionCreators)(IndividualContributionPage);
