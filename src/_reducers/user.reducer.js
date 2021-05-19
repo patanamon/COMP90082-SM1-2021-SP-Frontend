@@ -202,11 +202,13 @@ export function user(state = initState, action) {
         ...state,
         requestTeamMemberList: false,
         teamMemberList: action.payload,
+        getTeamMemberListSuccess: true,
       };
     case userConstants.GET_TEAM_MEMBER_LIST_FAILURE:
       return {
         ...state,
         requestTeamMemberList: false,
+        getTeamMemberListSuccess: false,
       };
     case userConstants.GET_TEAM_MEMBER_NUMBER_SUCCESS:
       return {
