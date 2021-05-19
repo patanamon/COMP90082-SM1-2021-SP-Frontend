@@ -6,12 +6,15 @@ import { userActions } from "../_actions";
 import { ToastContainer } from "react-toastify";
 import { Spin } from "antd";
 import { commonConstants } from "../_constants";
+import { Input} from 'antd';
+
+
 
 const input = {
   width: "642px",
   margin: "10px auto",
   borderRadius: "4px",
-  padding: "4px",
+  padding: "8px",
 };
 
 const label = {
@@ -47,8 +50,17 @@ class ProjectSettingsPage extends React.Component {
       [e.target.name]: e.target.value,
     });
   }
-
+  
+  
   handleSubmit(e) {
+    if(!(/^(?:http(s)?:\/\/)/.test(this.state.jiraWebsite))) {
+      alert('Please input valid jira url!');
+      
+    };
+    if(!(/^(?:http(s)?:\/\/)/.test(this.state.githubWebsite))) {
+      alert('Please input valid git url!');
+      
+    };
     this.props.setTeamInfo(
       this.props.currentTeamKey,
       this.state.jiraWebsite,
@@ -70,21 +82,22 @@ class ProjectSettingsPage extends React.Component {
               <div className="web">
                 <form onSubmit={this.handleSubmit}>
                   <label style={label}>
-                    Jira:
-                    <input
+                    Jira Url:
+                    <Input
                       type="text"
                       style={input}
                       value={this.state.jiraWebsite}
                       name="jiraWebsite"
                       onChange={this.handleChange}
                     />
+                    
                   </label>
 
                   <br />
 
                   <label style={label}>
-                    Git:
-                    <input
+                    Git Url:
+                    <Input
                       type="text"
                       style={input}
                       value={this.state.githubWebsite}
@@ -92,12 +105,12 @@ class ProjectSettingsPage extends React.Component {
                       onChange={this.handleChange}
                     />
                   </label>
-
+ 
                   <br />
 
                   <label style={label}>
                     Git Username:
-                    <input
+                    <Input
                       type="text"
                       style={input}
                       value={this.state.githubUsername}
@@ -110,12 +123,12 @@ class ProjectSettingsPage extends React.Component {
 
                   <label style={label}>
                     Git Password:
-                    <input
-                      type="text"
+                    <Input
+                      type="password"
                       style={input}
                       value={this.state.githubPassword}
                       name="githubPassword"
-                      onChange={this.handleChange}
+                      onChange={this.handleChange} 
                     />
                   </label>
 
