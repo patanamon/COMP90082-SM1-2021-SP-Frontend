@@ -1,5 +1,5 @@
 export const alertConstants = {
-  NO_DATA: "NO DATA TO DISPLAY",
-  NOT_FOUND: "404 NOT FOUND",
-  WRONG_CONFIG: "MEMBERS IN THE SPACE EXCEED THE LIMIT, CHECK THE VISIBILITY SETTING OF THE CONFLUENCE SPACE",
+  NO_DATA: "No data to display",
+  NOT_FOUND: "404 not found",
+  WRONG_CONFIG: "Members in the space exceed the limit. Check the visibility setting of the Confluence space",
 };

@@ -435,7 +435,7 @@ function setCurrentTeamKey(teamKey) {
 
 function getTeamMemberList(teamKey) {
   return (dispatch) => {
-    userService.getTeamMemberList(teamKey).then(
+    return userService.getTeamMemberList(teamKey).then(
       (response) => {
         dispatch(
           success(

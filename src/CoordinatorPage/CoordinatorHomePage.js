@@ -19,6 +19,8 @@ import { Drawer } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import { ToastContainer } from "react-toastify";
 import { Spin } from "antd";
+import { formatDrawerData } from "../_utils/formatDrawerData.js";
+import { alertConstants } from "../_constants";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -38,18 +40,6 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-function createData(name, email) {
-  return { name, email };
-}
-
-const rows = [
-  createData("Student 1", "student1@student.unimelb.edu.au"),
-  createData("Student 2", "student2@student.unimelb.edu.au"),
-  createData("Student 3", "student3@student.unimelb.edu.au"),
-  createData("Student 4", "student4@student.unimelb.edu.au"),
-  createData("Student 5", "student5@student.unimelb.edu.au"),
-];
-
 class CoordinatorHomePage extends Component {
   constructor(props) {
     super(props);
@@ -60,14 +50,38 @@ class CoordinatorHomePage extends Component {
       spaceLinks: [],
       options: [],
       wait: false,
+      drawerWait: false,
+      drawerData: [],
+      drawerSpaceName: "",
     };
     this.getSearchResult = this.getSearchResult.bind(this);
     this.handleRedirect = this.handleRedirect.bind(this);
   }
 
-  toggleDrawerStatus = () => {
+  toggleDrawerStatus = ({ spacekey, spaceName }) => {
     this.setState({
       isDrawerOpened: true,
+      drawerWait: true,
+    });
+    this.props.getTeamMemberList(spacekey).then(() => {
+      if (
+        this.props.getTeamMemberListSuccess &&
+        this.props.teamMemberList &&
+        this.props.teamMemberList.length != 0
+      ) {
+        let formattedData = formatDrawerData(this.props.teamMemberList);
+        this.setState({
+          drawerData: formattedData,
+          drawerSpaceName: spaceName,
+          drawerWait: false,
+        });
+      } else {
+        this.setState({
+          drawerData: [],
+          drawerSpaceName: "",
+          drawerWait: false,
+        });
+      }
     });
   };
 
@@ -84,37 +98,53 @@ class CoordinatorHomePage extends Component {
     });
     setTimeout(() => {
       this.props.getImportedProject().then(() => {
-        let formattedData = formatImportedProjectData(
-          this.props.importedProject
-        );
-        console.log(formattedData);
-        this.setState({
-          spaceKeys: formattedData.spaceKeys,
-          spaceNames: formattedData.spaceNames,
-          spaceLinks: formattedData.spaceLinks,
-          wait: false,
-        });
+        if (
+          this.props.importedProject &&
+          this.props.importedProject.length != 0
+        ) {
+          let formattedData = formatImportedProjectData(
+            this.props.importedProject
+          );
+          this.setState({
+            spaceKeys: formattedData.spaceKeys,
+            spaceNames: formattedData.spaceNames,
+            spaceLinks: formattedData.spaceLinks,
+            wait: false,
+          });
+        } else {
+          this.setState({
+            wait: false,
+          });
+        }
       });
     }, 2000);
   };
 
   handleDelete = (key) => {
-    this.props.deleteImportedProject(key)
+    this.props.deleteImportedProject(key);
     this.setState({
       wait: true,
     });
     setTimeout(() => {
       this.props.getImportedProject().then(() => {
-        let formattedData = formatImportedProjectData(
-          this.props.importedProject
-        );
-        console.log(formattedData);
-        this.setState({
-          spaceKeys: formattedData.spaceKeys,
-          spaceNames: formattedData.spaceNames,
-          spaceLinks: formattedData.spaceLinks,
-          wait: false,
-        });
+        if (
+          this.props.importedProject &&
+          this.props.importedProject.length != 0
+        ) {
+          let formattedData = formatImportedProjectData(
+            this.props.importedProject
+          );
+          this.setState({
+            spaceKeys: formattedData.spaceKeys,
+            spaceNames: formattedData.spaceNames,
+            spaceLinks: formattedData.spaceLinks,
+            wait: false,
+          });
+        } else {
+          this.setState({
+            wait: false,
+          });
+        }
       });
     }, 2000);
   };
@@ -129,9 +159,7 @@ class CoordinatorHomePage extends Component {
       wait: true,
     });
     this.props.getImportedProject().then(() => {
-      let formattedData = formatImportedProjectData(
-        this.props.importedProject
-      );
+      let formattedData = formatImportedProjectData(this.props.importedProject);
       this.setState({
         spaceKeys: formattedData.spaceKeys,
         spaceNames: formattedData.spaceNames,
@@ -198,7 +226,8 @@ class CoordinatorHomePage extends Component {
                     {this.state.spaceKeys.map((key) => (
                       <StyledTableRow key={key}>
                         <StyledTableCell component="th" scope="row">
-                          <a data-key={key}
+                          <a
+                            data-key={key}
                             style={{ textDecoration: "none" }}
                             href="/project"
                             onClick={this.handleRedirect}
@@ -237,7 +266,15 @@ class CoordinatorHomePage extends Component {
                           <Button
                             variant="contained"
                             color="primary"
-                            onClick={this.toggleDrawerStatus}
+                            onClick={() => {
+                              this.toggleDrawerStatus({
+                                spacekey: key,
+                                spaceName:
+                                  this.state.spaceNames[
+                                    this.state.spaceKeys.indexOf(key)
+                                  ],
+                              });
+                            }}
                           >
                             View
                           </Button>
@@ -248,47 +285,54 @@ class CoordinatorHomePage extends Component {
                 </Table>
               </TableContainer>
             </Spin>
+
             <Drawer
               variant="temporary"
               open={this.state.isDrawerOpened}
               onClose={this.closeDrawer}
               anchor="right"
             >
-              <TableContainer component={Paper}>
-                <p> </p>
-                <div align="center">
-                  <h2>Project Name</h2>
-                </div>
-                <p> </p>
-                <Table aria-label="simple table">
-                  <TableHead>
-                    <StyledTableRow align="center">
-                      <StyledTableCell align="center">
-                        Student Name
-                      </StyledTableCell>
-                      <StyledTableCell align="center">
-                        Student Email
-                      </StyledTableCell>
-                    </StyledTableRow>
-                  </TableHead>
-                  <TableBody>
-                    {rows.map((row) => (
-                      <StyledTableRow key={row.name}>
-                        <StyledTableCell
-                          component="th"
-                          scope="row"
-                          align="center"
-                        >
-                          {row.name}
+              <Spin spinning={this.state.drawerWait}>
+                <TableContainer component={Paper}>
+                  <p> </p>
+                  <div align="center">
+                    <h2>
+                      {this.state.drawerSpaceName == ""
+                        ? alertConstants.NO_DATA
+                        : this.state.drawerSpaceName}
+                    </h2>
+                  </div>
+                  <p> </p>
+                  <Table aria-label="simple table">
+                    <TableHead>
+                      <StyledTableRow align="center">
+                        <StyledTableCell align="center">
+                          Student Name
                         </StyledTableCell>
                         <StyledTableCell align="center">
-                          {row.email}
+                          Student Email
                         </StyledTableCell>
                       </StyledTableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
+                    </TableHead>
+                    <TableBody>
+                      {this.state.drawerData.map((row, index) => (
+                        <StyledTableRow key={index}>
+                          <StyledTableCell
+                            component="th"
+                            scope="row"
+                            align="center"
+                          >
+                            {row.name}
+                          </StyledTableCell>
+                          <StyledTableCell align="center">
+                            {row.email}
+                          </StyledTableCell>
+                        </StyledTableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </Spin>
             </Drawer>
           </div>
         </div>
@@ -308,6 +352,8 @@ function mapState(state) {
     deleteImportedProject: state.user.deleteImportedProject,
     importSuccess: state.user.importProjectSuccess,
     deleteSuccess: state.user.deleteProjectSuccess,
+    teamMemberList: state.user.teamMemberList,
+    getTeamMemberListSuccess: state.user.getTeamMemberListSuccess,
   };
 }
 const actionCreators = {
@@ -317,6 +363,7 @@ const actionCreators = {
   deleteImportedProject: userActions.deleteImportedProject,
   setCurrentTeamKey: userActions.setCurrentTeamKey,
   setCurrentTeamName: userActions.setCurrentTeamName,
+  getTeamMemberList: userActions.getTeamMemberList,
 };
 
 const homePage = connect(mapState, actionCreators)(CoordinatorHomePage);
