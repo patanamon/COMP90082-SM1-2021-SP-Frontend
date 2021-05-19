@@ -56,7 +56,11 @@ function formatDonutChartDataForOneStudent(formattedData, student, colorForOther
     }
 
     let result = {
+<<<<<<< HEAD
       labels: [student, "Other else students"],
+=======
+      labels: [student, "Other students"],
+>>>>>>> db9e65837e2a0dc33c1746c1aa9873688b9180f9
       datasets: [{
         label: formattedData.datasets[0].label,
         data: [formattedData.datasets[0].data[index], excludedSum],

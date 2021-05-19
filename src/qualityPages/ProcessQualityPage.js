@@ -31,11 +31,11 @@ class ProcessQualityPage extends React.Component {
   handleBtnGroupClick(e) {
     let selected = e.currentTarget.firstChild.innerHTML;
     if (selected == commonConstants.CONFLUENCE) {
-      this.props.getTeamConfluencePages("COMP900822021SM1SP");
+      this.props.getTeamConfluencePages(this.props.currentTeamKey);
     } else if (selected == commonConstants.GITHUB) {
-      this.props.getTeamGithubCommits("COMP900822021SM1SP");
+      this.props.getTeamGithubCommits(this.props.currentTeamKey);
     } else {
-      this.props.getTeamJiraTickets("COMP900822021SM1SP");
+      this.props.getTeamJiraTickets(this.props.currentTeamKey);
     }
     this.setState({
       btnSelected: selected,
@@ -49,7 +49,7 @@ class ProcessQualityPage extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getTeamConfluencePages("COMP900822021SM1SP");
+    this.props.getTeamConfluencePages(this.props.currentTeamKey);
     window.addEventListener("scroll", this.handleScroll);
   }
 
@@ -67,7 +67,7 @@ class ProcessQualityPage extends React.Component {
         {uomHeader("Process Quality")}
         <div role="main">
           <div className="page-inner">
-            <Banner projName="2021-SM1-Software-Project-Database" />
+            <Banner projName={this.props.currentTeamName} />
             <ButtonGroup
               btnNames={this.state.btnNames}
               clickHandler={this.handleBtnGroupClick}
@@ -106,6 +106,8 @@ function mapState(state) {
     confluenceData: state.user.teamConfluencePages,
     githubData: state.user.teamGithubCommits,
     jiraData: state.user.teamJiraTickets,
+    currentTeamKey: state.user.currentTeamKey,
+    currentTeamName: state.user.currentTeamName,
   };
 }
 

@@ -1,5 +1,10 @@
 /*! normalize.css v5.0.0 | MIT License | github.com/necolas/normalize.css */
 
+#title {
+  text-align: center;
+  font-family: arial, sans-serif;
+}
+
 html {
   font-family: sans-serif;
   line-height: 1.15;
@@ -48,6 +53,7 @@ pre {
 
 a {
   background-color: transparent;
+  text-decoration: none;
   -webkit-text-decoration-skip: objects;
 }
 
