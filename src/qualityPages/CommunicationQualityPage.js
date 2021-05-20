@@ -40,7 +40,7 @@ class CommunicationPage extends React.Component {
             <Banner projName={this.props.currentTeamName} />
             {(!this.props.confluenceData ||
               this.props.confluenceData.length == 0) && (
-              <InformationalNote message={alertConstants.NO_DATA} />
+              <InformationalNote message={alertConstants.NO_MEETING_MINUTES} />
             )}
             {this.props.confluenceData &&
               this.props.confluenceData.length != 0 && (
