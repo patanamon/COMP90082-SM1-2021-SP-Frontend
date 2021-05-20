@@ -333,6 +333,13 @@ src/ProjectPage/ProjectSettingsPage.js
 
 This page allows the user to check and update the link of Github, Jira. Paste the link of the two channels on this page to get all the information easily on other pages. 
 
+## 8. Login/ Register Page 
+
+Relevant files are:
+src/LoginRegister/LoginPage.js
+& src/LoginRegister/RegisterPage.js
+
+
 <h1 id="5.0"> 5.0 Architecture Diagrams </h1>
 
 ### Use Case Diagram
