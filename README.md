@@ -2,7 +2,7 @@
 
       This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-# CIS Software Engineering Project System
+# COMP90082 Software Project - Software Project Databases
 
 This project aims to have a software system that automatically gathers and summarise all aspects of the software engineering activities of CIS (Computing and Information Systems) Software Projects (COMP90082) developed. This will allow course coordinators to monitor and promptly provide meaningful feedback to teams, improve the quality of processes used in development and software systems developed, thus ensuring software deployment at the end of every project.
 
@@ -68,7 +68,7 @@ The steps for installing and deploying Software Project easily is as follows:
 6. Start server python manage.py runserver,  the back-end is now running on http://127.0.0.1:8000/  
 
 
-## Available Scripts (need update?)
+## Available Scripts
 
 In the project directory, you can run:
 
