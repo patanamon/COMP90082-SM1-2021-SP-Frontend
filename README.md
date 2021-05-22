@@ -236,10 +236,13 @@ https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/Design+upd
 ## 6. Team Configuration Page 
 
 As a coordinator, you may update the team configuration by clicking on the 'Configuration' button on the sidebar. Here the URLs for each of the team's tools should be set (currently not implemented). The account names/ emails for each team member's Slack and github accounts must be set in order to access their individual details in the 'Individual Contribution' section.
+Here is the link to the UI of the current configuration page.
 https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/Design+update+-+Front-end+team#DesignupdateFrontendteam-7.Configuration
 
 ## 7. Login Page
-This page is the entry page to an SP project that requires user identification and authentication, performed by entering a username which is an email address and password combination.
+
+On the Login page, you can log in to the SP project by entering your email address and password. 
+Here is the link to the UI of the current login page.
 https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/Design+update+-+Front-end+team+S2#DesignupdateFrontendteamS2-8.Loginpage
 
 
