@@ -159,13 +159,24 @@ class CoordinatorHomePage extends Component {
       wait: true,
     });
     this.props.getImportedProject().then(() => {
-      let formattedData = formatImportedProjectData(this.props.importedProject);
-      this.setState({
-        spaceKeys: formattedData.spaceKeys,
-        spaceNames: formattedData.spaceNames,
-        spaceLinks: formattedData.spaceLinks,
-        wait: false,
-      });
+      if (
+        this.props.importedProject &&
+        this.props.importedProject.length != 0
+      ) {
+        let formattedData = formatImportedProjectData(
+          this.props.importedProject
+        );
+        this.setState({
+          spaceKeys: formattedData.spaceKeys,
+          spaceNames: formattedData.spaceNames,
+          spaceLinks: formattedData.spaceLinks,
+          wait: false,
+        });
+      } else {
+        this.setState({
+          wait: false,
+        });
+      }
     });
   }
 

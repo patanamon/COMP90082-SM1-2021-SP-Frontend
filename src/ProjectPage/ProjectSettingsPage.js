@@ -5,10 +5,7 @@ import { connect } from "react-redux";
 import { userActions } from "../_actions";
 import { ToastContainer } from "react-toastify";
 import { Spin } from "antd";
-import { commonConstants } from "../_constants";
-import { Input} from 'antd';
-
-
+import { Input } from "antd";
 
 const input = {
   width: "642px",
@@ -24,21 +21,35 @@ const label = {
   margin: "10px",
 };
 
-let teamInfo = localStorage.getItem(commonConstants.TEAM_CONFIG_INFO)
-  ? JSON.parse(localStorage.getItem(commonConstants.TEAM_CONFIG_INFO))
-  : {};
-
 class ProjectSettingsPage extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      jiraWebsite: JSON.stringify(teamInfo) == "{}" ? "" : teamInfo.jira_url,
-      githubWebsite: JSON.stringify(teamInfo) == "{}" ? "" : teamInfo.git_url,
+      jiraWebsite:
+        this.props.teamInfo &&
+        this.props.teamInfo[this.props.currentTeamKey] &&
+        this.props.teamInfo[this.props.currentTeamKey].jiraUrl
+          ? this.props.teamInfo[this.props.currentTeamKey].jiraUrl
+          : "",
+      githubWebsite:
+        this.props.teamInfo &&
+        this.props.teamInfo[this.props.currentTeamKey] &&
+        this.props.teamInfo[this.props.currentTeamKey].githubUrl
+          ? this.props.teamInfo[this.props.currentTeamKey].githubUrl
+          : "",
       githubUsername:
-        JSON.stringify(teamInfo) == "{}" ? "" : teamInfo.git_username,
+        this.props.teamInfo &&
+        this.props.teamInfo[this.props.currentTeamKey] &&
+        this.props.teamInfo[this.props.currentTeamKey].githubUsername
+          ? this.props.teamInfo[this.props.currentTeamKey].githubUsername
+          : "",
       githubPassword:
-        JSON.stringify(teamInfo) == "{}" ? "" : teamInfo.git_password,
+        this.props.teamInfo &&
+        this.props.teamInfo[this.props.currentTeamKey] &&
+        this.props.teamInfo[this.props.currentTeamKey].githubPassword
+          ? this.props.teamInfo[this.props.currentTeamKey].githubPassword
+          : "",
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -50,25 +61,53 @@ class ProjectSettingsPage extends React.Component {
       [e.target.name]: e.target.value,
     });
   }
-  
-  
+
   handleSubmit(e) {
-    if(!(/^(?:http(s)?:\/\/)/.test(this.state.jiraWebsite))) {
-      alert('Please input valid jira url!');
-      
-    };
-    if(!(/^(?:http(s)?:\/\/)/.test(this.state.githubWebsite))) {
-      alert('Please input valid git url!');
-      
-    };
-    this.props.setTeamInfo(
-      this.props.currentTeamKey,
-      this.state.jiraWebsite,
-      this.state.githubWebsite,
-      this.state.githubUsername,
-      this.state.githubPassword
-    );
     e.preventDefault();
+    if (!/^(?:http(s)?:\/\/)/.test(this.state.jiraWebsite)) {
+      alert("Please input valid jira url!");
+    }
+    if (!/^(?:http(s)?:\/\/)/.test(this.state.githubWebsite)) {
+      alert("Please input valid git url!");
+    }
+    this.props
+      .setTeamInfo(
+        this.props.currentTeamKey,
+        this.state.jiraWebsite,
+        this.state.githubWebsite,
+        this.state.githubUsername,
+        this.state.githubPassword
+      )
+      .then(() => {
+        if (!this.props.setTeamInfoSuccess) {
+          this.setState({
+            jiraWebsite:
+              this.props.teamInfo &&
+              this.props.teamInfo[this.props.currentTeamKey] &&
+              this.props.teamInfo[this.props.currentTeamKey].jiraUrl
+                ? this.props.teamInfo[this.props.currentTeamKey].jiraUrl
+                : "",
+            githubWebsite:
+              this.props.teamInfo &&
+              this.props.teamInfo[this.props.currentTeamKey] &&
+              this.props.teamInfo[this.props.currentTeamKey].githubUrl
+                ? this.props.teamInfo[this.props.currentTeamKey].githubUrl
+                : "",
+            githubUsername:
+              this.props.teamInfo &&
+              this.props.teamInfo[this.props.currentTeamKey] &&
+              this.props.teamInfo[this.props.currentTeamKey].githubUsername
+                ? this.props.teamInfo[this.props.currentTeamKey].githubUsername
+                : "",
+            githubPassword:
+              this.props.teamInfo &&
+              this.props.teamInfo[this.props.currentTeamKey] &&
+              this.props.teamInfo[this.props.currentTeamKey].githubPassword
+                ? this.props.teamInfo[this.props.currentTeamKey].githubPassword
+                : "",
+          });
+        }
+      });
   }
 
   render() {
@@ -90,7 +129,6 @@ class ProjectSettingsPage extends React.Component {
                       name="jiraWebsite"
                       onChange={this.handleChange}
                     />
-                    
                   </label>
 
                   <br />
@@ -105,7 +143,7 @@ class ProjectSettingsPage extends React.Component {
                       onChange={this.handleChange}
                     />
                   </label>
- 
+
                   <br />
 
                   <label style={label}>
@@ -124,11 +162,11 @@ class ProjectSettingsPage extends React.Component {
                   <label style={label}>
                     Git Password:
                     <Input
-                      type="password"
+                      type="text"
                       style={input}
                       value={this.state.githubPassword}
                       name="githubPassword"
-                      onChange={this.handleChange} 
+                      onChange={this.handleChange}
                     />
                   </label>
 
@@ -152,6 +190,7 @@ function mapState(state) {
     teamInfo: state.user.teamInfo,
     currentTeamKey: state.user.currentTeamKey,
     currentTeamName: state.user.currentTeamName,
+    setTeamInfoSuccess: state.user.setTeamInfoSuccess,
   };
 }
 

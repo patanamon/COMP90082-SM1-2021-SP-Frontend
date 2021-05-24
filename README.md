@@ -2,7 +2,7 @@
 
       This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-# CIS Software Engineering Project System
+# COMP90082 Software Project - Software Project Databases
 
 This project aims to have a software system that automatically gathers and summarise all aspects of the software engineering activities of CIS (Computing and Information Systems) Software Projects (COMP90082) developed. This will allow course coordinators to monitor and promptly provide meaningful feedback to teams, improve the quality of processes used in development and software systems developed, thus ensuring software deployment at the end of every project.
 
@@ -68,7 +68,7 @@ The steps for installing and deploying Software Project easily is as follows:
 6. Start server python manage.py runserver,  the back-end is now running on http://127.0.0.1:8000/  
 
 
-## Available Scripts (need update?)
+## Available Scripts
 
 In the project directory, you can run:
 
@@ -207,36 +207,43 @@ Please note that the subject selection bar are currently not functional.
 
 As a coordinator, click on the specific project name to access the details about that team. Currently, this button is hardcoded to link to team SP's details and will need to be extended in order to view the details of any team.
 
-## 2. Viewing Team's Product Quality
-In product quality page includes statistical and/or graphical summaries by code analysed tool (TBC) on: Code quality, Test code quality. For Software Engineering tools include Git (Team's choice of GitHub, GitLab or Bitbucket).
-Here is the link to the UI of the product quality page. 
-https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/Design+update+-+Front-end+team#DesignupdateFrontendteam-4.Productquality 
 
-## 3. Team Configuration Page 
-
-As a coordinator, you may update the team configuration by clicking on the 'Configuration' button on the sidebar. Here the URLs for each of the team's tools should be set (currently not implemented). The account names/ emails for each team member's Slack and github accounts must be set in order to access their individual details in the 'Individual Contribution' section.
-
-https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/Design+update+-+Front-end+team#DesignupdateFrontendteam-7.Configuration
-
-## 4. Viewing Team's Process Quality
+## 2. Viewing Team's Process Quality
 
 In process quality page includes statistical and/or graphical summaries on sprint velocity and burndown, documentation on Confluence, code review frequency and coverage and code commits. 
 For software engineering tools include GitHub, JIRA and Confluence.
 Here is the link to the UI of the process quality page. 
 https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/Design+update+-+Front-end+team#DesignupdateFrontendteam-3.Processquality
 
-## 5. Viewing Team's Communication Quality
+## 3. Viewing Team's Product Quality
+In product quality page includes statistical and/or graphical summaries by code analysed tool (TBC) on: Code quality, Test code quality. For Software Engineering tools include Git (Team's choice of GitHub, GitLab or Bitbucket).
+Here is the link to the UI of the product quality page. 
+https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/Design+update+-+Front-end+team#DesignupdateFrontendteam-4.Productquality 
+
+## 4. Viewing Team's Communication Quality
 
 In communication quality page includes statistical and/or graphical summaries on comments from engineering tools which are GitHub, Confluence.
 Here is the link to the UI of the current communication quality page. 
 https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/Design+update+-+Front-end+team#DesignupdateFrontendteam-5.Communicationquality
 
-## 6. Viewing Team Individuals' Contribution
+## 5. Viewing Team Individuals' Contribution
 
 In individuals' contribution page includes statistical and/or graphical summaries of every team member's activities which are: task completion on JIRA, Code reviews on Git and Documentation contribution on Confluence.
 For software engineering tools include Git (Team's choice of GitHub, GitLab or BitBucket), JIRA, and Confluence.
 Here is the link to the UI of the current individuals' contribution page.
 https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/Design+update+-+Front-end+team#DesignupdateFrontendteam-6.Individualcontributionpage
+
+## 6. Team Configuration Page 
+
+As a coordinator, you may update the team configuration by clicking on the 'Configuration' button on the sidebar. Here the URLs for each of the team's tools should be set (currently not implemented). The account names/ emails for each team member's Slack and github accounts must be set in order to access their individual details in the 'Individual Contribution' section.
+Here is the link to the UI of the current configuration page.
+https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/Design+update+-+Front-end+team#DesignupdateFrontendteam-7.Configuration
+
+## 7. Login Page
+
+On the Login page, you can log in to the SP project by entering your email address and password. 
+Here is the link to the UI of the current login page.
+https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/Design+update+-+Front-end+team+S2#DesignupdateFrontendteamS2-8.Loginpage
 
 
 <h1 id="4.0"> 4.0 Contributing / Extending </h1>
@@ -332,6 +339,14 @@ Relevant files is:
 src/ProjectPage/ProjectSettingsPage.js
 
 This page allows the user to check and update the link of Github, Jira. Paste the link of the two channels on this page to get all the information easily on other pages. 
+
+## 8. Login Page 
+
+Relevant files are:
+src/LoginRegister/LoginPage.js
+& src/LoginRegister/RegisterPage.js
+
+This page is the entry page to an SP project that requires user identification and authentication, performed by entering a username which is an email address and password combination.
 
 <h1 id="5.0"> 5.0 Architecture Diagrams </h1>
 
