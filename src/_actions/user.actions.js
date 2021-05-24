@@ -208,10 +208,10 @@ function setTeamInfo(
                 },
               })
             );
-            successToast(response.msg);
+            successToast(response.message);
           } else {
             dispatch(failure(userConstants.SETTEAMINFO_FAILURE));
-            failureToast(response.msg);
+            failureToast(response.message);
           }
         },
         (error) => {
@@ -228,9 +228,15 @@ function getTeamCodeMetrics(teamKey) {
   return (dispatch) => {
     userService.getTeamCodeMetrics(teamKey).then(
       (response) => {
-        dispatch(
-          success(userConstants.GET_TEAM_CODE_METRICS_SUCCESS, response.data)
-        );
+        if (checkRespCode(response)) {
+          dispatch(
+            success(userConstants.GET_TEAM_CODE_METRICS_SUCCESS, response.data)
+          );
+        } else {
+          dispatch(
+            failure(userConstants.GET_TEAM_CODE_METRICS_FAILURE, response.message)
+          );
+        }
       },
       (error) => {
         dispatch(
@@ -442,12 +448,21 @@ function getTeamMemberList(teamKey) {
   return (dispatch) => {
     return userService.getTeamMemberList(teamKey).then(
       (response) => {
-        dispatch(
-          success(
-            userConstants.GET_TEAM_MEMBER_LIST_SUCCESS,
-            response.data.user_list
-          )
-        );
+        if (checkRespCode(response)) {
+          dispatch(
+            success(
+              userConstants.GET_TEAM_MEMBER_LIST_SUCCESS,
+              response.data.user_list
+            )
+          );
+        } else {
+          dispatch(
+            failure(
+              userConstants.GET_TEAM_MEMBER_LIST_FAILURE,
+              response.message
+            )
+          );
+        }
       },
       (error) => {
         dispatch(

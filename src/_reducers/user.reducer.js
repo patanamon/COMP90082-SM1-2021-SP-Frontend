@@ -15,7 +15,7 @@ const initState = {
   currentTeamKey: "",
   currentTeamName: "",
   isLogin: false,
-  Login: false,
+  requestLogin: false,
   teamInfo:{},
 };
 
@@ -273,23 +273,25 @@ export function user(state = initState, action) {
     case userConstants.LOGIN_REQUEST:
       return {
         ...state,
-        login: true,
+        requestLogin: true,
       };
     case userConstants.LOGIN_SUCCESS:
       return {
         ...state,
+        requestLogin: false,
         isLogin: true,
-        login: false,
+        isLogout: false,
       };
     case userConstants.LOGIN_FAILURE:
       return {
         ...state,
-        login: false,
+        requestLogin: false,
       };
     case userConstants.LOGOUT_SUCCESS:
       return {
         ...state,
         isLogin: false,
+        isLogout: true,
       };
     default:
       return state;

@@ -1,7 +1,7 @@
 import React from "react";
 import DataTable from "react-data-table-component";
 
-const customStyles = {
+export const customStyles = {
   header: {
     style: {
       fontWeight: "bold",
@@ -21,7 +21,7 @@ export default function Table(props) {
   let tableData = getUserList(props.data, 'user_list');
 
   return (
-    <div style={{ position: "relative", margin: "auto"}}>
+    <div style={{ position: "relative", margin: "auto", width: props.width ? props.width : "80vw" }}>
       <DataTable
         title={props.title}
         columns={props.columns}

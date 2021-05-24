@@ -23,11 +23,15 @@ class CommunicationPage extends React.Component {
           cell: (row) => <a href={row.link}>{row.link}</a>,
         },
       ],
+      hasConfig:
+        this.props.teamInfo && this.props.teamInfo[this.props.currentTeamKey],
     };
   }
 
   componentDidMount() {
-    this.props.getTeamConfluenceMeeting(this.props.currentTeamKey);
+    if (this.state.hasConfig) {
+      this.props.getTeamConfluenceMeeting(this.props.currentTeamKey);
+    }
   }
 
   render() {
@@ -38,11 +42,18 @@ class CommunicationPage extends React.Component {
         <div role="main">
           <div className="page-inner">
             <Banner projName={this.props.currentTeamName} />
-            {(!this.props.confluenceData ||
-              this.props.confluenceData.length == 0) && (
-              <InformationalNote message={alertConstants.NO_DATA} />
+            {!this.state.hasConfig && (
+              <InformationalNote message={alertConstants.NO_CONFIG} />
             )}
-            {this.props.confluenceData &&
+            {this.state.hasConfig &&
+              (!this.props.confluenceData ||
+                this.props.confluenceData.length == 0) && (
+                <InformationalNote
+                  message={alertConstants.NO_MEETING_MINUTES}
+                />
+              )}
+            {this.state.hasConfig &&
+              this.props.confluenceData &&
               this.props.confluenceData.length != 0 && (
                 <Table
                   columns={this.state.columns}
@@ -63,6 +74,7 @@ function mapState(state) {
     confluenceData: state.user.teamConfluenceMeeting,
     currentTeamKey: state.user.currentTeamKey,
     currentTeamName: state.user.currentTeamName,
+    teamInfo: state.user.teamInfo,
   };
 }
 

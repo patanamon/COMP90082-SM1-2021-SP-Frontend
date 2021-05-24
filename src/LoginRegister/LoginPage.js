@@ -4,6 +4,9 @@ import uomHeader from "../header/uomheader.js";
 import { connect } from "react-redux";
 import { userActions } from "../_actions";
 import { ToastContainer } from "react-toastify";
+import { userConstants } from "../_constants";
+import { successToast } from "../_utils/toast";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const input = {
   width: "642px",
@@ -47,9 +50,15 @@ class LoginPage extends React.Component {
     }
   }
 
+  componentDidMount() {
+    if (this.props.isLogout) {
+      successToast(userConstants.LOGOUT_SUCCESS);
+    }
+    console.log(this.props.login);
+  }
+
   render() {
     const { username, password, submitted } = this.state;
-
     return (
       <div className="uomcontent">
         {uomHeader("Welcome to SP")}
@@ -100,10 +109,12 @@ class LoginPage extends React.Component {
                 )}
               </div>
               <div className="form-group">
-                {/*login button hardcoded for the client meeting, needs to be changed when login feature is implemented*/}
                 <a className="button brand" onClick={this.handleSubmit}>
                   Login
                 </a>
+                {this.props.requestLogin && (
+                  <CircularProgress size={50} color={"inherit"} />
+                )}
               </div>
             </form>
           </div>
@@ -115,7 +126,11 @@ class LoginPage extends React.Component {
 }
 
 function mapState(state) {
-  return { isLogin: state.user.isLogin };
+  return {
+    isLogin: state.user.isLogin,
+    isLogout: state.user.isLogout,
+    requestLogin: state.user.requestLogin,
+  };
 }
 
 const actionCreators = {
