@@ -3,6 +3,8 @@ import Banner from "../_utils/Banner";
 import uomHeader from '../header/uomheader.js';
 import { connect } from 'react-redux';
 import { userActions } from '../_actions';
+import { ToastContainer } from "react-toastify";
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const input = {
     width: "642px",
@@ -32,6 +34,7 @@ class LoginPage extends React.Component {
             submitted: false,
             // This info stand for the user is a valid user in the backend database
             validUser: false,
+            loading: false
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -45,7 +48,7 @@ class LoginPage extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-
+        this.setState({loading : true})
         this.setState({ submitted: true });
         const { username, password } = this.state;
         if (username && password) {
@@ -56,7 +59,7 @@ class LoginPage extends React.Component {
     render() {
         const { loggingIn } = this.props;
         const { username, password, submitted, validUser, role } = this.state;
-
+        const {loading} = this.state;
         return (
             <div className="uomcontent">
                 {uomHeader("Welcome to SP")}
@@ -86,9 +89,11 @@ class LoginPage extends React.Component {
                             <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                         }
                     </div>
+                    {loading && <CircularProgress size={68} />}
                 </form>
             </div>
                 </div>
+                <ToastContainer limit={1} />
             </div>
         );
     }

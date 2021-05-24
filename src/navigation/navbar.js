@@ -95,8 +95,10 @@ class GridNavbar extends React.Component{
             IsProject = true;
             IsCoordinator = false;
             IsSupervisor = false;
-
-
+        }else if(url == "/LoginPage"){
+            IsProject = false;
+            IsCoordinator = false;
+            IsSupervisor = false;
         }
 
         return (
@@ -196,12 +198,7 @@ class GridNavbar extends React.Component{
                 { !IsSupervisor && !IsCoordinator && !IsProject &&
                     <BarLayout>
                         <div className={styles.navbutton} onClick={this.handleSubmit}></div>
-                        <NavButton
-                            link="/LoginPage"
-                            imgsrc="icons/logout.png"
-                            title="Logout"
-                            id = {100}
-                        />
+                        
                     </BarLayout>
 
                 }

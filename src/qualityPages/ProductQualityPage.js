@@ -6,7 +6,9 @@ import { connect } from "react-redux";
 import { userActions } from "../_actions";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import Alert from "../_utils/Alert";
-import BarChartPlot from "../_utils/DonutChart";
+import BarChartPlot from "../_utils/BarChart";
+import ReverseTable from "../_utils/ReverseTable";
+
 
 class ProductQualityPage extends React.Component {
   //This is just as an example to populate the table
@@ -50,8 +52,7 @@ class ProductQualityPage extends React.Component {
   }
 
   render() {
-    console.log(this.state.CodeMatrix);
-    console.log(this.props.productqualityData);
+    console.log(this.props.teamCodeMetrics);
     //const data = this.props.productqualityData;
     const columns1 = [
       {
@@ -117,25 +118,17 @@ class ProductQualityPage extends React.Component {
           <div className="page-inner">
             <Banner projName="2021-SM1-Software-Project-Database" />
             {this.props.teamCodeMetrics && this.props.teamCodeMetrics.length != 0 && (
-              <DataTable
-                customStyles={customStyles}
-                columns={columns1}
-                data={this.state.data}//{this.props.teamCodeMetrics}
-              />
-            )}
-            {this.props.teamCodeMetrics && this.props.teamCodeMetrics.length != 0 && (
-              <DataTable
-              customStyles={customStyles}
-              columns={columns2}
+              <ReverseTable
               data={this.props.teamCodeMetrics}
             />
             )}
+            {/*this.props.teamCodeMetrics && this.props.teamCodeMetrics.length != 0 && (
+              (<BarChartPlot data={this.props.teamCodeMetrics} />)
+            )*/}
             {(!this.props.teamCodeMetrics || this.props.teamCodeMetrics.length == 0) && (
               <Alert/>
             )}
-            {this.props.teamCodeMetrics && this.props.teamCodeMetrics.length != 0 && (
-              (<BarChartPlot data={this.props.teamCodeMetrics} />)
-            )}
+            
           </div>
         </div>
       </div>

@@ -514,13 +514,13 @@ function login(username, password) {
           dispatch(success(user));
         } else {
           //dispatch(failure(userConstants.LOGIN_FAILURE, user.message));
-          dispatch(alertActions.error(user.msg.toString()));
+          failureToast(user.msg);
         }
       },
       (error) => {
         console.log(error)
         dispatch(failure(error.toString()));
-        dispatch(alertActions.error(error.toString()));
+        failureToast(error.toString());
       }
     );
   };
