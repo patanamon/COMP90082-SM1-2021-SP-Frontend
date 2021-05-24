@@ -1,19 +1,16 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import uomHeader from "../header/uomheader.js";
-import { storeGet } from "../_helpers/helper-funcs";
 import { userActions } from "../_actions";
 import Table from "../_utils/Table";
 import Banner from "../_utils/Banner";
-
-const team =  "SWEN90013-2020-SP";
+import { Warining, InformationalNote } from "../_utils/Alert";
+import { alertConstants } from "../_constants";
 
 class ProjectHomePage extends Component {
-  //This is just as an example to populate the table
   constructor(props) {
-    super(props); //since we are extending class Table so we have to use super in order to override Component class constructor
+    super(props);
     this.state = {
-      teamList: "", 
       data: [],
 
       columns: [
@@ -29,6 +26,7 @@ class ProjectHomePage extends Component {
           selector: "picture",
           center: true,
           sortable: true,
+          cell: (row) => <img alt="Avatar" width="40" src={row.picture}></img>,
         },
 
         {
@@ -46,36 +44,44 @@ class ProjectHomePage extends Component {
         },
       ],
     };
-    
+  }
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmitTeamList = this.handleSubmitTeamList.bind(this);
-  }
-  
-  handleChange(e) {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
-  }
-  handleSubmit(e) {
-    e.preventDefault();
-  }
-  handleSubmitTeamList(e) {
-    this.props.getTeamMemberList(team);
-    this.setState({ teamList: storeGet("teamList") });
-    this.setState({ processSubmitted: true });
-  }
   componentDidMount() {
-    this.props.getTeamMemberList("COMP900822021SM1SP");
+    this.props.getTeamMemberList(this.props.currentTeamKey);
   }
 
   render() {
     return (
       <div className="uomcontent">
         {uomHeader("Project Overview")}
-        <div role="main" >
-          <div className="page-inner" >
-            <Banner projName={this.props.currentTeamKey} />
-            <Table columns={this.state.columns} data={this.props.teamMemberList} title={"Student Information"} width="100vw" height="500vh"/>
+        <div role="main">
+          <div className="page-inner">
+            <Banner projName={this.props.currentTeamName} />
+            {!this.props.teamMemberList && (
+              <InformationalNote message={alertConstants.NO_DATA} />
+            )}
+            {this.props.teamMemberList &&
+              this.props.teamMemberList.length >= 30 && (
+                <Warining message={alertConstants.WRONG_CONFIG} />
+              )}
+            {this.props.teamMemberList &&
+              this.props.teamMemberList.length >= 30 && (
+              <Table
+                columns={this.state.columns}
+                data={this.props.teamMemberList.slice(0, 30)}
+                width="80vw"
+                height="50vh"
+              />
+            )}
+            {this.props.teamMemberList &&
+              this.props.teamMemberList.length < 30 && (
+                <Table
+                  columns={this.state.columns}
+                  data={this.props.teamMemberList}
+                  width="80vw"
+                  height="50vh"
+                />
+              )}
           </div>
         </div>
       </div>
@@ -83,11 +89,11 @@ class ProjectHomePage extends Component {
   }
 }
 
-
 function mapState(state) {
   return {
     teamMemberList: state.user.teamMemberList,
     currentTeamKey: state.user.currentTeamKey,
+    currentTeamName: state.user.currentTeamName,
   };
 }
 const actionCreators = {
