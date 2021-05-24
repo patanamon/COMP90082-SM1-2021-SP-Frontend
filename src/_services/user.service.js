@@ -109,7 +109,7 @@ function setTeamInfo(
 }
 
 function getTeamCodeMetrics(teamKey) {
-  let url = baseUrl + "/git/" + "/metrics/" + teamKey;
+  let url = baseUrl + "/git/" + "metrics/" + teamKey;
 
   const requestOptions = {
     method: "GET",
