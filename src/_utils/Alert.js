@@ -1,13 +1,34 @@
 import React from "react";
 import { Alert } from "antd";
-import { alertConstants } from "../_constants/alert.constants.js";
 
-export default function InformationalNote(props) {
+export function InformationalNote(props) {
   return (
       <Alert
         message="Informational Notes"
-        description={props.message ? props.message : alertConstants.NO_DATA}
+        description={props.message}
         type="info"
+        showIcon
+      />
+  );
+}
+
+export function Warining(props) {
+  return (
+      <Alert
+        message="Warning"
+        description={props.message}
+        type="warning"
+        showIcon
+      />
+  );
+}
+
+export function Error(props) {
+  return (
+      <Alert
+        message="Error"
+        description={props.message}
+        type="error"
         showIcon
       />
   );

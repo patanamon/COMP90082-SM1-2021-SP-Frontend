@@ -5,17 +5,15 @@ import DataTable from "react-data-table-component";
 import { connect } from "react-redux";
 import { userActions } from "../_actions";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import Alert from "../_utils/Alert";
-import BarChartPlot from "../_utils/BarChart";
+
+import { InformationalNote } from "../_utils/Alert";
+import { alertConstants } from "../_constants";
 import ReverseTable from "../_utils/ReverseTable";
 
-
 class ProductQualityPage extends React.Component {
-  //This is just as an example to populate the table
   constructor(props) {
-    super(props); //since we are extending class Table so we have to use super in order to override Component class constructor
+    super(props);
     this.state = {
-      ProjectName: "2021-SM1-Software-Project-Database",
       CodeMetrics: [
         {
           all: 1,
@@ -28,32 +26,26 @@ class ProductQualityPage extends React.Component {
           ratio: 0,
         },
       ],
-      data : [{
-        all: 10,
-        classes: 30,
-        decst: 40,
-        excst: 50,
-        file: 50,
-        func: 60,
-        pre: 30,
-        ratio: 50,
-      }],
+      data: [
+        {
+          all: 10,
+          classes: 30,
+          decst: 40,
+          excst: 50,
+          file: 50,
+          func: 60,
+          pre: 30,
+          ratio: 50,
+        },
+      ],
     };
-
-    this.handleMatrix = this.handleMatrix.bind(this);
-  }
-
-  handleMatrix(e) {
-    this.props.getTeamCodeMetrics("abc");
   }
 
   componentDidMount() {
-    this.props.getTeamCodeMetrics("abc");
+    this.props.getTeamCodeMetrics(this.props.currentTeamKey);
   }
 
   render() {
-    console.log(this.props.teamCodeMetrics);
-    //const data = this.props.productqualityData;
     const columns1 = [
       {
         name: "Number of all lines",
@@ -117,22 +109,23 @@ class ProductQualityPage extends React.Component {
         <div role="main">
           <div className="page-inner">
             <Banner projName="2021-SM1-Software-Project-Database" />
+            <Banner projName={this.props.currentTeamName} />
             {this.props.teamCodeMetrics && this.props.teamCodeMetrics.length != 0 && (
               <ReverseTable
               data={this.props.teamCodeMetrics}
             />
             )}
-            {/*this.props.teamCodeMetrics && this.props.teamCodeMetrics.length != 0 && (
-              (<BarChartPlot data={this.props.teamCodeMetrics} />)
-            )*/}
-            {(!this.props.teamCodeMetrics || this.props.teamCodeMetrics.length == 0) && (
-              <Alert/>
+            {(!this.props.teamCodeMetrics ||
+              this.props.teamCodeMetrics.length == 0) && (
+              <InformationalNote message={alertConstants.NO_DATA} />
             )}
-            
+            {/* {this.props.teamCodeMetrics &&
+              this.props.teamCodeMetrics.length != 0 && (
+                <BarChartPlot data={this.props.teamCodeMetrics} />
+              )} */}
           </div>
         </div>
       </div>
-      
     );
   }
 
@@ -180,6 +173,8 @@ class ProductQualityPage extends React.Component {
 function mapState(state) {
   return {
     teamCodeMetrics: state.user.teamCodeMetrics,
+    currentTeamKey: state.user.currentTeamKey,
+    currentTeamName: state.user.currentTeamName,
   };
 }
 
@@ -189,4 +184,3 @@ const actionCreators = {
 
 const ProductQuality = connect(mapState, actionCreators)(ProductQualityPage);
 export { ProductQuality as ProductQualityPage };
-
