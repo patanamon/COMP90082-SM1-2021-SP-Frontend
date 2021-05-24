@@ -4,6 +4,8 @@ import uomHeader from "../header/uomheader.js";
 import { connect } from "react-redux";
 import { userActions } from "../_actions";
 import { ToastContainer } from "react-toastify";
+import { userConstants } from "../_constants";
+import { successToast } from "../_utils/toast";
 
 const input = {
   width: "642px",
@@ -44,6 +46,12 @@ class LoginPage extends React.Component {
     const { username, password } = this.state;
     if (username && password) {
       this.props.login(username, password);
+    }
+  }
+
+  componentDidMount() {
+    if (this.props.isLogout) {
+      successToast(userConstants.LOGOUT_SUCCESS);
     }
   }
 
@@ -115,7 +123,10 @@ class LoginPage extends React.Component {
 }
 
 function mapState(state) {
-  return { isLogin: state.user.isLogin };
+  return {
+    isLogin: state.user.isLogin,
+    isLogout: state.user.isLogout,
+  };
 }
 
 const actionCreators = {
