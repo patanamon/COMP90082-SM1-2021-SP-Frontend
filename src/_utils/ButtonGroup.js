@@ -11,7 +11,7 @@ export default function BtnGroup(props) {
   );
 
   return (
-    <div style={{ position: "relative", margin: "20px auto", width: "80vw" }}> 
+    <div style={{ position: "relative", margin: "auto", width: "80vw" }}> 
       <ButtonGroup
         orientation="horizontal"
         color="primary"

@@ -1,9 +1,7 @@
 import { userConstants } from "../_constants";
+import { commonConstants } from "../_constants";
 
 const initState = {
-  requestIndividualConfluencePages: false,
-  requestIndividualGitHubCommits: false,
-  requestIndividualJiraCounts: false,
   requestTeamConfluencePages: false,
   requestTeamGithubCommits: false,
   requestTeamJiraTickets: false,
@@ -14,66 +12,30 @@ const initState = {
   requestImportedProject: false,
   currentTeamKey: "",
   currentTeamName: "",
-  isLogin: false,
-  Login: false,
-  teamInfo:{},
+  requestProjectInfo:false,
+  sendImportRequest:false,
+  
 };
 
 export function user(state = initState, action) {
   switch (action.type) {
-    case userConstants.GET_INDIVIDUAL_CONFLUENCE_PAGES_REQUEST:
-      return {
-        ...state,
-        requestIndividualConfluencePages: true,
-      };
 
-    case userConstants.GET_INDIVIDUAL_CONFLUENCE_PAGES_SUCCESS:
+    case userConstants.SEND_IMPORT_REQUEST:
       return {
         ...state,
-        requestIndividualConfluencePages: false,
-        individualConfluencePages: action.payload,
+        sendImportRequest: true,
       };
-    case userConstants.GET_INDIVIDUAL_CONFLUENCE_PAGES_FAILURE:
+    case userConstants.SEND_IMPORT_SUCCESS:
       return {
         ...state,
-        requestIndividualConfluencePages: false,
-        individualConfluencePages: {},
+        sendImportRequest: false,
+        importRequest: action.payload,
       };
-    case userConstants.GET_INDIVIDUAL_GITHUB_COMMITS_REQUEST:
+    case userConstants.SEND_IMPORT_FAILURE:
       return {
         ...state,
-        requestIndividualGitHubCommits: true,
-      };
-
-    case userConstants.GET_INDIVIDUAL_GITHUB_COMMITS_SUCCESS:
-      return {
-        ...state,
-        requestIndividualGitHubCommits: false,
-        individualGitHubCommits: action.payload,
-      };
-    case userConstants.GET_INDIVIDUAL_GITHUB_COMMITS_FAILURE:
-      return {
-        ...state,
-        requestIndividualGitHubCommits: false,
-        individualGitHubCommits: {},
-      };
-    case userConstants.GET_INDIVIDUAL_JIRA_COUNTS_REQUEST:
-      return {
-        ...state,
-        requestIndividualJiraCounts: true,
-      };
-
-    case userConstants.GET_INDIVIDUAL_JIRA_COUNTS_SUCCESS:
-      return {
-        ...state,
-        requestIndividualJiraCounts: false,
-        individualJiraCounts: action.payload,
-      };
-    case userConstants.GET_INDIVIDUAL_JIRA_COUNTS_FAILURE:
-      return {
-        ...state,
-        requestIndividualJiraCounts: false,
-        individualJiraCounts: {},
+        sendImportRequest: false,
+        importRequest: {},
       };
     case userConstants.GET_TEAM_CONFLUENCE_PAGES_REQUEST:
       return {
@@ -126,22 +88,17 @@ export function user(state = initState, action) {
         requestTeamJiraTickets: false,
         teamJiraTickets: {},
       };
-    case userConstants.GET_TEAM_CONFLUENCE_MEETINGS_REQUEST:
-      return {
-        ...state,
-        requestTeamConfluenceMeetins: true,
-      };
     case userConstants.GET_TEAM_CONFLUENCE_MEETINGS_SUCCESS:
       return {
         ...state,
-        requestTeamConfluenceMeetins: false,
         teamConfluenceMeeting: action.payload,
       };
     case userConstants.GET_TEAM_CONFLUENCE_MEETINGS_FAILURE:
       return {
         ...state,
-        requestTeamConfluenceMeetins: false,
+        teamConfluenceMeeting: {},
       };
+
     case userConstants.GET_TEAM_CODE_METRICS_REQUEST:
       return {
         ...state,
@@ -167,14 +124,14 @@ export function user(state = initState, action) {
       return {
         ...state,
         requestSetTeamInfo: false,
-        teamInfo: Object.assign(state.teamInfo, action.payload),
-        setTeamInfoSuccess: true,
+        teamInfo: JSON.parse(
+          localStorage.getItem(commonConstants.TEAM_CONFIG_INFO)
+        ),
       };
     case userConstants.SETTEAMINFO_FAILURE:
       return {
         ...state,
         requestSetTeamInfo: false,
-        setTeamInfoSuccess: false,
       };
     case userConstants.GET_CONFLUENCE_SPACE_BY_KEY_WORD_REQUEST:
       return {
@@ -192,23 +149,15 @@ export function user(state = initState, action) {
         ...state,
         requestConfluenceSpaceByKeyWord: false,
       };
-    case userConstants.GET_TEAM_MEMBER_LIST_REQUEST:
-      return {
-        ...state,
-        requestTeamMemberList: true,
-      };
     case userConstants.GET_TEAM_MEMBER_LIST_SUCCESS:
       return {
         ...state,
-        requestTeamMemberList: false,
         teamMemberList: action.payload,
-        getTeamMemberListSuccess: true,
       };
     case userConstants.GET_TEAM_MEMBER_LIST_FAILURE:
       return {
         ...state,
-        requestTeamMemberList: false,
-        getTeamMemberListSuccess: false,
+        teamMemberList: {},
       };
     case userConstants.IMPORT_PROJECT_REQUEST:
       return {
@@ -219,13 +168,11 @@ export function user(state = initState, action) {
       return {
         ...state,
         importProject: false,
-        importProjectSuccess: true,
       };
     case userConstants.IMPORT_PROJECT_FAILURE:
       return {
         ...state,
         importProject: false,
-        importProjectSuccess: false,
       };
     case userConstants.GET_IMPORTED_PROJECT_REQUEST:
       return {
@@ -243,23 +190,6 @@ export function user(state = initState, action) {
         ...state,
         requestImportedProject: false,
       };
-    case userConstants.DELETE_IMPORTED_PROJECT_REQUEST:
-      return {
-        ...state,
-        deleteImportedProject: true,
-      };
-    case userConstants.DELETE_IMPORTED_PROJECT_SUCCESS:
-      return {
-        ...state,
-        deleteImportedProject: false,
-        deleteProjectSuccess: true,
-      };
-    case userConstants.DELETE_IMPORTED_PROJECT_FAILUER:
-      return {
-        ...state,
-        deleteImportedProject: false,
-        deleteProjectSuccess: false,
-      };
     case userConstants.SET_CURRENT_TEAM_NAME:
       return {
         ...state,
@@ -270,29 +200,27 @@ export function user(state = initState, action) {
         ...state,
         currentTeamKey: action.payload,
       };
-    case userConstants.LOGIN_REQUEST:
+      
+    case userConstants.GETPROJECTINFO_REQUEST:
       return {
         ...state,
-        login: true,
+        requestProjectInfo: true,
       };
-    case userConstants.LOGIN_SUCCESS:
+    case userConstants.GETPROJECTINFO_SUCCESS:
       return {
         ...state,
-        login: false,
-        isLogin: true,
-        isLogout: false,
+        requestProjectInfo: false,
+        projectInfo: action.payload,
       };
-    case userConstants.LOGIN_FAILURE:
+    case userConstants.GETPROJECTINFO_FAILURE:
       return {
         ...state,
-        login: false,
+        requestProjectInfo: false,
+        projectInfo: {},
       };
-    case userConstants.LOGOUT_SUCCESS:
-      return {
-        ...state,
-        isLogin: false,
-        isLogout: true,
-      };
+
+    
+        
     default:
       return state;
   }

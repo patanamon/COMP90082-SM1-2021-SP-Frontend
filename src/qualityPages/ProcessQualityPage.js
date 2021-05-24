@@ -8,8 +8,6 @@ import { connect } from "react-redux";
 import { commonConstants } from "../_constants";
 import { ToastContainer } from "react-toastify";
 import { Spin } from "antd";
-import { InformationalNote } from "../_utils/Alert";
-import { alertConstants } from "../_constants";
 
 class ProcessQualityPage extends React.Component {
   constructor(props) {
@@ -24,8 +22,6 @@ class ProcessQualityPage extends React.Component {
 
       btnSelected: commonConstants.CONFLUENCE,
       scrollPosition: 0,
-      hasConfig:
-        this.props.teamInfo && this.props.teamInfo[this.props.currentTeamKey],
     };
 
     this.handleBtnGroupClick = this.handleBtnGroupClick.bind(this);
@@ -35,11 +31,11 @@ class ProcessQualityPage extends React.Component {
   handleBtnGroupClick(e) {
     let selected = e.currentTarget.firstChild.innerHTML;
     if (selected == commonConstants.CONFLUENCE) {
-      this.props.getTeamConfluencePages(this.props.currentTeamKey);
+      this.props.getTeamConfluencePages("COMP900822021SM1SP");
     } else if (selected == commonConstants.GITHUB) {
-      this.props.getTeamGithubCommits(this.props.currentTeamKey);
+      this.props.getTeamGithubCommits("COMP900822021SM1SP");
     } else {
-      this.props.getTeamJiraTickets(this.props.currentTeamKey);
+      this.props.getTeamJiraTickets("COMP900822021SM1SP");
     }
     this.setState({
       btnSelected: selected,
@@ -53,9 +49,7 @@ class ProcessQualityPage extends React.Component {
   }
 
   componentDidMount() {
-    if (this.state.hasConfig) {
-      this.props.getTeamConfluencePages(this.props.currentTeamKey);
-    }
+    this.props.getTeamConfluencePages("COMP900822021SM1SP");
     window.addEventListener("scroll", this.handleScroll);
   }
 
@@ -73,17 +67,12 @@ class ProcessQualityPage extends React.Component {
         {uomHeader("Process Quality")}
         <div role="main">
           <div className="page-inner">
-            <Banner projName={this.props.currentTeamName} />
-            {!this.state.hasConfig && (
-              <InformationalNote message={alertConstants.NO_CONFIG} />
-            )}
-            {this.state.hasConfig && (
-              <ButtonGroup
-                btnNames={this.state.btnNames}
-                clickHandler={this.handleBtnGroupClick}
-                selected={this.state.btnSelected}
-              />
-            )}
+            <Banner projName="2021-SM1-Software-Project-Database" />
+            <ButtonGroup
+              btnNames={this.state.btnNames}
+              clickHandler={this.handleBtnGroupClick}
+              selected={this.state.btnSelected}
+            />
             <Spin
               spinning={
                 this.props.requestTeamConfluencePages ||
@@ -91,18 +80,15 @@ class ProcessQualityPage extends React.Component {
                 this.props.requestTeamJiraTickets
               }
             >
-              {this.state.hasConfig &&
-                this.state.btnSelected == commonConstants.CONFLUENCE && (
-                  <LineChart data={this.props.confluenceData} />
-                )}
-              {this.state.hasConfig &&
-                this.state.btnSelected == commonConstants.GITHUB && (
-                  <LineChart data={this.props.githubData} />
-                )}
-              {this.state.hasConfig &&
-                this.state.btnSelected == commonConstants.JIRA && (
-                  <LineChart data={this.props.jiraData} />
-                )}
+              {this.state.btnSelected == commonConstants.CONFLUENCE && (
+                <LineChart data={this.props.confluenceData} />
+              )}
+              {this.state.btnSelected == commonConstants.GITHUB && (
+                <LineChart data={this.props.githubData} />
+              )}
+              {this.state.btnSelected == commonConstants.JIRA && (
+                <LineChart data={this.props.jiraData} />
+              )}
             </Spin>
           </div>
         </div>
@@ -120,9 +106,6 @@ function mapState(state) {
     confluenceData: state.user.teamConfluencePages,
     githubData: state.user.teamGithubCommits,
     jiraData: state.user.teamJiraTickets,
-    currentTeamKey: state.user.currentTeamKey,
-    currentTeamName: state.user.currentTeamName,
-    teamInfo: state.user.teamInfo,
   };
 }
 

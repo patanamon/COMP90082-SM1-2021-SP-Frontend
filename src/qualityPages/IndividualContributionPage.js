@@ -2,15 +2,13 @@ import React from "react";
 import uomHeader from "../header/uomheader.js";
 import { connect } from "react-redux";
 import { userActions } from "../_actions";
-import { Tab, Col, Row, Container } from "react-bootstrap";
+//import { storeGet } from "../_helpers/helper-funcs.js";
+import { Nav, Tab, Col, Row, Container, Form } from "react-bootstrap";
 import ButtonGroup from "../_utils/ButtonGroup";
 import { commonConstants } from "../_constants";
 import { ToastContainer } from "react-toastify";
 import Banner from "../_utils/Banner";
 import DonutChart from "../_utils/DonutChart";
-import DropdownMenus from "../_utils/DropdownMenus";
-import { InformationalNote } from "../_utils/Alert";
-import { alertConstants } from "../_constants";
 
 class IndividualContributionPage extends React.Component {
   constructor(props) {
@@ -23,152 +21,265 @@ class IndividualContributionPage extends React.Component {
         commonConstants.JIRA,
       ],
       btnSelected: commonConstants.CONFLUENCE,
-
-      selectedStudent: "All",
-      studentList: [],
+      total: [{ student_id: "", fullname: "" }],
+      students : ["All", "Sara1", "Sara2", "Sara3"],
+      dataset: {
+        git: [
+            {
+                labels: [
+                    'Sara1', 'Sara2', 'Sara3'
+                  ],
+                datasets: [{
+                    label: "All",
+                    data: [30, 50, 60],
+                    fill: true,
+                    backgroundColor: [
+                                'rgb(255, 99, 132)',
+                                'rgb(54, 162, 235)',
+                                'rgb(255, 205, 86)'
+                              ],
+                    hoverOffset: 4
+                }]
+            },
+            {
+                labels: [
+                    'Sara1'
+                  ],
+                datasets: [{
+                    label: "Sara1",
+                    data: [30],
+                    fill: true,
+                    backgroundColor: "rgb(255, 99, 132)",
+                    borderColor: "rgba(75,192,192,1)" 
+                }]
+            },
+            {
+                labels: [
+                    'Sara2'
+                  ],
+                datasets: [{
+                    label: "Sara2",
+                    data: [50],
+                    fill: true,
+                    backgroundColor: "rgb(54, 162, 235)",
+                    borderColor: "rgba(75,192,192,1)" 
+                }]
+            },
+            {
+                labels: [
+                    'Sara3'
+                  ],
+                datasets: [{
+                    label: "Sara3",
+                    data: [60],
+                    fill: true,
+                    backgroundColor: "rgb(255, 205, 86)",
+                    borderColor: "rgba(75,192,192,1)" 
+                }]
+            }
+        ],
+        jira: [
+            {
+                labels: [
+                    'Sara1', 'Sara2', 'Sara3'
+                  ],
+                datasets: [{
+                    label: "All",
+                    data: [58, 89, 85],
+                    fill: true,
+                    backgroundColor: [
+                                'rgb(255, 99, 132)',
+                                'rgb(54, 162, 235)',
+                                'rgb(255, 205, 86)'
+                              ],
+                    hoverOffset: 4
+                }]
+            },
+            {
+                labels: [
+                    'Sara1'
+                  ],
+                datasets: [{
+                    label: "Sara1",
+                    data: [58],
+                    fill: true,
+                    backgroundColor: "rgb(255, 99, 132)",
+                    borderColor: "rgba(75,192,192,1)" 
+                }]
+            },
+            {
+                labels: [
+                    'Sara2'
+                  ],
+                datasets: [{
+                    label: "Sara2",
+                    data: [89],
+                    fill: true,
+                    backgroundColor: "rgb(54, 162, 235)",
+                    borderColor: "rgba(75,192,192,1)" 
+                }]
+            },
+            {
+                labels: [
+                    'Sara3'
+                  ],
+                datasets: [{
+                    label: "Sara3",
+                    data: [85],
+                    fill: true,
+                    backgroundColor: "rgb(255, 205, 86)",
+                    borderColor: "rgba(75,192,192,1)" 
+                }]
+            },
+        ],
+        confluence: [
+            {
+                labels: [
+                    'Sara1', 'Sara2', 'Sara3'
+                  ],
+                datasets: [{
+                    label: "All",
+                    data: [78, 90, 45],
+                    fill: true,
+                    backgroundColor: [
+                                'rgb(255, 99, 132)',
+                                'rgb(54, 162, 235)',
+                                'rgb(255, 205, 86)'
+                              ],
+                    hoverOffset: 4
+                }]
+            },
+            {
+                labels: [
+                    'Sara1'
+                  ],
+                datasets: [{
+                    label: "Sara1",
+                    data: [78],
+                    fill: true,
+                    backgroundColor: "rgb(255, 99, 132)",
+                    borderColor: "rgba(75,192,192,1)" 
+                }]
+            },
+            {
+                labels: [
+                    'Sara2'
+                  ],
+                datasets: [{
+                    label: "Sara2",
+                    data: [90],
+                    fill: true,
+                    backgroundColor: "rgb(54, 162, 235)",
+                    borderColor: "rgba(75,192,192,1)" 
+                }]
+            },
+            {
+                labels: [
+                    'Sara3'
+                  ],
+                datasets: [{
+                    label: "Sara3",
+                    data: [45],
+                    fill: true,
+                    backgroundColor: "rgb(255, 205, 86)",
+                    borderColor: "rgba(75,192,192,1)" 
+                }]
+            },
+        ]
+      },
+      selected: 0
     };
 
+    this.handleChange = this.handleChange.bind(this);
     this.selectStudent = this.selectStudent.bind(this);
     this.handleBtnGroupClick = this.handleBtnGroupClick.bind(this);
   }
 
+  handleChange(e) {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
+  }
+
   handleBtnGroupClick(e) {
     let picked = e.currentTarget.firstChild.innerHTML;
-    if (picked === commonConstants.CONFLUENCE) {
-      this.props.getConfluenceIndividualData(this.props.currentTeamKey);
-    } else if (picked === commonConstants.GITHUB) {
-      this.props.getGithubIndividualData(this.props.currentTeamKey);
+    if (picked == commonConstants.CONFLUENCE) {
+        this.props.getConfluenceIndividualPages("COMP900822021SM1SP");
+        console.log(this.props.individualConfluenceData)
+    } else if (picked == commonConstants.GITHUB) {
+        this.props.getGithubIndividualCommits("COMP900822021SM1SP");
     } else {
-      this.props.getJiraIndividualData(this.props.currentTeamKey);
+        this.props.getJiraIndividualCount("COMP900822021SM1SP");
     }
     this.setState({
-      btnSelected: picked,
-      selectedStudent: "All",
+        btnSelected: picked
     });
   }
 
   selectStudent(e) {
-    this.setState({ selectedStudent: e.target.value });
-  }
-
-  componentDidMount() {
-    if (this.state.hasConfig) {
-      this.props.getConfluenceIndividualData(this.props.currentTeamKey);
-    }
+    this.setState({ selected: e.target.value });
   }
 
   render() {
+    const {
+        students,
+      selected,
+    } = this.state;
+
+    const Student = () => {
+      return (
+        <Form inline>
+          <Form.Label
+            className="col-sm-3"
+            htmlFor="inlineFormCustomSelectPref"   
+          >
+            Student     :
+          </Form.Label>
+          <Form.Control
+            as="select"
+            className="col-sm-5"
+            id="inlineFormCustomSelectPref"
+            custom
+            onChange={this.selectStudent}
+          >
+            {students.map((student, index) => (
+              <option key={index} value={index}>{student}</option>
+            ))}
+          </Form.Control>
+        </Form>
+      );
+    };
+
     return (
       <div className="uomcontent">
         <ToastContainer limit={1} />
-        {uomHeader("Individual Contribution")}
+        {uomHeader("Individual Contribution Page")}
         <div role="main">
           <div className="page-inner">
-            <Banner projName={this.props.currentTeamName} />
-            {!this.state.hasConfig && (
-              <InformationalNote message={alertConstants.NO_CONFIG} />
-            )}
-            {this.state.hasConfig && (
-              <Container>
-                <Tab.Container id="left-tabs-example">
-                  <Row>
-                    <Col>
-                      <ButtonGroup
-                        btnNames={this.state.btnNames}
-                        clickHandler={this.handleBtnGroupClick}
-                        selected={this.state.btnSelected}
-                      />
-                    </Col>
-                    <Col>
-                      {this.state.btnSelected === commonConstants.CONFLUENCE &&
-                        typeof this.props.individualConfluenceData !==
-                          "undefined" &&
-                        JSON.stringify(this.props.individualConfluenceData) !==
-                          "{}" && (
-                          <DropdownMenus
-                            data={
-                              this.props.individualConfluenceData["All"].labels
-                            }
-                            onChange={this.selectStudent}
-                            value={this.state.selectedStudent}
-                          />
-                        )}
-                      {this.state.btnSelected === commonConstants.GITHUB &&
-                        typeof this.props.individualGithubData !==
-                          "undefined" &&
-                        JSON.stringify(this.props.individualGithubData) !==
-                          "{}" && (
-                          <DropdownMenus
-                            data={this.props.individualGithubData["All"].labels}
-                            onChange={this.selectStudent}
-                            value={this.state.selectedStudent}
-                          />
-                        )}
-
-                      {this.state.btnSelected === commonConstants.JIRA &&
-                        typeof this.props.individualJiraData !== "undefined" &&
-                        JSON.stringify(this.props.individualJiraData) !==
-                          "{}" && (
-                          <DropdownMenus
-                            data={this.props.individualJiraData["All"].labels}
-                            onChange={this.selectStudent}
-                            value={this.state.selectedStudent}
-                          />
-                        )}
-                    </Col>
-                    <Col>
-                      {this.state.btnSelected === commonConstants.CONFLUENCE &&
-                        typeof this.props.individualConfluenceData !==
-                          "undefined" &&
-                        JSON.stringify(this.props.individualConfluenceData) !==
-                          "{}" && (
-                          <DonutChart
-                            data={JSON.parse(
-                              JSON.stringify(
-                                this.props.individualConfluenceData[
-                                  this.state.selectedStudent
-                                ]
-                              )
-                            )}
-                            dataLabel={"Edited Pages"}
-                          />
-                        )}
-                      {this.state.btnSelected === commonConstants.GITHUB &&
-                        typeof this.props.individualGithubData !==
-                          "undefined" &&
-                        JSON.stringify(this.props.individualGithubData) !==
-                          "{}" && (
-                          <DonutChart
-                            data={JSON.parse(
-                              JSON.stringify(
-                                this.props.individualGithubData[
-                                  this.state.selectedStudent
-                                ]
-                              )
-                            )}
-                            dataLabel={"Number of Commits"}
-                          />
-                        )}
-                      {this.state.btnSelected === commonConstants.JIRA &&
-                        typeof this.props.individualJiraData !== "undefined" &&
-                        JSON.stringify(this.props.individualJiraData) !==
-                          "{}" && (
-                          <DonutChart
-                            data={JSON.parse(
-                              JSON.stringify(
-                                this.props.individualJiraData[
-                                  this.state.selectedStudent
-                                ]
-                              )
-                            )}
-                            dataLabel={"Completed Tasks"}
-                          />
-                        )}
-                    </Col>
-                  </Row>
-                </Tab.Container>
-              </Container>
-            )}
+          <Banner projName="2021-SM1-Software-Project" />
+            <Container>
+              <Tab.Container id="left-tabs-example">
+                <Row>
+                  <Col>
+                  <ButtonGroup
+                    btnNames={this.state.btnNames}
+                    clickHandler={this.handleBtnGroupClick}
+                  />
+                  </Col>
+                  <Col>
+                  <Col>{Student()}</Col>
+                    {this.state.btnSelected == commonConstants.CONFLUENCE && (
+                    <DonutChart data={this.state.dataset['confluence'][this.state.selected]} />
+                    )} 
+                    {this.state.btnSelected == commonConstants.GITHUB && (
+                    <DonutChart data={this.state.dataset['git'][this.state.selected]} />
+                    )}
+                    {this.state.btnSelected == commonConstants.JIRA && (
+                    <DonutChart data={this.state.dataset['jira'][this.state.selected]} />
+                    )}
+                  </Col>
+                </Row>
+              </Tab.Container>
+            </Container>
           </div>
         </div>
       </div>
@@ -177,20 +288,17 @@ class IndividualContributionPage extends React.Component {
 }
 
 function mapState(state) {
-  return {
-    individualGithubData: state.user.individualGitHubCommits,
-    individualConfluenceData: state.user.individualConfluencePages,
-    individualJiraData: state.user.individualJiraCounts,
-    currentTeamKey: state.user.currentTeamKey,
-    currentTeamName: state.user.currentTeamName,
-    teamInfo: state.user.teamInfo,
-  };
+    return{
+        individualGithubData: state.user.individualGithubCommits,
+        individualConfluenceData: state.user.individualConfluencePages,
+        individualJiraData: state.user.individualJiraCount
+    };
 }
 
 const actionCreators = {
-  getGithubIndividualData: userActions.getGithubIndividualData,
-  getConfluenceIndividualData: userActions.getConfluenceIndividualData,
-  getJiraIndividualData: userActions.getJiraIndividualData,
+    getGithubIndividualCommits: userActions.getGithubIndividualCommits,
+    getConfluenceIndividualPages: userActions.getConfluenceIndividualPages,
+    getJiraIndividualCount: userActions.getJiraIndividualCount
 };
 
 const Product = connect(mapState, actionCreators)(IndividualContributionPage);
