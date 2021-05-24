@@ -1,7 +1,7 @@
 .navbutton {
   display: grid;
-  grid-template-columns: 100px;
-  grid-template-rows: repeat(2,auto);
+  grid-template-columns: 120px;
+  grid-template-rows: repeat(2,40px);
   align-items: center;
   justify-items: center;
   background: #014085;

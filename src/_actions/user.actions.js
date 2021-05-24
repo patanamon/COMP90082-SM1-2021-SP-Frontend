@@ -208,10 +208,10 @@ function setTeamInfo(
                 },
               })
             );
-            successToast(response.msg);
+            successToast(response.message);
           } else {
             dispatch(failure(userConstants.SETTEAMINFO_FAILURE));
-            failureToast(response.msg);
+            failureToast(response.message);
           }
         },
         (error) => {

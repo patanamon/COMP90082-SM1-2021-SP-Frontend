@@ -7,12 +7,10 @@ import { userActions } from "../_actions";
 import { commonConstants } from "../_constants";
 
 const NavIcon = styled.div`
-  width: 100px;
   text-align: center;
 `;
 
 const NavTitle = styled.p`
-  width: 100px;
   text-align: center;
   font-size: 14px;
   font-family: Lato Regular;
@@ -22,8 +20,8 @@ const NavTitle = styled.p`
 
 const BarLayout = styled.div`
   display: grid;
-  grid-template-columns: 100px;
-  grid-template-rows: repeat(auto-fill, 70px);
+  grid-template-columns: 120px;
+  grid-template-rows: repeat(${props => props.number}, auto);
 `;
 
 class NavButton extends React.Component {
@@ -85,17 +83,17 @@ class GridNavbar extends React.Component {
     }
 
     return (
-      <div style={{ backgroundColor: "#014085", minHeight: this.state.height }}>
+      <div style={{ backgroundColor: "#014085", minHeight: this.state.height, width: "120px" }}>
         <img
           src="icons/logo.jpg"
           className="logo"
           id="logo"
           alt="logo"
-          height="100"
-          width="100"
+          height="120"
+          width="120"
         />
         {isCoorinatorView && (
-          <BarLayout>
+          <BarLayout number={2}>
             <NavButton
               link="/coordinator"
               imgsrc="icons/home.png"
@@ -113,7 +111,7 @@ class GridNavbar extends React.Component {
         )}
 
         {isProjectView && (
-          <BarLayout>
+          <BarLayout number={8}>
             <NavButton
               link="/coordinator"
               imgsrc="icons/home.png"
@@ -123,7 +121,7 @@ class GridNavbar extends React.Component {
             <NavButton
               link="/project"
               imgsrc="icons/dashboard.png"
-              title="Project Overview"
+              title="Project"
               identifier={commonConstants.PROJECT_HOME}
             />
             <NavButton

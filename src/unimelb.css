@@ -18873,3 +18873,7 @@ body.jumpnav-active .uomcontent #outer.fixed {
     display: block;
   }
 }
+
+.uomcontent{
+  margin-left: 20px;
+}

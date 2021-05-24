@@ -139,6 +139,7 @@ class ProjectSettingsPage extends React.Component {
                       value={this.state.jiraWebsite}
                       name="jiraWebsite"
                       onChange={this.handleChange}
+                      placeholder="e.g. https://jira.cis.unimelb.edu.au:8444/projects/<project key>/summary"
                     />
                   </label>
 
@@ -152,6 +153,7 @@ class ProjectSettingsPage extends React.Component {
                       value={this.state.githubWebsite}
                       name="githubWebsite"
                       onChange={this.handleChange}
+                      placeholder="e.g. https://github.com/<username>/<repository name>"
                     />
                   </label>
 
