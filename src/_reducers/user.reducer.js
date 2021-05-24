@@ -278,8 +278,9 @@ export function user(state = initState, action) {
     case userConstants.LOGIN_SUCCESS:
       return {
         ...state,
-        isLogin: true,
         login: false,
+        isLogin: true,
+        isLogout: false,
       };
     case userConstants.LOGIN_FAILURE:
       return {
@@ -290,6 +291,7 @@ export function user(state = initState, action) {
       return {
         ...state,
         isLogin: false,
+        isLogout: true,
       };
     default:
       return state;

@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 import { userActions } from "../_actions";
 import { ToastContainer } from "react-toastify";
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { userConstants } from "../_constants";
+import { successToast } from "../_utils/toast";
 
 const input = {
   width: "642px",
@@ -50,48 +52,85 @@ class LoginPage extends React.Component {
     }
   }
 
-    render() {
-        const { loggingIn } = this.props;
-        const { username, password, submitted, validUser, role } = this.state;
-        const {loading} = this.state;
-        return (
-            <div className="uomcontent">
-                {uomHeader("Welcome to SP")}
-                <div role="main">
-            <div className="page-inner">
-                <Banner projName="Login with your username/email and your password"/>
-                <form name="form">
-                    <div className={'form-group' + (submitted && !username ? ' has-error' : '')}>
-                        <label htmlFor="username" style={label}>Username or Email</label>
-                        <input type="text" className="form-control" name="username" value={username} onChange={this.handleChange} style={input}/>
-                        {submitted && !username &&
-                            <div className="help-block">Username or Email is required</div>
-                        }
-                    </div>
-                    <div className={'form-group' + (submitted && !password ? ' has-error' : '')}>
-                        <label htmlFor="password" style={label}>Password</label>
-                        <input type="password" className="form-control" name="password" value={password} onChange={this.handleChange} style={input}/>
-                        {submitted && !password &&
-                            <div className="help-block">Password is required</div>
-                        }
-                    </div>
-                    <div className="form-group">
-                        {/*login button hardcoded for the client meeting, needs to be changed when login feature is implemented*/}
-                        <a className="button brand" onClick={this.handleSubmit} >Login</a>
-                        {/*<Link to="/RegisterPage" manuallyclassName="btn btn-link">Update Password</Link>*/}
-                        {loading && <CircularProgress size={58} />}
-                    </div>
-                </form>
-            </div>
-                </div>
-                <ToastContainer limit={1} />
-            </div>
-        );
+  componentDidMount() {
+    if (this.props.isLogout) {
+      successToast(userConstants.LOGOUT_SUCCESS);
     }
+  }
+
+  render() {
+    const { username, password, submitted } = this.state;
+
+    return (
+      <div className="uomcontent">
+        {uomHeader("Welcome to SP")}
+        <div role="main">
+          <div className="page-inner">
+            <Banner projName="Login" />
+            <form name="form">
+              <div
+                className={
+                  "form-group" + (submitted && !username ? " has-error" : "")
+                }
+              >
+                <label htmlFor="username" style={label}>
+                  Username or Email
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  name="username"
+                  value={username}
+                  onChange={this.handleChange}
+                  style={input}
+                />
+                {submitted && !username && (
+                  <div className="help-block">
+                    Username or Email is required
+                  </div>
+                )}
+              </div>
+              <div
+                className={
+                  "form-group" + (submitted && !password ? " has-error" : "")
+                }
+              >
+                <label htmlFor="password" style={label}>
+                  Password
+                </label>
+                <input
+                  type="password"
+                  className="form-control"
+                  name="password"
+                  value={password}
+                  onChange={this.handleChange}
+                  style={input}
+                />
+                {submitted && !password && (
+                  <div className="help-block">Password is required</div>
+                )}
+              </div>
+              <div className="form-group">
+                {/*login button hardcoded for the client meeting, needs to be changed when login feature is implemented*/}
+                <a className="button brand" onClick={this.handleSubmit}>
+                  Login
+                </a>
+                {loading && <CircularProgress size={58} />}
+              </div>
+            </form>
+          </div>
+        </div>
+        <ToastContainer limit={1} />
+      </div>
+    );
+  }
 }
 
 function mapState(state) {
-  return { isLogin: state.user.isLogin };
+  return {
+    isLogin: state.user.isLogin,
+    isLogout: state.user.isLogout,
+  };
 }
 
 const actionCreators = {

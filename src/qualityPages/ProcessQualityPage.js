@@ -8,6 +8,8 @@ import { connect } from "react-redux";
 import { commonConstants } from "../_constants";
 import { ToastContainer } from "react-toastify";
 import { Spin } from "antd";
+import { InformationalNote } from "../_utils/Alert";
+import { alertConstants } from "../_constants";
 
 class ProcessQualityPage extends React.Component {
   constructor(props) {
@@ -22,6 +24,8 @@ class ProcessQualityPage extends React.Component {
 
       btnSelected: commonConstants.CONFLUENCE,
       scrollPosition: 0,
+      hasConfig:
+        this.props.teamInfo && this.props.teamInfo[this.props.currentTeamKey],
     };
 
     this.handleBtnGroupClick = this.handleBtnGroupClick.bind(this);
@@ -49,7 +53,9 @@ class ProcessQualityPage extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getTeamConfluencePages(this.props.currentTeamKey);
+    if (this.state.hasConfig) {
+      this.props.getTeamConfluencePages(this.props.currentTeamKey);
+    }
     window.addEventListener("scroll", this.handleScroll);
   }
 
@@ -68,11 +74,16 @@ class ProcessQualityPage extends React.Component {
         <div role="main">
           <div className="page-inner">
             <Banner projName={this.props.currentTeamName} />
-            <ButtonGroup
-              btnNames={this.state.btnNames}
-              clickHandler={this.handleBtnGroupClick}
-              selected={this.state.btnSelected}
-            />
+            {!this.state.hasConfig && (
+              <InformationalNote message={alertConstants.NO_CONFIG} />
+            )}
+            {this.state.hasConfig && (
+              <ButtonGroup
+                btnNames={this.state.btnNames}
+                clickHandler={this.handleBtnGroupClick}
+                selected={this.state.btnSelected}
+              />
+            )}
             <Spin
               spinning={
                 this.props.requestTeamConfluencePages ||
@@ -80,15 +91,18 @@ class ProcessQualityPage extends React.Component {
                 this.props.requestTeamJiraTickets
               }
             >
-              {this.state.btnSelected == commonConstants.CONFLUENCE && (
-                <LineChart data={this.props.confluenceData} />
-              )}
-              {this.state.btnSelected == commonConstants.GITHUB && (
-                <LineChart data={this.props.githubData} />
-              )}
-              {this.state.btnSelected == commonConstants.JIRA && (
-                <LineChart data={this.props.jiraData} />
-              )}
+              {this.state.hasConfig &&
+                this.state.btnSelected == commonConstants.CONFLUENCE && (
+                  <LineChart data={this.props.confluenceData} />
+                )}
+              {this.state.hasConfig &&
+                this.state.btnSelected == commonConstants.GITHUB && (
+                  <LineChart data={this.props.githubData} />
+                )}
+              {this.state.hasConfig &&
+                this.state.btnSelected == commonConstants.JIRA && (
+                  <LineChart data={this.props.jiraData} />
+                )}
             </Spin>
           </div>
         </div>
@@ -108,6 +122,7 @@ function mapState(state) {
     jiraData: state.user.teamJiraTickets,
     currentTeamKey: state.user.currentTeamKey,
     currentTeamName: state.user.currentTeamName,
+    teamInfo: state.user.teamInfo,
   };
 }
 

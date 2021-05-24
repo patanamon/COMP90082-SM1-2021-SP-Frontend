@@ -38,11 +38,15 @@ class ProductQualityPage extends React.Component {
           ratio: 50,
         },
       ],
+      hasConfig:
+        this.props.teamInfo && this.props.teamInfo[this.props.currentTeamKey],
     };
   }
 
   componentDidMount() {
-    this.props.getTeamCodeMetrics(this.props.currentTeamKey);
+    if (this.state.hasConfig) {
+      this.props.getTeamCodeMetrics(this.props.currentTeamKey);
+    }
   }
 
   render() {
@@ -108,66 +112,25 @@ class ProductQualityPage extends React.Component {
         {uomHeader("Product Quality")}
         <div role="main">
           <div className="page-inner">
-            <Banner projName="2021-SM1-Software-Project-Database" />
             <Banner projName={this.props.currentTeamName} />
+            {!this.state.hasConfig && (
+              <InformationalNote message={alertConstants.NO_CONFIG} />
+            )}
             {this.props.teamCodeMetrics && this.props.teamCodeMetrics.length != 0 && (
               <ReverseTable
               data={this.props.teamCodeMetrics}
             />
             )}
-            {(!this.props.teamCodeMetrics ||
-              this.props.teamCodeMetrics.length == 0) && (
-              <InformationalNote message={alertConstants.NO_DATA} />
-            )}
-            {/* {this.props.teamCodeMetrics &&
-              this.props.teamCodeMetrics.length != 0 && (
-                <BarChartPlot data={this.props.teamCodeMetrics} />
-              )} */}
+            {this.state.hasConfig &&
+              (!this.props.teamCodeMetrics ||
+                this.props.teamCodeMetrics.length == 0) && (
+                <InformationalNote message={alertConstants.NO_DATA} />
+              )}
           </div>
         </div>
       </div>
     );
   }
-
-  /*renderTableData() {
-        console.log(this.props.productqualityData)
-        const codematrix = this.state.CodeMatrix
-        return codematrix.map((item, index) => {
-            const { all, classes, decst, excst, file, func, pre, ratio} = item
-            return (
-                <td key={all}>
-                    <tr><td>{"Number of all lines"}</td>{all}</tr>
-                    <tr><td>{"Number of classes"}</td>{classes}</tr>
-                    <tr><td>{"Number of declarible statements"}</td>{decst}</tr>
-                    <tr><td>{"Number of excutable statements"}</td>{excst}</tr>
-                    <tr><td>{"Number of files"}</td>{file}</tr>
-                    <tr><td>{"Number of functions"}</td>{func}</tr>
-                    <tr><td>{"Number of preprocessor lines"}</td>{pre}</tr>
-                    <tr><td>{"Ratio of comment lines to code lines"}</td>{ratio}</tr>
-                </td>
-            )
-        })
-    }*/
-
-  /*render() {
-        return (
-            <div class="uomcontent">
-                {uomHeader("Product Quality")}
-                <div role="main">
-                    <div className="page-inner">
-                    <Banner projName="2021-SM1-Software-Project-Database" />
-                        <div>
-                            <table id='codematrix' class="zebra" data-sortable="">
-                                <tbody>
-                                    {this.renderTableData()}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        )
-    }*/
 }
 
 function mapState(state) {
@@ -175,6 +138,7 @@ function mapState(state) {
     teamCodeMetrics: state.user.teamCodeMetrics,
     currentTeamKey: state.user.currentTeamKey,
     currentTeamName: state.user.currentTeamName,
+    teamInfo: state.user.teamInfo,
   };
 }
 

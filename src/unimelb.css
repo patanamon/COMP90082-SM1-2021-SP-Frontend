@@ -1775,6 +1775,7 @@ body {
   min-height: 100%;
   position: relative;
   z-index: 10;
+  margin-bottom:100px;
 }
 
 .page-inner .floating {
