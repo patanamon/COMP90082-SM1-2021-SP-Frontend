@@ -6,6 +6,7 @@ import { userActions } from "../_actions";
 import { ToastContainer } from "react-toastify";
 import { userConstants } from "../_constants";
 import { successToast } from "../_utils/toast";
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const input = {
   width: "642px",
@@ -30,6 +31,7 @@ class LoginPage extends React.Component {
       role: -1,
       submitted: false,
       validUser: false,
+      loading: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -42,6 +44,7 @@ class LoginPage extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    this.setState({loading : true})
     this.setState({ submitted: true });
     const { username, password } = this.state;
     if (username && password) {
@@ -57,7 +60,7 @@ class LoginPage extends React.Component {
 
   render() {
     const { username, password, submitted } = this.state;
-
+    const {loading} = this.state;
     return (
       <div className="uomcontent">
         {uomHeader("Welcome to SP")}
@@ -112,6 +115,7 @@ class LoginPage extends React.Component {
                 <a className="button brand" onClick={this.handleSubmit}>
                   Login
                 </a>
+                {loading && <CircularProgress size={58} />}
               </div>
             </form>
           </div>

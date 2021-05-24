@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { userActions } from "../_actions";
 import { InformationalNote } from "../_utils/Alert";
 import { alertConstants } from "../_constants";
+import ReverseTable from "../_utils/ReverseTable";
 
 class ProductQualityPage extends React.Component {
   constructor(props) {
@@ -116,21 +117,10 @@ class ProductQualityPage extends React.Component {
             {this.state.hasConfig &&
               this.props.teamCodeMetrics &&
               this.props.teamCodeMetrics.length != 0 && (
-                <DataTable
-                  customStyles={customStyles}
-                  columns={columns1}
-                  data={this.state.teamCodeMetrics}
-                />
-              )}
-            {this.state.hasConfig &&
-              this.props.teamCodeMetrics &&
-              this.props.teamCodeMetrics.length != 0 && (
-                <DataTable
-                  customStyles={customStyles}
-                  columns={columns2}
-                  data={this.props.teamCodeMetrics}
-                />
-              )}
+              <ReverseTable
+              data={this.props.teamCodeMetrics}
+            />
+            )}
             {this.state.hasConfig &&
               (!this.props.teamCodeMetrics ||
                 this.props.teamCodeMetrics.length == 0) && (
