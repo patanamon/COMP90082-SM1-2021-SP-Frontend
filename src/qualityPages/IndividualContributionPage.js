@@ -23,9 +23,10 @@ class IndividualContributionPage extends React.Component {
         commonConstants.JIRA,
       ],
       btnSelected: commonConstants.CONFLUENCE,
-
       selectedStudent: "All",
       studentList: [],
+      hasConfig:
+        this.props.teamInfo && this.props.teamInfo[this.props.currentTeamKey],
     };
 
     this.selectStudent = this.selectStudent.bind(this);

@@ -18425,8 +18425,6 @@ body.jumpnav-active .uomcontent #outer.fixed {
 }
 
 .uomcontent [data-icon] {
-  height: 3.75rem;
-  width: 3.75rem;
   display: inline-block;
   margin: 0;
   vertical-align: middle;

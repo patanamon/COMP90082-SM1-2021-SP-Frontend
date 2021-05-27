@@ -8,6 +8,7 @@ import { Spin } from "antd";
 import { Input } from "antd";
 import { alertConstants } from "../_constants";
 import { InformationalNote } from "../_utils/Alert";
+import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 
 const input = {
   width: "642px",
@@ -174,12 +175,12 @@ class ProjectSettingsPage extends React.Component {
 
                   <label style={label}>
                     Git Password:
-                    <Input
-                      type="text"
+                    <Input.Password
                       style={input}
                       value={this.state.githubPassword}
                       name="githubPassword"
                       onChange={this.handleChange}
+                      iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                     />
                   </label>
 

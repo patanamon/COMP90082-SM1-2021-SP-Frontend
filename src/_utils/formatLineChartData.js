@@ -10,7 +10,7 @@ export function formatLineChartData(response) {
       xaxis = labelDataMap[key].map(unixToDate);
     } else {
       datasets.push({
-        label: key + " (recent one month)",
+        label: key + " (from " + xaxis[0] + " to " + xaxis[xaxis.length - 1] + ")",
         data: labelDataMap[key],
         fill: false,
         borderColor: getRandomColor(),
