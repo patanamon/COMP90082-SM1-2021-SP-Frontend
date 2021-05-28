@@ -18,7 +18,7 @@ This project aims to have a software system that automatically gathers and summa
 
   * [3.2 API Documentation](#3.2)
 
-  * [3.3 Web Application](#3.3)
+  * [3.3 Digital Prototype](#3.3)
 
 [4.0 Contributing / Extending](#4.0)
 
@@ -178,9 +178,7 @@ https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.2.6+Work
 
 https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.3+Sprint+2%3A+API
 
-<h1 id="3.3"> 3.3 Web Application (working) </h1>
-
-### Digital Prototype
+<h1 id="3.3"> 3.3 Digital Prototype (working) </h1>
 
 Digital Prototype Package is able to download via below link:
 
@@ -403,7 +401,7 @@ https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/3.4+Commun
 •	Coordinator homepage local API deployment  
 •	Project homepage API code completed  
 
-## 3.0	2021.5.31  
+## 3.0	2021.5.31 
 ### 3.1	2021.5.01  
 •	Bug fix communication quality page  
 ### 3.2	2021.5.05  
@@ -420,6 +418,12 @@ https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/3.4+Commun
 ### 3.6	2021.5.13  
 •	Coordinator Homepage UI added a drawer for showing student information  
 •	Updated API for Configure page  
+## 3.7      2021.5.28
+•	Added input check 
+•	Added a no_meeting_minutes alert message
+•	Updated data sample
+
+
 
 
 
