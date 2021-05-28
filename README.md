@@ -419,9 +419,9 @@ https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/3.4+Commun
 •	Coordinator Homepage UI added a drawer for showing student information  
 •	Updated API for Configure page  
 ## 3.7      2021.5.28
-•	Added input check 
-•	Added a no_meeting_minutes alert message
-•	Updated data sample
+•	Added input check   
+•	Added a no_meeting_minutes alert message  
+•	Updated data sample  
 
 
 
