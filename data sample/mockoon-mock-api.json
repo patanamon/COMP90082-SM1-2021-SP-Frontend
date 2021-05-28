@@ -1,0 +1,787 @@
+{
+    "source": "mockoon:1.13.0",
+    "data": [
+        {
+            "type": "environment",
+            "item": {
+                "uuid": "",
+                "lastMigration": 13,
+                "name": "SP",
+                "endpointPrefix": "",
+                "latency": 0,
+                "port": 3200,
+                "routes": [
+                    {
+                        "uuid": "",
+                        "documentation": "Generate random body (JSON, text, CSV, etc) with templating",
+                        "method": "get",
+                        "endpoint": "api/v1/confluence/spaces/C",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\n  \"code\":0,\n  \"message\":\"success\",\n  \"data\": [\"COMP900822021SM1SP1\",\"COMP900822021SM2SP2\",\"COMP900822020SM1SP5\",\"COMP900822021SM1SP3\",\"COMP900822021SM2SP4\",\"COMP900822020SM1SP6\"]\n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "Creates 10 random users, or the amount specified in the 'total' query param",
+                                "headers": [],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "Generate random body (JSON, text, CSV, etc) with templating",
+                        "method": "get",
+                        "endpoint": "api/v1/confluence/spaces/CO",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\n  \"code\":0,\n  \"message\":\"success\",\n  \"data\": [\"COMP900822021SM1SP1\",\"COMP900822021SM2SP2\",\"COMP900822020SM1SP5\",\"COMP900822021SM1SP3\",\"COMP900822021SM2SP4\",\"COMP900822020SM1SP6\"]\n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "Creates 10 random users, or the amount specified in the 'total' query param",
+                                "headers": [],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "Generate random body (JSON, text, CSV, etc) with templating",
+                        "method": "get",
+                        "endpoint": "api/v1/confluence/spaces/COM",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\n  \"code\":0,\n  \"message\":\"success\",\n  \"data\": [\"COMP900822021SM1SP1\",\"COMP900822021SM2SP2\",\"COMP900822020SM1SP5\",\"COMP900822021SM1SP3\",\"COMP900822021SM2SP4\",\"COMP900822020SM1SP6\"]\n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "Creates 10 random users, or the amount specified in the 'total' query param",
+                                "headers": [],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "Generate random body (JSON, text, CSV, etc) with templating",
+                        "method": "get",
+                        "endpoint": "api/v1/confluence/spaces/COMP",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\n  \"code\":0,\n  \"message\":\"success\",\n  \"data\": [\"COMP900822021SM1SP1\",\"COMP900822021SM2SP2\",\"COMP900822020SM1SP5\",\"COMP900822021SM1SP3\",\"COMP900822021SM2SP4\",\"COMP900822020SM1SP6\"]\n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "Creates 10 random users, or the amount specified in the 'total' query param",
+                                "headers": [],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "Generate random body (JSON, text, CSV, etc) with templating",
+                        "method": "get",
+                        "endpoint": "api/v1/confluence/spaces/COMP9",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\n  \"code\":0,\n  \"message\":\"success\",\n  \"data\": [\"COMP900822021SM1SP1\",\"COMP900822021SM2SP2\",\"COMP900822020SM1SP5\",\"COMP900822021SM1SP3\",\"COMP900822021SM2SP4\",\"COMP900822020SM1SP6\"]\n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "Creates 10 random users, or the amount specified in the 'total' query param",
+                                "headers": [],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "Generate random body (JSON, text, CSV, etc) with templating",
+                        "method": "get",
+                        "endpoint": "api/v1/confluence/spaces/COMP90",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\n  \"code\":0,\n  \"message\":\"success\",\n  \"data\": [\"COMP900822021SM1SP1\",\"COMP900822021SM2SP2\",\"COMP900822020SM1SP5\",\"COMP900822021SM1SP3\",\"COMP900822021SM2SP4\",\"COMP900822020SM1SP6\"]\n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "Creates 10 random users, or the amount specified in the 'total' query param",
+                                "headers": [],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "Generate random body (JSON, text, CSV, etc) with templating",
+                        "method": "get",
+                        "endpoint": "api/v1/confluence/spaces/COMP900",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\n  \"code\":0,\n  \"message\":\"success\",\n  \"data\": [\"COMP900822021SM1SP1\",\"COMP900822021SM2SP2\",\"COMP900822020SM1SP5\",\"COMP900822021SM1SP3\",\"COMP900822021SM2SP4\",\"COMP900822020SM1SP6\"]\n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "Creates 10 random users, or the amount specified in the 'total' query param",
+                                "headers": [],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "Generate random body (JSON, text, CSV, etc) with templating",
+                        "method": "get",
+                        "endpoint": "api/v1/confluence/spaces/COMP9008",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\n  \"code\":0,\n  \"message\":\"success\",\n  \"data\": [\"COMP900822021SM1SP1\",\"COMP900822021SM2SP2\",\"COMP900822020SM1SP5\",\"COMP900822021SM1SP3\",\"COMP900822021SM2SP4\",\"COMP900822020SM1SP6\"]\n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "Creates 10 random users, or the amount specified in the 'total' query param",
+                                "headers": [],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "Generate random body (JSON, text, CSV, etc) with templating",
+                        "method": "get",
+                        "endpoint": "api/v1/confluence/spaces/COMP90082",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\n  \"code\":0,\n  \"message\":\"success\",\n  \"data\": [\"COMP900822021SM1SP1\",\"COMP900822021SM2SP2\",\"COMP900822020SM1SP5\",\"COMP900822021SM1SP3\",\"COMP900822021SM2SP4\",\"COMP900822020SM1SP6\"]\n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "Creates 10 random users, or the amount specified in the 'total' query param",
+                                "headers": [],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "Generate random body (JSON, text, CSV, etc) with templating",
+                        "method": "get",
+                        "endpoint": "api/v1/confluence/spaces/O",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\n  \"code\":0,\n  \"message\":\"success\",\n  \"data\": [\"COMP900822021SM1SP1\",\"COMP900822021SM2SP2\",\"COMP900822020SM1SP5\",\"COMP900822021SM1SP3\",\"COMP900822021SM2SP4\",\"COMP900822020SM1SP6\"]\n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "Creates 10 random users, or the amount specified in the 'total' query param",
+                                "headers": [],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "Generate random body (JSON, text, CSV, etc) with templating",
+                        "method": "get",
+                        "endpoint": "api/v1/confluence/spaces/M",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\n  \"code\":0,\n  \"message\":\"success\",\n  \"data\": [\"COMP900822021SM1SP1\",\"COMP900822021SM2SP2\",\"COMP900822020SM1SP5\",\"COMP900822021SM1SP3\",\"COMP900822021SM2SP4\",\"COMP900822020SM1SP6\"]\n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "Creates 10 random users, or the amount specified in the 'total' query param",
+                                "headers": [],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "Generate random body (JSON, text, CSV, etc) with templating",
+                        "method": "get",
+                        "endpoint": "api/v1/confluence/spaces/P",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\n  \"code\":0,\n  \"message\":\"success\",\n  \"data\": [\"COMP900822021SM1SP1\",\"COMP900822021SM2SP2\",\"COMP900822020SM1SP5\",\"COMP900822021SM1SP3\",\"COMP900822021SM2SP4\",\"COMP900822020SM1SP6\"]\n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "Creates 10 random users, or the amount specified in the 'total' query param",
+                                "headers": [],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "Generate random body (JSON, text, CSV, etc) with templating",
+                        "method": "get",
+                        "endpoint": "api/v1/confluence/spaces/9",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\n  \"code\":0,\n  \"message\":\"success\",\n  \"data\": [\"COMP900822021SM1SP1\",\"COMP900822021SM2SP2\",\"COMP900822020SM1SP5\",\"COMP900822021SM1SP3\",\"COMP900822021SM2SP4\",\"COMP900822020SM1SP6\"]\n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "Creates 10 random users, or the amount specified in the 'total' query param",
+                                "headers": [],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "Generate random body (JSON, text, CSV, etc) with templating",
+                        "method": "get",
+                        "endpoint": "api/v1/confluence/spaces/0",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\n  \"code\":0,\n  \"message\":\"success\",\n  \"data\": [\"COMP900822021SM1SP1\",\"COMP900822021SM2SP2\",\"COMP900822020SM1SP5\",\"COMP900822021SM1SP3\",\"COMP900822021SM2SP4\",\"COMP900822020SM1SP6\"]\n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "Creates 10 random users, or the amount specified in the 'total' query param",
+                                "headers": [],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "Generate random body (JSON, text, CSV, etc) with templating",
+                        "method": "get",
+                        "endpoint": "api/v1/confluence/spaces/8",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\n  \"code\":0,\n  \"message\":\"success\",\n  \"data\": [\"COMP900822021SM1SP1\",\"COMP900822021SM2SP2\",\"COMP900822020SM1SP5\",\"COMP900822021SM1SP3\",\"COMP900822021SM2SP4\",\"COMP900822020SM1SP6\"]\n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "Creates 10 random users, or the amount specified in the 'total' query param",
+                                "headers": [],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "Generate random body (JSON, text, CSV, etc) with templating",
+                        "method": "get",
+                        "endpoint": "api/v1/confluence/spaces/2",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\n  \"code\":0,\n  \"message\":\"success\",\n  \"data\": [\"COMP900822021SM1SP1\",\"COMP900822021SM2SP2\",\"COMP900822020SM1SP5\",\"COMP900822021SM1SP3\",\"COMP900822021SM2SP4\",\"COMP900822020SM1SP6\"]\n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "Creates 10 random users, or the amount specified in the 'total' query param",
+                                "headers": [],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "Generate random body (JSON, text, CSV, etc) with templating",
+                        "method": "get",
+                        "endpoint": "api/v1/confluence/spaces/S",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\n  \"code\":0,\n  \"message\":\"success\",\n  \"data\": [\"COMP900822021SM1SP1\",\"COMP900822021SM2SP2\",\"COMP900822020SM1SP5\",\"COMP900822021SM1SP3\",\"COMP900822021SM2SP4\",\"COMP900822020SM1SP6\"]\n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "Creates 10 random users, or the amount specified in the 'total' query param",
+                                "headers": [],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "Serve a file dynamically depending on the path param 'pageName'.",
+                        "method": "get",
+                        "endpoint": "api/v1/team/COMP900822021SM1SP",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\r\n  \"code\":0,\r\n  \"message\":\"success\",\r\n  \"data\": [\r\n    {\r\n      \"name\":\"Ruofan Zhang\",\r\n      \"id\":\"ruofzhang\",\r\n      \"email\":\"ruofzhang@student.unimelb.edu.au\",\r\n      \"picture\":\"https://mk0ziglar4ifu5ixq7cx.kinstacdn.com/wp-content/uploads/2016/09/michelle-prince-profile-img.png\"\r\n    },\r\n    {\r\n      \"name\":\"Ruofan Zhang\",\r\n      \"id\":\"ruofzhang\",\r\n      \"email\":\"ruofzhang@student.unimelb.edu.au\",\r\n      \"picture\":\"https://mk0ziglar4ifu5ixq7cx.kinstacdn.com/wp-content/uploads/2016/09/michelle-prince-profile-img.png\"\r\n    },\r\n    {\r\n      \"name\":\"Ruofan Zhang\",\r\n      \"id\":\"ruofzhang\",\r\n      \"email\":\"ruofzhang@student.unimelb.edu.au\",\r\n      \"picture\":\"https://mk0ziglar4ifu5ixq7cx.kinstacdn.com/wp-content/uploads/2016/09/michelle-prince-profile-img.png\"\r\n    },\r\n    {\r\n      \"name\":\"Ruofan Zhang\",\r\n      \"id\":\"ruofzhang\",\r\n      \"email\":\"ruofzhang@student.unimelb.edu.au\",\r\n      \"picture\":\"https://mk0ziglar4ifu5ixq7cx.kinstacdn.com/wp-content/uploads/2016/09/michelle-prince-profile-img.png\"\r\n    },\r\n    {\r\n      \"name\":\"Ruofan Zhang\",\r\n      \"id\":\"ruofzhang\",\r\n      \"email\":\"ruofzhang@student.unimelb.edu.au\",\r\n      \"picture\":\"https://mk0ziglar4ifu5ixq7cx.kinstacdn.com/wp-content/uploads/2016/09/michelle-prince-profile-img.png\"\r\n    },\r\n    {\r\n      \"name\":\"Ruofan Zhang\",\r\n      \"id\":\"ruofzhang\",\r\n      \"email\":\"ruofzhang@student.unimelb.edu.au\",\r\n      \"picture\":\"https://mk0ziglar4ifu5ixq7cx.kinstacdn.com/wp-content/uploads/2016/09/michelle-prince-profile-img.png\"\r\n    },\r\n    {\r\n      \"name\":\"Ruofan Zhang\",\r\n      \"id\":\"ruofzhang\",\r\n      \"email\":\"ruofzhang@student.unimelb.edu.au\",\r\n      \"picture\":\"https://mk0ziglar4ifu5ixq7cx.kinstacdn.com/wp-content/uploads/2016/09/michelle-prince-profile-img.png\"\r\n    },\r\n    {\r\n      \"name\":\"Ruofan Zhang\",\r\n      \"id\":\"ruofzhang\",\r\n      \"email\":\"ruofzhang@student.unimelb.edu.au\",\r\n      \"picture\":\"https://mk0ziglar4ifu5ixq7cx.kinstacdn.com/wp-content/uploads/2016/09/michelle-prince-profile-img.png\"\r\n    },\r\n    {\r\n      \"name\":\"Ruofan Zhang\",\r\n      \"id\":\"ruofzhang\",\r\n      \"email\":\"ruofzhang@student.unimelb.edu.au\",\r\n      \"picture\":\"https://mk0ziglar4ifu5ixq7cx.kinstacdn.com/wp-content/uploads/2016/09/michelle-prince-profile-img.png\"\r\n    }\r\n  ]\r\n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "Templating is also supported in file path",
+                                "headers": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "text/html"
+                                    }
+                                ],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "Serve a file dynamically depending on the path param 'pageName'.",
+                        "method": "get",
+                        "endpoint": "api/v1/confluence/spaces/COMP900822021SM1SP/page_count",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\r\n  \"code\":0,\r\n  \"message\":\"success\",\r\n  \"data\": [\r\n    {\r\n      \"time\":1619111650,\r\n      \"page_count\":10\r\n    },\r\n    {\r\n      \"time\":1619111650,\r\n      \"page_count\":161\r\n    },\r\n    {\r\n      \"time\":1619111650,\r\n      \"page_count\":191\r\n    },\r\n    {\r\n      \"time\":1619111650,\r\n      \"page_count\":650\r\n    },\r\n    {\r\n      \"time\":1619111650,\r\n      \"page_count\":650\r\n    },\r\n    {\r\n      \"time\":1619111650,\r\n      \"page_count\":650\r\n    },\r\n    {\r\n      \"time\":1619111650,\r\n      \"page_count\":650\r\n    },\r\n    {\r\n      \"time\":1619111650,\r\n      \"page_count\":650\r\n    }\r\n  ]\r\n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "Templating is also supported in file path",
+                                "headers": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "text/html"
+                                    }
+                                ],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "Serve a file dynamically depending on the path param 'pageName'.",
+                        "method": "get",
+                        "endpoint": "api/v1/git/COMP900822021SM1SP/commit_count",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\r\n  \"code\":0,\r\n  \"message\":\"success\",\r\n  \"data\": [\r\n    {\r\n      \"time\":1619111650,\r\n      \"commit_count\":100\r\n    },\r\n    {\r\n      \"time\":1619111650,\r\n      \"commit_count\":200\r\n    },\r\n    {\r\n      \"time\":1619221650,\r\n      \"commit_count\":350\r\n    },\r\n    {\r\n      \"time\":1619111650,\r\n      \"commit_count\":500\r\n    },\r\n    {\r\n      \"time\":1619111650,\r\n      \"commit_count\":650\r\n    },\r\n    {\r\n      \"time\":1619111650,\r\n      \"commit_count\":650\r\n    },\r\n    {\r\n      \"time\":1619111650,\r\n      \"commit_count\":650\r\n    },\r\n    {\r\n      \"time\":1619111650,\r\n      \"commit_count\":650\r\n    },\r\n    {\r\n      \"time\":1619111650,\r\n      \"commit_count\":650\r\n    }\r\n  ]\r\n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "Templating is also supported in file path",
+                                "headers": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "text/html"
+                                    }
+                                ],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "Serve a file dynamically depending on the path param 'pageName'.",
+                        "method": "get",
+                        "endpoint": "api/v1/jira/COMP900822021SM1SP/ticket_count",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\r\n  \"code\":0,\r\n  \"message\":\"success\",\r\n  \"data\": [\r\n    {\r\n      \"time\":1619111650,\r\n      \"to_do\":650,\r\n      \"in_progress\":650,\r\n      \"done\":650\r\n      \r\n    },\r\n     {\r\n      \"time\":1619111650,\r\n      \"to_do\":650,\r\n      \"in_progress\":650,\r\n      \"done\":650\r\n      \r\n    },\r\n     {\r\n      \"time\":1619111650,\r\n      \"to_do\":650,\r\n      \"in_progress\":650,\r\n      \"done\":650\r\n      \r\n    },\r\n     {\r\n      \"time\":1619111650,\r\n      \"to_do\":650,\r\n      \"in_progress\":650,\r\n      \"done\":650\r\n      \r\n    },\r\n     {\r\n      \"time\":1619111650,\r\n      \"to_do\":650,\r\n      \"in_progress\":650,\r\n      \"done\":650\r\n      \r\n    },\r\n     {\r\n      \"time\":1619111650,\r\n      \"to_do\":650,\r\n      \"in_progress\":650,\r\n      \"done\":650\r\n      \r\n    },\r\n     {\r\n      \"time\":1619111650,\r\n      \"to_do\":650,\r\n      \"in_progress\":650,\r\n      \"done\":650\r\n    }\r\n  ]\r\n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "Templating is also supported in file path",
+                                "headers": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "text/html"
+                                    }
+                                ],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "Serve a file dynamically depending on the path param 'pageName'.",
+                        "method": "get",
+                        "endpoint": "api/v1/confluence/COMP900822021SM1SP/meeting_minutes",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\r\n  \"code\":0,\r\n  \"message\":\"success\",\r\n  \"data\": [\r\n    {\r\n      \"title\":\"Meeting Munite\",\r\n      \"link\":\"https://confluence.cis.unimelb.edu.au:8443/pages/viewpage.action?spaceKey=COMP900822021SM1SP&title=API+Sprint1\"\r\n    },\r\n     {\r\n      \"title\":\"Meeting Munite\",\r\n      \"link\":\"https://confluence.cis.unimelb.edu.au:8443/pages/viewpage.action?spaceKey=COMP900822021SM1SP&title=API+Sprint1\"\r\n    },\r\n     {\r\n      \"title\":\"Meeting Munite\",\r\n      \"link\":\"https://confluence.cis.unimelb.edu.au:8443/pages/viewpage.action?spaceKey=COMP900822021SM1SP&title=API+Sprint1\"\r\n    },\r\n     {\r\n      \"title\":\"Meeting Munite\",\r\n      \"link\":\"https://confluence.cis.unimelb.edu.au:8443/pages/viewpage.action?spaceKey=COMP900822021SM1SP&title=API+Sprint1\"\r\n    },\r\n     {\r\n      \"title\":\"Meeting Munite\",\r\n      \"link\":\"https://confluence.cis.unimelb.edu.au:8443/pages/viewpage.action?spaceKey=COMP900822021SM1SP&title=API+Sprint1\"\r\n    },\r\n     {\r\n      \"title\":\"Meeting Munite\",\r\n      \"link\":\"https://confluence.cis.unimelb.edu.au:8443/pages/viewpage.action?spaceKey=COMP900822021SM1SP&title=API+Sprint1\"\r\n    },\r\n     {\r\n      \"title\":\"Meeting Munite\",\r\n      \"link\":\"https://confluence.cis.unimelb.edu.au:8443/pages/viewpage.action?spaceKey=COMP900822021SM1SP&title=API+Sprint1\"\r\n    }\r\n  ]\r\n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "Templating is also supported in file path",
+                                "headers": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "text/html"
+                                    }
+                                ],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "Serve a file dynamically depending on the path param 'pageName'.",
+                        "method": "get",
+                        "endpoint": "api/v1/git/COMP900822021SM1SP/comment_count",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\r\n  \"code\":0,\r\n  \"message\":\"success\",\r\n  \"data\": [\r\n    {\r\n      \"time\":1619111650,\r\n      \"comment_count\":650\r\n    },\r\n    {\r\n      \"time\":1619111650,\r\n      \"comment_count\":650\r\n    },\r\n    {\r\n      \"time\":1619111650,\r\n      \"comment_count\":650\r\n    },\r\n    {\r\n      \"time\":1619111650,\r\n      \"comment_count\":650\r\n    },\r\n    {\r\n      \"time\":1619111650,\r\n      \"comment_count\":650\r\n    },\r\n    {\r\n      \"time\":1619111650,\r\n      \"comment_count\":650\r\n    },\r\n    {\r\n      \"time\":1619111650,\r\n      \"comment_count\":650\r\n    },\r\n    {\r\n      \"time\":1619111650,\r\n      \"comment_count\":650\r\n    },\r\n    {\r\n      \"time\":1619111650,\r\n      \"comment_count\":650\r\n    }\r\n  ]\r\n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "Templating is also supported in file path",
+                                "headers": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "text/html"
+                                    }
+                                ],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "Serve a file dynamically depending on the path param 'pageName'.",
+                        "method": "get",
+                        "endpoint": "api/v1/confluence/spaces/COMP900822021SM1SP/pages/contributions",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\r\n  \"code\":0,\r\n  \"message\":\"success\",\r\n  \"data\": [\r\n    {\r\n      \"student\":\"Ruofan Zhang1\",\r\n      \"page_count\":10\r\n    },\r\n    {\r\n      \"student\":\"Ruofan Zhang2\",\r\n      \"page_count\":10\r\n    },\r\n    {\r\n      \"student\":\"Ruofan Zhang3\",\r\n      \"page_count\":10\r\n    },\r\n    {\r\n      \"student\":\"Ruofan Zhang4\",\r\n      \"page_count\":10\r\n    },\r\n    {\r\n      \"student\":\"Ruofan Zhang5\",\r\n      \"page_count\":10\r\n    },\r\n    {\r\n      \"student\":\"Ruofan Zhang6\",\r\n      \"page_count\":10\r\n    },\r\n    {\r\n      \"student\":\"Ruofan Zhang7\",\r\n      \"page_count\":10\r\n    },\r\n    {\r\n      \"student\":\"Ruofan Zhang8\",\r\n      \"page_count\":10\r\n    },\r\n    {\r\n      \"student\":\"Ruofan Zhang9\",\r\n      \"page_count\":10\r\n    }\r\n  ]\r\n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "Templating is also supported in file path",
+                                "headers": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "text/html"
+                                    }
+                                ],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "Serve a file dynamically depending on the path param 'pageName'.",
+                        "method": "get",
+                        "endpoint": "api/v1/git/COMP900822021SM1SP/commit/contributions",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\r\n  \"code\":0,\r\n  \"message\":\"success\",\r\n  \"data\": [\r\n    {\r\n      \"student\":\"Ruofan Zhang1\",\r\n      \"commit_count\":10\r\n    },\r\n    {\r\n      \"student\":\"Ruofan Zhang2\",\r\n      \"commit_count\":10\r\n    },\r\n    {\r\n      \"student\":\"Ruofan Zhang3\",\r\n      \"commit_count\":10\r\n    },\r\n    {\r\n      \"student\":\"Ruofan Zhang4\",\r\n      \"commit_count\":10\r\n    },\r\n    {\r\n      \"student\":\"Ruofan Zhang5\",\r\n      \"commit_count\":10\r\n    },\r\n    {\r\n      \"student\":\"Ruofan Zhang6\",\r\n      \"commit_count\":10\r\n    },\r\n    {\r\n      \"student\":\"Ruofan Zhang7\",\r\n      \"commit_count\":10\r\n    },\r\n    {\r\n      \"student\":\"Ruofan Zhang8\",\r\n      \"commit_count\":10\r\n    },\r\n    {\r\n      \"student\":\"Ruofan Zhang9\",\r\n      \"commit_count\":10\r\n    }\r\n  ]\r\n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "Templating is also supported in file path",
+                                "headers": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "text/html"
+                                    }
+                                ],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "Serve a file dynamically depending on the path param 'pageName'.",
+                        "method": "get",
+                        "endpoint": "api/v1/jira/COMP900822021SM1SP/contributions",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\r\n  \"code\":0,\r\n  \"message\":\"success\",\r\n  \"data\": [\r\n    {\r\n      \"student\":\"Ruofan Zhang1\",\r\n      \"done_count\":10\r\n    },\r\n    {\r\n      \"student\":\"Ruofan Zhang2\",\r\n      \"done_count\":10\r\n    },\r\n    {\r\n      \"student\":\"Ruofan Zhang3\",\r\n      \"done_count\":10\r\n    },\r\n    {\r\n      \"student\":\"Ruofan Zhang4\",\r\n      \"done_count\":10\r\n    },\r\n    {\r\n      \"student\":\"Ruofan Zhang5\",\r\n      \"done_count\":10\r\n    },\r\n    {\r\n      \"student\":\"Ruofan Zhang6\",\r\n      \"done_count\":10\r\n    },\r\n    {\r\n      \"student\":\"Ruofan Zhang7\",\r\n      \"done_count\":10\r\n    },\r\n    {\r\n      \"student\":\"Ruofan Zhang8\",\r\n      \"done_count\":10\r\n    },\r\n    {\r\n      \"student\":\"Ruofan Zhang9\",\r\n      \"done_count\":10\r\n    }\r\n  ]\r\n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "Templating is also supported in file path",
+                                "headers": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "text/html"
+                                    }
+                                ],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "",
+                        "method": "post",
+                        "endpoint": "api/v1/team/config",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\n  \"code\":0,\n  \"message\":\"success\"\n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "",
+                                "headers": [],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "",
+                        "method": "get",
+                        "endpoint": "api/v1/individual/git/COMP900822021SM1SP/metrics",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\n  \"code\":0,\n  \"message\":\"success\",\n  \"data\": [    {\"version_name\": \"version 1\",\n    \"all_lines_count\": 10,\n    \"class_count\": 20,\n    \"declarable_statement_count\": 30,\n    \"executable_statement_count\": 40,\n    \"files_count\": 50,\n    \"functions_count\": 60\n    }]\n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "",
+                                "headers": [],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "",
+                        "method": "get",
+                        "endpoint": "api/v1/confluence/imported_projects",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\r\n  \"code\":0,\r\n  \"message\":\"success\",\r\n  \"data\":\r\n    [{\"space_key\": \"COMP900822021SM1SP\", \"space_name\": \"COMP90082-2021-SM1-SP\"},\r\n    {\"space_key\": \"COMP900822021SM1SP\", \"space_name\": \"COMP90082-2021-SM1-SP\"},\r\n    {\"space_key\": \"COMP900822021SM1SP\", \"space_name\": \"COMP90082-2021-SM1-SP\"},\r\n    {\"space_key\": \"COMP900822021SM1SP\", \"space_name\": \"COMP90082-2021-SM1-SP\"},\r\n    {\"space_key\": \"COMP900822021SM1SP\", \"space_name\": \"COMP90082-2021-SM1-SP\"}\r\n    ]\r\n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "",
+                                "headers": [],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "",
+                        "method": "post",
+                        "endpoint": "api/v1/team/import",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\n  \"code\":0,\n  \"message\":\"success\"\n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "",
+                                "headers": [],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false
+                    }
+                ],
+                "proxyMode": false,
+                "proxyHost": "",
+                "https": false,
+                "cors": true,
+                "headers": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    },
+                    {
+                        "key": "Access-Control-Allow-Origin",
+                        "value": "*"
+                    },
+                    {
+                        "key": "Access-Control-Allow-Methods",
+                        "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+                    },
+                    {
+                        "key": "Access-Control-Allow-Headers",
+                        "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+                    }
+                ],
+                "proxyReqHeaders": [
+                    {
+                        "key": "",
+                        "value": ""
+                    }
+                ],
+                "proxyResHeaders": [
+                    {
+                        "key": "",
+                        "value": ""
+                    }
+                ]
+            }
+        }
+    ]
+}
