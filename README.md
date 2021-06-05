@@ -346,8 +346,6 @@ https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/3.4+Commun
 
 <h1 id="6.0"> 6.0 Change Log </h1> 
 
-#  Versions:
-
 
 ## Version 1: (2021.April.02)
 ### 2021.3.27  
@@ -401,7 +399,7 @@ https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/3.4+Commun
 ### 2021.5.13  
 •	Coordinator Homepage UI added a drawer for showing student information  
 •	Updated API for Configure page  
-## 2021.5.28
+### 2021.5.28
 •	Added input check   
 •	Added a no_meeting_minutes alert message  
 •	Updated data sample  
