@@ -105,9 +105,8 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-<h1 id="3.0"> 3.0 Usage (to do) </h1>
+<h1 id="3.0"> 3.0 Usage </h1>
 
-v1: 15/11/2020
 
 <h1 id="3.1"> 3.1 Database </h1>
 
@@ -115,10 +114,6 @@ v1: 15/11/2020
 
 https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.1.0+Database+schema
 
-### Connecting to SP's Database (to do)
-
-Connection can be made to our Database using the below credentials:
-[Image of DB Credentials](https://github.com/Jarrent/CIS_SP_frontend/blob/master/sp_database.PNG)
 
  <h1 id="3.2">3.2 API Documentation </h1>
 <h2> Sprint 0</h2>
@@ -178,7 +173,7 @@ https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.2.6+Work
 
 https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.3+Sprint+2%3A+API
 
-<h1 id="3.3"> 3.3 Digital Prototype (working) </h1>
+<h1 id="3.3"> 3.3 Digital Prototype </h1>
 
 Digital Prototype Package is able to download via below link:
 
@@ -259,21 +254,6 @@ https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.2+Sprint
 Sprint 2 API:
 https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/6.3+Sprint+2%3A+API
 
-
-### Structuring files (to do)
-
-To create new APIs or extend existing ones, kindly put the API endpoints (URLs) in "TeamSPBackend/api/urls_vX.py" (for version X) with their corresponding API functions. Kindly refer to "TeamSPBackend/api/urls_v1.py" for more info.
-
-The functions called by the API endpoints are created and reside in "TeamSPBackend/api/views". For example, the functions related to any Team APIs reside in "TeamSpBackendd/api/views/team.py". The functions for Confluence and JIRA APIs reside in their own sub-folders ("TeamSPBackend/api/views/confluence" & "TeamSPBackend/api/views/jira") as they are comprised of multiple files.
-
-The database models for the objects used in our APIs are written as modules of their own in "TeamSPBackend".
-
-To create new models and/or APIs utilizing them, kindly follow the current directory structure and format:
-
-- Database models in its own module. E.g. "TeamSPBackend/newModel/" containing the files "app.py" and "models.py"
-- Functions for new APIs under "TeamSPBackend/api/views/". E.g. "TeamSPBackend/api/views/newModel.py"
-- API endpoints (URLs) in "TeamSPBackend/api/urls_vX.py" for version X
-- For any API functions that require multiple files, put those files under a sub-folder in "TeamSPBackend/api/views/". E.g. "TeamSPBackend/api/views/newModel/"
 
 <h1 id="4.2"> 4.2 Web Application </h1>
 
@@ -366,64 +346,62 @@ https://confluence.cis.unimelb.edu.au:8443/display/COMP900822021SM1SP/3.4+Commun
 
 <h1 id="6.0"> 6.0 Change Log </h1> 
 
-#  Versions
+#  Versions:
 
-## 1.0	2021.4.02  
-### 1.1	2021.3.27  
+
+## Version 1: (2021.April.02)
+### 2021.3.27  
 •	Initial GitHub Project created  
 •	Digital Prototype 1.0 Completed  
 •	Digital Prototype 2.0 Completed according to Client’s feedback  
-
-### 1.2	2021.4.02  
+### 2021.4.02  
 •	Created Data Sample: JSON format in an API level for each API  
 
-## 2.0	2021.4.30  
-### 2.1	2021.4.22  
+
+## Version 2: (2021.April.30)
+### 2021.4.22  
 •	Created configure page  
-### 2.2	2021.4.24  
+### 2021.4.24  
 •	Communication page UI was finished   
 •	Updated UI and added showing history function for configure page  
-### 2.3	2021.4.26  
+### 2021.4.26  
 •	Finished project overview page  
-### 2.4	2021.4.27  
+### 2021.4.27  
 •	Changed layout for Individual Page  
 •	Coordinator homepage completed a part of API connections with backend   
 •	Communication quality page can interact with backend locally  
-### 2.5	2021.4.28  
+### 2021.4.28  
 •	Coordinator Homepage UI updated  
 •	Product quality completed API connections  
 •	Updated Coordinator Homepage UI  
-### 2.6	2021.4.29  
+### 2021.4.29  
 •	Updated API code for Individual Contribution Page  
 •	Coordinator Home page removed box shadow  
-### 2.7	2021.4.30  
+### 2021.4.30  
 •	Modified project homepage  
 •	Coordinator homepage local API deployment  
 •	Project homepage API code completed  
 
-## 3.0	2021.5.31 
-### 3.1	2021.5.01  
+
+## Version 3: (2021.May.31)
+
+### 2021.5.01  
 •	Bug fix communication quality page  
-### 3.2	2021.5.05  
+### 2021.5.05  
 •	Product quality API unify testing with backend  
 
-### 3.3	2021.5.06  
+### 2021.5.06  
 •	Bugfix communication quality page  
-### 3.4	2021.5.07  
+### 2021.5.07  
 •	Bugfix communication quality page  
 •	Added saving git username and password function  
 •	Changed the context of the column of meeting minutes to clickable URLs  
-### 3.5	2021.5.08  
+### 2021.5.08  
 •	Completed Sprint 2 communication quality page  
-### 3.6	2021.5.13  
+### 2021.5.13  
 •	Coordinator Homepage UI added a drawer for showing student information  
 •	Updated API for Configure page  
-## 3.7      2021.5.28
+## 2021.5.28
 •	Added input check   
 •	Added a no_meeting_minutes alert message  
 •	Updated data sample  
-
-
-
-
-
